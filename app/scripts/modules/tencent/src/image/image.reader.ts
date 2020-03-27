@@ -19,7 +19,6 @@ export interface IAmazonImage {
   attributes: {
     createdTime?: string;
     creationDate?: string;
-    virtualizationType?: string;
     snapshotSet?: ITencentSnapshot[];
     osPlatform: string;
   };
