@@ -9,7 +9,7 @@ module.exports = angular
     require('@uirouter/angularjs').default,
     CACHE_INITIALIZER_SERVICE,
   ])
-  .controller('awsCreateSecurityGroupCtrl', [
+  .controller('tencentCreateSecurityGroupCtrl', [
     '$scope',
     '$uibModalInstance',
     '$state',
@@ -33,7 +33,7 @@ module.exports = angular
       };
       angular.extend(
         this,
-        $controller('awsConfigSecurityGroupMixin', {
+        $controller('tencentConfigSecurityGroupMixin', {
           $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           application: application,

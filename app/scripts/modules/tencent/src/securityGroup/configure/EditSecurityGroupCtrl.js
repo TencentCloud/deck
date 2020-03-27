@@ -6,7 +6,7 @@ import { SecurityGroupWriter, TaskMonitor, FirewallLabels } from '@spinnaker/cor
 
 module.exports = angular
   .module('spinnaker.tencent.securityGroup.edit.controller', [require('@uirouter/angularjs').default])
-  .controller('awsEditSecurityGroupCtrl', [
+  .controller('tencentEditSecurityGroupCtrl', [
     '$scope',
     '$uibModalInstance',
     '$state',
@@ -34,7 +34,7 @@ module.exports = angular
       };
       angular.extend(
         this,
-        $controller('awsConfigSecurityGroupMixin', {
+        $controller('tencentConfigSecurityGroupMixin', {
           $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           application: application,

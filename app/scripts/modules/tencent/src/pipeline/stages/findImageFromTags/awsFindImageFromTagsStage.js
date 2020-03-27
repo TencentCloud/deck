@@ -20,7 +20,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsFindImageFromTagsStageCtrl', [
+  .controller('tencentFindImageFromTagsStageCtrl', [
     '$scope',
     function($scope) {
       $scope.stage.tags = $scope.stage.tags || {};

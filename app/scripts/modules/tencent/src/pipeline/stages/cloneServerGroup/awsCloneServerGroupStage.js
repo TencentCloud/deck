@@ -22,7 +22,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsCloneServerGroupStageCtrl', [
+  .controller('tencentCloneServerGroupStageCtrl', [
     '$scope',
     function($scope) {
       let stage = $scope.stage;

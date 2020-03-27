@@ -8,7 +8,7 @@ module.exports = angular
   .module('spinnaker.tencent.securityGroup.clone.controller', [
     require('../configure/configSecurityGroup.mixin.controller').name,
   ])
-  .controller('awsCloneSecurityGroupController', [
+  .controller('tencentCloneSecurityGroupController', [
     '$scope',
     '$uibModalInstance',
     '$controller',
@@ -29,7 +29,7 @@ module.exports = angular
 
       angular.extend(
         this,
-        $controller('awsConfigSecurityGroupMixin', {
+        $controller('tencentConfigSecurityGroupMixin', {
           $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           application: application,

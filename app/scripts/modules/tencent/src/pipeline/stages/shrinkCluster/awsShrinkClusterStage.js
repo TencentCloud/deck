@@ -21,7 +21,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsShrinkClusterStageCtrl', [
+  .controller('tencentShrinkClusterStageCtrl', [
     '$scope',
     function($scope) {
       var ctrl = this;

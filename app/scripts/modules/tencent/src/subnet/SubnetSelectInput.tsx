@@ -45,7 +45,7 @@ export class SubnetSelectInput extends React.Component<ISubnetSelectInputProps, 
   private getOptions(subnets: ISubnet[], isClassicHidden: boolean): Array<Option<string>> {
     const asOption = (subnet: ISubnet): Option<string> => ({ label: `${subnet.name}(${subnet.id})`, value: subnet.id });
 
-    const classicOption = isClassicHidden ? [] : [{ label: 'None (EC2 Classic)', value: '' } as Option];
+    const classicOption = isClassicHidden ? [] : [{ label: 'None ', value: '' } as Option];
 
     const activeOptions = subnets.filter(x => !x.deprecated).map(asOption);
 
@@ -93,7 +93,7 @@ export class SubnetSelectInput extends React.Component<ISubnetSelectInputProps, 
     const { readOnly, ...otherProps } = this.props;
 
     if (readOnly) {
-      return <p className="form-control-static">{this.props.value || 'None (EC2 Classic)'}</p>;
+      return <p className="form-control-static">{this.props.value || 'None '}</p>;
     }
 
     return <SelectInput options={this.state.options} {...otherProps} />;

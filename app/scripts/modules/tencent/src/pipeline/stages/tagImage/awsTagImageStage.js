@@ -15,7 +15,7 @@ module.exports = angular
       executionConfigSections: ['tagImageConfig', 'taskStatus'],
     });
   })
-  .controller('awsTagImageStageCtrl', [
+  .controller('tencentTagImageStageCtrl', [
     '$scope',
     $scope => {
       $scope.stage.tags = $scope.stage.tags || {};

@@ -16,7 +16,7 @@ module.exports = angular
     STEP_POLICY_ACTION,
     require('./alarm/alarmConfigurer.component').name,
   ])
-  .controller('awsUpsertScalingPolicyCtrl', [
+  .controller('tencentUpsertScalingPolicyCtrl', [
     '$uibModalInstance',
     'serverGroup',
     'application',

@@ -21,7 +21,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsEnableAsgStageCtrl', [
+  .controller('tencentEnableAsgStageCtrl', [
     '$scope',
     function($scope) {
       var ctrl = this;

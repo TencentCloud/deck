@@ -14,7 +14,7 @@ module.exports = angular.module('spinnaker.tencent.vpc.tag.directive', []).direc
     link: function(scope) {
       function applyLabel() {
         if (!scope.vpcId) {
-          scope.vpcLabel = 'None (EC2 Classic)';
+          scope.vpcLabel = 'None ';
         } else {
           VpcReader.getVpcName(scope.vpcId).then(function(name) {
             scope.vpcLabel = '(' + scope.vpcId + ')';

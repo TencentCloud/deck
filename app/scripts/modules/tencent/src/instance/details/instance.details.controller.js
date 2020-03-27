@@ -22,7 +22,7 @@ module.exports = angular
     require('../../vpc/vpcTag.directive').name,
     CONFIRMATION_MODAL_SERVICE,
   ])
-  .controller('awsInstanceDetailsCtrl', [
+  .controller('tencentInstanceDetailsCtrl', [
     '$scope',
     '$state',
     '$uibModal',
