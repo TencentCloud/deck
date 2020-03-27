@@ -162,9 +162,9 @@ module.exports = angular
                     return pre;
                   }, {})
                 : {},
-            loadBalancerId: forwardLoadBalancer.loadBalancerId,
-            listenerId: forwardLoadBalancer.listenerId,
-            locationId: forwardLoadBalancer.locationId,
+            loadBalancerId: forwardLoadBalancer && forwardLoadBalancer.loadBalancerId,
+            listenerId: forwardLoadBalancer && forwardLoadBalancer.listenerId,
+            locationId: forwardLoadBalancer && forwardLoadBalancer.locationId,
             port:
               forwardLoadBalancer &&
               forwardLoadBalancer.targetAttributes &&
