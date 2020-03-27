@@ -4,7 +4,11 @@ import { FormikProps } from 'formik';
 
 import { IWizardPageComponent, ReactInjector } from '@spinnaker/core';
 
-import { IAmazonServerGroupCommand, ITencentForwardLoadBalancer } from '../../serverGroupConfiguration.service';
+import {
+  IAmazonServerGroupCommand,
+  ITencentForwardLoadBalancer,
+  ITencentLbListenerMap,
+} from '../../serverGroupConfiguration.service';
 
 import { IALBListener } from 'tencent/domain';
 
@@ -19,11 +23,12 @@ interface ITencentLocation {
   urlList: string[];
   selectedListener: IALBListener;
 }
+interface ITencentLocationMap {
+  [key: string]: ITencentLocation;
+}
 export interface IServerGroupLoadBalancersState {
   refreshing: boolean;
-  listenerLocationMap: {
-    [key: string]: any;
-  };
+  listenerLocationMap: ITencentLocationMap;
 }
 
 export class ServerGroupLoadBalancers
@@ -31,7 +36,7 @@ export class ServerGroupLoadBalancers
   implements IWizardPageComponent<IAmazonServerGroupCommand> {
   public state = {
     refreshing: false,
-    listenerLocationMap: {},
+    listenerLocationMap: {} as ITencentLocationMap,
   };
 
   public validate(values: IAmazonServerGroupCommand) {
@@ -124,6 +129,7 @@ export class ServerGroupLoadBalancers
         [listenerId]: {
           domain: '',
           url: '',
+          urlList: [],
           selectedListener,
           isL7: this.isL7(selectedListener.protocol),
           domainList: this.getDomainList(selectedListener),
@@ -204,25 +210,31 @@ export class ServerGroupLoadBalancers
       values: {
         forwardLoadBalancers = [],
         backingData: {
-          filtered: { lbListenerMap = {} },
+          filtered: { lbListenerMap = {} as ITencentLbListenerMap },
         },
         viewState: { submitButtonLabel },
       },
     } = nextProps.formik;
-    if (submitButtonLabel !== 'create' && submitButtonLabel !== 'Create' && forwardLoadBalancers.length) {
+    if (
+      submitButtonLabel !== 'Create' &&
+      forwardLoadBalancers.length &&
+      forwardLoadBalancers.every(flb => !!flb.loadBalancerId)
+    ) {
       this.setState({
-        listenerLocationMap: forwardLoadBalancers.reduce((p, c) => {
+        listenerLocationMap: forwardLoadBalancers.reduce((p: ITencentLocationMap, c) => {
           const listenerList = lbListenerMap[c.loadBalancerId] || [];
           const selectedListener = listenerList.find(l => l.listenerId === c.listenerId);
-          const rule = selectedListener && selectedListener.rules.find(r => r.locationId === c.locationId);
-          p[c.listenerId] = {
-            domain: rule.domain,
-            url: rule.url,
-            isL7: this.isL7(selectedListener.protocol),
-            domainList: this.getDomainList(selectedListener),
-            urlList: this.getUrlList(selectedListener, rule.domain),
-            selectedListener: selectedListener,
-          };
+          if (selectedListener) {
+            const rule = selectedListener.rules.find(r => r.locationId === c.locationId);
+            p[c.listenerId] = {
+              domain: rule.domain,
+              url: rule.url,
+              isL7: this.isL7(selectedListener.protocol),
+              domainList: this.getDomainList(selectedListener),
+              urlList: this.getUrlList(selectedListener, rule.domain),
+              selectedListener: selectedListener,
+            };
+          }
           return p;
         }, {}),
       });

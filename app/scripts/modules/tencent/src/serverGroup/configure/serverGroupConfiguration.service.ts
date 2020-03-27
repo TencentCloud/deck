@@ -41,16 +41,16 @@ export interface IAmazonServerGroupCommandDirty extends IServerGroupCommandDirty
 export interface IAmazonServerGroupCommandResult extends IServerGroupCommandResult {
   dirty: IAmazonServerGroupCommandDirty;
 }
-
+export interface ITencentLbListenerMap {
+  [key: string]: IALBListener[];
+}
 export interface IAmazonServerGroupCommandBackingDataFiltered extends IServerGroupCommandBackingDataFiltered {
   keyPairs: IKeyPair[];
   targetGroups: string[];
   vpcList: ITencentVpc[];
   lbList: IAmazonLoadBalancerSourceData[];
   listenerList: IALBListener[];
-  lbListenerMap: {
-    [key: string]: IALBListener[];
-  };
+  lbListenerMap: ITencentLbListenerMap;
 }
 
 export interface IAmazonServerGroupCommandBackingData extends IServerGroupCommandBackingData {
@@ -462,6 +462,7 @@ export class AwsServerGroupConfigurationService {
     const result: IAmazonServerGroupCommandResult = { dirty: {} };
     const newLoadBalancers = this.getLoadBalancerMap(command).filter(lb => lb.vpcId === command.vpcId);
     command.backingData.filtered.lbList = newLoadBalancers;
+    command.backingData.filtered.lbListenerMap = {};
     if (
       command.forwardLoadBalancers &&
       command.forwardLoadBalancers.every(flb => newLoadBalancers.find(nlb => nlb.id === flb.loadBalancerId))
