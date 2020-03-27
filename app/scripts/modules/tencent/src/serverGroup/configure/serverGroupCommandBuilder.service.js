@@ -46,9 +46,6 @@ module.exports = angular
             var keyPair = credentials ? credentials.defaultKeyPair : null;
             var applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
 
-            var defaultIamRole = AWSProviderSettings.defaults.iamRole || 'BaseIAMRole';
-            defaultIamRole = defaultIamRole.replace('{{application}}', application.name);
-
             var useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
 
             var command = {
@@ -64,8 +61,6 @@ module.exports = angular
               targetHealthyDeployPercentage: 100,
               cooldown: 10,
               enabledMetrics: [],
-              healthCheckType: 'EC2',
-              healthCheckGracePeriod: 600,
               enhancedService: {
                 monitorService: {
                   enabled: true,
@@ -76,7 +71,6 @@ module.exports = angular
               },
               ebsOptimized: false,
               selectedProvider: 'tencent',
-              iamRole: defaultIamRole,
               terminationPolicies: [],
               vpcId: null,
               subnetIds: [],
@@ -87,7 +81,6 @@ module.exports = angular
               securityGroups: [],
               stack: '',
               detail: '',
-              spotPrice: '',
               tags: {},
               useAmiBlockDeviceMappings: useAmiBlockDeviceMappings,
               copySourceCustomBlockDeviceMappings: false, // default to using block device mappings from current instance type
@@ -205,8 +198,6 @@ module.exports = angular
           asgs: [{ asgName: serverGroup.name, region: serverGroup.region }],
           cooldown: serverGroup.asg.defaultCooldown,
           enabledMetrics: _.get(serverGroup, 'asg.enabledMetrics', []).map(m => m.metric),
-          healthCheckGracePeriod: serverGroup.asg.healthCheckGracePeriod,
-          healthCheckType: serverGroup.asg.healthCheckType,
           terminationPolicies: angular.copy(serverGroup.asg.terminationPolicies),
           credentials: serverGroup.account,
         };
@@ -259,8 +250,6 @@ module.exports = angular
             credentials: serverGroup.account,
             cooldown: serverGroup.asg.defaultCooldown,
             enabledMetrics: _.get(serverGroup, 'asg.enabledMetrics', []).map(m => m.metric),
-            healthCheckGracePeriod: serverGroup.asg.healthCheckGracePeriod,
-            healthCheckType: serverGroup.asg.healthCheckType,
             terminationPolicies: serverGroup.asg.terminationPolicySet,
             loadBalancers: serverGroup.asg.loadBalancerNames,
             loadBalancerId:
@@ -324,14 +313,12 @@ module.exports = angular
           if (serverGroup.launchConfig) {
             angular.extend(command, {
               instanceType: serverGroup.launchConfig.instanceType,
-              iamRole: serverGroup.launchConfig.iamInstanceProfile,
               keyPair:
                 serverGroup.launchConfig.loginSettings.keyIds && serverGroup.launchConfig.loginSettings.keyIds[0],
               associatePublicIpAddress: serverGroup.launchConfig.internetAccessible.publicIpAssigned,
               ramdiskId: serverGroup.launchConfig.ramdiskId,
               enhancedService: serverGroup.launchConfig.enhancedService,
               ebsOptimized: serverGroup.launchConfig.ebsOptimized,
-              spotPrice: serverGroup.launchConfig.spotPrice,
               internetAccessible: serverGroup.launchConfig.internetAccessible,
               systemDisk: serverGroup.launchConfig.systemDisk,
               dataDisks: serverGroup.launchConfig.dataDisks,

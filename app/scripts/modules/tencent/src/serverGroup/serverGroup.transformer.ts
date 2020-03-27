@@ -71,7 +71,7 @@ export class AwsServerGroupTransformer {
 
   public convertServerGroupCommandToDeployConfiguration(base: any): any {
     // use _.defaults to avoid copying the backingData, which is huge and expensive to copy over
-    const command = {
+    const command = Object.assign(base, {
       type: base.type,
       cloudProvider: 'tencent',
       application: base.application,
@@ -118,7 +118,7 @@ export class AwsServerGroupTransformer {
       forwardLoadBalancers: undefined as any[],
       loadBalancerId: undefined as string,
       source: base.viewState && base.viewState.mode === 'clone' ? base.source : undefined,
-    };
+    });
     if (base.loadBalancerId) {
       if (base.listenerId) {
         command.forwardLoadBalancers = [

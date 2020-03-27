@@ -9,7 +9,6 @@ export interface IAWSProviderSettings extends IProviderSettings {
   defaults: {
     account?: string;
     region?: string;
-    iamRole?: string;
     subnetType?: string;
     vpc?: string;
   };

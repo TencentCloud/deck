@@ -7,8 +7,6 @@ import { IScalingPolicy } from './IScalingPolicy';
 export interface IAmazonAsg extends IAsg {
   availabilityZones: string[];
   defaultCooldown: number;
-  healthCheckType: string;
-  healthCheckGracePeriod: number;
   terminationPolicies: string[];
   enabledMetrics: Array<{ metric: string }>;
   vpczoneIdentifier?: string;
