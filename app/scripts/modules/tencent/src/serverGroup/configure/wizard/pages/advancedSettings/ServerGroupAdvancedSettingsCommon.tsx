@@ -62,7 +62,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
     const { values } = this.props.formik;
     values.dataDisks.push({
       diskSize: 50,
-      diskType: 'CLOUD_BASIC',
+      diskType: 'CLOUD_PREMIUM',
     });
     this.updateDataDisks();
   };

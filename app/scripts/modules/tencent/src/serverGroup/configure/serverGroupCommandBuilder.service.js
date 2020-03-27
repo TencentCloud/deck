@@ -107,7 +107,7 @@ module.exports = angular
                 publicIpAssigned: true,
               },
               systemDisk: {
-                diskType: 'CLOUD_BASIC',
+                diskType: 'CLOUD_PREMIUM',
                 diskSize: 50,
               },
               dataDisks: [],
