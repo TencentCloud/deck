@@ -39,7 +39,7 @@ export class CreateScalingPolicyButton extends React.Component<
     ModalInjector.modalService
       .open({
         templateUrl: require('./upsert/upsertScalingPolicy.modal.html'),
-        controller: 'awsUpsertScalingPolicyCtrl',
+        controller: 'tencentUpsertScalingPolicyCtrl',
         controllerAs: 'ctrl',
         size: 'lg',
         resolve: {

@@ -237,7 +237,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
         'aws.rollback.modal',
         require('./rollback/rollbackServerGroup.html'),
       ),
-      controller: 'awsRollbackServerGroupCtrl as ctrl',
+      controller: 'tencentRollbackServerGroupCtrl as ctrl',
       resolve: {
         serverGroup: () => serverGroup,
         previousServerGroup: () => previousServerGroup,
