@@ -32,7 +32,16 @@ export class ServerGroupInstanceType extends React.Component<IServerGroupInstanc
     const showTypeSelector = !!(values.viewState.disableImageSelection || values.amiName);
 
     if (showTypeSelector && values) {
-      const instanceTypeOptions = values.backingData.filtered.instanceTypes || [];
+      const instanceTypeOptions = (values.backingData.filtered.instanceTypes || []).map(instanceType => {
+        const regionInstanceTypes = values.backingData.instanceTypes[values.region] || [];
+        const instanceTypeInfo = regionInstanceTypes.find(({ name }) => name === instanceType);
+        return {
+          label: instanceTypeInfo
+            ? `${instanceType}(${instanceTypeInfo.cpu}Core ${instanceTypeInfo.mem}GB)`
+            : instanceType,
+          value: instanceType,
+        };
+      });
       return (
         <div className="container-fluid form-horizontal">
           <div className="form-group">
@@ -44,7 +53,7 @@ export class ServerGroupInstanceType extends React.Component<IServerGroupInstanc
                 value={values.instanceType}
                 required={true}
                 clearable={false}
-                options={instanceTypeOptions.map(instanceType => ({ label: instanceType, value: instanceType }))}
+                options={instanceTypeOptions}
                 onChange={this.instanceTypeChanged}
               />
             </div>
