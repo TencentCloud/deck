@@ -48,6 +48,9 @@ export interface IAmazonServerGroupCommandBackingDataFiltered extends IServerGro
   vpcList: ITencentVpc[];
   lbList: IAmazonLoadBalancerSourceData[];
   listenerList: IALBListener[];
+  lbListenerMap: {
+    [key: string]: IALBListener[];
+  };
 }
 
 export interface IAmazonServerGroupCommandBackingData extends IServerGroupCommandBackingData {
@@ -70,7 +73,16 @@ export interface ITencentDisk {
   snapshotId?: string;
   index?: number;
 }
-
+export interface ITencentForwardLoadBalancerTargetAttribute {
+  port: number;
+  weight: number;
+}
+export interface ITencentForwardLoadBalancer {
+  loadBalancerId: string;
+  listenerId: string;
+  locationId?: string;
+  targetAttributes: ITencentForwardLoadBalancerTargetAttribute[];
+}
 export interface ITencentInternetAccessible {
   internetChargeType: string;
   internetMaxBandwidthOut: number;
@@ -83,6 +95,7 @@ export interface IAmazonServerGroupCommand extends IServerGroupCommand {
   systemDisk: ITencentDisk;
   dataDisks: ITencentDisk[];
   osPlatform: string;
+  forwardLoadBalancers: ITencentForwardLoadBalancer[];
   loadBalancerId: string;
   listenerId: string;
   locationId: string;
@@ -448,15 +461,33 @@ export class AwsServerGroupConfigurationService {
   public configureLoadBalancerOptions(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
     const result: IAmazonServerGroupCommandResult = { dirty: {} };
     const newLoadBalancers = this.getLoadBalancerMap(command).filter(lb => lb.vpcId === command.vpcId);
-    if (!newLoadBalancers.find(lb => lb.id === command.loadBalancerId)) {
-      command.loadBalancerId = '';
-      command.listenerId = '';
-      command.locationId = '';
-    } else {
-      this.refreshListeners(command);
-    }
     command.backingData.filtered.lbList = newLoadBalancers;
+    if (
+      command.forwardLoadBalancers &&
+      command.forwardLoadBalancers.every(flb => newLoadBalancers.find(nlb => nlb.id === flb.loadBalancerId))
+    ) {
+      this.refreshLoadBalancerListenerMap(command);
+    } else {
+      command.forwardLoadBalancers = [];
+    }
     return result;
+  }
+
+  public refreshLoadBalancerListenerMap(command: IAmazonServerGroupCommand) {
+    return Promise.all(
+      command.backingData.filtered.lbList.map(flb =>
+        this.loadBalancerReader
+          .getLoadBalancerDetails('tencent', command.credentials, command.region, flb.id)
+          .then(loadBalancers => ({
+            [flb.id]: (loadBalancers && loadBalancers[0] && loadBalancers[0].listeners) || [],
+          })),
+      ),
+    ).then(lbListenerMapArray => {
+      command.backingData.filtered.lbListenerMap =
+        lbListenerMapArray && lbListenerMapArray.length
+          ? lbListenerMapArray.reduce((p, c) => ({ ...p, ...c }), {})
+          : {};
+    });
   }
 
   public configureListenerOptions(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
@@ -504,7 +535,7 @@ export class AwsServerGroupConfigurationService {
       return result;
     };
 
-    cmd.subnetChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult => {
+    cmd.subnetChanged = (): IServerGroupCommandResult => {
       const result: IAmazonServerGroupCommandResult = { dirty: {} };
       return result;
     };

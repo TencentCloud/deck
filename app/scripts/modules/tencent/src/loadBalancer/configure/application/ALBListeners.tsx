@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove, SortEnd } from 'react-sortable-hoc';
 import { FormikErrors, FormikProps } from 'formik';
 import VirtualizedSelect from 'react-virtualized-select';
-import { Application, HelpField, IWizardPageComponent, SpInput, Tooltip, ValidationMessage } from '@spinnaker/core';
+import { Application, IWizardPageComponent, SpInput, Tooltip, ValidationMessage } from '@spinnaker/core';
 
 import {
   ALBListenerProtocol,
@@ -313,7 +313,6 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
   };
 
   public render() {
-    const { isNewListener } = this.props;
     const { errors, values } = this.props.formik;
     const { oidcConfigs } = this.state;
 

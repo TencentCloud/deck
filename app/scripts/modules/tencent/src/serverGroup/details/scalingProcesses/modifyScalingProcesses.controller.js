@@ -7,7 +7,7 @@ import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 
 module.exports = angular
   .module('spinnaker.tencent.serverGroup.details.autoscaling.process.controller', [])
-  .controller('ModifyScalingProcessesCtrl', [
+  .controller('tencentModifyScalingProcessesCtrl', [
     '$scope',
     '$uibModalInstance',
     'application',

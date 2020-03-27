@@ -2,18 +2,16 @@ import * as React from 'react';
 import Select, { Option } from 'react-select';
 import { FormikProps } from 'formik';
 
-import { HelpField, IWizardPageComponent, ReactInjector } from '@spinnaker/core';
+import { IWizardPageComponent, ReactInjector } from '@spinnaker/core';
 
-import { IAmazonServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { IAmazonServerGroupCommand, ITencentForwardLoadBalancer } from '../../serverGroupConfiguration.service';
 
 import { IALBListener } from 'tencent/domain';
 
 export interface IServerGroupLoadBalancersProps {
   formik: FormikProps<IAmazonServerGroupCommand>;
 }
-
-export interface IServerGroupLoadBalancersState {
-  refreshing: boolean;
+interface ITencentLocation {
   isL7: boolean;
   domain: string;
   domainList: string[];
@@ -21,55 +19,128 @@ export interface IServerGroupLoadBalancersState {
   urlList: string[];
   selectedListener: IALBListener;
 }
+export interface IServerGroupLoadBalancersState {
+  refreshing: boolean;
+  listenerLocationMap: {
+    [key: string]: any;
+  };
+}
 
 export class ServerGroupLoadBalancers
   extends React.Component<IServerGroupLoadBalancersProps, IServerGroupLoadBalancersState>
   implements IWizardPageComponent<IAmazonServerGroupCommand> {
   public state = {
     refreshing: false,
-    isL7: false,
-    domain: '',
-    domainList: null as string[],
-    url: '',
-    urlList: null as string[],
-    selectedListener: null as IALBListener,
+    listenerLocationMap: {},
   };
 
   public validate(values: IAmazonServerGroupCommand) {
     const errors = {} as any;
-    const { isL7, domain, url } = this.state;
+    const { listenerLocationMap } = this.state;
     if (values.viewState.dirty.loadBalancers) {
       errors.loadBalancers = 'You must confirm the removed load balancers.';
     }
 
-    if (values.loadBalancerId && !values.listenerId) {
-      errors.loadBalancers = 'Listener required.';
+    if (values.forwardLoadBalancers.length) {
+      if (values.forwardLoadBalancers.some(flb => !flb.loadBalancerId)) {
+        errors.loadBalancers = 'Load Balancer required.';
+      } else if (values.forwardLoadBalancers.some(flb => !flb.listenerId)) {
+        errors.loadBalancers = 'Listener required.';
+      } else if (
+        values.forwardLoadBalancers.some(
+          flb => listenerLocationMap[flb.listenerId] && listenerLocationMap[flb.listenerId].isL7 && !flb.locationId,
+        )
+      ) {
+        errors.loadBalancers = 'Domain and URL required.';
+      } else if (
+        values.forwardLoadBalancers.some(
+          flb => !flb.targetAttributes || !flb.targetAttributes[0].port || !flb.targetAttributes[0].weight,
+        )
+      ) {
+        errors.loadBalancers = 'Port and Weight required.';
+      }
     }
-
-    if (values.loadBalancerId && values.listenerId && isL7 && (!domain || !url)) {
-      errors.loadBalancers = 'Domain and URL required.';
-    }
-
-    if (values.loadBalancerId && values.listenerId && (!values.port || !values.weight)) {
-      errors.loadBalancers = 'Port and Weight required.';
-    }
-
     return errors;
   }
 
-  public refreshListeners = () => {
+  private updateLoadBalancers(): void {
+    this.props.formik.setFieldValue('forwardLoadBalancers', this.props.formik.values.forwardLoadBalancers);
+  }
+
+  private addLoadBalancer(): void {
+    const { values } = this.props.formik;
+    values.forwardLoadBalancers.push({
+      loadBalancerId: '',
+      listenerId: '',
+      locationId: '',
+      targetAttributes: [
+        {
+          port: null,
+          weight: null,
+        },
+      ],
+    });
+    this.updateLoadBalancers();
+  }
+
+  private removeLoadBalancer(index: number): void {
+    this.props.formik.values.forwardLoadBalancers.splice(index, 1);
+    this.updateLoadBalancers();
+  }
+
+  private loadBalancerChanged(forwardLoadBalancer: ITencentForwardLoadBalancer, loadBalancerId: string): void {
+    forwardLoadBalancer.loadBalancerId = loadBalancerId;
+    forwardLoadBalancer.listenerId = '';
+    forwardLoadBalancer.locationId = '';
+    this.updateLoadBalancers();
+    this.refreshLBListenerMap();
+  }
+
+  private refreshLBListenerMap = () => {
     const { values } = this.props.formik;
     this.setState({ refreshing: true });
     const configurationService: any = ReactInjector.providerServiceDelegate.getDelegate(
       values.cloudProvider || values.selectedProvider,
       'serverGroup.configurationService',
     );
-    configurationService.refreshListeners(values).then(() => {
+    configurationService.refreshLoadBalancerListenerMap(values).then(() => {
       this.setState({
         refreshing: false,
+        listenerLocationMap: {},
       });
     });
   };
+
+  private listenerChanged(forwardLoadBalancer: ITencentForwardLoadBalancer, listenerId: string) {
+    forwardLoadBalancer.listenerId = listenerId;
+    forwardLoadBalancer.locationId = '';
+    this.updateLoadBalancers();
+    const selectedListener = this.props.formik.values.backingData.filtered.lbListenerMap[
+      forwardLoadBalancer.loadBalancerId
+    ].find(item => item.listenerId === listenerId);
+    this.setState({
+      listenerLocationMap: {
+        ...this.state.listenerLocationMap,
+        [listenerId]: {
+          domain: '',
+          url: '',
+          selectedListener,
+          isL7: this.isL7(selectedListener.protocol),
+          domainList: this.getDomainList(selectedListener),
+        },
+      },
+    });
+  }
+
+  private portChanged(forwardLoadBalancer: ITencentForwardLoadBalancer, port: number) {
+    forwardLoadBalancer.targetAttributes[0].port = port;
+    this.updateLoadBalancers();
+  }
+
+  private weightChanged(forwardLoadBalancer: ITencentForwardLoadBalancer, weight: number) {
+    forwardLoadBalancer.targetAttributes[0].weight = weight;
+    this.updateLoadBalancers();
+  }
 
   public clearWarnings(key: 'loadBalancers'): void {
     this.props.formik.values.viewState.dirty[key] = null;
@@ -80,46 +151,39 @@ export class ServerGroupLoadBalancers
     return protocol === 'HTTP' || protocol === 'HTTPS';
   };
 
-  private loadBalancersChanged = (option: Option<string>) => {
-    this.props.formik.values.loadBalancerId = option.value;
-    this.props.formik.setFieldValue('loadBalancerId', option.value);
-    this.props.formik.setFieldValue('listenerId', '');
-    this.props.formik.setFieldValue('locationId', '');
-    this.refreshListeners();
+  private domainChanged = (forwardLoadBalancer: ITencentForwardLoadBalancer, domain: string) => {
+    const { listenerLocationMap } = this.state;
+    forwardLoadBalancer.locationId = '';
+    const listenerLocation = listenerLocationMap[forwardLoadBalancer.listenerId];
+    this.setState({
+      listenerLocationMap: {
+        ...listenerLocationMap,
+        [forwardLoadBalancer.listenerId]: {
+          ...listenerLocation,
+          domain: domain,
+          url: '',
+          urlList: this.getUrlList(listenerLocation.selectedListener, domain),
+        },
+      },
+    });
   };
 
-  private listenerChanged = (option: Option<string>) => {
-    this.props.formik.values.listenerId = option.value;
-    this.props.formik.setFieldValue('listenerId', option.value);
-    this.props.formik.setFieldValue('locationId', '');
-    const selectedListener = this.props.formik.values.backingData.filtered.listenerList.find(
-      item => item.listenerId === option.value,
+  private urlChanged = (forwardLoadBalancer: ITencentForwardLoadBalancer, url: string) => {
+    const { listenerLocationMap } = this.state;
+    const listenerLocation = listenerLocationMap[forwardLoadBalancer.listenerId];
+    const rule = listenerLocation.selectedListener.rules.find(
+      r => r.domain === listenerLocation.domain && r.url === url,
     );
+    forwardLoadBalancer.locationId = rule.locationId;
+    this.updateLoadBalancers();
     this.setState({
-      domain: '',
-      url: '',
-      selectedListener,
-      isL7: this.isL7(selectedListener.protocol),
-      domainList: this.getDomainList(selectedListener),
-    });
-  };
-
-  private domainChanged = (option: Option<string>) => {
-    const { selectedListener } = this.state;
-    this.props.formik.setFieldValue('locationId', '');
-    this.setState({
-      domain: option.value,
-      url: '',
-      urlList: this.getUrlList(selectedListener, option.value),
-    });
-  };
-
-  private urlChanged = (option: Option<string>) => {
-    const { selectedListener, domain } = this.state;
-    const rule = selectedListener.rules.find(r => r.domain === domain && r.url === option.value);
-    this.props.formik.setFieldValue('locationId', rule.locationId);
-    this.setState({
-      url: option.value,
+      listenerLocationMap: {
+        ...listenerLocationMap,
+        [forwardLoadBalancer.listenerId]: {
+          ...listenerLocation,
+          url,
+        },
+      },
     });
   };
 
@@ -138,165 +202,223 @@ export class ServerGroupLoadBalancers
   public componentWillReceiveProps(nextProps: IServerGroupLoadBalancersProps): void {
     const {
       values: {
-        listenerId,
-        locationId,
+        forwardLoadBalancers = [],
         backingData: {
-          filtered: { listenerList = [] },
+          filtered: { lbListenerMap = {} },
         },
+        viewState: { submitButtonLabel },
       },
     } = nextProps.formik;
-    if (locationId && listenerList && listenerList.length) {
-      const selectedListener = listenerList.find(l => l.listenerId === listenerId);
-      const rule = selectedListener && selectedListener.rules.find(r => r.locationId === locationId);
-      if (rule) {
-        this.setState({
-          domain: rule.domain,
-          url: rule.url,
-          isL7: this.isL7(selectedListener.protocol),
-          domainList: this.getDomainList(selectedListener),
-          urlList: this.getUrlList(selectedListener, rule.domain),
-        });
-      }
+    if (submitButtonLabel !== 'create' && submitButtonLabel !== 'Create' && forwardLoadBalancers.length) {
+      this.setState({
+        listenerLocationMap: forwardLoadBalancers.reduce((p, c) => {
+          const listenerList = lbListenerMap[c.loadBalancerId] || [];
+          const selectedListener = listenerList.find(l => l.listenerId === c.listenerId);
+          const rule = selectedListener && selectedListener.rules.find(r => r.locationId === c.locationId);
+          p[c.listenerId] = {
+            domain: rule.domain,
+            url: rule.url,
+            isL7: this.isL7(selectedListener.protocol),
+            domainList: this.getDomainList(selectedListener),
+            urlList: this.getUrlList(selectedListener, rule.domain),
+            selectedListener: selectedListener,
+          };
+          return p;
+        }, {}),
+      });
     }
   }
 
   public render() {
-    const { values, setFieldValue } = this.props.formik;
-    const { dirty } = values.viewState;
-    const { refreshing, domain, domainList, url, urlList, isL7 } = this.state;
+    const { values } = this.props.formik;
+    const { refreshing, listenerLocationMap } = this.state;
     const loadBalancerOptions: Option[] = (values.backingData.filtered.lbList || []).map(lb => ({
       label: `${lb.name}(${lb.id})`,
       value: lb.id,
     }));
-    const listenerOptions: Option[] = (values.backingData.filtered.listenerList || []).map(lb => ({
-      label: `${lb.listenerName}(${lb.listenerId})`,
-      value: lb.listenerId,
-    }));
     return (
       <div className="container-fluid form-horizontal">
-        {dirty.loadBalancers && (
-          <div className="col-md-12">
-            <div className="alert alert-warning">
-              <p>
-                <i className="fa fa-exclamation-triangle" />
-                The following load balancers could not be found in the selected account/region/VPC and were removed:
-              </p>
-              <ul>
-                {dirty.loadBalancers.map(lb => (
-                  <li key={lb}>{lb}</li>
-                ))}
-              </ul>
-              <p className="text-right">
-                <a
-                  className="btn btn-sm btn-default dirty-flag-dismiss clickable"
-                  onClick={() => this.clearWarnings('loadBalancers')}
-                >
-                  Okay
-                </a>
-              </p>
-            </div>
-          </div>
-        )}
         <div className="form-group">
-          <div className="col-md-3 sm-label-right">
-            <b>Load Balancers </b>
-            <HelpField id="aws.loadBalancer.loadBalancers" />
-          </div>
-          <div className="col-md-7">
-            {loadBalancerOptions.length === 0 && (
-              <div className="form-control-static">No load balancers found in the selected account/region/VPC</div>
-            )}
-            {loadBalancerOptions.length > 0 && (
-              <Select
-                value={values.loadBalancerId}
-                required={true}
-                clearable={false}
-                options={loadBalancerOptions}
-                onChange={this.loadBalancersChanged}
-              />
-            )}
-          </div>
+          {values.forwardLoadBalancers.map((forwardLoadBalancer, index) => (
+            <div key={index} className="col-md-12">
+              <div className="wizard-pod">
+                <div className="wizard-pod-row header">
+                  <div className="wizard-pod-row-title">Load Balancer</div>
+                  <div className="wizard-pod-row-contents spread">
+                    <div className="col-md-10">
+                      <Select
+                        value={forwardLoadBalancer.loadBalancerId}
+                        required={true}
+                        clearable={false}
+                        options={loadBalancerOptions}
+                        onChange={(option: Option<string>) =>
+                          this.loadBalancerChanged(forwardLoadBalancer, option.value)
+                        }
+                      />
+                    </div>
+                    <div className="col-md-2">
+                      <a className="sm-label clickable" onClick={() => this.removeLoadBalancer(index)}>
+                        <span className="glyphicon glyphicon-trash" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {forwardLoadBalancer.loadBalancerId ? (
+                  <div className="wizard-pod-row">
+                    <div className="wizard-pod-row-title">Listener</div>
+                    <div className="wizard-pod-row-contents">
+                      <div className="wizard-pod-row-data">
+                        <div className="col-md-10">
+                          {values.backingData.filtered.lbListenerMap[forwardLoadBalancer.loadBalancerId] ? (
+                            <Select
+                              isLoading={refreshing}
+                              value={forwardLoadBalancer.listenerId}
+                              required={true}
+                              clearable={false}
+                              options={values.backingData.filtered.lbListenerMap[
+                                forwardLoadBalancer.loadBalancerId
+                              ].map(lb => ({ label: `${lb.listenerName}(${lb.listenerId})`, value: lb.listenerId }))}
+                              onChange={(option: Option<string>) =>
+                                this.listenerChanged(forwardLoadBalancer, option.value)
+                              }
+                            />
+                          ) : (
+                            'No listeners found in the selected LoadBalancer'
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {forwardLoadBalancer.listenerId &&
+                listenerLocationMap[forwardLoadBalancer.listenerId] &&
+                listenerLocationMap[forwardLoadBalancer.listenerId].isL7 ? (
+                  <div className="wizard-pod-row">
+                    <div className="wizard-pod-row-title">Domain</div>
+                    <div className="wizard-pod-row-contents">
+                      <div className="wizard-pod-row-data">
+                        <div className="col-md-10">
+                          {listenerLocationMap[forwardLoadBalancer.listenerId].domainList &&
+                          listenerLocationMap[forwardLoadBalancer.listenerId].domainList.length ? (
+                            <Select
+                              value={listenerLocationMap[forwardLoadBalancer.listenerId].domain}
+                              required={true}
+                              clearable={false}
+                              options={listenerLocationMap[forwardLoadBalancer.listenerId].domainList.map(d => ({
+                                label: d,
+                                value: d,
+                              }))}
+                              onChange={(option: Option<string>) =>
+                                this.domainChanged(forwardLoadBalancer, option.value)
+                              }
+                            />
+                          ) : (
+                            'No domain found in the selected listener'
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {forwardLoadBalancer.listenerId &&
+                listenerLocationMap[forwardLoadBalancer.listenerId] &&
+                listenerLocationMap[forwardLoadBalancer.listenerId].isL7 &&
+                listenerLocationMap[forwardLoadBalancer.listenerId].domain ? (
+                  <div className="wizard-pod-row">
+                    <div className="wizard-pod-row-title">URL</div>
+                    <div className="wizard-pod-row-contents">
+                      <div className="wizard-pod-row-data">
+                        <div className="col-md-10">
+                          {listenerLocationMap[forwardLoadBalancer.listenerId].urlList &&
+                          listenerLocationMap[forwardLoadBalancer.listenerId].urlList.length ? (
+                            <Select
+                              value={listenerLocationMap[forwardLoadBalancer.listenerId].url}
+                              required={true}
+                              clearable={false}
+                              options={listenerLocationMap[forwardLoadBalancer.listenerId].urlList.map(d => ({
+                                label: d,
+                                value: d,
+                              }))}
+                              onChange={(option: Option<string>) => this.urlChanged(forwardLoadBalancer, option.value)}
+                            />
+                          ) : (
+                            'No url found in the selected URL'
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                <div className="wizard-pod-row">
+                  <div className="wizard-pod-row-title">Target Attributes</div>
+                  <div className="wizard-pod-row-contents">
+                    <div className="wizard-pod-row-data">
+                      <div className="col-md-5">
+                        <label>Port </label>
+                        <input
+                          type="number"
+                          className="form-control input-sm inline-number"
+                          style={{ width: '80%' }}
+                          value={
+                            (forwardLoadBalancer.targetAttributes[0] && forwardLoadBalancer.targetAttributes[0].port) ||
+                            ''
+                          }
+                          min={1}
+                          max={65535}
+                          placeholder="1~65535"
+                          onChange={e => this.portChanged(forwardLoadBalancer, parseInt(e.target.value, 10))}
+                          required={true}
+                        />
+                      </div>
+                      <div className="col-md-5">
+                        <label>Weight </label>
+                        <input
+                          type="number"
+                          className="form-control input-sm inline-number"
+                          style={{ width: '70%' }}
+                          value={
+                            (forwardLoadBalancer.targetAttributes[0] &&
+                              forwardLoadBalancer.targetAttributes[0].weight) ||
+                            ''
+                          }
+                          min={1}
+                          max={100}
+                          placeholder="1~100"
+                          onChange={e => this.weightChanged(forwardLoadBalancer, parseInt(e.target.value, 10))}
+                          required={true}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {loadBalancerOptions.length === 0 ? (
+            <div className="form-control-static text-center">
+              No load balancers found in the selected account/region/VPC
+            </div>
+          ) : values.forwardLoadBalancers.length < 5 ? (
+            <div className="col-md-12">
+              <table className="table table-condensed packed">
+                <tbody>
+                  <tr>
+                    <td>
+                      <button type="button" className="add-new col-md-12" onClick={() => this.addLoadBalancer()}>
+                        <span className="glyphicon glyphicon-plus-sign" />
+                        Add New Load Balancer
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="form-control-static text-center">
+              Up to 5 Load Balancers can be added for a server group
+            </div>
+          )}
         </div>
-        {!!values.loadBalancerId && (
-          <div className="form-group">
-            <div className="col-md-3 sm-label-right">
-              <b>Listeners</b>
-            </div>
-            <div className="col-md-7">
-              <Select
-                isLoading={refreshing}
-                value={values.listenerId}
-                required={true}
-                clearable={false}
-                options={listenerOptions}
-                onChange={this.listenerChanged}
-              />
-            </div>
-          </div>
-        )}
-        {!!values.loadBalancerId && !!values.listenerId && isL7 && (
-          <div className="form-group">
-            <div className="col-md-3 sm-label-right">
-              <b>Domain</b>
-            </div>
-            <div className="col-md-7">
-              <Select
-                value={domain}
-                required={true}
-                clearable={false}
-                options={domainList.map(d => ({ label: d, value: d }))}
-                onChange={this.domainChanged}
-              />
-            </div>
-          </div>
-        )}
-        {!!values.loadBalancerId && !!values.listenerId && isL7 && domain && (
-          <div className="form-group">
-            <div className="col-md-3 sm-label-right">
-              <b>URL</b>
-            </div>
-            <div className="col-md-7">
-              <Select
-                value={url}
-                required={true}
-                clearable={false}
-                options={urlList.map(u => ({ label: u, value: u }))}
-                onChange={this.urlChanged}
-              />
-            </div>
-          </div>
-        )}
-        {!!values.loadBalancerId && !!values.listenerId && (
-          <div className="form-group">
-            <div className="col-md-3 sm-label-right">
-              <b>Port and Weight</b>
-            </div>
-            <div className="col-md-2">
-              <input
-                type="number"
-                className="form-control input-sm"
-                value={values.port || ''}
-                min={1}
-                max={65535}
-                placeholder="1~65535"
-                onChange={e => setFieldValue('port', parseInt(e.target.value, 10))}
-                required={true}
-              />
-            </div>
-            <div className="col-md-2">
-              <input
-                type="number"
-                className="form-control input-sm"
-                value={values.weight || ''}
-                min={1}
-                max={100}
-                placeholder="1~100"
-                onChange={e => setFieldValue('weight', parseInt(e.target.value, 10))}
-                required={true}
-              />
-            </div>
-          </div>
-        )}
       </div>
     );
   }

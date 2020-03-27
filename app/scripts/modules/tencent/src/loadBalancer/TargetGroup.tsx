@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { orderBy } from 'lodash';
-import { HealthCounts, LoadBalancerInstances, LoadBalancerServerGroup, API, IServerGroup } from '@spinnaker/core';
+import { LoadBalancerInstances, LoadBalancerServerGroup, API, IServerGroup } from '@spinnaker/core';
 
 import { IAmazonApplicationLoadBalancer, ITargetGroup } from 'tencent/domain/IAmazonLoadBalancer';
 

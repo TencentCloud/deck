@@ -6,7 +6,7 @@ import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 import { format } from 'date-fns';
 module.exports = angular
   .module('spinnaker.tencent.serverGroup.details.scheduledActions.editScheduledActions.modal.controller', [])
-  .controller('EditScheduledActionsCtrl', [
+  .controller('tencentEditScheduledActionsCtrl', [
     '$scope',
     '$uibModalInstance',
     'application',

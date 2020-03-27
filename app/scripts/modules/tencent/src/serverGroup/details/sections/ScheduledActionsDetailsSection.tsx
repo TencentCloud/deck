@@ -38,7 +38,7 @@ export class ScheduledActionsDetailsSection extends React.Component<
   private editScheduledActions = (): void => {
     ModalInjector.modalService.open({
       templateUrl: require('../scheduledAction/editScheduledActions.modal.html'),
-      controller: 'EditScheduledActionsCtrl as ctrl',
+      controller: 'tencentEditScheduledActionsCtrl as ctrl',
       size: 'lg',
       resolve: {
         application: () => this.props.app,

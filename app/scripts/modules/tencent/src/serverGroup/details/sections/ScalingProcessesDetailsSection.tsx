@@ -23,7 +23,7 @@ export class ScalingProcessesDetailsSection extends React.Component<
   private toggleScalingProcesses = (): void => {
     ModalInjector.modalService.open({
       templateUrl: require('../scalingProcesses/modifyScalingProcesses.html'),
-      controller: 'ModifyScalingProcessesCtrl as ctrl',
+      controller: 'tencentModifyScalingProcessesCtrl as ctrl',
       resolve: {
         serverGroup: () => this.props.serverGroup,
         application: () => this.props.app,

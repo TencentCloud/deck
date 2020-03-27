@@ -1,6 +1,6 @@
 import { ILoadBalancerSourceData } from '@spinnaker/core';
 
-import { IListenerAction, NLBListenerProtocol } from 'tencent/domain';
+import { NLBListenerProtocol } from 'tencent/domain';
 
 import { IListenerRule, IALBListener } from './IAmazonLoadBalancer';
 
@@ -114,7 +114,6 @@ export interface IApplicationLoadBalancerCertificateSourceData {
 
 export interface IApplicationLoadBalancerListenerSourceData {
   certificates?: IApplicationLoadBalancerCertificateSourceData[];
-  defaultActions: IListenerAction[];
   listenerArn: string;
   loadBalancerName: string;
   port: number;
