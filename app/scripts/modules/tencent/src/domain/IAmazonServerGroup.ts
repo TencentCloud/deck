@@ -15,6 +15,7 @@ export interface IAmazonAsg extends IAsg {
   terminationPolicySet: string[];
   vpcId: string;
   subnetIdSet: string[];
+  instanceCount?: string;
 }
 
 export interface IAmazonServerGroup extends IServerGroup {

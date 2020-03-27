@@ -116,7 +116,6 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
             />
           </div>
         </div>
-
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>UserData (optional) </b>

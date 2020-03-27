@@ -70,14 +70,10 @@ export class AwsServerGroupTransformer {
   }
 
   public convertServerGroupCommandToDeployConfiguration(base: any): any {
-    for (let key in base) {
-      if (typeof base[key] === 'function') {
-        delete base[key];
-      }
-    }
-    let command = Object.assign(base, {
-      backingData: [],
-      viewState: [],
+    let command = {
+      ...base,
+      backingData: {},
+      viewState: {},
       availabilityZones: {},
       type: base.type,
       cloudProvider: 'tencent',
@@ -123,7 +119,7 @@ export class AwsServerGroupTransformer {
       defaultCooldown: base.cooldown,
       enhancedService: base.enhancedService,
       source: base.viewState && base.viewState.mode === 'clone' ? base.source : undefined,
-    });
+    };
     if (base.loadBalancerId) {
       if (base.listenerId) {
         command.forwardLoadBalancers = [
