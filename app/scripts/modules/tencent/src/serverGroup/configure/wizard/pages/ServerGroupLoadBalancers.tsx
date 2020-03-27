@@ -224,8 +224,8 @@ export class ServerGroupLoadBalancers
         listenerLocationMap: forwardLoadBalancers.reduce((p: ITencentLocationMap, c) => {
           const listenerList = lbListenerMap[c.loadBalancerId] || [];
           const selectedListener = listenerList.find(l => l.listenerId === c.listenerId);
-          if (selectedListener) {
-            const rule = selectedListener.rules.find(r => r.locationId === c.locationId);
+          const rule = selectedListener && selectedListener.rules.find(r => r.locationId === c.locationId);
+          if (selectedListener && rule) {
             p[c.listenerId] = {
               domain: rule.domain,
               url: rule.url,
