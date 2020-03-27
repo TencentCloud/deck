@@ -76,7 +76,7 @@ export class AwsServerGroupTransformer {
       cloudProvider: 'tencent',
       application: base.application,
       stack: base.stack,
-      detail: base.detail || base.freeFormDetails,
+      detail: base.detail,
       strategy: base.strategy,
       account: base.credentials,
       accountName: base.credentials,

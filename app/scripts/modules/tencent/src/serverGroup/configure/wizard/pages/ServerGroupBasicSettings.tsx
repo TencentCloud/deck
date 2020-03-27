@@ -59,7 +59,7 @@ export class ServerGroupBasicSettings
     const { values } = props.formik;
     const { mode } = values.viewState;
 
-    const namePreview = NameUtils.getClusterName(app.name, values.stack, values.freeFormDetails);
+    const namePreview = NameUtils.getClusterName(app.name, values.stack, values.detail);
     const createsNewCluster = !app.clusters.find(c => c.name === namePreview);
     const showPreviewAsWarning = (mode === 'create' && !createsNewCluster) || (mode !== 'create' && createsNewCluster);
 
@@ -141,9 +141,8 @@ export class ServerGroupBasicSettings
       errors.stack = 'Only dot(.) and underscore(_) special characters are allowed in the Stack field.';
     }
 
-    if (!isDetailPattern(values.freeFormDetails)) {
-      errors.freeFormDetails =
-        'Only dot(.), underscore(_), and dash(-) special characters are allowed in the Detail field.';
+    if (!isDetailPattern(values.detail)) {
+      errors.detail = 'Only dot(.), underscore(_), and dash(-) special characters are allowed in the Detail field.';
     }
 
     if (!values.viewState.disableImageSelection && !values.amiName) {
@@ -183,10 +182,10 @@ export class ServerGroupBasicSettings
     values.clusterChanged(values);
   };
 
-  private freeFormDetailsChanged = (freeFormDetails: string) => {
+  private freeFormDetailsChanged = (detail: string) => {
     const { setFieldValue, values } = this.props.formik;
-    values.freeFormDetails = freeFormDetails; // have to do it here to make sure it's done before calling values.clusterChanged
-    setFieldValue('freeFormDetails', freeFormDetails);
+    values.detail = detail; // have to do it here to make sure it's done before calling values.clusterChanged
+    setFieldValue('detail', detail);
     values.clusterChanged(values);
   };
 
@@ -309,15 +308,15 @@ export class ServerGroupBasicSettings
             <input
               type="text"
               className="form-control input-sm no-spel"
-              value={values.freeFormDetails}
+              value={values.detail || ''}
               onChange={e => this.freeFormDetailsChanged(e.target.value)}
             />
           </div>
         </div>
-        {errors.freeFormDetails && (
+        {errors.detail && (
           <div className="form-group row slide-in">
             <div className="col-sm-9 col-sm-offset-2 error-message">
-              <span>{errors.freeFormDetails}</span>
+              <span>{errors.detail}</span>
             </div>
           </div>
         )}

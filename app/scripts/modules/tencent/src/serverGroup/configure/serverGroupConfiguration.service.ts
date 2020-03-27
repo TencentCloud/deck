@@ -537,7 +537,7 @@ export class AwsServerGroupConfigurationService {
     };
 
     cmd.clusterChanged = (command: IAmazonServerGroupCommand): void => {
-      command.moniker = NameUtils.getMoniker(command.application, command.stack, command.freeFormDetails);
+      command.moniker = NameUtils.getMoniker(command.application, command.stack, command.detail);
     };
 
     cmd.credentialsChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult => {
