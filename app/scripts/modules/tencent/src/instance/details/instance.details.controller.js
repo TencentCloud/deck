@@ -124,17 +124,18 @@ module.exports = angular
                     return true;
                   }
                 }) ||
-                loadBalancer.targetGroups.some(function(targetGroup) {
-                  return targetGroup.instances.some(function(possibleInstance) {
-                    if (possibleInstance.id === instance.instanceId) {
-                      instanceSummary = possibleInstance;
-                      targetGroups = [targetGroup.name];
-                      account = loadBalancer.account;
-                      region = loadBalancer.region;
-                      return true;
-                    }
-                  });
-                })
+                (loadBalancer.targetGroups &&
+                  loadBalancer.targetGroups.some(function(targetGroup) {
+                    return targetGroup.instances.some(function(possibleInstance) {
+                      if (possibleInstance.id === instance.instanceId) {
+                        instanceSummary = possibleInstance;
+                        targetGroups = [targetGroup.name];
+                        account = loadBalancer.account;
+                        region = loadBalancer.region;
+                        return true;
+                      }
+                    });
+                  }))
               );
             });
             if (!instanceSummary) {

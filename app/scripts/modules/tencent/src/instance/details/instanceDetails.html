@@ -121,6 +121,14 @@
         <dd ng-if="instance.subnetId">{{instance.subnetId}}</dd>
         <dt ng-if="instance.imageId">Image ID</dt>
         <dd ng-if="instance.imageId">{{instance.imageId}}</dd>
+        <dt ng-if="instance.publicIpAddresses && instance.publicIpAddresses.length">Public IP</dt>
+        <dd ng-if="instance.publicIpAddresses && instance.publicIpAddresses.length">
+          {{instance.publicIpAddresses[0]}}
+        </dd>
+        <dt ng-if="instance.privateIpAddresses && instance.privateIpAddresses.length">Private IP</dt>
+        <dd ng-if="instance.privateIpAddresses && instance.privateIpAddresses.length">
+          {{instance.privateIpAddresses[0]}}
+        </dd>
       </dl>
     </collapsible-section>
     <collapsible-section heading="Status" expanded="true">
