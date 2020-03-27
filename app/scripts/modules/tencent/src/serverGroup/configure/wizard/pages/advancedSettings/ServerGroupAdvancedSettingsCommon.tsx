@@ -17,10 +17,6 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
   public validate = (values: IAmazonServerGroupCommand) => {
     const errors = {} as any;
 
-    if (values.osPlatform && values.osPlatform !== 'Windows' && !values.keyPair) {
-      errors.keyPair = 'Key Name is required';
-    }
-
     if (!values.terminationPolicies || !values.terminationPolicies.length) {
       errors.terminationPolicies = 'Termination Policies is required';
     }
@@ -107,22 +103,21 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
           </div>
         </div>
 
-        {values.osPlatform && values.osPlatform !== 'Windows' && (
-          <div className="form-group">
-            <div className="col-md-5 sm-label-right">
-              <b>Key Name</b>
-            </div>
-            <div className="col-md-6">
-              <Select
-                value={values.keyPair}
-                required={true}
-                clearable={false}
-                options={keyPairs.map(t => ({ label: `${t.keyName}(${t.keyId})`, value: t.keyId }))}
-                onChange={(option: Option) => setFieldValue('keyPair', option.value)}
-              />
-            </div>
+        <div className="form-group">
+          <div className="col-md-5 sm-label-right">
+            <b>Key Name</b>
           </div>
-        )}
+          <div className="col-md-6">
+            <Select
+              value={values.keyPair}
+              required={true}
+              clearable={false}
+              options={keyPairs.map(t => ({ label: `${t.keyName}(${t.keyId})`, value: t.keyId }))}
+              onChange={(option: Option) => setFieldValue('keyPair', option.value)}
+            />
+          </div>
+        </div>
+
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>UserData (optional) </b>
