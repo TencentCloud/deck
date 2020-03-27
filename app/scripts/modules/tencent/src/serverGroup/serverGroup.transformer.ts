@@ -90,9 +90,11 @@ export class AwsServerGroupTransformer {
       minSize: base.capacity.min,
       desiredCapacity: base.capacity.desired,
       terminationPolicies: base.terminationPolicies,
-      loginSettings: {
-        keyIds: [base.keyPair],
-      },
+      loginSettings: base.keyPair
+        ? {
+            keyIds: [base.keyPair],
+          }
+        : undefined,
       targetHealthyDeployPercentage: base.targetHealthyDeployPercentage,
       vpcId: base.vpcId,
       region: base.region,
