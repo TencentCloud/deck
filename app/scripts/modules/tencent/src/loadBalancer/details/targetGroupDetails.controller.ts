@@ -88,6 +88,6 @@ export class AwsTargetGroupDetailsController implements IController {
 
 export const AWS_TARGET_GROUP_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.targetGroupDetails.controller';
 module(AWS_TARGET_GROUP_DETAILS_CTRL, [require('@uirouter/angularjs').default]).controller(
-  'awsTargetGroupDetailsCtrl',
+  'tencentTargetGroupDetailsCtrl',
   AwsTargetGroupDetailsController,
 );

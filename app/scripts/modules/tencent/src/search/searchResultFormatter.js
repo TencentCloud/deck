@@ -6,7 +6,7 @@ import { VpcReader } from '../vpc/VpcReader';
 
 module.exports = angular
   .module('spinnaker.tencent.search.searchResultFormatter', [])
-  .factory('awsSearchResultFormatter', function() {
+  .factory('tencentSearchResultFormatter', function() {
     return {
       securityGroups: function(entry) {
         return VpcReader.getVpcName(entry.vpcId).then(function(vpcName) {
