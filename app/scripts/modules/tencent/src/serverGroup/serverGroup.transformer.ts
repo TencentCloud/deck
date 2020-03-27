@@ -70,8 +70,14 @@ export class AwsServerGroupTransformer {
   }
 
   public convertServerGroupCommandToDeployConfiguration(base: any): any {
-    // use _.defaults to avoid copying the backingData, which is huge and expensive to copy over
+    for (let key in base) {
+      if (typeof base[key] === 'function') {
+        delete base[key];
+      }
+    }
     const command = Object.assign(base, {
+      backingData: [],
+      viewState: [],
       type: base.type,
       cloudProvider: 'tencent',
       application: base.application,
