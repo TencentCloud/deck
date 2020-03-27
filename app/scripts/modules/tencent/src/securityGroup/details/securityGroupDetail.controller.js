@@ -103,7 +103,7 @@ module.exports = angular
       this.editInboundRules = function editInboundRules() {
         $uibModal.open({
           templateUrl: require('../configure/editSecurityGroup.html'),
-          controller: 'awsEditSecurityGroupCtrl as ctrl',
+          controller: 'tencentEditSecurityGroupCtrl as ctrl',
           size: 'lg',
           resolve: {
             securityGroup: function() {
@@ -119,7 +119,7 @@ module.exports = angular
       this.cloneSecurityGroup = function cloneSecurityGroup() {
         $uibModal.open({
           templateUrl: require('../clone/cloneSecurityGroup.html'),
-          controller: 'awsCloneSecurityGroupController as ctrl',
+          controller: 'tencentCloneSecurityGroupController as ctrl',
           size: 'lg',
           resolve: {
             securityGroup: function() {

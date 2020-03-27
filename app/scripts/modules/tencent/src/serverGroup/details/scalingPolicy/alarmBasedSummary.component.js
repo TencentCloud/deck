@@ -31,7 +31,7 @@ module.exports = angular
         this.editPolicy = () => {
           $uibModal.open({
             templateUrl: require('./upsert/upsertScalingPolicy.modal.html'),
-            controller: 'awsUpsertScalingPolicyCtrl',
+            controller: 'tencentUpsertScalingPolicyCtrl',
             controllerAs: 'ctrl',
             size: 'lg',
             resolve: {
