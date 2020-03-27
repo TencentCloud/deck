@@ -347,6 +347,12 @@ export class AwsServerGroupConfigurationService {
     filteredData.vpcList = chain(command.backingData.vpcList)
       .filter({ account: command.credentials, region: command.region })
       .value();
+    if (
+      !command.vpcId ||
+      (filteredData.vpcList.length && !filteredData.vpcList.find(vpc => vpc.id === command.vpcId))
+    ) {
+      command.vpcId = filteredData.vpcList[0].id;
+    }
     return result;
   }
 
