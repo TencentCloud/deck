@@ -532,12 +532,6 @@ export class AwsLoadBalancerTransformer {
         {
           protocol: 'TCP',
           port: 80,
-          defaultActions: [
-            {
-              type: 'forward',
-              targetGroupName: defaultTargetGroupName,
-            },
-          ],
           rules: [],
           healthCheck: {
             healthSwitch: 1,

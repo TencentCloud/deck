@@ -94,6 +94,7 @@ module.exports = angular
                 dirty: {},
                 submitButtonLabel: getSubmitButtonLabel(defaults.mode || 'create'),
               },
+              forwardLoadBalancers: [],
               internetAccessible: {
                 internetChargeType: 'TRAFFIC_POSTPAID_BY_HOUR',
                 internetMaxBandwidthOut: 1,
@@ -148,7 +149,6 @@ module.exports = angular
             existingPipelineCluster: true,
             dirty: {},
           };
-          const forwardLoadBalancer = pipelineCluster.forwardLoadBalancers && pipelineCluster.forwardLoadBalancers[0];
           var viewOverrides = {
             region: region,
             credentials: pipelineCluster.account || pipelineCluster.accountName,
@@ -162,17 +162,6 @@ module.exports = angular
                     return pre;
                   }, {})
                 : {},
-            loadBalancerId: forwardLoadBalancer && forwardLoadBalancer.loadBalancerId,
-            listenerId: forwardLoadBalancer && forwardLoadBalancer.listenerId,
-            locationId: forwardLoadBalancer && forwardLoadBalancer.locationId,
-            port:
-              forwardLoadBalancer &&
-              forwardLoadBalancer.targetAttributes &&
-              forwardLoadBalancer.targetAttributes[0].port,
-            weight:
-              forwardLoadBalancer &&
-              forwardLoadBalancer.targetAttributes &&
-              forwardLoadBalancer.targetAttributes[0].weight,
           };
 
           pipelineCluster.strategy = pipelineCluster.strategy || '';
@@ -249,10 +238,6 @@ module.exports = angular
                 existingTags[tag.key] = tag.value;
               });
           }
-          const listener =
-            serverGroup.asg.forwardLoadBalancerSet &&
-            serverGroup.asg.forwardLoadBalancerSet.length &&
-            serverGroup.asg.forwardLoadBalancerSet[0];
           var command = {
             application: application.name,
             strategy: '',
@@ -265,10 +250,7 @@ module.exports = angular
             loadBalancers: serverGroup.asg.loadBalancerNames,
             loadBalancerId:
               serverGroup.loadBalancers && serverGroup.loadBalancers.length && serverGroup.loadBalancers[0],
-            listenerId: listener && listener.listenerId,
-            locationId: listener && listener.locationId,
-            port: listener && listener.targetAttributes[0].port,
-            weight: listener && listener.targetAttributes[0].weight,
+            forwardLoadBalancers: serverGroup.asg.forwardLoadBalancerSet,
             region: serverGroup.region,
             useSourceCapacity: false,
             capacity: {

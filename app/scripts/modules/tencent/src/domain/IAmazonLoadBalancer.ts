@@ -98,7 +98,6 @@ export interface IALBListenerCertificate {
 
 export interface IALBListener {
   certificates: IALBListenerCertificate[];
-  defaultActions: IListenerAction[];
   port: number;
   protocol: string;
   rules: IListenerRule[];

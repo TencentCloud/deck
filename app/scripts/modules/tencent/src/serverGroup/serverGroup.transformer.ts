@@ -70,7 +70,7 @@ export class AwsServerGroupTransformer {
   }
 
   public convertServerGroupCommandToDeployConfiguration(base: any): any {
-    let command = {
+    const command = {
       ...base,
       backingData: {},
       viewState: {},
@@ -120,30 +120,12 @@ export class AwsServerGroupTransformer {
       defaultCooldown: base.cooldown,
       enhancedService: base.enhancedService,
       source: base.viewState && base.viewState.mode === 'clone' ? base.source : undefined,
+      forwardLoadBalancers: base.forwardLoadBalancers,
     };
-    if (base.loadBalancerId) {
-      if (base.listenerId) {
-        command.forwardLoadBalancers = [
-          {
-            loadBalancerId: base.loadBalancerId,
-            listenerId: base.listenerId,
-            locationId: base.locationId,
-            targetAttributes: [
-              {
-                port: base.port,
-                weight: base.weight,
-              },
-            ],
-          },
-        ];
-      } else {
-        command.loadBalancerId = base.loadBalancerId;
-      }
-    }
     return command;
   }
 
-  public constructNewStepScalingPolicyTemplate(serverGroup: IAmazonServerGroup): IScalingPolicy {
+  public constructNewStepScalingPolicyTemplate(): IScalingPolicy {
     return {
       metricAlarm: {
         metricName: 'CPU_UTILIZATION',
