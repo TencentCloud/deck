@@ -77,6 +77,7 @@ export interface ITencentInternetAccessible {
   publicIpAssigned: boolean;
 }
 export interface IAmazonServerGroupCommand extends IServerGroupCommand {
+  detail: string;
   subnetIds: string[];
   internetAccessible: ITencentInternetAccessible;
   systemDisk: ITencentDisk;
