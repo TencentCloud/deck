@@ -29,7 +29,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsResizeAsgStageCtrl', [
+  .controller('tencentResizeAsgStageCtrl', [
     '$scope',
     function($scope) {
       var ctrl = this;

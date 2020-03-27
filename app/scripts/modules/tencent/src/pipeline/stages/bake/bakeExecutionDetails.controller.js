@@ -7,7 +7,7 @@ import { SETTINGS } from '@spinnaker/core';
 
 module.exports = angular
   .module('spinnaker.tencent.pipeline.stage.bake.executionDetails.controller', [require('@uirouter/angularjs').default])
-  .controller('awsBakeExecutionDetailsCtrl', [
+  .controller('tencentBakeExecutionDetailsCtrl', [
     '$scope',
     '$stateParams',
     'executionDetailsSectionService',

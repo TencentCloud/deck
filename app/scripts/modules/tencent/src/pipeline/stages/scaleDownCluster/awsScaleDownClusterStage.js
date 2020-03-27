@@ -26,7 +26,7 @@ module.exports = angular
       strategy: true,
     });
   })
-  .controller('awsScaleDownClusterStageCtrl', [
+  .controller('tencentScaleDownClusterStageCtrl', [
     '$scope',
     function($scope) {
       var ctrl = this;

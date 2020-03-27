@@ -18,7 +18,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsRollbackClusterStageCtrl', [
+  .controller('tencentRollbackClusterStageCtrl', [
     '$scope',
     function($scope) {
       var ctrl = this;

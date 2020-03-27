@@ -20,7 +20,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsFindAmiStageCtrl', [
+  .controller('tencentFindAmiStageCtrl', [
     '$scope',
     function($scope) {
       let stage = $scope.stage;

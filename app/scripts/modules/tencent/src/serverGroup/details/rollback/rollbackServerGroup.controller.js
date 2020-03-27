@@ -7,7 +7,7 @@ import { SERVER_GROUP_WRITER, TaskMonitor } from '@spinnaker/core';
 
 module.exports = angular
   .module('spinnaker.tencent.serverGroup.details.rollback.controller', [SERVER_GROUP_WRITER])
-  .controller('awsRollbackServerGroupCtrl', [
+  .controller('tencentRollbackServerGroupCtrl', [
     '$scope',
     '$uibModalInstance',
     'serverGroupWriter',

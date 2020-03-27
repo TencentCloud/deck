@@ -21,7 +21,7 @@ module.exports = angular
     CONFIRMATION_MODAL_SERVICE,
     require('../clone/cloneSecurityGroup.controller').name,
   ])
-  .controller('awsSecurityGroupDetailsCtrl', [
+  .controller('tencentSecurityGroupDetailsCtrl', [
     '$scope',
     '$state',
     'resolvedSecurityGroup',

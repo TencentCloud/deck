@@ -26,7 +26,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsDisableAsgStageCtrl', [
+  .controller('tencentDisableAsgStageCtrl', [
     '$scope',
     function($scope) {
       let stage = $scope.stage;

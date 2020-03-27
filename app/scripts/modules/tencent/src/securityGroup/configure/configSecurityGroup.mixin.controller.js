@@ -20,7 +20,7 @@ module.exports = angular
     require('@uirouter/angularjs').default,
     SECURITY_GROUP_READER,
   ])
-  .controller('awsConfigSecurityGroupMixin', [
+  .controller('tencentConfigSecurityGroupMixin', [
     '$scope',
     '$state',
     '$uibModalInstance',

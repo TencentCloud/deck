@@ -23,7 +23,7 @@ module.exports = angular
       ],
     });
   })
-  .controller('awsDisableClusterStageCtrl', [
+  .controller('tencentDisableClusterStageCtrl', [
     '$scope',
     function($scope) {
       var ctrl = this;

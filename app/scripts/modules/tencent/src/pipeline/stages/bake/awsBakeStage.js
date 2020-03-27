@@ -41,7 +41,7 @@ module.exports = angular
       restartable: true,
     });
   })
-  .controller('awsBakeStageCtrl', [
+  .controller('tencentBakeStageCtrl', [
     '$scope',
     '$q',
     '$uibModal',

@@ -11,7 +11,7 @@ export interface IVpcTagState {
 }
 
 export class VpcTag extends React.Component<IVpcTagProps, IVpcTagState> {
-  private defaultLabel = 'None (EC2 Classic)';
+  private defaultLabel = 'None ';
 
   constructor(props: IVpcTagProps) {
     super(props);
