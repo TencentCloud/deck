@@ -78,6 +78,7 @@ export class AwsServerGroupTransformer {
     const command = Object.assign(base, {
       backingData: [],
       viewState: [],
+      availabilityZones: {},
       type: base.type,
       cloudProvider: 'tencent',
       application: base.application,
