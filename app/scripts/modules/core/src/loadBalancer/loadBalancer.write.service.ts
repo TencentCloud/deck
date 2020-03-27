@@ -17,6 +17,7 @@ export interface ILoadBalancerUpsertCommand extends IJob {
   moniker?: IMoniker;
   region: string;
   stack?: string;
+  loadBalancerId?: string;
 }
 
 export interface ILoadBalancerDeleteCommand extends IJob {

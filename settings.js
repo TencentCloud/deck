@@ -7,7 +7,7 @@ var artifactsEnabled = process.env.ARTIFACTS_ENABLED === 'true';
 var artifactsRewriteEnabled = process.env.ARTIFACTS_REWRITE_ENABLED === 'true';
 var atlasWebComponentsUrl = process.env.ATLAS_WEB_COMPONENTS_URL;
 var authEndpoint = process.env.AUTH_ENDPOINT || apiHost + '/auth/user';
-var authEnabled = process.env.AUTH_ENABLED === 'false' ? false : true;
+var authEnabled = false;
 var bakeryDetailUrl =
   process.env.BAKERY_DETAIL_URL || apiHost + '/bakery/logs/{{context.region}}/{{context.status.resourceId}}';
 var canaryAccount = process.env.CANARY_ACCOUNT || '';
@@ -66,6 +66,7 @@ window.spinnakerSettings = {
     'huaweicloud',
     'kubernetes',
     'oracle',
+    'tencent',
   ],
   defaultTimeZone: process.env.TIMEZONE || 'America/Los_Angeles', // see http://momentjs.com/timezone/docs/#/data-utilities/
   entityTags: {
@@ -232,6 +233,12 @@ window.spinnakerSettings = {
         account: 'titustestvpc',
         iamProfile: '{{application}}InstanceProfile',
         region: 'us-east-1',
+      },
+    },
+    tencent: {
+      defaults: {
+        account: 'test',
+        region: 'ap-guangzhou',
       },
     },
   },
