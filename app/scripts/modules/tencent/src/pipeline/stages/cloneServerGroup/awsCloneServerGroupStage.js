@@ -69,16 +69,16 @@ module.exports = angular
           let moniker = _.first(AppListExtractor.getMonikers([$scope.application], filterByCluster));
           if (moniker) {
             stage.stack = moniker.stack;
-            stage.freeFormDetails = moniker.detail;
+            stage.detail = moniker.detail;
           } else {
             // if the user has entered a free-form value for the target cluster, fall back to the naming service
             const nameParts = NameUtils.parseClusterName(stage.targetCluster);
             stage.stack = nameParts.stack;
-            stage.freeFormDetails = nameParts.freeFormDetails;
+            stage.detail = nameParts.detail;
           }
         } else {
           stage.stack = '';
-          stage.freeFormDetails = '';
+          stage.detail = '';
         }
       };
 

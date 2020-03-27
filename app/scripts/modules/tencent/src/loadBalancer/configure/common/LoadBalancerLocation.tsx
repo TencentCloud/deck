@@ -90,7 +90,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
     if (isNil(values.moniker)) {
       const nameParts = NameUtils.parseLoadBalancerName(values.name);
       values.stack = nameParts.stack;
-      values.detail = nameParts.freeFormDetails;
+      values.detail = nameParts.detail;
     } else {
       values.stack = values.moniker.stack;
       values.detail = values.moniker.detail;
