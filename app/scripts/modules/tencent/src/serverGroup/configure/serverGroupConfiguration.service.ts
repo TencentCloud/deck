@@ -349,6 +349,7 @@ export class AwsServerGroupConfigurationService {
       (filteredData.vpcList.length && !filteredData.vpcList.find(vpc => vpc.id === command.vpcId))
     ) {
       command.vpcId = filteredData.vpcList[0].id;
+      command.vpcIdChanged(command);
     }
     return result;
   }

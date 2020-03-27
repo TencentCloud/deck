@@ -80,6 +80,7 @@ export class AwsServerGroupTransformer {
       application: base.application,
       stack: base.stack,
       detail: base.detail,
+      freeFormDetails: base.detail,
       strategy: base.strategy,
       account: base.credentials,
       accountName: base.credentials,
