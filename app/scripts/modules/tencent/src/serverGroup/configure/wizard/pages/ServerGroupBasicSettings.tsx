@@ -91,7 +91,7 @@ export class ServerGroupBasicSettings
           snapshotSet
             .filter(s => s.diskUsage === 'DATA_DISK')
             .map((s, index) => ({
-              diskType: 'CLOUD_BASIC',
+              diskType: 'CLOUD_PREMIUM',
               diskSize: s.diskSize,
               snapshotId: s.snapshotId,
               index,
