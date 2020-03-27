@@ -75,7 +75,7 @@ export class AwsServerGroupTransformer {
         delete base[key];
       }
     }
-    const command = Object.assign(base, {
+    let command = Object.assign(base, {
       backingData: [],
       viewState: [],
       availabilityZones: {},
@@ -122,8 +122,6 @@ export class AwsServerGroupTransformer {
       userData: base.userData ? btoa(base.userData) : undefined,
       defaultCooldown: base.cooldown,
       enhancedService: base.enhancedService,
-      forwardLoadBalancers: undefined as any[],
-      loadBalancerId: undefined as string,
       source: base.viewState && base.viewState.mode === 'clone' ? base.source : undefined,
     });
     if (base.loadBalancerId) {

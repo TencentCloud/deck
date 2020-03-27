@@ -77,8 +77,10 @@
     </collapsible-section>
     <collapsible-section heading="Listeners({{ctrl.loadBalancer.listeners.length}})">
       <dl class="dl-horizontal dl-flex" ng-repeat="listener in ctrl.loadBalancer.listeners">
-        <dt>ListenerId</dt>
+        <dt>Listener Id</dt>
         <dd>{{listener.listenerId}}</dd>
+        <dt ng-if="listener.listenerName">Listener Name</dt>
+        <dd ng-if="listener.listenerName">{{listener.listenerName}}</dd>
         <dt>Protocol</dt>
         <dd>{{listener.protocol}}</dd>
         <dt>Port</dt>
