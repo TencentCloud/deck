@@ -113,7 +113,7 @@ module(TENCENT_MODULE, [
     instance: {
       instanceTypeService: 'tencentInstanceTypeService',
       detailsTemplateUrl: require('./instance/details/instanceDetails.html'),
-      detailsController: 'awsInstanceDetailsCtrl',
+      detailsController: 'tencentInstanceDetailsCtrl',
     },
     loadBalancer: {
       transformer: 'tencentLoadBalancerTransformer',
@@ -121,23 +121,23 @@ module(TENCENT_MODULE, [
       detailsController: 'tencentLoadBalancerDetailsCtrl',
       CreateLoadBalancerModal: CreateApplicationLoadBalancer,
       targetGroupDetailsTemplateUrl: require('./loadBalancer/details/targetGroupDetails.html'),
-      targetGroupDetailsController: 'awsTargetGroupDetailsCtrl',
+      targetGroupDetailsController: 'tencentTargetGroupDetailsCtrl',
       ClusterContainer: AmazonLoadBalancerClusterContainer,
       LoadBalancersTag: AmazonLoadBalancersTag,
     },
     securityGroup: {
-      transformer: 'awsSecurityGroupTransformer',
-      reader: 'awsSecurityGroupReader',
+      transformer: 'tencentSecurityGroupTransformer',
+      reader: 'tencentSecurityGroupReader',
       detailsTemplateUrl: require('./securityGroup/details/securityGroupDetail.html'),
-      detailsController: 'awsSecurityGroupDetailsCtrl',
+      detailsController: 'tencentSecurityGroupDetailsCtrl',
       createSecurityGroupTemplateUrl: require('./securityGroup/configure/createSecurityGroup.html'),
-      createSecurityGroupController: 'awsCreateSecurityGroupCtrl',
+      createSecurityGroupController: 'tencentCreateSecurityGroupCtrl',
     },
     subnet: {
-      renderer: 'awsSubnetRenderer',
+      renderer: 'tencentSubnetRenderer',
     },
     search: {
-      resultFormatter: 'awsSearchResultFormatter',
+      resultFormatter: 'tencentSearchResultFormatter',
     },
   });
 });

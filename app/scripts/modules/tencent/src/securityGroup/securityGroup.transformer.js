@@ -6,7 +6,7 @@ import { VpcReader } from '../vpc/VpcReader';
 
 module.exports = angular
   .module('spinnaker.tencent.securityGroup.transformer', [])
-  .factory('awsSecurityGroupTransformer', function() {
+  .factory('tencentSecurityGroupTransformer', function() {
     function normalizeSecurityGroup(securityGroup) {
       return VpcReader.listVpcs().then(addVpcNameToSecurityGroup(securityGroup));
     }

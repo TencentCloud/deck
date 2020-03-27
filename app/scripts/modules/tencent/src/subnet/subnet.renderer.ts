@@ -9,4 +9,4 @@ export class AwsSubnetRenderer {
 }
 
 export const SUBNET_RENDERER = 'spinnaker.tencent.subnet.renderer';
-module(SUBNET_RENDERER, []).service('awsSubnetRenderer', AwsSubnetRenderer);
+module(SUBNET_RENDERER, []).service('tencentSubnetRenderer', AwsSubnetRenderer);

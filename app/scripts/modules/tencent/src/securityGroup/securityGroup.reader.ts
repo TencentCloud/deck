@@ -13,4 +13,4 @@ export class AwsSecurityGroupReader {
 }
 
 export const AWS_SECURITY_GROUP_READER = 'spinnaker.tencent.securityGroup.reader';
-module(AWS_SECURITY_GROUP_READER, []).service('awsSecurityGroupReader', AwsSecurityGroupReader);
+module(AWS_SECURITY_GROUP_READER, []).service('tencentSecurityGroupReader', AwsSecurityGroupReader);
