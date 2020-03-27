@@ -168,6 +168,11 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
     this.updateListeners();
   }
 
+  private listenerNameChanged(listener: IListenerDescription, newName: string): void {
+    listener.listenerName = newName;
+    this.updateListeners();
+  }
+
   private certificateTypeChanged(certificate: IALBListenerCertificate, newType: string): void {
     certificate.sslMode = newType;
     if (certificate.sslMode === 'UNIDIRECTIONAL') {
@@ -350,6 +355,18 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
                             onChange={event => this.listenerPortChanged(listener, parseInt(event.target.value, 10))}
                             style={{ width: '80px' }}
                             required={true}
+                          />
+                        </span>
+                        <span className="wizard-pod-content">
+                          <label>Name</label>
+                          <input
+                            disabled={!listener.isNew}
+                            className="form-control input-sm inline-number"
+                            type="text"
+                            value={listener.listenerName || ''}
+                            onChange={event => this.listenerNameChanged(listener, event.target.value)}
+                            style={{ width: '150px' }}
+                            required={false}
                           />
                         </span>
                       </div>
