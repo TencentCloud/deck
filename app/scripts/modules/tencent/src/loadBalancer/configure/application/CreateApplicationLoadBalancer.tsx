@@ -103,6 +103,7 @@ export class CreateApplicationLoadBalancer extends React.Component<
       } else {
         delete listener.rules;
       }
+      delete listener.isNew;
       return listener;
     });
   }

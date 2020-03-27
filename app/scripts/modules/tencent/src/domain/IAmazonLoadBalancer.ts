@@ -176,6 +176,7 @@ export interface IListenerDescription {
   sslPolicy?: string;
   rules?: IListenerRule[];
   healthCheck?: ITencentHealthCheck;
+  listenerName?: string;
 }
 
 export interface IALBTargetGroupDescription {

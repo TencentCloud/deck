@@ -157,4 +157,4 @@ module(AWS_LOAD_BALANCER_DETAILS_CTRL, [
   LOAD_BALANCER_ACTIONS,
   LOAD_BALANCER_READ_SERVICE,
   CONFIRMATION_MODAL_SERVICE,
-]).controller('awsLoadBalancerDetailsCtrl', AwsLoadBalancerDetailsController);
+]).controller('tencentLoadBalancerDetailsCtrl', AwsLoadBalancerDetailsController);

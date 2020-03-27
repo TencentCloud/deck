@@ -118,7 +118,7 @@ module(TENCENT_MODULE, [
     loadBalancer: {
       transformer: 'awsLoadBalancerTransformer',
       detailsTemplateUrl: require('./loadBalancer/details/loadBalancerDetails.html'),
-      detailsController: 'awsLoadBalancerDetailsCtrl',
+      detailsController: 'tencentLoadBalancerDetailsCtrl',
       CreateLoadBalancerModal: CreateApplicationLoadBalancer,
       targetGroupDetailsTemplateUrl: require('./loadBalancer/details/targetGroupDetails.html'),
       targetGroupDetailsController: 'awsTargetGroupDetailsCtrl',
