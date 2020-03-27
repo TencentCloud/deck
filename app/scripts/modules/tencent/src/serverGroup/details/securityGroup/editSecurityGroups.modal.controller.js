@@ -10,7 +10,7 @@ module.exports = angular
     SERVER_GROUP_WRITER,
     SECURITY_GROUP_READER,
   ])
-  .controller('EditSecurityGroupsCtrl', [
+  .controller('tencentEditSecurityGroupsCtrl', [
     '$scope',
     '$uibModalInstance',
     'serverGroupWriter',

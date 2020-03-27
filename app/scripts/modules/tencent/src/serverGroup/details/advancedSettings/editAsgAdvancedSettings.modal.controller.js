@@ -8,7 +8,7 @@ module.exports = angular
   .module('spinnaker.tencent.serverGroup.editAsgAdvancedSettings.modal.controller', [
     require('../../configure/serverGroupCommandBuilder.service').name,
   ])
-  .controller('EditAsgAdvancedSettingsCtrl', [
+  .controller('tencentEditAsgAdvancedSettingsCtrl', [
     '$scope',
     '$uibModalInstance',
     'application',
