@@ -129,12 +129,12 @@ export class AmazonCloneServerGroupModal extends React.Component<
 
     command.credentialsChanged(command);
     command.regionChanged(command);
-    AwsReactInjector.awsServerGroupConfigurationService.configureSubnetPurposes(command);
+    AwsReactInjector.tencentServerGroupConfigurationService.configureSubnetPurposes(command);
   };
 
   private configureCommand = () => {
     const { application, command } = this.props;
-    AwsReactInjector.awsServerGroupConfigurationService.configureCommand(application, command).then(() => {
+    AwsReactInjector.tencentServerGroupConfigurationService.configureCommand(application, command).then(() => {
       this.initializeCommand();
       this.setState({ loaded: true, requiresTemplateSelection: false });
     });

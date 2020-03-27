@@ -110,7 +110,6 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
           <div className="col-md-6">
             <Select
               value={values.keyPair}
-              required={true}
               clearable={false}
               options={keyPairs.map(t => ({ label: `${t.keyName}(${t.keyId})`, value: t.keyId }))}
               onChange={(option: Option) => setFieldValue('keyPair', option.value)}

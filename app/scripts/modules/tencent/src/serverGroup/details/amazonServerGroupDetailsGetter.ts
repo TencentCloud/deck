@@ -51,7 +51,7 @@ export function amazonServerGroupDetailsGetter(
         // it's possible the summary was not found because the clusters are still loading
         Object.assign(details, summary, { account: serverGroupInfo.accountId });
 
-        const serverGroup = AwsReactInjector.awsServerGroupTransformer.normalizeServerGroupDetails(details);
+        const serverGroup = AwsReactInjector.tencentServerGroupTransformer.normalizeServerGroupDetails(details);
 
         AccountService.getAccountDetails(serverGroup.account).then(accountDetails => {
           serverGroup.accountDetails = accountDetails;

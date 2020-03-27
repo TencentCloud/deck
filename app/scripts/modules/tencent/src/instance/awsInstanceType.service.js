@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { API } from '@spinnaker/core';
 
-module.exports = angular.module('spinnaker.tencent.instanceType.service', []).factory('awsInstanceTypeService', [
+module.exports = angular.module('spinnaker.tencent.instanceType.service', []).factory('tencentInstanceTypeService', [
   '$http',
   '$q',
   function($http, $q) {
