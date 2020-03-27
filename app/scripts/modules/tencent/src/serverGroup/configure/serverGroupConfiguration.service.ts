@@ -102,7 +102,6 @@ export interface IAmazonServerGroupCommand extends IServerGroupCommand {
   };
   keyPair: string;
   legacyUdf?: boolean;
-  spotPrice: string;
   targetHealthyDeployPercentage: number;
   useAmiBlockDeviceMappings: boolean;
   targetGroups: string[];
