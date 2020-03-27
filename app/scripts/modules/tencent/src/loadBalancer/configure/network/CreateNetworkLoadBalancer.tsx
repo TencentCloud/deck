@@ -58,8 +58,8 @@ export class CreateNetworkLoadBalancer extends React.Component<
     super(props);
 
     const loadBalancerCommand = props.loadBalancer
-      ? AwsReactInjector.awsLoadBalancerTransformer.convertNetworkLoadBalancerForEditing(props.loadBalancer)
-      : AwsReactInjector.awsLoadBalancerTransformer.constructNewNetworkLoadBalancerTemplate(props.app);
+      ? AwsReactInjector.tencentLoadBalancerTransformer.convertNetworkLoadBalancerForEditing(props.loadBalancer)
+      : AwsReactInjector.tencentLoadBalancerTransformer.constructNewNetworkLoadBalancerTemplate(props.app);
 
     this.state = {
       isNew: !props.loadBalancer,

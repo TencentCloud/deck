@@ -88,7 +88,7 @@ module(TENCENT_MODULE, [
       reader: AwsImageReader,
     },
     serverGroup: {
-      transformer: 'awsServerGroupTransformer',
+      transformer: 'tencentServerGroupTransformer',
       detailsActions: AmazonServerGroupActions,
       detailsGetter: amazonServerGroupDetailsGetter,
       detailsSections: [
@@ -106,17 +106,17 @@ module(TENCENT_MODULE, [
         LogsDetailsSection,
       ],
       CloneServerGroupModal: AmazonCloneServerGroupModal,
-      commandBuilder: 'awsServerGroupCommandBuilder',
-      configurationService: 'awsServerGroupConfigurationService',
+      commandBuilder: 'tencentServerGroupCommandBuilder',
+      configurationService: 'tencentServerGroupConfigurationService',
       scalingActivitiesEnabled: true,
     },
     instance: {
-      instanceTypeService: 'awsInstanceTypeService',
+      instanceTypeService: 'tencentInstanceTypeService',
       detailsTemplateUrl: require('./instance/details/instanceDetails.html'),
       detailsController: 'awsInstanceDetailsCtrl',
     },
     loadBalancer: {
-      transformer: 'awsLoadBalancerTransformer',
+      transformer: 'tencentLoadBalancerTransformer',
       detailsTemplateUrl: require('./loadBalancer/details/loadBalancerDetails.html'),
       detailsController: 'tencentLoadBalancerDetailsCtrl',
       CreateLoadBalancerModal: CreateApplicationLoadBalancer,

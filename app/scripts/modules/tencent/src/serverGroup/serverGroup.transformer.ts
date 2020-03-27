@@ -164,4 +164,4 @@ export class AwsServerGroupTransformer {
 }
 
 export const AWS_SERVER_GROUP_TRANSFORMER = 'spinnaker.tencent.serverGroup.transformer';
-module(AWS_SERVER_GROUP_TRANSFORMER, []).service('awsServerGroupTransformer', AwsServerGroupTransformer);
+module(AWS_SERVER_GROUP_TRANSFORMER, []).service('tencentServerGroupTransformer', AwsServerGroupTransformer);

@@ -13,11 +13,11 @@ module.exports = angular
     INSTANCE_TYPE_SERVICE,
     AWS_SERVER_GROUP_CONFIGURATION_SERVICE,
   ])
-  .factory('awsServerGroupCommandBuilder', [
+  .factory('tencentServerGroupCommandBuilder', [
     '$q',
     'instanceTypeService',
-    'awsServerGroupConfigurationService',
-    function($q, instanceTypeService, awsServerGroupConfigurationService) {
+    'tencentServerGroupConfigurationService',
+    function($q, instanceTypeService, tencentServerGroupConfigurationService) {
       function buildNewServerGroupCommand(application, defaults) {
         defaults = defaults || {};
         var credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencent');
@@ -203,7 +203,7 @@ module.exports = angular
           terminationPolicies: angular.copy(serverGroup.asg.terminationPolicies),
           credentials: serverGroup.account,
         };
-        awsServerGroupConfigurationService.configureUpdateCommand(command);
+        tencentServerGroupConfigurationService.configureUpdateCommand(command);
         return command;
       }
 

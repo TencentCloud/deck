@@ -558,4 +558,4 @@ export class AwsLoadBalancerTransformer {
 }
 
 export const AWS_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencent.loadBalancer.transformer';
-module(AWS_LOAD_BALANCER_TRANSFORMER, []).service('awsLoadBalancerTransformer', AwsLoadBalancerTransformer);
+module(AWS_LOAD_BALANCER_TRANSFORMER, []).service('tencentLoadBalancerTransformer', AwsLoadBalancerTransformer);

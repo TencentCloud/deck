@@ -19,7 +19,7 @@ describe('Service: awsServerGroupConfiguration', function() {
   let service: AwsServerGroupConfigurationService,
     $q: IQService,
     securityGroupReader: SecurityGroupReader,
-    awsInstanceTypeService: any,
+    tencentInstanceTypeService: any,
     cacheInitializer: CacheInitializerService,
     loadBalancerReader: LoadBalancerReader,
     $scope: IScope;
@@ -31,7 +31,7 @@ describe('Service: awsServerGroupConfiguration', function() {
       _awsServerGroupConfigurationService_: AwsServerGroupConfigurationService,
       _$q_: IQService,
       _securityGroupReader_: SecurityGroupReader,
-      _awsInstanceTypeService_: any,
+      _tencentInstanceTypeService_: any,
       _cacheInitializer_: CacheInitializerService,
       _loadBalancerReader_: LoadBalancerReader,
       $rootScope: IRootScopeService,
@@ -39,7 +39,7 @@ describe('Service: awsServerGroupConfiguration', function() {
       service = _awsServerGroupConfigurationService_;
       $q = _$q_;
       securityGroupReader = _securityGroupReader_;
-      awsInstanceTypeService = _awsInstanceTypeService_;
+      tencentInstanceTypeService = _tencentInstanceTypeService_;
       cacheInitializer = _cacheInitializer_;
       loadBalancerReader = _loadBalancerReader_;
       $scope = $rootScope.$new();
@@ -89,7 +89,7 @@ describe('Service: awsServerGroupConfiguration', function() {
       spyOn(SubnetReader, 'listSubnets').and.returnValue($q.when([]));
       spyOn(AccountService, 'getPreferredZonesByAccount').and.returnValue($q.when([]));
       spyOn(KeyPairsReader, 'listKeyPairs').and.returnValue($q.when([]));
-      spyOn(awsInstanceTypeService, 'getAllTypesByRegion').and.returnValue($q.when([]));
+      spyOn(tencentInstanceTypeService, 'getAllTypesByRegion').and.returnValue($q.when([]));
       const refreshCacheSpy = spyOn(cacheInitializer, 'refreshCache').and.returnValue($q.when(null));
 
       const command = {

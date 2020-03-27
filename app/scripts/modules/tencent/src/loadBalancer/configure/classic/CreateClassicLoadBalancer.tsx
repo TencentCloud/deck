@@ -60,8 +60,8 @@ export class CreateClassicLoadBalancer extends React.Component<
     super(props);
 
     const loadBalancerCommand = props.loadBalancer
-      ? AwsReactInjector.awsLoadBalancerTransformer.convertClassicLoadBalancerForEditing(props.loadBalancer)
-      : AwsReactInjector.awsLoadBalancerTransformer.constructNewClassicLoadBalancerTemplate(props.app);
+      ? AwsReactInjector.tencentLoadBalancerTransformer.convertClassicLoadBalancerForEditing(props.loadBalancer)
+      : AwsReactInjector.tencentLoadBalancerTransformer.constructNewClassicLoadBalancerTemplate(props.app);
 
     this.state = {
       isNew: !props.loadBalancer,

@@ -43,7 +43,8 @@ export class CreateScalingPolicyButton extends React.Component<
         controllerAs: 'ctrl',
         size: 'lg',
         resolve: {
-          policy: () => AwsReactInjector.awsServerGroupTransformer.constructNewStepScalingPolicyTemplate(serverGroup),
+          policy: () =>
+            AwsReactInjector.tencentServerGroupTransformer.constructNewStepScalingPolicyTemplate(serverGroup),
           serverGroup: () => serverGroup,
           application: () => application,
         },

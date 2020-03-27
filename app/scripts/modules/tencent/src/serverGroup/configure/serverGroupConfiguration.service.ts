@@ -134,14 +134,14 @@ export class AwsServerGroupConfigurationService {
   private diskTypes = ['CLOUD_BASIC', 'CLOUD_PREMIUM', 'CLOUD_SSD'];
   public static $inject = [
     'securityGroupReader',
-    'awsInstanceTypeService',
+    'tencentInstanceTypeService',
     'cacheInitializer',
     'loadBalancerReader',
     'serverGroupCommandRegistry',
   ];
   constructor(
     private securityGroupReader: SecurityGroupReader,
-    private awsInstanceTypeService: any,
+    private tencentInstanceTypeService: any,
     private cacheInitializer: CacheInitializerService,
     private loadBalancerReader: LoadBalancerReader,
     private serverGroupCommandRegistry: ServerGroupCommandRegistry,
@@ -219,7 +219,7 @@ export class AwsServerGroupConfigurationService {
         loadBalancers: this.loadBalancerReader.listLoadBalancers('tencent'),
         preferredZones: AccountService.getPreferredZonesByAccount('tencent'),
         keyPairs: KeyPairsReader.listKeyPairs(),
-        instanceTypes: this.awsInstanceTypeService.getAllTypesByRegion(),
+        instanceTypes: this.tencentInstanceTypeService.getAllTypesByRegion(),
         enabledMetrics: $q.when(clone(this.enabledMetrics)),
         terminationPolicies: $q.when(clone(this.terminationPolicies)),
         diskTypes: $q.when(clone(this.diskTypes)),
@@ -304,7 +304,7 @@ export class AwsServerGroupConfigurationService {
 
   public configureInstanceTypes(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
     const result: IAmazonServerGroupCommandResult = { dirty: {} };
-    const filtered = this.awsInstanceTypeService.getAvailableTypesForRegions(command.backingData.instanceTypes, [
+    const filtered = this.tencentInstanceTypeService.getAvailableTypesForRegions(command.backingData.instanceTypes, [
       command.region,
     ]);
     if (command.instanceType && !filtered.includes(command.instanceType)) {
@@ -564,7 +564,7 @@ export class AwsServerGroupConfigurationService {
       this.configureInstanceTypes(command);
 
     cmd.instanceTypeChanged = (command: IAmazonServerGroupCommand): void => {
-      command.ebsOptimized = this.awsInstanceTypeService.isEbsOptimized(command.instanceType);
+      command.ebsOptimized = this.tencentInstanceTypeService.isEbsOptimized(command.instanceType);
     };
 
     this.applyOverrides('attachEventHandlers', cmd);
@@ -578,4 +578,4 @@ module(AWS_SERVER_GROUP_CONFIGURATION_SERVICE, [
   LOAD_BALANCER_READ_SERVICE,
   CACHE_INITIALIZER_SERVICE,
   SERVER_GROUP_COMMAND_REGISTRY_PROVIDER,
-]).service('awsServerGroupConfigurationService', AwsServerGroupConfigurationService);
+]).service('tencentServerGroupConfigurationService', AwsServerGroupConfigurationService);

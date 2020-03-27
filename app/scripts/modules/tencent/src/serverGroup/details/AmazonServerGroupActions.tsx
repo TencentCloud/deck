@@ -262,7 +262,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
 
   private cloneServerGroup = (): void => {
     const { app, serverGroup } = this.props;
-    AwsReactInjector.awsServerGroupCommandBuilder
+    AwsReactInjector.tencentServerGroupCommandBuilder
       .buildServerGroupCommandFromExisting(app, serverGroup)
       .then((command: IAmazonServerGroupCommand) => {
         const title = `Clone ${serverGroup.name}`;

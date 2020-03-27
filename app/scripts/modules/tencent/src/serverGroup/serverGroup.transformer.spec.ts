@@ -4,7 +4,7 @@ import { AWS_SERVER_GROUP_TRANSFORMER, AwsServerGroupTransformer } from './serve
 import { IScalingPolicyAlarmView, IAmazonServerGroup, IStepAdjustment } from '../domain';
 import { VpcReader } from '../vpc/VpcReader';
 
-describe('awsServerGroupTransformer', () => {
+describe('tencentServerGroupTransformer', () => {
   let transformer: AwsServerGroupTransformer, $q: IQService, $scope: IScope;
 
   beforeEach(mock.module(AWS_SERVER_GROUP_TRANSFORMER));

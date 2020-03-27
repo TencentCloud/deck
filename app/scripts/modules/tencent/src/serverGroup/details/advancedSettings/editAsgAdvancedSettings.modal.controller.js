@@ -13,9 +13,9 @@ module.exports = angular
     '$uibModalInstance',
     'application',
     'serverGroup',
-    'awsServerGroupCommandBuilder',
-    function($scope, $uibModalInstance, application, serverGroup, awsServerGroupCommandBuilder) {
-      $scope.command = awsServerGroupCommandBuilder.buildUpdateServerGroupCommand(serverGroup);
+    'tencentServerGroupCommandBuilder',
+    function($scope, $uibModalInstance, application, serverGroup, tencentServerGroupCommandBuilder) {
+      $scope.command = tencentServerGroupCommandBuilder.buildUpdateServerGroupCommand(serverGroup);
 
       $scope.serverGroup = serverGroup;
 
