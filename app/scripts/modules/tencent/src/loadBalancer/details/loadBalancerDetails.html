@@ -68,11 +68,17 @@
           <account-tag account="ctrl.loadBalancer.account" pad="right"></account-tag> {{ctrl.loadBalancer.region}}
         </dd>
         <dt>VPC</dt>
-        <dd><tencent-vpc-tag vpc-id="ctrl.loadBalancer.elb.vpcId"></tencent-vpc-tag></dd>
+        <dd>
+          <tencent-vpc-tag vpc-id="ctrl.loadBalancer.elb.vpcId"></tencent-vpc-tag>
+        </dd>
         <dt ng-if="ctrl.loadBalancer.subnetId">Subnet</dt>
         <dd ng-if="ctrl.loadBalancer.subnetId">{{ctrl.loadBalancer.subnetId}}</dd>
-        <dt ng-if="ctrl.ipAddressTypeDescription">Type</dt>
-        <dd ng-if="ctrl.ipAddressTypeDescription">{{ctrl.loadBalancer.loadBalancerType}}</dd>
+        <dt ng-if="ctrl.loadBalancer.loadBalancerType">Type</dt>
+        <dd ng-if="ctrl.loadBalancer.loadBalancerType">{{ctrl.loadBalancer.loadBalancerType}}</dd>
+        <dt ng-if="ctrl.loadBalancer.loadBalacnerVips">VIP</dt>
+        <dd ng-if="ctrl.loadBalancer.loadBalacnerVips" ng-repeat="vip in ctrl.loadBalancer.loadBalacnerVips">
+          {{vip}}
+        </dd>
       </dl>
     </collapsible-section>
     <collapsible-section heading="Listeners({{ctrl.loadBalancer.listeners.length}})">
