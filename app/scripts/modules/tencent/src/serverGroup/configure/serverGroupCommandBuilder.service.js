@@ -230,7 +230,12 @@ module.exports = angular
           const existingTags = {};
           // These tags are applied by Clouddriver (if configured to do so), regardless of what the user might enter
           // Might be worth feature flagging this if it turns out other folks are hard-coding these values
-          const reservedTags = ['spinnaker:application', 'spinnaker:stack', 'spinnaker:details'];
+          const reservedTags = [
+            'spinnaker:application',
+            'spinnaker:stack',
+            'spinnaker:details',
+            'spinnaker:server-group-name',
+          ];
           if (serverGroup.launchConfig.instanceTags) {
             serverGroup.launchConfig.instanceTags
               .filter(t => !reservedTags.includes(t.key))
