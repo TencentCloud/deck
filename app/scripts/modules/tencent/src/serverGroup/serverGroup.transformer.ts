@@ -77,6 +77,7 @@ export class AwsServerGroupTransformer {
       application: base.application,
       stack: base.stack,
       detail: base.detail || base.freeFormDetails,
+      strategy: base.strategy,
       account: base.credentials,
       accountName: base.credentials,
       imageId: base.imageId,
