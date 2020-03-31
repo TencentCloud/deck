@@ -5,7 +5,7 @@ import { FormikProps } from 'formik';
 import { IWizardPageComponent, ReactInjector } from '@spinnaker/core';
 
 import {
-  IAmazonServerGroupCommand,
+  ITencentCloudServerGroupCommand,
   ITencentForwardLoadBalancer,
   ITencentLbListenerMap,
 } from '../../serverGroupConfiguration.service';
@@ -13,7 +13,7 @@ import {
 import { IALBListener } from 'tencent/domain';
 
 export interface IServerGroupLoadBalancersProps {
-  formik: FormikProps<IAmazonServerGroupCommand>;
+  formik: FormikProps<ITencentCloudServerGroupCommand>;
 }
 interface ITencentLocation {
   isL7: boolean;
@@ -33,13 +33,13 @@ export interface IServerGroupLoadBalancersState {
 
 export class ServerGroupLoadBalancers
   extends React.Component<IServerGroupLoadBalancersProps, IServerGroupLoadBalancersState>
-  implements IWizardPageComponent<IAmazonServerGroupCommand> {
+  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
   public state = {
     refreshing: false,
     listenerLocationMap: {} as ITencentLocationMap,
   };
 
-  public validate(values: IAmazonServerGroupCommand) {
+  public validate(values: ITencentCloudServerGroupCommand) {
     const errors = {} as any;
     const { listenerLocationMap } = this.state;
     if (values.viewState.dirty.loadBalancers) {

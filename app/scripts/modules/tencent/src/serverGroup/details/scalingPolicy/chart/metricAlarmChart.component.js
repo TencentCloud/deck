@@ -27,7 +27,7 @@ angular
       alarmUpdated: '=?', // Observable - next will update the graph
       ticks: '=?', // object - sets number of x/y ticks on graph; defaults to { x: 6, y: 3 }
       margins: '=?', // object - defaults to { top: 5, left: 5 }
-      stats: '=?', // object - this is gross - used to backfill units when statistics calls return, since AWS API does
+      stats: '=?', // object - this is gross - used to backfill units when statistics calls return, since TENCENTCLOUD API does
       // not provide a unit of measurement for an alarm or a metric, only statistics
     },
     templateUrl: require('./metricAlarmChart.component.html'),

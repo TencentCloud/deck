@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 import { AccountService, InfrastructureCaches, ModalWizard } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 import { VpcReader } from 'tencent/vpc';
 
 describe('Controller: CreateSecurityGroup', function() {
@@ -12,7 +12,7 @@ describe('Controller: CreateSecurityGroup', function() {
     window.module(require('./CreateSecurityGroupCtrl').name, require('./configSecurityGroup.mixin.controller').name),
   );
 
-  afterEach(AWSProviderSettings.resetToOriginal);
+  afterEach(TENCENTCLOUDProviderSettings.resetToOriginal);
 
   describe('filtering', function() {
     this.oldGet = InfrastructureCaches.get;
@@ -54,7 +54,7 @@ describe('Controller: CreateSecurityGroup', function() {
         spyOn(this.securityGroupReader, 'getAllSecurityGroups').and.returnValue(
           $q.when({
             prod: {
-              aws: {
+              tencentCloud: {
                 'us-east-1': [
                   { name: 'group1', vpcId: null, id: '1' },
                   { name: 'group2', vpcId: null, id: '2' },
@@ -67,7 +67,7 @@ describe('Controller: CreateSecurityGroup', function() {
               },
             },
             test: {
-              aws: {
+              tencentCloud: {
                 'us-east-1': [
                   { name: 'group1', vpcId: null, id: '1' },
                   { name: 'group2', vpcId: 'vpc1-te', id: '2' },
@@ -86,7 +86,7 @@ describe('Controller: CreateSecurityGroup', function() {
         );
 
         this.initializeCtrl = function() {
-          this.ctrl = $controller('awsCreateSecurityGroupCtrl', {
+          this.ctrl = $controller('tencentCloudCreateSecurityGroupCtrl', {
             $scope: this.$scope,
             $uibModalInstance: { result: this.$q.when(null) },
             securityGroupReader: this.securityGroupReader,
@@ -154,8 +154,8 @@ describe('Controller: CreateSecurityGroup', function() {
     });
 
     it('loves a default VPC!', function() {
-      AWSProviderSettings.defaults.vpc = 'vpc 2';
-      AWSProviderSettings.classicLaunchLockout = -1;
+      TENCENTCLOUDProviderSettings.defaults.vpc = 'vpc 2';
+      TENCENTCLOUDProviderSettings.classicLaunchLockout = -1;
       this.initializeCtrl();
       this.$scope.securityGroup.credentials = 'test';
       this.$scope.securityGroup.regions = ['us-east-1'];
@@ -211,19 +211,19 @@ describe('Controller: CreateSecurityGroup', function() {
         self.$scope.$digest();
       }
 
-      it('does not hide classic when aws provider not configured', function() {
+      it('does not hide classic when tencentCloud provider not configured', function() {
         init(this);
         expect(this.$scope.hideClassic).toBe(false);
       });
 
       it('does not hide classic when classicLaunchLockout not configured', function() {
-        AWSProviderSettings.classicLaunchLockout = undefined;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = undefined;
         init(this);
         expect(this.$scope.hideClassic).toBe(false);
       });
 
       it('does not hide classic when application has no attributes', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
         init(this);
         expect(this.$scope.hideClassic).toBe(false);
 
@@ -239,35 +239,35 @@ describe('Controller: CreateSecurityGroup', function() {
       });
 
       it('hides classic when application createTs is numeric and the same as lockout', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
         this.application = { attributes: { createTs: 10 } };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('hides classic when application createTs is numeric and after lockout', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
         this.application = { attributes: { createTs: 11 } };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('hides classic when application createTs is a string and the same as lockout', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
         this.application = { attributes: { createTs: '10' } };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('hides classic when application createTs is a string and after lockout', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
         this.application = { attributes: { createTs: '11' } };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('sets vpcId to first active if classic is locked', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
         this.application = { attributes: { createTs: 10 } };
         this.initializeCtrl();
 
@@ -282,7 +282,7 @@ describe('Controller: CreateSecurityGroup', function() {
       });
 
       it('leaves vpcId alone if already selected and classic locked', function() {
-        AWSProviderSettings.classicLaunchLockout = 10;
+        TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
 
         this.application = { attributes: { createTs: 10 } };
         this.initializeCtrl();

@@ -2,20 +2,20 @@ import * as React from 'react';
 
 import { CollapsibleSection, Overridable, Tooltip } from '@spinnaker/core';
 
-import { IAmazonServerGroupView, IScalingProcess } from 'tencent/domain';
-import { AwsNgReact } from 'tencent/reactShims';
+import { ITencentCloudServerGroupView, IScalingProcess } from 'tencent/domain';
+import { TencentCloudNgReact } from 'tencent/reactShims';
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
 
-import { IAmazonServerGroupDetailsSectionProps } from './IAmazonServerGroupDetailsSectionProps';
+import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 import { CreateScalingPolicyButton } from '../scalingPolicy/CreateScalingPolicyButton';
 
-@Overridable('aws.serverGroup.ScalingPoliciesDetailsSection')
-export class ScalingPoliciesDetailsSection extends React.Component<IAmazonServerGroupDetailsSectionProps> {
-  constructor(props: IAmazonServerGroupDetailsSectionProps) {
+@Overridable('tencentCloud.serverGroup.ScalingPoliciesDetailsSection')
+export class ScalingPoliciesDetailsSection extends React.Component<ITencentCloudServerGroupDetailsSectionProps> {
+  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
     super(props);
   }
 
-  public static arePoliciesDisabled(serverGroup: IAmazonServerGroupView): boolean {
+  public static arePoliciesDisabled(serverGroup: ITencentCloudServerGroupView): boolean {
     const autoScalingProcesses: IScalingProcess[] = AutoScalingProcessService.normalizeScalingProcesses(serverGroup);
     return (
       serverGroup.scalingPolicies.length > 0 &&
@@ -29,7 +29,7 @@ export class ScalingPoliciesDetailsSection extends React.Component<IAmazonServer
     const { app, serverGroup } = this.props;
     const scalingPoliciesDisabled = ScalingPoliciesDetailsSection.arePoliciesDisabled(serverGroup);
 
-    const { ScalingPolicySummary } = AwsNgReact;
+    const { ScalingPolicySummary } = TencentCloudNgReact;
 
     return (
       <CollapsibleSection

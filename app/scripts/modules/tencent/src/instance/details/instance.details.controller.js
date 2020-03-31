@@ -12,7 +12,7 @@ import {
   FirewallLabels,
 } from '@spinnaker/core';
 
-import { AMAZON_INSTANCE_WRITE_SERVICE } from '../amazon.instance.write.service';
+import { TENCENTCLOUD_INSTANCE_WRITE_SERVICE } from '../tencentCloud.instance.write.service';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 import ANGULAR_UI_BOOTSTRAP from 'angular-ui-bootstrap';
 import { name as VPC_VPCTAG_DIRECTIVE } from '../../vpc/vpcTag.directive';
@@ -23,7 +23,7 @@ angular
   .module(TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER, [
     UIROUTER_ANGULARJS,
     ANGULAR_UI_BOOTSTRAP,
-    AMAZON_INSTANCE_WRITE_SERVICE,
+    TENCENTCLOUD_INSTANCE_WRITE_SERVICE,
     VPC_VPCTAG_DIRECTIVE,
     CONFIRMATION_MODAL_SERVICE,
   ])
@@ -31,7 +31,7 @@ angular
     '$scope',
     '$state',
     '$uibModal',
-    'amazonInstanceWriter',
+    'tencentCloudInstanceWriter',
     'confirmationModalService',
     'instance',
     'app',
@@ -43,7 +43,7 @@ angular
       $scope,
       $state,
       $uibModal,
-      amazonInstanceWriter,
+      tencentCloudInstanceWriter,
       confirmationModalService,
       instance,
       app,
@@ -304,7 +304,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.terminateInstance(instance, app, {
+          return tencentCloudInstanceWriter.terminateInstance(instance, app, {
             cloudProvider: instance.cloudProvider,
             serverGroupName: instance.serverGroupName,
           });
@@ -334,7 +334,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.terminateInstanceAndShrinkServerGroup(instance, app, {
+          return tencentCloudInstanceWriter.terminateInstanceAndShrinkServerGroup(instance, app, {
             instanceIds: [instance.id],
             cloudProvider: instance.cloudProvider,
             serverGroupName: instance.serverGroupName,
@@ -364,7 +364,7 @@ angular
             params.interestingHealthProviderNames = ['Tencent'];
           }
 
-          return amazonInstanceWriter.rebootInstance(instance, app, params);
+          return tencentCloudInstanceWriter.rebootInstance(instance, app, params);
         };
 
         confirmationModalService.confirm({
@@ -389,7 +389,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.registerInstanceWithLoadBalancer(instance, app);
+          return tencentCloudInstanceWriter.registerInstanceWithLoadBalancer(instance, app);
         };
 
         confirmationModalService.confirm({
@@ -411,7 +411,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.deregisterInstanceFromLoadBalancer(instance, app);
+          return tencentCloudInstanceWriter.deregisterInstanceFromLoadBalancer(instance, app);
         };
 
         confirmationModalService.confirm({
@@ -434,7 +434,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.registerInstanceWithTargetGroup(instance, app);
+          return tencentCloudInstanceWriter.registerInstanceWithTargetGroup(instance, app);
         };
 
         confirmationModalService.confirm({
@@ -456,7 +456,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.deregisterInstanceFromTargetGroup(instance, app);
+          return tencentCloudInstanceWriter.deregisterInstanceFromTargetGroup(instance, app);
         };
 
         confirmationModalService.confirm({
@@ -478,7 +478,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.enableInstanceInDiscovery(instance, app);
+          return tencentCloudInstanceWriter.enableInstanceInDiscovery(instance, app);
         };
 
         confirmationModalService.confirm({
@@ -499,7 +499,7 @@ angular
         };
 
         const submitMethod = function() {
-          return amazonInstanceWriter.disableInstanceInDiscovery(instance, app);
+          return tencentCloudInstanceWriter.disableInstanceInDiscovery(instance, app);
         };
 
         confirmationModalService.confirm({

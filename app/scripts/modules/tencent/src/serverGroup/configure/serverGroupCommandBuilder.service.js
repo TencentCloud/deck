@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 import { AccountService, INSTANCE_TYPE_SERVICE, NameUtils, SubnetReader } from '@spinnaker/core';
 
-import { AWSProviderSettings } from '../../aws.settings';
-import { AWS_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
+import { TENCENTCLOUDProviderSettings } from '../../tencentCloud.settings';
+import { TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
 
 export const TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
   'spinnaker.tencent.serverGroupCommandBuilder.service';
@@ -14,7 +14,7 @@ export const name = TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERV
 angular
   .module(TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE, [
     INSTANCE_TYPE_SERVICE,
-    AWS_SERVER_GROUP_CONFIGURATION_SERVICE,
+    TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE,
   ])
   .factory('tencentServerGroupCommandBuilder', [
     '$q',
@@ -26,10 +26,10 @@ angular
         const credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencent');
 
         const defaultCredentials =
-          defaults.account || application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
+          defaults.account || application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
         const defaultRegion =
-          defaults.region || application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
-        const defaultSubnet = defaults.subnet || AWSProviderSettings.defaults.subnetType || '';
+          defaults.region || application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+        const defaultSubnet = defaults.subnet || TENCENTCLOUDProviderSettings.defaults.subnetType || '';
 
         const preferredZonesLoader = AccountService.getAvailabilityZonesForAccountAndRegion(
           'tencent',
@@ -47,9 +47,9 @@ angular
 
             const credentials = asyncData.credentialsKeyedByAccount[defaultCredentials];
             const keyPair = credentials ? credentials.defaultKeyPair : null;
-            const applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
+            const applicationTencentCloudSettings = _.get(application, 'attributes.providerSettings.tencent', {});
 
-            const useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
+            const useAmiBlockDeviceMappings = applicationTencentCloudSettings.useAmiBlockDeviceMappings || false;
 
             const command = {
               application: application.name,
@@ -227,8 +227,8 @@ angular
           // These processes should never be copied over, as the affect launching instances and enabling traffic
           const enabledProcesses = ['Launch', 'Terminate', 'AddToLoadBalancer'];
 
-          const applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
-          const useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
+          const applicationTencentCloudSettings = _.get(application, 'attributes.providerSettings.tencent', {});
+          const useAmiBlockDeviceMappings = applicationTencentCloudSettings.useAmiBlockDeviceMappings || false;
 
           const existingTags = {};
           // These tags are applied by Clouddriver (if configured to do so), regardless of what the user might enter

@@ -55,7 +55,7 @@ export class UpsertTargetTrackingController implements IComponentController {
       config.predefinedMetricSpecification = null;
       config.customizedMetricSpecification = {
         metricName: 'CPUUtilization',
-        namespace: 'AWS/EC2',
+        namespace: 'TENCENTCLOUD/EC2',
         dimensions: [{ name: 'AutoScalingGroupName', value: this.serverGroup.name }],
         statistic: 'AVERAGE',
       };

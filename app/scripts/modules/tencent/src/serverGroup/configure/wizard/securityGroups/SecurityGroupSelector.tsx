@@ -10,10 +10,10 @@ import {
   ReactInjector,
 } from '@spinnaker/core';
 
-import { IAmazonServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 
 export interface ISecurityGroupSelectorProps {
-  command: IAmazonServerGroupCommand;
+  command: ITencentCloudServerGroupCommand;
   availableGroups: ISecurityGroup[];
   hideLabel?: boolean;
   refresh?: () => Promise<void>;

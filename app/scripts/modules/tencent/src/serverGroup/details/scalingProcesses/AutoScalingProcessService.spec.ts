@@ -1,19 +1,19 @@
-import { IAmazonAsg, IAmazonServerGroup } from 'tencent/domain';
+import { ITencentCloudAsg, ITencentCloudServerGroup } from 'tencent/domain';
 
 import { AutoScalingProcessService } from './AutoScalingProcessService';
 
 describe('AutoScalingProcessService', () => {
   describe('normalizeScalingProcesses', () => {
     it('returns an empty list if no asg or suspendedProcesses present on server group', function() {
-      expect(AutoScalingProcessService.normalizeScalingProcesses({} as IAmazonServerGroup)).toEqual([]);
-      expect(AutoScalingProcessService.normalizeScalingProcesses({ asg: {} } as IAmazonServerGroup)).toEqual([]);
+      expect(AutoScalingProcessService.normalizeScalingProcesses({} as ITencentCloudServerGroup)).toEqual([]);
+      expect(AutoScalingProcessService.normalizeScalingProcesses({ asg: {} } as ITencentCloudServerGroup)).toEqual([]);
     });
 
     it('returns all processes normalized if suspendedProcesses is empty', function() {
       const asg = {
         suspendedProcesses: [],
-      } as IAmazonAsg;
-      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as IAmazonServerGroup);
+      } as ITencentCloudAsg;
+      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as ITencentCloudServerGroup);
       expect(normalized.length).toBe(8);
       expect(normalized.filter(process => process.enabled).length).toBe(8);
       expect(normalized.map(process => process.name)).toEqual([
@@ -38,7 +38,7 @@ describe('AutoScalingProcessService', () => {
           },
         ],
       };
-      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as IAmazonServerGroup);
+      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as ITencentCloudServerGroup);
       expect(normalized.length).toBe(8);
       expect(normalized.filter(process => process.enabled).length).toBe(7);
       expect(normalized.map(process => process.name)).toEqual([
@@ -66,15 +66,15 @@ describe('AutoScalingProcessService', () => {
           },
         ],
       };
-      expect(AutoScalingProcessService.getDisabledDate({ asg: asg } as IAmazonServerGroup)).toBeNull();
+      expect(AutoScalingProcessService.getDisabledDate({ asg: asg } as ITencentCloudServerGroup)).toBeNull();
     });
 
     it('returns null when server group is disabled but suspended process for AddToLoadBalancer not present', function() {
       const asg = {
         suspendedProcesses: [],
-      } as IAmazonAsg;
+      } as ITencentCloudAsg;
       expect(
-        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as IAmazonServerGroup),
+        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as ITencentCloudServerGroup),
       ).toBeNull();
     });
 
@@ -87,9 +87,9 @@ describe('AutoScalingProcessService', () => {
           },
         ],
       };
-      expect(AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as IAmazonServerGroup)).toEqual(
-        1452639586000,
-      );
+      expect(
+        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as ITencentCloudServerGroup),
+      ).toEqual(1452639586000);
     });
   });
 });

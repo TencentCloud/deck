@@ -3,7 +3,7 @@ import { StateService } from '@uirouter/angularjs';
 
 import { Application, ILoadBalancer } from '@spinnaker/core';
 
-import { IAmazonApplicationLoadBalancer, ITargetGroup } from 'tencent/domain/IAmazonLoadBalancer';
+import { ITencentCloudApplicationLoadBalancer, ITargetGroup } from 'tencent/domain/ITencentCloudLoadBalancer';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export interface ITargetGroupFromStateParams {
@@ -14,13 +14,13 @@ export interface ITargetGroupFromStateParams {
   vpcId: string;
 }
 
-export class AwsTargetGroupDetailsController implements IController {
+export class TencentCloudTargetGroupDetailsController implements IController {
   private targetGroupFromParams: ITargetGroupFromStateParams;
   public application: Application;
   public state = { loading: true };
   public elbProtocol: string;
   public targetGroup: ITargetGroup;
-  public loadBalancer: IAmazonApplicationLoadBalancer;
+  public loadBalancer: ITencentCloudApplicationLoadBalancer;
 
   public static $inject = ['$scope', '$q', '$state', 'targetGroup', 'app'];
   constructor(
@@ -56,9 +56,11 @@ export class AwsTargetGroupDetailsController implements IController {
   public extractTargetGroup(): IPromise<void> {
     const { loadBalancerName, region, accountId, name } = this.targetGroupFromParams;
 
-    const appLoadBalancer: IAmazonApplicationLoadBalancer = this.app.loadBalancers.data.find((test: ILoadBalancer) => {
-      return test.name === loadBalancerName && test.region === region && test.account === accountId;
-    });
+    const appLoadBalancer: ITencentCloudApplicationLoadBalancer = this.app.loadBalancers.data.find(
+      (test: ILoadBalancer) => {
+        return test.name === loadBalancerName && test.region === region && test.account === accountId;
+      },
+    );
     if (!appLoadBalancer) {
       this.autoClose();
       return this.$q.when(null);
@@ -87,8 +89,9 @@ export class AwsTargetGroupDetailsController implements IController {
   }
 }
 
-export const AWS_TARGET_GROUP_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.targetGroupDetails.controller';
-module(AWS_TARGET_GROUP_DETAILS_CTRL, [UIROUTER_ANGULARJS]).controller(
+export const TENCENTCLOUD_TARGET_GROUP_DETAILS_CTRL =
+  'spinnaker.tencent.loadBalancer.details.targetGroupDetails.controller';
+module(TENCENTCLOUD_TARGET_GROUP_DETAILS_CTRL, [UIROUTER_ANGULARJS]).controller(
   'tencentTargetGroupDetailsCtrl',
-  AwsTargetGroupDetailsController,
+  TencentCloudTargetGroupDetailsController,
 );

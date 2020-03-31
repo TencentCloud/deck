@@ -2,12 +2,12 @@ import * as React from 'react';
 import { orderBy } from 'lodash';
 import { LoadBalancerInstances, LoadBalancerServerGroup, API, IServerGroup } from '@spinnaker/core';
 
-import { IAmazonApplicationLoadBalancer, ITargetGroup } from 'tencent/domain/IAmazonLoadBalancer';
+import { ITencentCloudApplicationLoadBalancer, ITargetGroup } from 'tencent/domain/ITencentCloudLoadBalancer';
 
 import './targetGroup.less';
 
 export interface ITargetGroupProps {
-  loadBalancer: IAmazonApplicationLoadBalancer;
+  loadBalancer: ITencentCloudApplicationLoadBalancer;
   targetGroup: ITargetGroup;
   showServerGroups: boolean;
   showInstances: boolean;

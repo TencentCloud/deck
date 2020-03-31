@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 
 import { CloudMetricsReader, IMetricAlarmDimension, IServerGroup } from '@spinnaker/core';
 
-import { AlarmComparisonOperator } from '../../../../../domain';
-import { IUpsertAlarmDescription } from '../../../../../serverGroup';
+import { AlarmComparisonOperator } from 'tencent/domain';
+import { IUpsertAlarmDescription } from 'tencent/serverGroup';
 import { METRIC_SELECTOR_COMPONENT, MetricSelectorController } from './metricSelector.component';
 
 describe('Component: metric selector', () => {
@@ -32,7 +32,7 @@ describe('Component: metric selector', () => {
 
   const initialize = () => {
     $ctrl = $componentController(
-      'awsMetricSelector',
+      'tencentCloudMetricSelector',
       { $scope },
       { alarm, serverGroup, alarmUpdated },
     ) as MetricSelectorController;
@@ -80,7 +80,7 @@ describe('Component: metric selector', () => {
 
   describe('initialization', () => {
     beforeEach(() => {
-      alarm = makeAlarm('AWS/EC2', 'CPUUtilization', 'GREATER_THAN', [
+      alarm = makeAlarm('TENCENTCLOUD/EC2', 'CPUUtilization', 'GREATER_THAN', [
         {
           name: 'AutoScalingGroupName',
           value: 'asg-v000',
@@ -103,12 +103,12 @@ describe('Component: metric selector', () => {
       spyOn(CloudMetricsReader, 'listMetrics').and.returnValue(
         $q.when([
           {
-            namespace: 'AWS/EC2',
+            namespace: 'TENCENTCLOUD/EC2',
             name: 'CPUUtilization',
             dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
           },
           {
-            namespace: 'AWS/EC2',
+            namespace: 'TENCENTCLOUD/EC2',
             name: 'NetworkIn',
             dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
           },
@@ -130,19 +130,19 @@ describe('Component: metric selector', () => {
 
   describe('metricChanged', () => {
     beforeEach(() => {
-      alarm = makeAlarm('AWS/EC2', 'CPUUtilization', 'GREATER_THAN', [
+      alarm = makeAlarm('TENCENTCLOUD/EC2', 'CPUUtilization', 'GREATER_THAN', [
         { name: 'AutoScalingGroupName', value: 'asg-v000' },
       ]);
       serverGroup = makeServerGroup('asg-v000');
       spyOn(CloudMetricsReader, 'listMetrics').and.returnValue(
         $q.when([
           {
-            namespace: 'AWS/EC2',
+            namespace: 'TENCENTCLOUD/EC2',
             name: 'CPUUtilization',
             dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
           },
           {
-            namespace: 'AWS/EC2',
+            namespace: 'TENCENTCLOUD/EC2',
             name: 'NetworkIn',
             dimensions: [
               { name: 'AutoScalingGroupName', value: 'asg-v000' },
@@ -187,26 +187,26 @@ describe('Component: metric selector', () => {
       $ctrl.state.advancedMode = true;
       $ctrl.state.selectedMetric = null;
       $ctrl.metricChanged();
-      expect(alarm.namespace).toBe('AWS/EC2');
+      expect(alarm.namespace).toBe('TENCENTCLOUD/EC2');
       expect(alarmSpy.calls.count()).toBe(1);
     });
   });
 
   describe('metric transformations', () => {
     beforeEach(() => {
-      alarm = makeAlarm('AWS/EC2', 'CPUUtilization', 'GREATER_THAN', [
+      alarm = makeAlarm('TENCENTCLOUD/EC2', 'CPUUtilization', 'GREATER_THAN', [
         { name: 'AutoScalingGroupName', value: 'asg-v000' },
       ]);
       serverGroup = makeServerGroup('asg-v000');
       spyOn(CloudMetricsReader, 'listMetrics').and.returnValue(
         $q.when([
           {
-            namespace: 'AWS/EC2',
+            namespace: 'TENCENTCLOUD/EC2',
             name: 'CPUUtilization',
             dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
           },
           {
-            namespace: 'AWS/EC2',
+            namespace: 'TENCENTCLOUD/EC2',
             name: 'NetworkIn',
             dimensions: [
               { name: 'AutoScalingGroupName', value: 'asg-v000' },
@@ -214,7 +214,7 @@ describe('Component: metric selector', () => {
             ],
           },
           {
-            namespace: 'AWS/EBS',
+            namespace: 'TENCENTCLOUD/EBS',
             name: 'somethingElse',
             dimensions: [],
           },
@@ -226,16 +226,16 @@ describe('Component: metric selector', () => {
 
     it('adds label to each metric, sorts by label', () => {
       expect($ctrl.state.metrics.map(m => m.label)).toEqual([
-        '(AWS/EBS) somethingElse',
-        '(AWS/EC2) CPUUtilization',
-        '(AWS/EC2) NetworkIn',
+        '(TENCENTCLOUD/EBS) somethingElse',
+        '(TENCENTCLOUD/EC2) CPUUtilization',
+        '(TENCENTCLOUD/EC2) NetworkIn',
       ]);
     });
   });
 
   describe('update available metrics', () => {
     it('sets advanced mode when metrics fail to load', () => {
-      alarm = makeAlarm('AWS/EC2', 'CPUUtilization', 'GREATER_THAN', [
+      alarm = makeAlarm('TENCENTCLOUD/EC2', 'CPUUtilization', 'GREATER_THAN', [
         {
           name: 'AutoScalingGroupName',
           value: 'asg-v000',

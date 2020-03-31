@@ -3,17 +3,17 @@ import { FormikErrors } from 'formik';
 
 import { IWizardPageComponent, Overridable } from '@spinnaker/core';
 
-import { IAmazonServerGroupCommand } from '../../../serverGroupConfiguration.service';
+import { ITencentCloudServerGroupCommand } from '../../../serverGroupConfiguration.service';
 import { ServerGroupAdvancedSettingsCommon } from './ServerGroupAdvancedSettingsCommon';
 import { IServerGroupAdvancedSettingsProps } from './ServerGroupAdvancedSettings';
 
-@Overridable('aws.serverGroup.advancedSettings')
+@Overridable('tencentCloud.serverGroup.advancedSettings')
 export class ServerGroupAdvancedSettingsInner extends React.Component<IServerGroupAdvancedSettingsProps>
-  implements IWizardPageComponent<IAmazonServerGroupCommand> {
+  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
   private validators = new Map();
 
-  public validate = (values: IAmazonServerGroupCommand) => {
-    const errors: FormikErrors<IAmazonServerGroupCommand> = {};
+  public validate = (values: ITencentCloudServerGroupCommand) => {
+    const errors: FormikErrors<ITencentCloudServerGroupCommand> = {};
 
     this.validators.forEach(validator => {
       const subErrors = validator(values);

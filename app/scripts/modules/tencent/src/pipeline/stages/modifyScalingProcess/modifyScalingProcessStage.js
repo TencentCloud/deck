@@ -12,7 +12,7 @@ angular
     Registry.pipeline.registerStage({
       label: 'Modify Scaling Process',
       description: 'Suspend/Resume Scaling Processes',
-      key: 'modifyAwsScalingProcess',
+      key: 'modifyTencentCloudScalingProcess',
       alias: 'modifyScalingProcess',
       controller: 'ModifyScalingProcessStageCtrl',
       templateUrl: require('./modifyScalingProcessStage.html'),

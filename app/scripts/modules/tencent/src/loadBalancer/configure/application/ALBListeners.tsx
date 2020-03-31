@@ -9,7 +9,7 @@ import {
   IALBListenerCertificate,
   IListenerDescription,
   IALBTargetGroupDescription,
-  IAmazonApplicationLoadBalancerUpsertCommand,
+  ITencentCloudApplicationLoadBalancerUpsertCommand,
   IListenerAction,
   IListenerRule,
   IListenerRuleCondition,
@@ -45,12 +45,12 @@ export interface IAuthenticateOidcActionConfig {
 
 export interface IALBListenersProps {
   app: Application;
-  formik: FormikProps<IAmazonApplicationLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentCloudApplicationLoadBalancerUpsertCommand>;
   isNewListener: boolean;
 }
 
 export class ALBListeners extends React.Component<IALBListenersProps, IALBListenersState>
-  implements IWizardPageComponent<IAmazonApplicationLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentCloudApplicationLoadBalancerUpsertCommand> {
   public protocols = ['HTTP', 'HTTPS', 'TCP', 'UDP'];
   private defaultHttpCheck = {
     // httpCheckDomain: undefined,
@@ -107,8 +107,8 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
   }
 
   public validate(
-    values: IAmazonApplicationLoadBalancerUpsertCommand,
-  ): FormikErrors<IAmazonApplicationLoadBalancerUpsertCommand> {
+    values: ITencentCloudApplicationLoadBalancerUpsertCommand,
+  ): FormikErrors<ITencentCloudApplicationLoadBalancerUpsertCommand> {
     const errors = {} as any;
     const missingRuleFields = values.listeners.find(l => {
       const rulesHaveMissingFields = !!l.rules.find(rule => {
@@ -543,7 +543,7 @@ const Rule = SortableElement((props: IRuleProps) => (
               <td colSpan={2}>
                 <div className="listener-rule-condition col-md-6">
                   <label>Host</label>
-                  {/* <HelpField id="aws.loadBalancer.ruleCondition.host" /> */}
+                  {/* <HelpField id="tencentCloud.loadBalancer.ruleCondition.host" /> */}
                   <input
                     disabled={!props.isNewListener}
                     className="form-control input-sm"
@@ -557,7 +557,7 @@ const Rule = SortableElement((props: IRuleProps) => (
                 </div>
                 <div className="listener-rule-condition col-md-6">
                   <label>Path</label>
-                  {/* <HelpField id="aws.loadBalancer.ruleCondition.path" /> */}
+                  {/* <HelpField id="tencentCloud.loadBalancer.ruleCondition.path" /> */}
                   <input
                     disabled={!props.isNewListener}
                     className="form-control input-sm"

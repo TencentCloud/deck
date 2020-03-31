@@ -27,36 +27,36 @@ import {
   IServerGroupCommandViewState,
 } from '@spinnaker/core';
 
-import { IKeyPair, IAmazonLoadBalancerSourceData, IScalingProcess, IALBListener } from 'tencent/domain';
+import { IKeyPair, ITencentCloudLoadBalancerSourceData, IScalingProcess, IALBListener } from 'tencent/domain';
 import { VpcReader, ITencentVpc } from '../../vpc';
 import { KeyPairsReader } from 'tencent/keyPairs';
 import { AutoScalingProcessService } from '../details/scalingProcesses/AutoScalingProcessService';
-import { AMAZON_INSTANCE_AWSINSTANCETYPE_SERVICE } from 'tencent';
+// import { TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from 'tencent';
 
 export type IBlockDeviceMappingSource = 'source' | 'ami' | 'default';
 
-export interface IAmazonServerGroupCommandDirty extends IServerGroupCommandDirty {
+export interface ITencentCloudServerGroupCommandDirty extends IServerGroupCommandDirty {
   targetGroups?: string[];
 }
 
-export interface IAmazonServerGroupCommandResult extends IServerGroupCommandResult {
-  dirty: IAmazonServerGroupCommandDirty;
+export interface ITencentCloudServerGroupCommandResult extends IServerGroupCommandResult {
+  dirty: ITencentCloudServerGroupCommandDirty;
 }
 export interface ITencentLbListenerMap {
   [key: string]: IALBListener[];
 }
-export interface IAmazonServerGroupCommandBackingDataFiltered extends IServerGroupCommandBackingDataFiltered {
+export interface ITencentCloudServerGroupCommandBackingDataFiltered extends IServerGroupCommandBackingDataFiltered {
   keyPairs: IKeyPair[];
   targetGroups: string[];
   vpcList: ITencentVpc[];
-  lbList: IAmazonLoadBalancerSourceData[];
+  lbList: ITencentCloudLoadBalancerSourceData[];
   listenerList: IALBListener[];
   lbListenerMap: ITencentLbListenerMap;
 }
 
-export interface IAmazonServerGroupCommandBackingData extends IServerGroupCommandBackingData {
-  appLoadBalancers: IAmazonLoadBalancerSourceData[];
-  filtered: IAmazonServerGroupCommandBackingDataFiltered;
+export interface ITencentCloudServerGroupCommandBackingData extends IServerGroupCommandBackingData {
+  appLoadBalancers: ITencentCloudLoadBalancerSourceData[];
+  filtered: ITencentCloudServerGroupCommandBackingDataFiltered;
   keyPairs: IKeyPair[];
   targetGroups: string[];
   scalingProcesses: IScalingProcess[];
@@ -65,8 +65,8 @@ export interface IAmazonServerGroupCommandBackingData extends IServerGroupComman
   listenerList: IALBListener[];
 }
 
-export interface IAmazonServerGroupCommandViewState extends IServerGroupCommandViewState {
-  dirty: IAmazonServerGroupCommandDirty;
+export interface ITencentCloudServerGroupCommandViewState extends IServerGroupCommandViewState {
+  dirty: ITencentCloudServerGroupCommandDirty;
 }
 export interface ITencentDisk {
   diskType: string;
@@ -89,7 +89,7 @@ export interface ITencentInternetAccessible {
   internetMaxBandwidthOut: number;
   publicIpAssigned: boolean;
 }
-export interface IAmazonServerGroupCommand extends IServerGroupCommand {
+export interface ITencentCloudServerGroupCommand extends IServerGroupCommand {
   detail: string;
   subnetIds: string[];
   internetAccessible: ITencentInternetAccessible;
@@ -103,7 +103,7 @@ export interface IAmazonServerGroupCommand extends IServerGroupCommand {
   port: number;
   weight: number;
   associatePublicIpAddress: boolean;
-  backingData: IAmazonServerGroupCommandBackingData;
+  backingData: ITencentCloudServerGroupCommandBackingData;
   copySourceCustomBlockDeviceMappings: boolean;
   ebsOptimized: boolean;
   healthCheckGracePeriod: number;
@@ -122,18 +122,18 @@ export interface IAmazonServerGroupCommand extends IServerGroupCommand {
   targetGroups: string[];
   spelTargetGroups: string[];
   spelLoadBalancers: string[];
-  viewState: IAmazonServerGroupCommandViewState;
+  viewState: ITencentCloudServerGroupCommandViewState;
 
   getBlockDeviceMappingsSource: (command: IServerGroupCommand) => IBlockDeviceMappingSource;
   selectBlockDeviceMappingsSource: (command: IServerGroupCommand, selection: string) => void;
-  usePreferredZonesChanged: (command: IServerGroupCommand) => IAmazonServerGroupCommandResult;
+  usePreferredZonesChanged: (command: IServerGroupCommand) => ITencentCloudServerGroupCommandResult;
   clusterChanged: (command: IServerGroupCommand) => void;
   regionIsDeprecated: (command: IServerGroupCommand) => boolean;
   vpcIdChanged: (command: IServerGroupCommand) => IServerGroupCommandResult;
-  loadBalancerChanged: (command: IAmazonServerGroupCommand) => IServerGroupCommandResult;
+  loadBalancerChanged: (command: ITencentCloudServerGroupCommand) => IServerGroupCommandResult;
 }
 
-export class AwsServerGroupConfigurationService {
+export class TencentCloudServerGroupConfigurationService {
   private enabledMetrics = [
     'GroupMinSize',
     'GroupMaxSize',
@@ -161,18 +161,18 @@ export class AwsServerGroupConfigurationService {
     private serverGroupCommandRegistry: ServerGroupCommandRegistry,
   ) {}
 
-  public configureUpdateCommand(command: IAmazonServerGroupCommand): void {
+  public configureUpdateCommand(command: ITencentCloudServerGroupCommand): void {
     command.backingData = ({
       enabledMetrics: clone(this.enabledMetrics),
       terminationPolicies: clone(this.terminationPolicies),
       diskTypes: clone(this.diskTypes),
-    } as unknown) as IAmazonServerGroupCommandBackingData;
+    } as unknown) as ITencentCloudServerGroupCommandBackingData;
   }
 
-  public configureCommand(application: Application, cmd: IAmazonServerGroupCommand): IPromise<void> {
+  public configureCommand(application: Application, cmd: ITencentCloudServerGroupCommand): IPromise<void> {
     this.applyOverrides('beforeConfiguration', cmd);
     // TODO: Instead of attaching these to the command itself, they could be static methods
-    cmd.toggleSuspendedProcess = (command: IAmazonServerGroupCommand, process: string): void => {
+    cmd.toggleSuspendedProcess = (command: ITencentCloudServerGroupCommand, process: string): void => {
       command.suspendedProcesses = command.suspendedProcesses || [];
       const processIndex = command.suspendedProcesses.indexOf(process);
       if (processIndex === -1) {
@@ -182,17 +182,17 @@ export class AwsServerGroupConfigurationService {
       }
     };
 
-    cmd.processIsSuspended = (command: IAmazonServerGroupCommand, process: string): boolean =>
+    cmd.processIsSuspended = (command: ITencentCloudServerGroupCommand, process: string): boolean =>
       command.suspendedProcesses.includes(process);
 
-    cmd.onStrategyChange = (command: IAmazonServerGroupCommand, strategy: IDeploymentStrategy): void => {
+    cmd.onStrategyChange = (command: ITencentCloudServerGroupCommand, strategy: IDeploymentStrategy): void => {
       // Any strategy other than None or Custom should force traffic to be enabled
       if (strategy.key !== '' && strategy.key !== 'custom') {
         command.suspendedProcesses = (command.suspendedProcesses || []).filter(p => p !== 'AddToLoadBalancer');
       }
     };
 
-    cmd.getBlockDeviceMappingsSource = (command: IAmazonServerGroupCommand): IBlockDeviceMappingSource => {
+    cmd.getBlockDeviceMappingsSource = (command: ITencentCloudServerGroupCommand): IBlockDeviceMappingSource => {
       if (command.copySourceCustomBlockDeviceMappings) {
         return 'source';
       } else if (command.useAmiBlockDeviceMappings) {
@@ -201,7 +201,7 @@ export class AwsServerGroupConfigurationService {
       return 'default';
     };
 
-    cmd.selectBlockDeviceMappingsSource = (command: IAmazonServerGroupCommand, selection: string): void => {
+    cmd.selectBlockDeviceMappingsSource = (command: ITencentCloudServerGroupCommand, selection: string): void => {
       if (selection === 'source') {
         // copy block device mappings from source asg
         command.copySourceCustomBlockDeviceMappings = true;
@@ -217,7 +217,7 @@ export class AwsServerGroupConfigurationService {
       }
     };
 
-    cmd.regionIsDeprecated = (command: IAmazonServerGroupCommand): boolean => {
+    cmd.regionIsDeprecated = (command: ITencentCloudServerGroupCommand): boolean => {
       return (
         has(command, 'backingData.filtered.regions') &&
         command.backingData.filtered.regions.some(region => region.name === command.region && region.deprecated)
@@ -238,13 +238,13 @@ export class AwsServerGroupConfigurationService {
         terminationPolicies: $q.when(clone(this.terminationPolicies)),
         diskTypes: $q.when(clone(this.diskTypes)),
       })
-      .then((backingData: Partial<IAmazonServerGroupCommandBackingData>) => {
+      .then((backingData: Partial<ITencentCloudServerGroupCommandBackingData>) => {
         let securityGroupReloader = $q.when();
         backingData.accounts = keys(backingData.credentialsKeyedByAccount);
-        backingData.filtered = {} as IAmazonServerGroupCommandBackingDataFiltered;
+        backingData.filtered = {} as ITencentCloudServerGroupCommandBackingDataFiltered;
         backingData.scalingProcesses = AutoScalingProcessService.listProcesses();
         backingData.appLoadBalancers = application.getDataSource('loadBalancers').data;
-        cmd.backingData = backingData as IAmazonServerGroupCommandBackingData;
+        cmd.backingData = backingData as ITencentCloudServerGroupCommandBackingData;
         backingData.filtered.securityGroups = this.getRegionalSecurityGroups(cmd);
         if (cmd.viewState.disableImageSelection) {
           this.configureInstanceTypes(cmd);
@@ -266,7 +266,7 @@ export class AwsServerGroupConfigurationService {
       });
   }
 
-  public applyOverrides(phase: string, command: IAmazonServerGroupCommand): void {
+  public applyOverrides(phase: string, command: ITencentCloudServerGroupCommand): void {
     this.serverGroupCommandRegistry.getCommandOverrides('tencent').forEach((override: any) => {
       if (override[phase]) {
         override[phase](command);
@@ -274,8 +274,8 @@ export class AwsServerGroupConfigurationService {
     });
   }
 
-  public configureKeyPairs(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureKeyPairs(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     if (command.credentials && command.region) {
       // isDefault is imperfect, since we don't know what the previous account/region was, but probably a safe bet
       const isDefault = some<any>(
@@ -316,8 +316,8 @@ export class AwsServerGroupConfigurationService {
     return result;
   }
 
-  public configureInstanceTypes(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureInstanceTypes(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     const filtered = this.tencentInstanceTypeService.getAvailableTypesForRegions(command.backingData.instanceTypes, [
       command.region,
     ]);
@@ -330,8 +330,8 @@ export class AwsServerGroupConfigurationService {
     return result;
   }
 
-  public configureImages(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureImages(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     if (command.viewState.disableImageSelection) {
       return result;
     }
@@ -342,15 +342,15 @@ export class AwsServerGroupConfigurationService {
     return result;
   }
 
-  public configureAvailabilityZones(command: IAmazonServerGroupCommand): void {
+  public configureAvailabilityZones(command: ITencentCloudServerGroupCommand): void {
     command.backingData.filtered.availabilityZones = find<IRegion>(
       command.backingData.credentialsKeyedByAccount[command.credentials].regions,
       { name: command.region },
     ).availabilityZones;
   }
 
-  public configureVpcList(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureVpcList(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     const filteredData = command.backingData.filtered;
     if (command.region === null) {
       return result;
@@ -368,8 +368,8 @@ export class AwsServerGroupConfigurationService {
     return result;
   }
 
-  public configureSubnetPurposes(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureSubnetPurposes(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     if (command.region === null) {
       return result;
     }
@@ -386,15 +386,15 @@ export class AwsServerGroupConfigurationService {
     return result;
   }
 
-  public getRegionalSecurityGroups(command: IAmazonServerGroupCommand): ISecurityGroup[] {
+  public getRegionalSecurityGroups(command: ITencentCloudServerGroupCommand): ISecurityGroup[] {
     const newSecurityGroups = command.backingData.securityGroups[command.credentials] || { tencent: {} };
     return chain(newSecurityGroups.tencent[command.region])
       .sortBy('name')
       .value();
   }
 
-  public configureSecurityGroupOptions(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureSecurityGroupOptions(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     const currentOptions: ISecurityGroup[] = command.backingData.filtered.securityGroups;
     const newRegionalSecurityGroups = this.getRegionalSecurityGroups(command);
     const isExpression =
@@ -428,7 +428,7 @@ export class AwsServerGroupConfigurationService {
   }
 
   public refreshSecurityGroups(
-    command: IAmazonServerGroupCommand,
+    command: ITencentCloudServerGroupCommand,
     skipCommandReconfiguration?: boolean,
   ): IPromise<void> {
     return this.cacheInitializer.refreshCache('securityGroups').then(() => {
@@ -441,7 +441,7 @@ export class AwsServerGroupConfigurationService {
     });
   }
 
-  private getLoadBalancerMap(command: IAmazonServerGroupCommand): IAmazonLoadBalancerSourceData[] {
+  private getLoadBalancerMap(command: ITencentCloudServerGroupCommand): ITencentCloudLoadBalancerSourceData[] {
     if (command.backingData.loadBalancers) {
       return chain(command.backingData.loadBalancers)
         .map('accounts')
@@ -450,8 +450,8 @@ export class AwsServerGroupConfigurationService {
         .map('regions')
         .flattenDeep()
         .filter({ name: command.region })
-        .map<IAmazonLoadBalancerSourceData>('loadBalancers')
-        .flattenDeep<IAmazonLoadBalancerSourceData>()
+        .map<ITencentCloudLoadBalancerSourceData>('loadBalancers')
+        .flattenDeep<ITencentCloudLoadBalancerSourceData>()
         .value();
     }
 
@@ -459,8 +459,8 @@ export class AwsServerGroupConfigurationService {
     return appLoadBalancers.filter(lb => lb.region === command.region && lb.account === command.credentials);
   }
 
-  public configureLoadBalancerOptions(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureLoadBalancerOptions(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     const newLoadBalancers = this.getLoadBalancerMap(command).filter(lb => lb.vpcId === command.vpcId);
     command.backingData.filtered.lbList = newLoadBalancers;
     command.backingData.filtered.lbListenerMap = {};
@@ -475,7 +475,7 @@ export class AwsServerGroupConfigurationService {
     return result;
   }
 
-  public refreshLoadBalancerListenerMap(command: IAmazonServerGroupCommand) {
+  public refreshLoadBalancerListenerMap(command: ITencentCloudServerGroupCommand) {
     return Promise.all(
       command.backingData.filtered.lbList.map(flb =>
         this.loadBalancerReader
@@ -492,13 +492,13 @@ export class AwsServerGroupConfigurationService {
     });
   }
 
-  public configureListenerOptions(command: IAmazonServerGroupCommand): IServerGroupCommandResult {
-    const result: IAmazonServerGroupCommandResult = { dirty: {} };
+  public configureListenerOptions(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
     command.backingData.filtered.listenerList = command.backingData.listenerList;
     return result;
   }
 
-  public refreshListeners(command: IAmazonServerGroupCommand) {
+  public refreshListeners(command: ITencentCloudServerGroupCommand) {
     return this.loadBalancerReader
       .getLoadBalancerDetails('tencent', command.credentials, command.region, command.loadBalancerId)
       .then(loadBalancers => {
@@ -508,10 +508,12 @@ export class AwsServerGroupConfigurationService {
   }
 
   // TODO: Instead of attaching these to the command itself, they could be static methods
-  public attachEventHandlers(cmd: IAmazonServerGroupCommand): void {
-    cmd.usePreferredZonesChanged = (command: IAmazonServerGroupCommand): IAmazonServerGroupCommandResult => {
+  public attachEventHandlers(cmd: ITencentCloudServerGroupCommand): void {
+    cmd.usePreferredZonesChanged = (
+      command: ITencentCloudServerGroupCommand,
+    ): ITencentCloudServerGroupCommandResult => {
       const currentZoneCount = command.availabilityZones ? command.availabilityZones.length : 0;
-      const result: IAmazonServerGroupCommandResult = { dirty: {} };
+      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
       const preferredZonesForAccount = command.backingData.preferredZones[command.credentials];
       if (preferredZonesForAccount && preferredZonesForAccount[command.region] && command.viewState.usePreferredZones) {
         command.availabilityZones = cloneDeep(preferredZonesForAccount[command.region].sort());
@@ -528,8 +530,8 @@ export class AwsServerGroupConfigurationService {
       return result;
     };
 
-    cmd.vpcIdChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult => {
-      const result: IAmazonServerGroupCommandResult = { dirty: {} };
+    cmd.vpcIdChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
       extend(result.dirty, this.configureSubnetPurposes(command).dirty);
       extend(result.dirty, this.configureLoadBalancerOptions(command).dirty);
       command.viewState.dirty = command.viewState.dirty || {};
@@ -538,18 +540,18 @@ export class AwsServerGroupConfigurationService {
     };
 
     cmd.subnetChanged = (): IServerGroupCommandResult => {
-      const result: IAmazonServerGroupCommandResult = { dirty: {} };
+      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
       return result;
     };
 
-    cmd.loadBalancerChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult => {
-      const result: IAmazonServerGroupCommandResult = { dirty: {} };
+    cmd.loadBalancerChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
       extend(result.dirty, this.configureListenerOptions(command).dirty);
       return result;
     };
 
-    cmd.regionChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult => {
-      const result: IAmazonServerGroupCommandResult = { dirty: {} };
+    cmd.regionChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
       const filteredData = command.backingData.filtered;
       extend(result.dirty, this.configureVpcList(command).dirty);
       if (command.region) {
@@ -567,12 +569,12 @@ export class AwsServerGroupConfigurationService {
       return result;
     };
 
-    cmd.clusterChanged = (command: IAmazonServerGroupCommand): void => {
+    cmd.clusterChanged = (command: ITencentCloudServerGroupCommand): void => {
       command.moniker = NameUtils.getMoniker(command.application, command.stack, command.detail);
     };
 
-    cmd.credentialsChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult => {
-      const result: IAmazonServerGroupCommandResult = { dirty: {} };
+    cmd.credentialsChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
       const backingData = command.backingData;
       if (command.credentials) {
         const regionsForAccount: IAccountDetails =
@@ -591,10 +593,10 @@ export class AwsServerGroupConfigurationService {
       return result;
     };
 
-    cmd.imageChanged = (command: IAmazonServerGroupCommand): IServerGroupCommandResult =>
+    cmd.imageChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult =>
       this.configureInstanceTypes(command);
 
-    cmd.instanceTypeChanged = (command: IAmazonServerGroupCommand): void => {
+    cmd.instanceTypeChanged = (command: ITencentCloudServerGroupCommand): void => {
       command.ebsOptimized = this.tencentInstanceTypeService.isEbsOptimized(command.instanceType);
     };
 
@@ -602,11 +604,11 @@ export class AwsServerGroupConfigurationService {
   }
 }
 
-export const AWS_SERVER_GROUP_CONFIGURATION_SERVICE = 'spinnaker.tencent.serverGroup.configure.service';
-module(AWS_SERVER_GROUP_CONFIGURATION_SERVICE, [
+export const TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE = 'spinnaker.tencent.serverGroup.configure.service';
+module(TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE, [
   SECURITY_GROUP_READER,
-  AMAZON_INSTANCE_AWSINSTANCETYPE_SERVICE,
+  // TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,
   LOAD_BALANCER_READ_SERVICE,
   CACHE_INITIALIZER_SERVICE,
   SERVER_GROUP_COMMAND_REGISTRY_PROVIDER,
-]).service('tencentServerGroupConfigurationService', AwsServerGroupConfigurationService);
+]).service('tencentServerGroupConfigurationService', TencentCloudServerGroupConfigurationService);

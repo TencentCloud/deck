@@ -1,4 +1,4 @@
-import { IScalingPolicyAlarmView } from './IAmazonScalingPolicy';
+import { IScalingPolicyAlarmView } from './ITencentCloudScalingPolicy';
 
 export interface IScalingPolicyAlarm {
   dimensions?: any[];

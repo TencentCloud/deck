@@ -8,19 +8,19 @@ import {
   NameUtils,
   SETTINGS,
 } from '@spinnaker/core';
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 import {
   IALBListenerCertificate,
-  IAmazonApplicationLoadBalancer,
-  IAmazonApplicationLoadBalancerUpsertCommand,
-  IAmazonClassicLoadBalancer,
-  IAmazonClassicLoadBalancerUpsertCommand,
-  IAmazonLoadBalancer,
-  IAmazonServerGroup,
+  ITencentCloudApplicationLoadBalancer,
+  ITencentCloudApplicationLoadBalancerUpsertCommand,
+  ITencentCloudClassicLoadBalancer,
+  ITencentCloudClassicLoadBalancerUpsertCommand,
+  ITencentCloudLoadBalancer,
+  ITencentCloudServerGroup,
   IClassicListenerDescription,
   IClassicLoadBalancerSourceData,
   INetworkLoadBalancerSourceData,
-  IAmazonNetworkLoadBalancerUpsertCommand,
+  ITencentCloudNetworkLoadBalancerUpsertCommand,
   ITargetGroup,
   IListenerDescription,
 } from 'tencent/domain';
@@ -30,8 +30,8 @@ import { chain, filter, flatten, map } from 'lodash';
 
 import { $q } from 'ngimport';
 
-export class AwsLoadBalancerTransformer {
-  private updateHealthCounts(container: IServerGroup | ITargetGroup | IAmazonLoadBalancer): void {
+export class TencentCloudLoadBalancerTransformer {
+  private updateHealthCounts(container: IServerGroup | ITargetGroup | ITencentCloudLoadBalancer): void {
     const instances = container.instances;
 
     container.instanceCounts = {
@@ -44,7 +44,7 @@ export class AwsLoadBalancerTransformer {
       unknown: undefined,
     };
 
-    if ((container as ITargetGroup | IAmazonLoadBalancer).serverGroups) {
+    if ((container as ITargetGroup | ITencentCloudLoadBalancer).serverGroups) {
       const serverGroupInstances = flatten(
         (container as ITargetGroup).serverGroups.filter(sg => !!sg.instances).map(sg => sg.instances),
       );
@@ -76,8 +76,8 @@ export class AwsLoadBalancerTransformer {
   }
 
   private addVpcNameToContainer(
-    container: IAmazonLoadBalancer | ITargetGroup,
-  ): (vpcs: IVpc[]) => IAmazonLoadBalancer | ITargetGroup {
+    container: ITencentCloudLoadBalancer | ITargetGroup,
+  ): (vpcs: IVpc[]) => ITencentCloudLoadBalancer | ITargetGroup {
     return (vpcs: IVpc[]) => {
       const match = vpcs.find(test => test.id === container.vpcId);
       container.vpcName = match ? match.name : '';
@@ -87,7 +87,7 @@ export class AwsLoadBalancerTransformer {
 
   private normalizeServerGroups(
     serverGroups: IServerGroup[],
-    container: IAmazonLoadBalancer | ITargetGroup,
+    container: ITencentCloudLoadBalancer | ITargetGroup,
     containerType: string,
     healthType: string,
   ): void {
@@ -150,14 +150,14 @@ export class AwsLoadBalancerTransformer {
     });
   }
 
-  public normalizeLoadBalancer(loadBalancer: IAmazonLoadBalancer): IPromise<IAmazonLoadBalancer> {
+  public normalizeLoadBalancer(loadBalancer: ITencentCloudLoadBalancer): IPromise<ITencentCloudLoadBalancer> {
     this.normalizeServerGroups(loadBalancer.serverGroups, loadBalancer, 'loadBalancers', 'LoadBalancer');
 
     let serverGroups = loadBalancer.serverGroups;
-    if ((loadBalancer as IAmazonApplicationLoadBalancer).targetGroups) {
-      const appLoadBalancer = loadBalancer as IAmazonApplicationLoadBalancer;
+    if ((loadBalancer as ITencentCloudApplicationLoadBalancer).targetGroups) {
+      const appLoadBalancer = loadBalancer as ITencentCloudApplicationLoadBalancer;
       appLoadBalancer.targetGroups.forEach(targetGroup => this.normalizeTargetGroup(targetGroup));
-      serverGroups = flatten<IAmazonServerGroup>(map(appLoadBalancer.targetGroups, 'serverGroups'));
+      serverGroups = flatten<ITencentCloudServerGroup>(map(appLoadBalancer.targetGroups, 'serverGroups'));
     }
 
     loadBalancer.loadBalancerType = loadBalancer.loadBalancerType || 'classic';
@@ -174,14 +174,14 @@ export class AwsLoadBalancerTransformer {
       .value();
     this.updateHealthCounts(loadBalancer);
     return VpcReader.listVpcs().then(
-      (vpcs: IVpc[]) => this.addVpcNameToContainer(loadBalancer)(vpcs) as IAmazonLoadBalancer,
+      (vpcs: IVpc[]) => this.addVpcNameToContainer(loadBalancer)(vpcs) as ITencentCloudLoadBalancer,
     );
   }
 
   public convertClassicLoadBalancerForEditing(
-    loadBalancer: IAmazonClassicLoadBalancer,
-  ): IAmazonClassicLoadBalancerUpsertCommand {
-    const toEdit: IAmazonClassicLoadBalancerUpsertCommand = {
+    loadBalancer: ITencentCloudClassicLoadBalancer,
+  ): ITencentCloudClassicLoadBalancerUpsertCommand {
+    const toEdit: ITencentCloudClassicLoadBalancerUpsertCommand = {
       availabilityZones: undefined,
       isInternal: loadBalancer.isInternal,
       region: loadBalancer.region,
@@ -261,10 +261,10 @@ export class AwsLoadBalancerTransformer {
   }
 
   public convertApplicationLoadBalancerForEditing(
-    loadBalancer: IAmazonApplicationLoadBalancer,
-  ): IAmazonApplicationLoadBalancerUpsertCommand {
+    loadBalancer: ITencentCloudApplicationLoadBalancer,
+  ): ITencentCloudApplicationLoadBalancerUpsertCommand {
     // Since we build up toEdit as we go, much easier to declare as any, then cast at return time.
-    const toEdit: IAmazonApplicationLoadBalancerUpsertCommand = {
+    const toEdit: ITencentCloudApplicationLoadBalancerUpsertCommand = {
       availabilityZones: undefined,
       isInternal: loadBalancer.isInternal || loadBalancer.loadBalancerType === 'INTERNAL',
       region: loadBalancer.region,
@@ -288,12 +288,12 @@ export class AwsLoadBalancerTransformer {
   }
 
   public convertNetworkLoadBalancerForEditing(
-    loadBalancer: IAmazonApplicationLoadBalancer,
-  ): IAmazonNetworkLoadBalancerUpsertCommand {
+    loadBalancer: ITencentCloudApplicationLoadBalancer,
+  ): ITencentCloudNetworkLoadBalancerUpsertCommand {
     const applicationName = NameUtils.parseLoadBalancerName(loadBalancer.name).application;
 
     // Since we build up toEdit as we go, much easier to declare as any, then cast at return time.
-    const toEdit: IAmazonNetworkLoadBalancerUpsertCommand = {
+    const toEdit: ITencentCloudNetworkLoadBalancerUpsertCommand = {
       availabilityZones: undefined,
       isInternal: loadBalancer.isInternal,
       region: loadBalancer.region,
@@ -387,10 +387,12 @@ export class AwsLoadBalancerTransformer {
     return toEdit;
   }
 
-  public constructNewClassicLoadBalancerTemplate(application: Application): IAmazonClassicLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
-    const defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
-    const defaultSubnetType = AWSProviderSettings.defaults.subnetType;
+  public constructNewClassicLoadBalancerTemplate(
+    application: Application,
+  ): ITencentCloudClassicLoadBalancerUpsertCommand {
+    const defaultCredentials = application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+    const defaultSubnetType = TENCENTCLOUDProviderSettings.defaults.subnetType;
     return {
       application: application.name,
       availabilityZones: undefined,
@@ -428,10 +430,10 @@ export class AwsLoadBalancerTransformer {
 
   public constructNewApplicationLoadBalancerTemplate(
     application: Application,
-  ): IAmazonApplicationLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
-    const defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
-    const defaultSubnetType = AWSProviderSettings.defaults.subnetType;
+  ): ITencentCloudApplicationLoadBalancerUpsertCommand {
+    const defaultCredentials = application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+    const defaultSubnetType = TENCENTCLOUDProviderSettings.defaults.subnetType;
     const defaultPort = application.attributes.instancePort || SETTINGS.defaultInstancePort;
     const defaultTargetGroupName = `targetgroup`;
     return {
@@ -492,10 +494,12 @@ export class AwsLoadBalancerTransformer {
     };
   }
 
-  public constructNewNetworkLoadBalancerTemplate(application: Application): IAmazonNetworkLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
-    const defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
-    const defaultSubnetType = AWSProviderSettings.defaults.subnetType;
+  public constructNewNetworkLoadBalancerTemplate(
+    application: Application,
+  ): ITencentCloudNetworkLoadBalancerUpsertCommand {
+    const defaultCredentials = application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+    const defaultSubnetType = TENCENTCLOUDProviderSettings.defaults.subnetType;
     const defaultTargetGroupName = `targetgroup`;
     return {
       application: application.name,
@@ -554,5 +558,8 @@ export class AwsLoadBalancerTransformer {
   }
 }
 
-export const AWS_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencent.loadBalancer.transformer';
-module(AWS_LOAD_BALANCER_TRANSFORMER, []).service('tencentLoadBalancerTransformer', AwsLoadBalancerTransformer);
+export const TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencent.loadBalancer.transformer';
+module(TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER, []).service(
+  'tencentLoadBalancerTransformer',
+  TencentCloudLoadBalancerTransformer,
+);

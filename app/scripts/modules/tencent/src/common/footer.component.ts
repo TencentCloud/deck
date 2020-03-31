@@ -24,5 +24,5 @@ const footerComponent: IComponentOptions = {
   controller: () => {},
 };
 
-export const AWS_FOOTER_COMPONENT = 'spinnaker.tencent.footer';
-module(AWS_FOOTER_COMPONENT, []).component('tencentFooter', footerComponent);
+export const TENCENTCLOUD_FOOTER_COMPONENT = 'spinnaker.tencent.footer';
+module(TENCENTCLOUD_FOOTER_COMPONENT, []).component('tencentFooter', footerComponent);

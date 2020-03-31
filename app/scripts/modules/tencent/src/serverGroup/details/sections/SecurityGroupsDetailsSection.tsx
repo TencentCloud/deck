@@ -4,23 +4,23 @@ import { UISref } from '@uirouter/react';
 
 import { CollapsibleSection, ISecurityGroup, FirewallLabels } from '@spinnaker/core';
 
-import { IAmazonServerGroupDetailsSectionProps } from './IAmazonServerGroupDetailsSectionProps';
+import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 
 export interface ISecurityGroupsDetailsSectionState {
   securityGroups: ISecurityGroup[];
 }
 
 export class SecurityGroupsDetailsSection extends React.Component<
-  IAmazonServerGroupDetailsSectionProps,
+  ITencentCloudServerGroupDetailsSectionProps,
   ISecurityGroupsDetailsSectionState
 > {
-  constructor(props: IAmazonServerGroupDetailsSectionProps) {
+  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
     super(props);
 
     this.state = { securityGroups: this.getSecurityGroups(props) };
   }
 
-  private getSecurityGroups(props: IAmazonServerGroupDetailsSectionProps): ISecurityGroup[] {
+  private getSecurityGroups(props: ITencentCloudServerGroupDetailsSectionProps): ISecurityGroup[] {
     let securityGroups: ISecurityGroup[];
     const { app, serverGroup } = props;
     if (props.serverGroup.launchConfig && serverGroup.launchConfig.securityGroupIds) {
@@ -38,7 +38,7 @@ export class SecurityGroupsDetailsSection extends React.Component<
     return securityGroups;
   }
 
-  public componentWillReceiveProps(nextProps: IAmazonServerGroupDetailsSectionProps): void {
+  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
     this.setState({ securityGroups: this.getSecurityGroups(nextProps) });
   }
 

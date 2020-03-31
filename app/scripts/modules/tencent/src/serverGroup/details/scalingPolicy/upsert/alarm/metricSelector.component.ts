@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { IServerGroup } from '@spinnaker/core';
 
 import { IConfigurableMetric } from '../../../../../serverGroup';
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 import { NAMESPACES } from './namespaces';
 
 export interface IMetricOption {
@@ -27,7 +27,7 @@ export class MetricSelectorController implements IController {
   public namespaceUpdated = new Subject();
 
   public alarm: IConfigurableMetric;
-  public namespaces = get(AWSProviderSettings, 'metrics.customNamespaces', []).concat(NAMESPACES);
+  public namespaces = get(TENCENTCLOUDProviderSettings, 'metrics.customNamespaces', []).concat(NAMESPACES);
   public state: IMetricEditorState;
   public serverGroup: IServerGroup;
   private metricNames = [
@@ -121,7 +121,7 @@ const component: IComponentOptions = {
           <a href class="small"
              ng-if="$ctrl.state.advancedMode && !$ctrl.state.noDefaultMetrics"
              ng-click="$ctrl.simpleMode()">
-            Only show metrics for this auto scaling group <help-field key="aws.scalingPolicy.search.restricted"></help-field>
+            Only show metrics for this auto scaling group <help-field key="tencentCloud.scalingPolicy.search.restricted"></help-field>
           </a>
         </div>
       </div>`,

@@ -1,1 +1,1 @@
-export * from './AmazonCertificateReader';
+export * from './TencentCloudCertificateReader';

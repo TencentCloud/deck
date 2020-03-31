@@ -1,6 +1,6 @@
 import { module } from 'angular';
 
-import { AWS_SECURITY_GROUP_READER } from './securityGroup.reader';
+import { TENCENTCLOUD_SECURITY_GROUP_READER } from './securityGroup.reader';
 import { INGRESS_RULE_GROUP_SELECTOR_COMPONENT } from './configure/ingressRuleGroupSelector.component';
 import { name as CLONE_CLONESECURITYGROUP_CONTROLLER } from './clone/cloneSecurityGroup.controller';
 import { TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from './configure/configSecurityGroup.mixin.controller';
@@ -9,9 +9,9 @@ import { TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL } from './configu
 import { TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER } from './details/securityGroupDetail.controller';
 import { name as SECURITYGROUP_TRANSFORMER } from './securityGroup.transformer';
 
-export const AWS_SECURITY_GROUP_MODULE = 'spinnaker.tencent.securityGroup';
-module(AWS_SECURITY_GROUP_MODULE, [
-  AWS_SECURITY_GROUP_READER,
+export const TENCENTCLOUD_SECURITY_GROUP_MODULE = 'spinnaker.tencent.securityGroup';
+module(TENCENTCLOUD_SECURITY_GROUP_MODULE, [
+  TENCENTCLOUD_SECURITY_GROUP_READER,
   CLONE_CLONESECURITYGROUP_CONTROLLER,
   INGRESS_RULE_GROUP_SELECTOR_COMPONENT,
   TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER,

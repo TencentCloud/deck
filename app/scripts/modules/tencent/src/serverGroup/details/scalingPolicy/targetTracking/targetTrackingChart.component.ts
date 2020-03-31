@@ -40,7 +40,7 @@ class TargetTrackingChartController implements IComponentController {
       alarm.statistic = config.customizedMetricSpecification.statistic;
     } else {
       alarm.metricName = predefinedMetricTypeMapping[config.predefinedMetricSpecification.predefinedMetricType];
-      alarm.namespace = 'AWS/EC2';
+      alarm.namespace = 'TENCENTCLOUD/EC2';
       alarm.dimensions = [{ name: 'AutoScalingGroupName', value: serverGroup.name }];
     }
     alarm.threshold = config.targetValue;

@@ -3,15 +3,19 @@ import { difference, flatten, uniq } from 'lodash';
 
 import { ValidationMessage, IWizardPageComponent } from '@spinnaker/core';
 
-import { NLBListenerProtocol, IListenerDescription, IAmazonNetworkLoadBalancerUpsertCommand } from 'tencent/domain';
+import {
+  NLBListenerProtocol,
+  IListenerDescription,
+  ITencentCloudNetworkLoadBalancerUpsertCommand,
+} from 'tencent/domain';
 import { FormikProps } from 'formik';
 
 export interface INLBListenersProps {
-  formik: FormikProps<IAmazonNetworkLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentCloudNetworkLoadBalancerUpsertCommand>;
 }
 
 export class NLBListeners extends React.Component<INLBListenersProps>
-  implements IWizardPageComponent<IAmazonNetworkLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentCloudNetworkLoadBalancerUpsertCommand> {
   public protocols = ['TCP'];
 
   private getAllTargetGroupsFromListeners(listeners: IListenerDescription[]): string[] {
@@ -21,7 +25,7 @@ export class NLBListeners extends React.Component<INLBListenersProps>
     return uniq(actions.map(a => a.targetGroupName));
   }
 
-  public validate(values: IAmazonNetworkLoadBalancerUpsertCommand) {
+  public validate(values: ITencentCloudNetworkLoadBalancerUpsertCommand) {
     const errors = {} as any;
 
     // Check to make sure all target groups have an associated listener

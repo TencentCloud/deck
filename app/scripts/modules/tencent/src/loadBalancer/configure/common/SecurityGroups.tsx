@@ -14,11 +14,11 @@ import {
   FirewallLabels,
 } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
-import { IAmazonLoadBalancerUpsertCommand } from 'tencent/domain';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
+import { ITencentCloudLoadBalancerUpsertCommand } from 'tencent/domain';
 
 export interface ISecurityGroupsProps {
-  formik: FormikProps<IAmazonLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentCloudLoadBalancerUpsertCommand>;
   isNew?: boolean;
   onLoadingChanged(isLoading: boolean): void;
 }
@@ -33,7 +33,7 @@ export interface ISecurityGroupsState {
 }
 
 export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecurityGroupsState>
-  implements IWizardPageComponent<IAmazonLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentCloudLoadBalancerUpsertCommand> {
   private destroy$ = new Subject<void>();
   private props$ = new Subject<ISecurityGroupsProps>();
   private refresh$ = new Subject<void>();
@@ -41,7 +41,7 @@ export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecur
   constructor(props: ISecurityGroupsProps) {
     super(props);
 
-    const defaultSecurityGroups = get<string[]>(AWSProviderSettings, 'defaultSecurityGroups', []);
+    const defaultSecurityGroups = get<string[]>(TENCENTCLOUDProviderSettings, 'defaultSecurityGroups', []);
     this.state = {
       availableSecurityGroups: [],
       defaultSecurityGroups,
@@ -52,7 +52,7 @@ export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecur
     };
   }
 
-  public validate(values: { securityGroups: string | any[] }): FormikErrors<IAmazonLoadBalancerUpsertCommand> {
+  public validate(values: { securityGroups: string | any[] }): FormikErrors<ITencentCloudLoadBalancerUpsertCommand> {
     const { removed } = this.state;
     if (removed && removed.length) {
       const label = FirewallLabels.get('Firewalls');

@@ -1,3 +1,3 @@
-export const AmazonTemplates = {
-  upsertScalingPolicyModal: require('amazon/serverGroup/details/scalingPolicy/upsert/upsertScalingPolicy.modal.html'),
+export const TencentCloudTemplates = {
+  upsertScalingPolicyModal: require('tencent/serverGroup/details/scalingPolicy/upsert/upsertScalingPolicy.modal.html'),
 };
