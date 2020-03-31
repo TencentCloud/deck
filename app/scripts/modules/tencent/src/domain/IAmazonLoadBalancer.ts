@@ -19,6 +19,10 @@ export type IListenerActionType = 'forward' | 'authenticate-oidc' | 'redirect';
 export type NLBListenerProtocol = 'TCP';
 
 export interface IAmazonLoadBalancer extends ILoadBalancer {
+  loadBalancerType: any;
+  provider: any;
+  type: any;
+  instances: any[];
   availabilityZones?: string[];
   credentials?: string;
   detachedInstances?: IInstance[];
@@ -43,6 +47,12 @@ export interface IClassicListener {
 }
 
 export interface IAmazonClassicLoadBalancer extends IAmazonLoadBalancer {
+  region: any;
+  cloudProvider: any;
+  account: string;
+  name: any;
+  securityGroups: string[];
+  vpcId: string;
   healthCheckPath: string;
   healthCheckPort: number;
   healthCheckProtocol: string;
@@ -55,8 +65,15 @@ export interface IAmazonClassicLoadBalancer extends IAmazonLoadBalancer {
 }
 
 export interface IAmazonApplicationLoadBalancer extends IAmazonLoadBalancer {
+  loadBalancerType: string;
+  region: any;
+  cloudProvider: any;
+  account: string;
+  name: any;
+  securityGroups: any[];
+  vpcId: string;
   listeners: IALBListener[];
-  application: string;
+  application?: string;
   targetGroups: ITargetGroup[];
   ipAddressType?: string; // returned from clouddriver
   deletionProtection: boolean;
@@ -78,6 +95,7 @@ export interface IRedirectActionConfig {
   protocol?: 'HTTP' | 'HTTPS' | '#{protocol}';
   query?: string;
   statusCode: 'HTTP_301' | 'HTTP_302';
+  [k: string]: any;
 }
 
 export interface IListenerAction {
@@ -91,9 +109,12 @@ export interface IListenerAction {
 }
 
 export interface IALBListenerCertificate {
-  sslMode: string;
-  certId: string;
+  sslMode?: string;
+  certId?: string;
   certCaId?: string;
+  certificateArn: string;
+  type: string;
+  name: string;
 }
 
 export interface IALBListener {
@@ -144,19 +165,19 @@ export interface ITargetGroup {
   attributes?: ITargetGroupAttributes;
   cloudProvider: string; // returned from clouddriver
   detachedInstances?: IInstance[];
-  healthCheckProtocol: string;
-  healthCheckPort: number;
-  healthCheckPath: string;
-  healthTimeout: number;
-  healthInterval: number;
-  healthyThreshold: number;
-  unhealthyThreshold: number;
+  healthCheckProtocol?: string;
+  healthCheckPort?: number;
+  healthCheckPath?: string;
+  healthTimeout?: number;
+  healthInterval?: number;
+  healthyThreshold?: number;
+  unhealthyThreshold?: number;
   instanceCounts?: IInstanceCounts;
   instances?: IInstance[];
-  loadBalancerNames: string[]; // returned from clouddriver
+  loadBalancerNames?: string[]; // returned from clouddriver
   name: string;
-  port: number;
-  protocol: string;
+  port?: number;
+  protocol?: string;
   provider?: string;
   region: string; // returned from clouddriver
   serverGroups?: IAmazonServerGroup[];
@@ -167,6 +188,7 @@ export interface ITargetGroup {
 }
 
 export interface IListenerDescription {
+  defaultActions?: IListenerAction[];
   isNew?: boolean;
   certificates?: IALBListenerCertificate[];
   certificate?: IALBListenerCertificate;
@@ -231,6 +253,8 @@ export interface INLBTargetGroupDescription {
 }
 
 export interface IAmazonLoadBalancerUpsertCommand extends ILoadBalancerUpsertCommand {
+  securityGroupsRemoved?: string;
+  Firewalls?: string;
   availabilityZones: { [region: string]: string[] };
   isInternal: boolean;
   // listeners will be overriden and re-typed by extending types (application, classic)

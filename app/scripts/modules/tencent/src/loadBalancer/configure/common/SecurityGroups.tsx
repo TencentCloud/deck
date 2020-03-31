@@ -52,7 +52,7 @@ export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecur
     };
   }
 
-  public validate(values): FormikErrors<IAmazonLoadBalancerUpsertCommand> {
+  public validate(values: { securityGroups: string | any[] }): FormikErrors<IAmazonLoadBalancerUpsertCommand> {
     const { removed } = this.state;
     if (removed && removed.length) {
       const label = FirewallLabels.get('Firewalls');
@@ -121,9 +121,9 @@ export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecur
 
     const availableSecurityGroups$ = Observable.combineLatest(vpcId$, allSecurityGroups$)
       .withLatestFrom(formValues$)
-      .map(([[vpcId, allSecurityGroups], formValues]) => {
-        const forAccount = allSecurityGroups[formValues.credentials] || {};
-        const forRegion = (forAccount.tencent && forAccount.tencent[formValues.region]) || [];
+      .map(([[allSecurityGroups], formValues]) => {
+        const forAccount = allSecurityGroups[Number(formValues.credentials)] || {};
+        const forRegion = ((forAccount as any).tencent && (forAccount as any).tencent[formValues.region]) || [];
         return forRegion.sort();
       });
 

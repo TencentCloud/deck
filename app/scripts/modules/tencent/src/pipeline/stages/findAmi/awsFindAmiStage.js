@@ -4,8 +4,10 @@ const angular = require('angular');
 
 import { AccountService, Registry } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.findAmiStage', [])
+export const TENCENT_PIPELINE_STAGES_FINDAMI_AWSFINDAMISTAGE = 'spinnaker.tencent.pipeline.stage.findAmiStage';
+export const name = TENCENT_PIPELINE_STAGES_FINDAMI_AWSFINDAMISTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_FINDAMI_AWSFINDAMISTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'findImage',
@@ -23,7 +25,7 @@ module.exports = angular
   .controller('tencentFindAmiStageCtrl', [
     '$scope',
     function($scope) {
-      let stage = $scope.stage;
+      const stage = $scope.stage;
 
       $scope.state = {
         accounts: false,

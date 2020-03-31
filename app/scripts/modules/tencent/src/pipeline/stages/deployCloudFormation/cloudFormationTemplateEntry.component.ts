@@ -5,6 +5,7 @@ class CloudFormationTemplateController implements IController {
   public templateBody: any;
   public rawTemplateBody: string;
 
+  public static $inject = ['$scope'];
   constructor(private $scope: IScope) {
     'ngInject';
   }
@@ -21,19 +22,19 @@ class CloudFormationTemplateController implements IController {
   };
 }
 
-class CloudFormationTemplateEntryComponent implements IComponentOptions {
-  public bindings = { command: '<', templateBody: '<' };
-  public controller = CloudFormationTemplateController;
-  public controllerAs = 'ctrl';
-  public template = `
+const cloudFormationTemplateEntryComponent: IComponentOptions = {
+  bindings: { command: '<', templateBody: '<' },
+  controller: CloudFormationTemplateController,
+  controllerAs: 'ctrl',
+  template: `
     <json-editor
       value="ctrl.rawTemplateBody"
       on-change="ctrl.handleChange"
-    ></json-editor>`;
-}
+    ></json-editor>`,
+};
 
 export const CLOUDFORMATION_TEMPLATE_ENTRY = 'spinnaker.tencent.cloudformation.entry.component';
 module(CLOUDFORMATION_TEMPLATE_ENTRY, []).component(
   'cloudFormationTemplateEntry',
-  new CloudFormationTemplateEntryComponent(),
+  cloudFormationTemplateEntryComponent,
 );

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isEqual } from 'lodash';
 
-import { ILoadBalancerClusterContainerProps, LoadBalancerClusterContainer } from '@spinnaker/core';
+import { ILoadBalancerClusterContainerProps } from '@spinnaker/core';
 
 import { IAmazonApplicationLoadBalancer } from '../domain/IAmazonLoadBalancer';
 import { TargetGroup } from './TargetGroup';
@@ -10,8 +10,8 @@ export class AmazonLoadBalancerClusterContainer extends React.Component<ILoadBal
   public shouldComponentUpdate(nextProps: ILoadBalancerClusterContainerProps) {
     const serverGroupsDiffer = () =>
       !isEqual(
-        (nextProps.serverGroups || []).map(g => g.name),
-        (this.props.serverGroups || []).map(g => g.name),
+        (nextProps.serverGroups || []).map((g: { name: any }) => g.name),
+        (this.props.serverGroups || []).map((g: { name: any }) => g.name),
       );
     const targetGroupsDiffer = () =>
       !isEqual(
@@ -31,12 +31,12 @@ export class AmazonLoadBalancerClusterContainer extends React.Component<ILoadBal
     const { loadBalancer, showInstances, showServerGroups } = this.props;
     const alb = loadBalancer as IAmazonApplicationLoadBalancer;
     const ServerGroups = alb.serverGroups
-      ? alb.serverGroups.map(serverGroup => {
+      ? alb.serverGroups.map(item => {
           return (
             <TargetGroup
-              key={serverGroup.name}
+              key={item.name}
               loadBalancer={loadBalancer as IAmazonApplicationLoadBalancer}
-              serverGroup={serverGroup}
+              targetGroup={item}
               showInstances={showInstances}
               showServerGroups={showServerGroups}
             />

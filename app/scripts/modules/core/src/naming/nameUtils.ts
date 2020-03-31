@@ -4,6 +4,7 @@ import { IMoniker } from './IMoniker';
 export interface IComponentName {
   application: string;
   stack: string;
+  detail?: string;
   freeFormDetails: string;
   cluster: string;
 }

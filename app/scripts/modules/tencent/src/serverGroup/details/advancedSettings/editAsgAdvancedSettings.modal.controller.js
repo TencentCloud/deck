@@ -3,10 +3,14 @@
 const angular = require('angular');
 
 import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
+import { name as CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE } from '../../configure/serverGroupCommandBuilder.service';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.editAsgAdvancedSettings.modal.controller', [
-    require('../../configure/serverGroupCommandBuilder.service').name,
+export const TENCENT_SERVERGROUP_DETAILS_ADVANCEDSETTINGS_EDITASGADVANCEDSETTINGS_MODAL_CONTROLLER =
+  'spinnaker.tencent.serverGroup.editAsgAdvancedSettings.modal.controller';
+export const name = TENCENT_SERVERGROUP_DETAILS_ADVANCEDSETTINGS_EDITASGADVANCEDSETTINGS_MODAL_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_ADVANCEDSETTINGS_EDITASGADVANCEDSETTINGS_MODAL_CONTROLLER, [
+    CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE,
   ])
   .controller('tencentEditAsgAdvancedSettingsCtrl', [
     '$scope',
@@ -27,9 +31,9 @@ module.exports = angular
       });
 
       this.submit = () => {
-        var job = [$scope.command];
+        const job = [$scope.command];
 
-        var submitMethod = function() {
+        const submitMethod = function() {
           return TaskExecutor.executeTask({
             job: job,
             application: application,

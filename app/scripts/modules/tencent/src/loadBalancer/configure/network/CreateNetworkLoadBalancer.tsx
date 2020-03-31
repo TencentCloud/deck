@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as React from 'react';
 import { cloneDeep, get } from 'lodash';
 import { FormikErrors } from 'formik';
@@ -67,7 +68,6 @@ export class CreateNetworkLoadBalancer extends React.Component<
       taskMonitor: null,
     };
   }
-
   protected certificateIdAsARN(
     accountId: string,
     certificateId: string,
@@ -129,7 +129,7 @@ export class CreateNetworkLoadBalancer extends React.Component<
         }
       });
       (listenerDescription.rules || []).forEach(ruleDescription => {
-        ruleDescription.actions.forEach(actionDescription => {
+        ruleDescription.actions.forEach((actionDescription: any) => {
           if (actionDescription.targetGroupName) {
             actionDescription.targetGroupName = this.addAppName(actionDescription.targetGroupName);
           }
@@ -144,7 +144,9 @@ export class CreateNetworkLoadBalancer extends React.Component<
         // Set the priority in array order, starting with 1
         rule.priority = index + 1;
         // Remove conditions that have no value
-        rule.conditions = rule.conditions.filter(condition => condition.values[0].length > 0);
+        rule.conditions = rule.conditions.filter(
+          (condition: { values: Array<string | any[]> }) => condition.values[0].length > 0,
+        );
       });
     });
   }

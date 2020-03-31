@@ -1,6 +1,6 @@
 import { IHealth } from '@spinnaker/core';
 
-import { ITargetGroup } from 'tencent/domain';
+import { ITargetGroup } from '../domain';
 
 export interface IAmazonHealth extends IHealth {
   targetGroups: ITargetGroup[];

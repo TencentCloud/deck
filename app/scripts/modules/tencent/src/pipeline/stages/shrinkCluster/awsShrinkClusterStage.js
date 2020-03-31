@@ -4,8 +4,11 @@ const angular = require('angular');
 
 import { AccountService, Registry } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.aws.shrinkClusterStage', [])
+export const TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_AWSSHRINKCLUSTERSTAGE =
+  'spinnaker.tencent.pipeline.stage.aws.shrinkClusterStage';
+export const name = TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_AWSSHRINKCLUSTERSTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_AWSSHRINKCLUSTERSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'shrinkCluster',
@@ -24,9 +27,9 @@ module.exports = angular
   .controller('tencentShrinkClusterStageCtrl', [
     '$scope',
     function($scope) {
-      var ctrl = this;
+      const ctrl = this;
 
-      let stage = $scope.stage;
+      const stage = $scope.stage;
 
       $scope.state = {
         accounts: false,

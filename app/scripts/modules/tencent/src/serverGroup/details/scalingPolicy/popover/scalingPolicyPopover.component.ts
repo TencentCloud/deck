@@ -1,4 +1,5 @@
 import { IComponentOptions, module } from 'angular';
+import { name as CHART_METRICALARMCHART_COMPONENT } from '../chart/metricAlarmChart.component';
 
 const scalingPolicyPopover: IComponentOptions = {
   bindings: {
@@ -23,7 +24,7 @@ const scalingPolicyPopover: IComponentOptions = {
 };
 
 export const SCALING_POLICY_POPOVER = 'spinnaker.tencent.serverGroup.details.scalingPolicy.popover.component';
-module(SCALING_POLICY_POPOVER, [require('../chart/metricAlarmChart.component').name]).component(
+module(SCALING_POLICY_POPOVER, [CHART_METRICALARMCHART_COMPONENT]).component(
   'tencentScalingPolicyPopover',
   scalingPolicyPopover,
 );

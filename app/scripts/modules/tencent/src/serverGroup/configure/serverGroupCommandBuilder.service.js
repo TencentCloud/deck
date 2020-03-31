@@ -6,10 +6,13 @@ import _ from 'lodash';
 import { AccountService, INSTANCE_TYPE_SERVICE, NameUtils, SubnetReader } from '@spinnaker/core';
 
 import { AWSProviderSettings } from '../../aws.settings';
-import { AWS_SERVER_GROUP_CONFIGURATION_SERVICE } from 'tencent/serverGroup/configure/serverGroupConfiguration.service';
+import { AWS_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroupCommandBuilder.service', [
+export const TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
+  'spinnaker.tencent.serverGroupCommandBuilder.service';
+export const name = TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE, [
     INSTANCE_TYPE_SERVICE,
     AWS_SERVER_GROUP_CONFIGURATION_SERVICE,
   ])
@@ -20,15 +23,15 @@ module.exports = angular
     function($q, instanceTypeService, tencentServerGroupConfigurationService) {
       function buildNewServerGroupCommand(application, defaults) {
         defaults = defaults || {};
-        var credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencent');
+        const credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencent');
 
-        var defaultCredentials =
+        const defaultCredentials =
           defaults.account || application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
-        var defaultRegion =
+        const defaultRegion =
           defaults.region || application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
-        var defaultSubnet = defaults.subnet || AWSProviderSettings.defaults.subnetType || '';
+        const defaultSubnet = defaults.subnet || AWSProviderSettings.defaults.subnetType || '';
 
-        var preferredZonesLoader = AccountService.getAvailabilityZonesForAccountAndRegion(
+        const preferredZonesLoader = AccountService.getAvailabilityZonesForAccountAndRegion(
           'tencent',
           defaultCredentials,
           defaultRegion,
@@ -40,15 +43,15 @@ module.exports = angular
             credentialsKeyedByAccount: credentialsLoader,
           })
           .then(function(asyncData) {
-            var availabilityZones = asyncData.preferredZones;
+            const availabilityZones = asyncData.preferredZones;
 
-            var credentials = asyncData.credentialsKeyedByAccount[defaultCredentials];
-            var keyPair = credentials ? credentials.defaultKeyPair : null;
-            var applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
+            const credentials = asyncData.credentialsKeyedByAccount[defaultCredentials];
+            const keyPair = credentials ? credentials.defaultKeyPair : null;
+            const applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
 
-            var useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
+            const useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
 
-            var command = {
+            const command = {
               application: application.name,
               credentials: defaultCredentials,
               region: defaultRegion,
@@ -122,22 +125,22 @@ module.exports = angular
       }
 
       function buildServerGroupCommandFromPipeline(application, originalCluster) {
-        var pipelineCluster = _.cloneDeep(originalCluster);
-        var region = pipelineCluster.region;
-        var instanceTypeCategoryLoader = instanceTypeService.getCategoryForInstanceType(
+        const pipelineCluster = _.cloneDeep(originalCluster);
+        const region = pipelineCluster.region;
+        const instanceTypeCategoryLoader = instanceTypeService.getCategoryForInstanceType(
           'tencent',
           pipelineCluster.instanceType,
         );
-        var commandOptions = { account: pipelineCluster.account, region: region };
-        var asyncLoader = $q.all({
+        const commandOptions = { account: pipelineCluster.account, region: region };
+        const asyncLoader = $q.all({
           command: buildNewServerGroupCommand(application, commandOptions),
           instanceProfile: instanceTypeCategoryLoader,
         });
 
         return asyncLoader.then(function(asyncData) {
-          var command = asyncData.command;
+          const command = asyncData.command;
 
-          var viewState = {
+          const viewState = {
             instanceProfile: asyncData.instanceProfile,
             disableImageSelection: true,
             useSimpleCapacity:
@@ -149,7 +152,7 @@ module.exports = angular
             existingPipelineCluster: true,
             dirty: {},
           };
-          var viewOverrides = {
+          const viewOverrides = {
             region: region,
             credentials: pipelineCluster.account || pipelineCluster.accountName,
             availabilityZones: [],
@@ -193,7 +196,7 @@ module.exports = angular
       }
 
       function buildUpdateServerGroupCommand(serverGroup) {
-        var command = {
+        const command = {
           type: 'modifyAsg',
           asgs: [{ asgName: serverGroup.name, region: serverGroup.region }],
           cooldown: serverGroup.asg.defaultCooldown,
@@ -206,15 +209,15 @@ module.exports = angular
       }
 
       function buildServerGroupCommandFromExisting(application, serverGroup, mode = 'clone') {
-        var preferredZonesLoader = AccountService.getPreferredZonesByAccount('tencent');
-        var subnetsLoader = SubnetReader.listSubnets();
+        const preferredZonesLoader = AccountService.getPreferredZonesByAccount('tencent');
+        const subnetsLoader = SubnetReader.listSubnets();
 
-        var serverGroupName = NameUtils.parseServerGroupName(serverGroup.asg.autoScalingGroupName);
+        const serverGroupName = NameUtils.parseServerGroupName(serverGroup.asg.autoScalingGroupName);
 
-        var instanceType = serverGroup.launchConfig ? serverGroup.launchConfig.instanceType : null;
-        var instanceTypeCategoryLoader = instanceTypeService.getCategoryForInstanceType('tencent', instanceType);
+        const instanceType = serverGroup.launchConfig ? serverGroup.launchConfig.instanceType : null;
+        const instanceTypeCategoryLoader = instanceTypeService.getCategoryForInstanceType('tencent', instanceType);
 
-        var asyncLoader = $q.all({
+        const asyncLoader = $q.all({
           preferredZones: preferredZonesLoader,
           subnets: subnetsLoader,
           instanceProfile: instanceTypeCategoryLoader,
@@ -222,10 +225,10 @@ module.exports = angular
 
         return asyncLoader.then(function(asyncData) {
           // These processes should never be copied over, as the affect launching instances and enabling traffic
-          let enabledProcesses = ['Launch', 'Terminate', 'AddToLoadBalancer'];
+          const enabledProcesses = ['Launch', 'Terminate', 'AddToLoadBalancer'];
 
-          var applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
-          var useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
+          const applicationAwsSettings = _.get(application, 'attributes.providerSettings.tencent', {});
+          const useAmiBlockDeviceMappings = applicationAwsSettings.useAmiBlockDeviceMappings || false;
 
           const existingTags = {};
           // These tags are applied by Clouddriver (if configured to do so), regardless of what the user might enter
@@ -243,7 +246,7 @@ module.exports = angular
                 existingTags[tag.key] = tag.value;
               });
           }
-          var command = {
+          const command = {
             application: application.name,
             strategy: '',
             stack: serverGroupName.stack,

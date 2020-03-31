@@ -3,9 +3,12 @@
 const angular = require('angular');
 
 import { SecurityGroupWriter, TaskMonitor, FirewallLabels } from '@spinnaker/core';
+import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-module.exports = angular
-  .module('spinnaker.tencent.securityGroup.edit.controller', [require('@uirouter/angularjs').default])
+export const TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL = 'spinnaker.tencent.securityGroup.edit.controller';
+export const name = TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL; // for backwards compatibility
+angular
+  .module(TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL, [UIROUTER_ANGULARJS])
   .controller('tencentEditSecurityGroupCtrl', [
     '$scope',
     '$uibModalInstance',
@@ -26,7 +29,7 @@ module.exports = angular
 
       $scope.securityGroup.regions = [$scope.securityGroup.region];
       $scope.securityGroup.credentials = $scope.securityGroup.accountName;
-      let ctrl = this;
+      const ctrl = this;
       ctrl.protocolChange = rule => {
         if (rule.protocol == 'ICMP') {
           rule.port = '';
@@ -63,7 +66,7 @@ module.exports = angular
         : [];
 
       this.upsert = function() {
-        let command = {
+        const command = {
           application: application.name,
           account: $scope.securityGroup.accountName,
           accountName: $scope.securityGroup.accountName,

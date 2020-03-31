@@ -10,6 +10,9 @@ interface IChecklistInputProps extends IFormInputProps, OmitControlledInputProps
   stringOptions?: readonly string[];
   inline?: boolean;
   showSelectAll?: boolean;
+  items?: Set<string>;
+  checked?: boolean;
+  onChange?: (e: any) => void;
 }
 
 export interface IChecklistInputOption {

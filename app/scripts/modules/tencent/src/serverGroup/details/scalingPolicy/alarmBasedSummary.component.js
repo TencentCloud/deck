@@ -8,10 +8,14 @@ import { SCALING_POLICY_POPOVER } from './popover/scalingPolicyPopover.component
 import { ScalingPolicyWriter } from './ScalingPolicyWriter';
 
 import './scalingPolicySummary.component.less';
+import { name as UPSERT_UPSERTSCALINGPOLICY_CONTROLLER } from './upsert/upsertScalingPolicy.controller';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.scalingPolicy.alarmBasedSummary.component', [
-    require('./upsert/upsertScalingPolicy.controller').name,
+export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT =
+  'spinnaker.tencent.serverGroup.details.scalingPolicy.alarmBasedSummary.component';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT, [
+    UPSERT_UPSERTSCALINGPOLICY_CONTROLLER,
     SCALING_POLICY_POPOVER,
     CONFIRMATION_MODAL_SERVICE,
   ])
@@ -43,13 +47,13 @@ module.exports = angular
         };
 
         this.deletePolicy = () => {
-          var taskMonitor = {
+          const taskMonitor = {
             application: this.application,
             title: 'Deleting scaling policy ' + this.policy.policyName,
             onTaskComplete: () => this.application.serverGroups.refresh(),
           };
 
-          var submitMethod = () =>
+          const submitMethod = () =>
             ScalingPolicyWriter.deleteScalingPolicy(this.application, this.serverGroup, this.policy);
 
           confirmationModalService.confirm({

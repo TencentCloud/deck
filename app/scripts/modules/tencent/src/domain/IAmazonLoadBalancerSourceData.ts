@@ -1,8 +1,8 @@
 import { ILoadBalancerSourceData } from '@spinnaker/core';
 
-import { NLBListenerProtocol } from 'tencent/domain';
+import { IListenerAction, NLBListenerProtocol } from './IAmazonLoadBalancer';
 
-import { IListenerRule, IALBListener } from './IAmazonLoadBalancer';
+import { IListenerRule } from './IAmazonLoadBalancer';
 
 export interface IAmazonContainerServerGroupSourceData {
   detachedInstances: string[];
@@ -40,6 +40,7 @@ export interface IClassicListenerSourceData {
 }
 
 export interface IAmazonLoadBalancerSourceData extends ILoadBalancerSourceData {
+  id?: string;
   account: string;
   availabilityZones: string[];
   cloudProvider: string;
@@ -47,8 +48,6 @@ export interface IAmazonLoadBalancerSourceData extends ILoadBalancerSourceData {
   dnsname: string;
   loadBalancerName: string;
   loadBalancerType?: string;
-  listeners?: IALBListener[];
-  id: string;
   name: string;
   region: string;
   scheme: 'internal' | 'internet-facing';
@@ -82,6 +81,7 @@ export interface IAmazonTargetGroupSourceData {
     'stickiness.enabled': boolean;
     'stickiness.lb_cookie.duration_seconds': number;
     'stickiness.type': 'lb_cookie';
+    'lambda.multi_value_headers.enabled': boolean;
   };
   cloudProvider: string;
   healthCheckIntervalSeconds: number;
@@ -114,6 +114,7 @@ export interface IApplicationLoadBalancerCertificateSourceData {
 
 export interface IApplicationLoadBalancerListenerSourceData {
   certificates?: IApplicationLoadBalancerCertificateSourceData[];
+  defaultActions: IListenerAction[];
   listenerArn: string;
   loadBalancerName: string;
   port: number;

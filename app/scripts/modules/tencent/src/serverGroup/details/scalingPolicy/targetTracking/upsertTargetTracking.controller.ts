@@ -7,7 +7,7 @@ import { IModalServiceInstance } from 'angular-ui-bootstrap';
 import { Application, IServerGroup, TaskMonitor } from '@spinnaker/core';
 
 import { ITargetTrackingConfiguration, ITargetTrackingPolicy } from 'tencent/domain';
-import { IUpsertScalingPolicyCommand, ScalingPolicyWriter } from 'tencent/serverGroup';
+import { IUpsertScalingPolicyCommand, ScalingPolicyWriter } from '../../../../serverGroup';
 
 export type MetricType = 'custom' | 'predefined';
 

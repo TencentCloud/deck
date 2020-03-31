@@ -104,7 +104,11 @@ describe('Service: awsServerGroupConfiguration', function() {
       } as any;
 
       service.configureCommand(
-        ApplicationModelBuilder.createApplicationForTests('name', { key: 'loadBalancers', lazy: true }),
+        ApplicationModelBuilder.createApplicationForTests('name', {
+          key: 'loadBalancers',
+          lazy: true,
+          defaultData: null,
+        }),
         command,
       );
       $scope.$digest();

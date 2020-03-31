@@ -11,10 +11,14 @@ import { CloudMetricsReader } from '@spinnaker/core';
 // require('style!n3-charts/build/LineChart.css');
 import './LineChartHack.css';
 import './metricAlarmChart.component.less';
+import EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART from 'exports-loader?"n3-line-chart"!n3-charts/build/LineChart';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.scalingPolicy.metricAlarmChart.component', [
-    require('exports-loader?"n3-line-chart"!n3-charts/build/LineChart'),
+export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_CHART_METRICALARMCHART_COMPONENT =
+  'spinnaker.tencent.serverGroup.details.scalingPolicy.metricAlarmChart.component';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_CHART_METRICALARMCHART_COMPONENT; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_CHART_METRICALARMCHART_COMPONENT, [
+    EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART,
   ])
   .component('tencentMetricAlarmChart', {
     bindings: {
@@ -31,9 +35,9 @@ module.exports = angular
       '$filter',
       function($filter) {
         // converts alarm into parameters used to retrieve statistic data
-        let getFilterParameters = () => {
-          let alarm = this.alarm;
-          let base = {
+        const getFilterParameters = () => {
+          const alarm = this.alarm;
+          const base = {
             namespace: alarm.namespace,
             statistics: alarm.statistic,
             period: alarm.period,
@@ -44,11 +48,11 @@ module.exports = angular
           }, base);
         };
 
-        let initializeStatistics = () => {
-          let start = new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-            end = new Date(),
-            threshold = this.alarm.threshold || 0,
-            topline = this.alarm.comparisonOperator.indexOf('Less') === 0 ? threshold * 3 : threshold * 1.02;
+        const initializeStatistics = () => {
+          const start = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+          const end = new Date();
+          const threshold = this.alarm.threshold || 0;
+          const topline = this.alarm.comparisonOperator.indexOf('Less') === 0 ? threshold * 3 : threshold * 1.02;
 
           /**
            * Draw four lines:
@@ -78,7 +82,7 @@ module.exports = angular
         };
 
         // forces tooltips to render with the same time format we use throughout the application
-        let tooltipHook = rows => {
+        const tooltipHook = rows => {
           if (!rows) {
             return null;
           }
@@ -95,7 +99,7 @@ module.exports = angular
           };
         };
 
-        let updateChartData = () => {
+        const updateChartData = () => {
           CloudMetricsReader.getMetricStatistics(
             this.serverGroup.type,
             this.serverGroup.account,
@@ -124,11 +128,11 @@ module.exports = angular
             });
         };
 
-        let configureChart = () => {
-          let statKey = _.camelCase(this.alarm.statistic);
+        const configureChart = () => {
+          const statKey = _.camelCase(this.alarm.statistic);
           initializeStatistics(statKey);
 
-          let ticks = this.ticks || { x: 6, y: 3 };
+          const ticks = this.ticks || { x: 6, y: 3 };
 
           this.chartOptions = {
             margin: this.margins || { top: 5, left: 5 },

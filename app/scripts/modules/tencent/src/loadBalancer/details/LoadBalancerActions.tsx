@@ -7,7 +7,7 @@ import {
   LoadBalancerWriter,
   SETTINGS,
   NgReact,
-  ReactInjector,
+  ConfirmationModalService,
   HelpField,
 } from '@spinnaker/core';
 
@@ -87,12 +87,10 @@ export class LoadBalancerActions extends React.Component<ILoadBalancerActionsPro
 
     const submitMethod = () => LoadBalancerWriter.deleteLoadBalancer(command, app);
 
-    ReactInjector.confirmationModalService.confirm({
+    ConfirmationModalService.confirm({
       header: `Really delete ${loadBalancerFromParams.name} in ${loadBalancerFromParams.region}: ${loadBalancerFromParams.accountId}?`,
       buttonText: `Delete ${loadBalancerFromParams.name}`,
-      provider: 'tencent',
       account: loadBalancerFromParams.accountId,
-      applicationName: app.name,
       taskMonitorConfig: taskMonitor,
       submitMethod,
     });

@@ -1,4 +1,8 @@
+import { IScalingPolicyAlarmView } from './IAmazonScalingPolicy';
+
 export interface IScalingPolicyAlarm {
+  dimensions?: any[];
+  namespace?: string;
   alarmName?: string;
   alarmArn?: string;
   metricName: string;
@@ -62,6 +66,7 @@ export interface IStepAdjustment {
 }
 
 export interface IScalingPolicy {
+  alarms?: IScalingPolicyAlarmView[];
   policyARN?: string;
   policyName?: string;
   policyType?: string;

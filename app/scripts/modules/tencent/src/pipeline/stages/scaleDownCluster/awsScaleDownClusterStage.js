@@ -4,8 +4,11 @@ const angular = require('angular');
 
 import { AccountService, Registry } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.scaleDownClusterStage', [])
+export const TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_AWSSCALEDOWNCLUSTERSTAGE =
+  'spinnaker.tencent.pipeline.stage.scaleDownClusterStage';
+export const name = TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_AWSSCALEDOWNCLUSTERSTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_AWSSCALEDOWNCLUSTERSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'scaleDownCluster',
@@ -29,9 +32,9 @@ module.exports = angular
   .controller('tencentScaleDownClusterStageCtrl', [
     '$scope',
     function($scope) {
-      var ctrl = this;
+      const ctrl = this;
 
-      let stage = $scope.stage;
+      const stage = $scope.stage;
 
       $scope.state = {
         accounts: false,

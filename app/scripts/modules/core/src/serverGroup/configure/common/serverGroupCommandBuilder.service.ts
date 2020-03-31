@@ -75,7 +75,7 @@ export interface IServerGroupCommandBackingData {
   credentialsKeyedByAccount: IAggregatedAccounts;
   enabledMetrics: string[];
   healthCheckTypes: string[];
-  instanceTypes: string[];
+  // instanceTypes: string[];
   managedResources: IManagedResourceSummary[];
   loadBalancers: ILoadBalancer[];
   terminationPolicies: string[];
@@ -89,6 +89,7 @@ export interface IServerGroupCommandBackingData {
     };
   };
   securityGroups: ISecurityGroupsByAccountSourceData;
+  [k: string]: any;
 }
 
 export interface IServerGroupCommand {

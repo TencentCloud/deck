@@ -14,10 +14,14 @@ import {
   TaskMonitor,
   ModalWizard,
 } from '@spinnaker/core';
+import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-module.exports = angular
-  .module('spinnaker.tencent.securityGroup.baseConfig.controller', [
-    require('@uirouter/angularjs').default,
+export const TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER =
+  'spinnaker.tencent.securityGroup.baseConfig.controller';
+export const name = TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER, [
+    UIROUTER_ANGULARJS,
     SECURITY_GROUP_READER,
   ])
   .controller('tencentConfigSecurityGroupMixin', [
@@ -28,7 +32,7 @@ module.exports = angular
     'securityGroup',
     'securityGroupReader',
     function($scope, $state, $uibModalInstance, application, securityGroup, securityGroupReader) {
-      var ctrl = this;
+      const ctrl = this;
 
       $scope.state = {
         submitting: false,
@@ -48,7 +52,7 @@ module.exports = angular
         $scope.state.infiniteScroll.currentItems += $scope.state.infiniteScroll.numToAdd;
       };
 
-      let getAccount = () => $scope.securityGroup.accountName || $scope.securityGroup.credentials;
+      const getAccount = () => $scope.securityGroup.accountName || $scope.securityGroup.credentials;
 
       function onApplicationRefresh() {
         // If the user has already closed the modal, do not navigate to the new details view
@@ -56,7 +60,7 @@ module.exports = angular
           return;
         }
         $uibModalInstance.close();
-        var newStateParams = {
+        const newStateParams = {
           name: $scope.securityGroup.name,
           accountId: getAccount(),
           region: $scope.securityGroup.regions[0],
@@ -123,12 +127,12 @@ module.exports = angular
       };
 
       function configureFilteredSecurityGroups() {
-        var account = getAccount();
-        var region = $scope.securityGroup.region;
-        var existingSecurityGroupNames = [];
-        var availableSecurityGroups = [];
+        const account = getAccount();
+        const region = $scope.securityGroup.region;
+        let existingSecurityGroupNames = [];
+        let availableSecurityGroups = [];
 
-        var regionalGroupNames = _.get(allSecurityGroups, [account, 'tencent', region].join('.'), []).map(
+        const regionalGroupNames = _.get(allSecurityGroups, [account, 'tencent', region].join('.'), []).map(
           sg => sg.name,
         );
 
@@ -172,7 +176,7 @@ module.exports = angular
         $scope.state.refreshTime = InfrastructureCaches.get('securityGroups').getStats().ageMax;
       }
 
-      var allSecurityGroups = {};
+      let allSecurityGroups = {};
 
       $scope.allSecurityGroupsUpdated = new Subject();
       $scope.coordinatesChanged = new Subject();
@@ -181,10 +185,10 @@ module.exports = angular
         return securityGroupReader.getAllSecurityGroups().then(function(securityGroups) {
           setSecurityGroupRefreshTime();
           allSecurityGroups = securityGroups;
-          var account = $scope.securityGroup.credentials || $scope.securityGroup.accountName;
-          var region = $scope.securityGroup.regions[0];
+          const account = $scope.securityGroup.credentials || $scope.securityGroup.accountName;
+          const region = $scope.securityGroup.regions[0];
 
-          var availableGroups;
+          let availableGroups;
           if (account && region) {
             availableGroups = (securityGroups[account] && securityGroups[account].tencent[region]) || [];
           } else {
@@ -232,6 +236,6 @@ module.exports = angular
         ModalWizard.markComplete('Ingress');
       };
 
-      var classicPattern = /^[\x20-\x7F]+$/;
+      const classicPattern = /^[\x20-\x7F]+$/;
     },
   ]);

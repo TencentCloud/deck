@@ -11,6 +11,7 @@ export interface ILoadBalancerSourceData {
   name?: string;
   provider?: string;
   type?: string;
+  listeners?: any;
 }
 
 export interface ILoadBalancer extends ITaggedEntity, IManagedResource {

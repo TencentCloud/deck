@@ -5,8 +5,11 @@ import _ from 'lodash';
 
 import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.autoscaling.process.controller', [])
+export const TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER =
+  'spinnaker.tencent.serverGroup.details.autoscaling.process.controller';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER, [])
   .controller('tencentModifyScalingProcessesCtrl', [
     '$scope',
     '$uibModalInstance',
@@ -25,26 +28,26 @@ module.exports = angular
         return this.isDirty();
       };
 
-      var currentlyEnabled = _.chain($scope.command)
+      const currentlyEnabled = _.chain($scope.command)
+        .filter({ enabled: true })
+        .map('name')
+        .value();
+      const currentlySuspended = _.chain($scope.command)
+        .filter({ enabled: false })
+        .map('name')
+        .value();
+
+      this.isDirty = function() {
+        const enabledSelections = _.chain($scope.command)
           .filter({ enabled: true })
           .map('name')
-          .value(),
-        currentlySuspended = _.chain($scope.command)
+          .value();
+        const suspendedSelections = _.chain($scope.command)
           .filter({ enabled: false })
           .map('name')
           .value();
-
-      this.isDirty = function() {
-        var enabledSelections = _.chain($scope.command)
-            .filter({ enabled: true })
-            .map('name')
-            .value(),
-          suspendedSelections = _.chain($scope.command)
-            .filter({ enabled: false })
-            .map('name')
-            .value(),
-          toEnable = _.intersection(currentlySuspended, enabledSelections),
-          toSuspend = _.intersection(currentlyEnabled, suspendedSelections);
+        const toEnable = _.intersection(currentlySuspended, enabledSelections);
+        const toSuspend = _.intersection(currentlyEnabled, suspendedSelections);
 
         return !!(toEnable.length || toSuspend.length);
       };
@@ -57,18 +60,18 @@ module.exports = angular
       });
 
       this.submit = function() {
-        var enabledSelections = _.chain($scope.command)
-            .filter({ enabled: true })
-            .map('name')
-            .value(),
-          suspendedSelections = _.chain($scope.command)
-            .filter({ enabled: false })
-            .map('name')
-            .value(),
-          toEnable = _.intersection(currentlySuspended, enabledSelections),
-          toSuspend = _.intersection(currentlyEnabled, suspendedSelections);
+        const enabledSelections = _.chain($scope.command)
+          .filter({ enabled: true })
+          .map('name')
+          .value();
+        const suspendedSelections = _.chain($scope.command)
+          .filter({ enabled: false })
+          .map('name')
+          .value();
+        const toEnable = _.intersection(currentlySuspended, enabledSelections);
+        const toSuspend = _.intersection(currentlyEnabled, suspendedSelections);
 
-        var job = [];
+        const job = [];
         if (toEnable.length) {
           job.push({
             type: 'modifyScalingProcess',
@@ -94,7 +97,7 @@ module.exports = angular
           });
         }
 
-        var submitMethod = function() {
+        const submitMethod = function() {
           return TaskExecutor.executeTask({
             job: job,
             application: application,

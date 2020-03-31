@@ -18,7 +18,6 @@ import {
   IListenerActionType,
   ITencentHealthCheck,
 } from 'tencent/domain';
-import { IAuthenticateOidcActionConfig } from 'tencent/loadBalancer/OidcConfigReader';
 
 import { ConfigureOidcConfigModal } from './ConfigureOidcConfigModal';
 import { ConfigureRedirectConfigModal } from './ConfigureRedirectConfigModal';
@@ -819,7 +818,9 @@ const HealthCheck = ({
                     style={{ width: '130px' }}
                     name="httpCheckDomain"
                     value={healthCheck.httpCheckDomain}
-                    onChange={event => handleHealthCheckChanged(healthCheck, 'httpCheckDomain', event.target.value)}
+                    onChange={(event: { target: { value: string | number | boolean } }) =>
+                      handleHealthCheckChanged(healthCheck, 'httpCheckDomain', event.target.value)
+                    }
                   />
                 </span>
               </div>
@@ -837,7 +838,9 @@ const HealthCheck = ({
                     name="httpCheckPath"
                     required={true}
                     value={healthCheck.httpCheckPath}
-                    onChange={event => handleHealthCheckChanged(healthCheck, 'httpCheckPath', event.target.value)}
+                    onChange={(event: { target: { value: string | number | boolean } }) =>
+                      handleHealthCheckChanged(healthCheck, 'httpCheckPath', event.target.value)
+                    }
                   />
                 </span>
               </div>

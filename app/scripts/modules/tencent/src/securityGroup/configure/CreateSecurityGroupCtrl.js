@@ -3,12 +3,13 @@
 const angular = require('angular');
 
 import { CACHE_INITIALIZER_SERVICE, FirewallLabels } from '@spinnaker/core';
+import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-module.exports = angular
-  .module('spinnaker.tencent.securityGroup.create.controller', [
-    require('@uirouter/angularjs').default,
-    CACHE_INITIALIZER_SERVICE,
-  ])
+export const TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL =
+  'spinnaker.tencent.securityGroup.create.controller';
+export const name = TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL; // for backwards compatibility
+angular
+  .module(TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL, [UIROUTER_ANGULARJS, CACHE_INITIALIZER_SERVICE])
   .controller('tencentCreateSecurityGroupCtrl', [
     '$scope',
     '$uibModalInstance',
@@ -23,7 +24,7 @@ module.exports = angular
         ingress: require('./createSecurityGroupIngress.html'),
       };
       $scope.regionFilters = [];
-      var ctrl = this;
+      const ctrl = this;
 
       ctrl.translate = label => FirewallLabels.get(label);
       ctrl.protocolChange = rule => {
