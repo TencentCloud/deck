@@ -2,25 +2,25 @@ import * as React from 'react';
 
 import { CollapsibleSection, ShowUserData } from '@spinnaker/core';
 
-import { IAmazonServerGroupView } from 'tencent/domain';
+import { ITencentCloudServerGroupView } from 'tencent/domain';
 
-import { IAmazonServerGroupDetailsSectionProps } from './IAmazonServerGroupDetailsSectionProps';
+import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 
 export interface ILaunchConfigDetailsSectionState {
   image: any;
 }
 
 export class LaunchConfigDetailsSection extends React.Component<
-  IAmazonServerGroupDetailsSectionProps,
+  ITencentCloudServerGroupDetailsSectionProps,
   ILaunchConfigDetailsSectionState
 > {
-  constructor(props: IAmazonServerGroupDetailsSectionProps) {
+  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
     super(props);
 
     this.state = { image: this.getImage(props.serverGroup) };
   }
 
-  private getImage(serverGroup: IAmazonServerGroupView): any {
+  private getImage(serverGroup: ITencentCloudServerGroupView): any {
     const image = serverGroup.image ? serverGroup.image : undefined;
     if (serverGroup.image && serverGroup.image.description) {
       const tags: string[] = serverGroup.image.description.split(', ');
@@ -34,7 +34,7 @@ export class LaunchConfigDetailsSection extends React.Component<
     return image;
   }
 
-  public componentWillReceiveProps(nextProps: IAmazonServerGroupDetailsSectionProps): void {
+  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
     this.setState({ image: this.getImage(nextProps.serverGroup) });
   }
 

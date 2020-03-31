@@ -4,31 +4,31 @@ import { FormikProps } from 'formik';
 
 import { Application } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 import {
   ClassicListenerProtocol,
-  IAmazonCertificate,
-  IAmazonClassicLoadBalancerUpsertCommand,
+  ITencentCloudCertificate,
+  ITencentCloudClassicLoadBalancerUpsertCommand,
   IClassicListenerDescription,
 } from 'tencent/domain';
-import { AmazonCertificateReader } from 'tencent/certificates/AmazonCertificateReader';
-import { AmazonCertificateSelectField } from '../common/AmazonCertificateSelectField';
+import { TencentCloudCertificateReader } from 'tencent/certificates/TencentCloudCertificateReader';
+import { TencentCloudCertificateSelectField } from '../common/TencentCloudCertificateSelectField';
 
 import './Listeners.less';
 
 export interface IListenersProps {
-  formik: FormikProps<IAmazonClassicLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentCloudClassicLoadBalancerUpsertCommand>;
   app: Application;
 }
 
 export interface IListenersState {
-  certificates: { [accountId: number]: IAmazonCertificate[] };
+  certificates: { [accountId: number]: ITencentCloudCertificate[] };
 }
 
 export class Listeners extends React.Component<IListenersProps, IListenersState> {
   public protocols = ['HTTP', 'HTTPS', 'TCP', 'SSL'];
   public secureProtocols = ['HTTPS', 'SSL'];
-  private certificateTypes = get(AWSProviderSettings, 'loadBalancers.certificateTypes', ['iam', 'acm']);
+  private certificateTypes = get(TENCENTCLOUDProviderSettings, 'loadBalancers.certificateTypes', ['iam', 'acm']);
 
   public state: IListenersState = {
     certificates: [],
@@ -39,7 +39,7 @@ export class Listeners extends React.Component<IListenersProps, IListenersState>
   }
 
   private loadCertificates(): void {
-    AmazonCertificateReader.listCertificates().then(certificates => {
+    TencentCloudCertificateReader.listCertificates().then(certificates => {
       this.setState({ certificates });
     });
   }
@@ -124,7 +124,7 @@ export class Listeners extends React.Component<IListenersProps, IListenersState>
       const { values } = this.props.formik;
       const { certificates } = this.state;
       return (
-        <AmazonCertificateSelectField
+        <TencentCloudCertificateSelectField
           certificates={certificates}
           accountName={values.credentials}
           currentValue={listener.sslCertificateName}

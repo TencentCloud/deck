@@ -2,7 +2,7 @@ import { module } from 'angular';
 
 import { ISecurityGroupsByAccount, ISecurityGroup } from '@spinnaker/core';
 
-export class AwsSecurityGroupReader {
+export class TencentCloudSecurityGroupReader {
   public resolveIndexedSecurityGroup(
     indexedSecurityGroups: ISecurityGroupsByAccount,
     container: ISecurityGroup,
@@ -12,5 +12,5 @@ export class AwsSecurityGroupReader {
   }
 }
 
-export const AWS_SECURITY_GROUP_READER = 'spinnaker.tencent.securityGroup.reader';
-module(AWS_SECURITY_GROUP_READER, []).service('tencentSecurityGroupReader', AwsSecurityGroupReader);
+export const TENCENTCLOUD_SECURITY_GROUP_READER = 'spinnaker.tencent.securityGroup.reader';
+module(TENCENTCLOUD_SECURITY_GROUP_READER, []).service('tencentSecurityGroupReader', TencentCloudSecurityGroupReader);

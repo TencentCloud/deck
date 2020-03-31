@@ -1,6 +1,6 @@
 import { ApplicationModelBuilder, InstanceReader } from '@spinnaker/core';
 
-describe('Controller: awsInstanceDetailsCtrl', function() {
+describe('Controller: tencentCloudInstanceDetailsCtrl', function() {
   var controller;
   var scope;
   var $q;
@@ -14,7 +14,7 @@ describe('Controller: awsInstanceDetailsCtrl', function() {
       $q = _$q_;
 
       this.createController = function(application, instance) {
-        controller = $controller('awsInstanceDetailsCtrl', {
+        controller = $controller('tencentCloudInstanceDetailsCtrl', {
           $scope: scope,
           app: application,
           overrides: {},

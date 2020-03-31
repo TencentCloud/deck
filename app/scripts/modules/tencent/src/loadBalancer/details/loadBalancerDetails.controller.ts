@@ -16,7 +16,12 @@ import {
   FirewallLabels,
 } from '@spinnaker/core';
 
-import { IAmazonLoadBalancer, IAmazonLoadBalancerSourceData, IListenerAction, ITargetGroup } from 'tencent/domain';
+import {
+  ITencentCloudLoadBalancer,
+  ITencentCloudLoadBalancerSourceData,
+  IListenerAction,
+  ITargetGroup,
+} from 'tencent/domain';
 
 import { LOAD_BALANCER_ACTIONS } from './loadBalancerActions.component';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
@@ -32,12 +37,12 @@ export interface IActionDetails extends IListenerAction {
   targetGroup: ITargetGroup;
 }
 
-export class AwsLoadBalancerDetailsController implements IController {
+export class TencentCloudLoadBalancerDetailsController implements IController {
   public application: Application;
   public elbProtocol: string;
   public listeners: Array<{ in: string; actions: IActionDetails[] }>;
   public loadBalancerFromParams: ILoadBalancerFromStateParams;
-  public loadBalancer: IAmazonLoadBalancer;
+  public loadBalancer: ITencentCloudLoadBalancer;
   public securityGroups: ISecurityGroup[];
   public ipAddressTypeDescription: string;
   public state = { loading: true };
@@ -102,7 +107,7 @@ export class AwsLoadBalancerDetailsController implements IController {
         appLoadBalancer.id,
       );
       return detailsLoader.then(
-        (details: IAmazonLoadBalancerSourceData[]) => {
+        (details: ITencentCloudLoadBalancerSourceData[]) => {
           this.loadBalancer = appLoadBalancer;
           this.state.loading = false;
           const securityGroups: IApplicationSecurityGroup[] = [];
@@ -154,10 +159,10 @@ export class AwsLoadBalancerDetailsController implements IController {
   }
 }
 
-export const AWS_LOAD_BALANCER_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.controller';
-module(AWS_LOAD_BALANCER_DETAILS_CTRL, [
+export const TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.controller';
+module(TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL, [
   UIROUTER_ANGULARJS,
   SECURITY_GROUP_READER,
   LOAD_BALANCER_ACTIONS,
   LOAD_BALANCER_READ_SERVICE,
-]).controller('tencentLoadBalancerDetailsCtrl', AwsLoadBalancerDetailsController);
+]).controller('tencentLoadBalancerDetailsCtrl', TencentCloudLoadBalancerDetailsController);

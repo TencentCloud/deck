@@ -78,7 +78,7 @@ export class ConfigureRedirectConfigModal extends React.Component<IConfigureRedi
               <ModalClose dismiss={this.close} />
               <Modal.Header>
                 <h3>
-                  Configure Redirect <HelpField id="aws.loadBalancer.redirect" />
+                  Configure Redirect <HelpField id="tencentCloud.loadBalancer.redirect" />
                 </h3>
               </Modal.Header>
 
@@ -88,21 +88,21 @@ export class ConfigureRedirectConfigModal extends React.Component<IConfigureRedi
                   label="Host"
                   required={false}
                   input={props => <TextInput {...props} />}
-                  help={<HelpField id="aws.loadBalancer.redirect.host" />}
+                  help={<HelpField id="tencentCloud.loadBalancer.redirect.host" />}
                 />
                 <FormikFormField
                   name="path"
                   label="Path"
                   required={false}
                   input={props => <TextInput {...props} />}
-                  help={<HelpField id="aws.loadBalancer.redirect.path" />}
+                  help={<HelpField id="tencentCloud.loadBalancer.redirect.path" />}
                 />
                 <FormikFormField
                   name="port"
                   label="Port"
                   required={false}
                   input={props => <TextInput {...props} />}
-                  help={<HelpField id="aws.loadBalancer.redirect.port" />}
+                  help={<HelpField id="tencentCloud.loadBalancer.redirect.port" />}
                 />
                 <FormikFormField
                   name="protocol"
@@ -117,21 +117,21 @@ export class ConfigureRedirectConfigModal extends React.Component<IConfigureRedi
                       style={{ width: '130px' }}
                     />
                   )}
-                  help={<HelpField id="aws.loadBalancer.redirect.protocol" />}
+                  help={<HelpField id="tencentCloud.loadBalancer.redirect.protocol" />}
                 />
                 <FormikFormField
                   name="query"
                   label="Query"
                   required={false}
                   input={props => <TextInput {...props} />}
-                  help={<HelpField id="aws.loadBalancer.redirect.query" />}
+                  help={<HelpField id="tencentCloud.loadBalancer.redirect.query" />}
                 />
                 <FormikFormField
                   name="statusCode"
                   label="Status Code"
                   required={true}
                   input={props => <SelectInput {...props} options={['HTTP_301', 'HTTP_302']} />}
-                  help={<HelpField id="aws.loadBalancer.redirect.statusCode" />}
+                  help={<HelpField id="tencentCloud.loadBalancer.redirect.statusCode" />}
                 />
               </Modal.Body>
 

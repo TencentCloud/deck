@@ -1,5 +1,5 @@
-export { TENCENT_MODULE } from './aws.module';
-export * from './aws.settings';
+export { TENCENT_MODULE } from './tencentCloud.module';
+export * from './tencentCloud.settings';
 
 export * from './certificates';
 export * from './common';

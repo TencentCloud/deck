@@ -43,7 +43,7 @@ export class ConfigureOidcConfigModal extends React.Component<
         clientSecret: config.clientSecret || '',
         issuer: config.issuer || '',
         scope: config.scope || 'openid',
-        sessionCookieName: config.sessionCookieName || 'AWSELBAuthSessionCookie',
+        sessionCookieName: config.sessionCookieName || 'TENCENTCLOUDELBAuthSessionCookie',
         tokenEndpoint: config.tokenEndpoint || '',
         userInfoEndpoint: config.userInfoEndpoint || '',
       },

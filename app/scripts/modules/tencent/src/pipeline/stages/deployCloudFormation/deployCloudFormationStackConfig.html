@@ -11,13 +11,13 @@
       </account-region-cluster-selector>
     </div>
     <h4>Template Configuration</h4>
-    <ng-form name="amazonCloudFormationTemplateSource">
+    <ng-form name="tencentCloudCloudFormationTemplateSource">
       <stage-config-field label="Stack name">
         <label class="sm-label-right">
           <input type="text" class="form-control input-sm" required ng-model="stage.stackName" />
         </label>
       </stage-config-field>
-      <stage-config-field label="Source" help-key="aws.cloudformation.source">
+      <stage-config-field label="Source" help-key="tencentCloud.cloudformation.source">
         <label class="sm-label-right">
           <input type="radio" ng-model="ctrl.$scope.stage.source" value="{{ctrl.textSource}}" />
           {{ ctrl.textSource | robotToHuman }}
@@ -37,7 +37,7 @@
     </cloud-formation-template-entry>
     <stage-config-field
       label="Expected Artifact"
-      help-key="aws.cloudformation.expectedArtifact"
+      help-key="tencentCloud.cloudformation.expectedArtifact"
       field-columns="8"
       ng-if="ctrl.$scope.stage.source === ctrl.artifactSource"
     >
@@ -73,7 +73,7 @@
       ids-field="requiredArtifactIds"
       artifact-label="Req. Artifacts To Bind"
       expected-artifacts="ctrl.$scope.expectedArtifacts"
-      help-field-key="amazon.cloudformation.requiredArtifactsToBind"
+      help-field-key="tencentCloud.cloudformation.requiredArtifactsToBind"
       show-icons="true"
     >
     </expected-artifact-multi-selector>

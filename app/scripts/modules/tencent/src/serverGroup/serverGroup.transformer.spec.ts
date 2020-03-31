@@ -1,18 +1,22 @@
 import { mock, IQService, IRootScopeService, IScope } from 'angular';
 
-import { AWS_SERVER_GROUP_TRANSFORMER, AwsServerGroupTransformer } from './serverGroup.transformer';
-import { IScalingPolicyAlarmView, IAmazonServerGroup, IStepAdjustment } from '../domain';
+import { TENCENTCLOUD_SERVER_GROUP_TRANSFORMER, TencentCloudServerGroupTransformer } from './serverGroup.transformer';
+import { IScalingPolicyAlarmView, ITencentCloudServerGroup, IStepAdjustment } from '../domain';
 import { VpcReader } from '../vpc/VpcReader';
 
 describe('tencentServerGroupTransformer', () => {
-  let transformer: AwsServerGroupTransformer, $q: IQService, $scope: IScope;
+  let transformer: TencentCloudServerGroupTransformer, $q: IQService, $scope: IScope;
 
-  beforeEach(mock.module(AWS_SERVER_GROUP_TRANSFORMER));
+  beforeEach(mock.module(TENCENTCLOUD_SERVER_GROUP_TRANSFORMER));
 
   beforeEach(
     mock.inject(
-      (_awsServerGroupTransformer_: AwsServerGroupTransformer, _$q_: IQService, $rootScope: IRootScopeService) => {
-        transformer = _awsServerGroupTransformer_;
+      (
+        _tencentCloudServerGroupTransformer_: TencentCloudServerGroupTransformer,
+        _$q_: IQService,
+        $rootScope: IRootScopeService,
+      ) => {
+        transformer = _tencentCloudServerGroupTransformer_;
         $q = _$q_;
         $scope = $rootScope.$new();
       },
@@ -32,7 +36,7 @@ describe('tencentServerGroupTransformer', () => {
         region: 'us-east-1',
         vpcId: 'vpc-1',
         instances: [],
-      } as unknown) as IAmazonServerGroup;
+      } as unknown) as ITencentCloudServerGroup;
       transformer.normalizeServerGroup(serverGroup);
       $scope.$digest();
       expect(serverGroup.vpcName).toBe('main');
@@ -43,7 +47,7 @@ describe('tencentServerGroupTransformer', () => {
         account: 'test',
         region: 'us-east-1',
         instances: [],
-      } as unknown) as IAmazonServerGroup;
+      } as unknown) as ITencentCloudServerGroup;
       transformer.normalizeServerGroup(serverGroup);
       $scope.$digest();
       expect(serverGroup.vpcName).toBe('');
@@ -85,7 +89,7 @@ describe('tencentServerGroupTransformer', () => {
             ],
           },
         ],
-      } as unknown) as IAmazonServerGroup;
+      } as unknown) as ITencentCloudServerGroup;
       transformer.normalizeServerGroupDetails(serverGroup);
       const alarms = serverGroup.scalingPolicies[0].alarms as IScalingPolicyAlarmView[];
       expect(alarms.map(a => a.comparator)).toEqual(['&lt;', '&gt;', '&le;', '&ge;', undefined]);
@@ -94,7 +98,7 @@ describe('tencentServerGroupTransformer', () => {
     it('adds operator, absAdjustment to simple policies', () => {
       const serverGroup = {
         scalingPolicies: [{ adjustmentValue: 10 }, { adjustmentValue: 0 }, { adjustmentValue: -5 }],
-      } as IAmazonServerGroup;
+      } as ITencentCloudServerGroup;
       const transformed = transformer.normalizeServerGroupDetails(serverGroup);
       const policies = transformed.scalingPolicies;
       expect(policies.map(a => a.absAdjustment)).toEqual([10, 0, 5]);
@@ -112,7 +116,7 @@ describe('tencentServerGroupTransformer', () => {
             ],
           },
         ],
-      } as IAmazonServerGroup;
+      } as ITencentCloudServerGroup;
       const transformed = transformer.normalizeServerGroupDetails(serverGroup);
       const steps = transformed.scalingPolicies[0].stepAdjustments;
       expect(steps.map(a => a.absAdjustment)).toEqual([10, 0, 5]);
@@ -128,7 +132,7 @@ describe('tencentServerGroupTransformer', () => {
                 stepAdjustments: steps,
               },
             ],
-          } as IAmazonServerGroup;
+          } as ITencentCloudServerGroup;
           transformer.normalizeServerGroupDetails(serverGroup);
           const check = serverGroup.scalingPolicies[0].stepAdjustments;
           expect(check.map(s => s.adjustmentValue)).toEqual(expected);

@@ -11,12 +11,12 @@ import {
 
 import { KeyPairsReader } from 'tencent/keyPairs';
 import {
-  AWS_SERVER_GROUP_CONFIGURATION_SERVICE,
-  AwsServerGroupConfigurationService,
+  TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE,
+  TencentCloudServerGroupConfigurationService,
 } from './serverGroupConfiguration.service';
 
-describe('Service: awsServerGroupConfiguration', function() {
-  let service: AwsServerGroupConfigurationService,
+describe('Service: tencentCloudServerGroupConfiguration', function() {
+  let service: TencentCloudServerGroupConfigurationService,
     $q: IQService,
     securityGroupReader: SecurityGroupReader,
     tencentInstanceTypeService: any,
@@ -24,11 +24,11 @@ describe('Service: awsServerGroupConfiguration', function() {
     loadBalancerReader: LoadBalancerReader,
     $scope: IScope;
 
-  beforeEach(mock.module(AWS_SERVER_GROUP_CONFIGURATION_SERVICE));
+  beforeEach(mock.module(TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE));
 
   beforeEach(
     mock.inject(function(
-      _awsServerGroupConfigurationService_: AwsServerGroupConfigurationService,
+      _tencentCloudServerGroupConfigurationService_: TencentCloudServerGroupConfigurationService,
       _$q_: IQService,
       _securityGroupReader_: SecurityGroupReader,
       _tencentInstanceTypeService_: any,
@@ -36,7 +36,7 @@ describe('Service: awsServerGroupConfiguration', function() {
       _loadBalancerReader_: LoadBalancerReader,
       $rootScope: IRootScopeService,
     ) {
-      service = _awsServerGroupConfigurationService_;
+      service = _tencentCloudServerGroupConfigurationService_;
       $q = _$q_;
       securityGroupReader = _securityGroupReader_;
       tencentInstanceTypeService = _tencentInstanceTypeService_;
@@ -208,7 +208,7 @@ describe('Service: awsServerGroupConfiguration', function() {
     beforeEach(function() {
       this.allSecurityGroups = {
         test: {
-          aws: {
+          tencentCloud: {
             'us-west-1': [
               { name: 'sg1', id: 'sg-1a', vpcId: null },
               { name: 'sg2', id: 'sg-2a', vpcId: null },
@@ -231,7 +231,7 @@ describe('Service: awsServerGroupConfiguration', function() {
         backingData: {
           securityGroups: this.allSecurityGroups,
           filtered: {
-            securityGroups: this.allSecurityGroups.test.aws['us-west-1'],
+            securityGroups: this.allSecurityGroups.test.tencentCloud['us-west-1'],
           },
         },
         securityGroups: ['sg-1a', 'sg-2a'],
@@ -279,14 +279,14 @@ describe('Service: awsServerGroupConfiguration', function() {
     });
 
     it('updates filteredData to new region - no VPC', function() {
-      const expected = this.allSecurityGroups.test.aws['us-east-1'].slice(0, 2);
+      const expected = this.allSecurityGroups.test.tencentCloud['us-east-1'].slice(0, 2);
       this.command.region = 'us-east-1';
       service.configureSecurityGroupOptions(this.command);
       expect(this.command.backingData.filtered.securityGroups).toEqual(expected);
     });
 
     it('updates filteredData to new VPC', function() {
-      const expected = this.allSecurityGroups.test.aws['us-west-1'].slice(3, 5);
+      const expected = this.allSecurityGroups.test.tencentCloud['us-west-1'].slice(3, 5);
       this.command.vpcId = 'vpc-1';
       service.configureSecurityGroupOptions(this.command);
       expect(this.command.backingData.filtered.securityGroups).toEqual(expected);

@@ -1,7 +1,7 @@
 import { ApplicationNameValidator, FirewallLabels, IApplicationNameValidator } from '@spinnaker/core';
-import { AWSProviderSettings } from '../aws.settings';
+import { TENCENTCLOUDProviderSettings } from '../tencentCloud.settings';
 
-class AmazonApplicationNameValidator implements IApplicationNameValidator {
+class TencentCloudApplicationNameValidator implements IApplicationNameValidator {
   private validateSpecialCharacters(name: string, errors: string[]): void {
     const pattern = /^[a-zA-Z_0-9.]*$/g;
     if (!pattern.test(name)) {
@@ -10,10 +10,10 @@ class AmazonApplicationNameValidator implements IApplicationNameValidator {
   }
 
   private validateClassicLock(warnings: string[]): void {
-    const lockoutDate = AWSProviderSettings.classicLaunchLockout;
+    const lockoutDate = TENCENTCLOUDProviderSettings.classicLaunchLockout;
     if (lockoutDate && lockoutDate < new Date().getTime()) {
       warnings.push(
-        `New applications deployed to AWS are restricted to VPC; you cannot create server groups,
+        `New applications deployed to TENCENTCLOUD are restricted to VPC; you cannot create server groups,
           load balancers, or ${FirewallLabels.get('firewalls')} in EC2 Classic.`,
       );
     }
@@ -79,4 +79,4 @@ class AmazonApplicationNameValidator implements IApplicationNameValidator {
     };
   }
 }
-ApplicationNameValidator.registerValidator('tencent', new AmazonApplicationNameValidator());
+ApplicationNameValidator.registerValidator('tencent', new TencentCloudApplicationNameValidator());

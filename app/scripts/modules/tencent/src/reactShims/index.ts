@@ -1,2 +1,2 @@
-export * from './aws.ngReact';
-export * from './aws.react.injector';
+export * from './tencentCloud.ngReact';
+export * from './tencentCloud.react.injector';

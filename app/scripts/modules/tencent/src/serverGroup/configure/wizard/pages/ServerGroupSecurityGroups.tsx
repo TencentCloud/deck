@@ -3,16 +3,16 @@ import { FormikProps } from 'formik';
 import { IWizardPageComponent } from '@spinnaker/core';
 
 import { SecurityGroupSelector } from '../securityGroups/SecurityGroupSelector';
-import { IAmazonServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 import { ServerGroupSecurityGroupsRemoved } from '../securityGroups/ServerGroupSecurityGroupsRemoved';
 
 export interface IServerGroupSecurityGroupsProps {
-  formik: FormikProps<IAmazonServerGroupCommand>;
+  formik: FormikProps<ITencentCloudServerGroupCommand>;
 }
 
 export class ServerGroupSecurityGroups extends React.Component<IServerGroupSecurityGroupsProps>
-  implements IWizardPageComponent<IAmazonServerGroupCommand> {
-  public validate(values: IAmazonServerGroupCommand) {
+  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
+  public validate(values: ITencentCloudServerGroupCommand) {
     const errors = {} as any;
 
     if (values.viewState.dirty.securityGroups) {

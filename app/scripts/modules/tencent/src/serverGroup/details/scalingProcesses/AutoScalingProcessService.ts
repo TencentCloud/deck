@@ -1,7 +1,7 @@
-import { IAmazonServerGroup, IScalingProcess } from 'tencent/domain';
+import { ITencentCloudServerGroup, IScalingProcess } from 'tencent/domain';
 
 export class AutoScalingProcessService {
-  public static getDisabledDate(serverGroup: IAmazonServerGroup): number {
+  public static getDisabledDate(serverGroup: ITencentCloudServerGroup): number {
     if (serverGroup.isDisabled) {
       const processes = this.normalizeScalingProcesses(serverGroup);
       const disabledProcess = processes.find(process => process.name === 'AddToLoadBalancer' && !process.enabled);
@@ -12,7 +12,7 @@ export class AutoScalingProcessService {
     return null;
   }
 
-  public static normalizeScalingProcesses(serverGroup: IAmazonServerGroup): IScalingProcess[] {
+  public static normalizeScalingProcesses(serverGroup: ITencentCloudServerGroup): IScalingProcess[] {
     if (!serverGroup.asg || !serverGroup.asg.suspendedProcesses) {
       return [];
     }
@@ -56,7 +56,7 @@ export class AutoScalingProcessService {
       {
         name: 'AZRebalance',
         description:
-          'Controls whether AWS should attempt to maintain an even distribution of instances across all ' +
+          'Controls whether TENCENTCLOUD should attempt to maintain an even distribution of instances across all ' +
           'healthy Availability Zones configured for the ASG.',
       },
       {

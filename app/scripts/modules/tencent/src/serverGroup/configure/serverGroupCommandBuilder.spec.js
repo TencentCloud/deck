@@ -2,16 +2,16 @@
 
 import { AccountService, SubnetReader } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 
-describe('awsServerGroupCommandBuilder', function() {
+describe('tencentCloudServerGroupCommandBuilder', function() {
   const AccountServiceFixture = require('./AccountServiceFixtures');
 
   beforeEach(window.module(require('./serverGroupCommandBuilder.service').name));
 
   beforeEach(
-    window.inject(function(awsServerGroupCommandBuilder, $q, $rootScope, instanceTypeService) {
-      this.awsServerGroupCommandBuilder = awsServerGroupCommandBuilder;
+    window.inject(function(tencentCloudServerGroupCommandBuilder, $q, $rootScope, instanceTypeService) {
+      this.tencentCloudServerGroupCommandBuilder = tencentCloudServerGroupCommandBuilder;
       this.$scope = $rootScope;
       this.instanceTypeService = instanceTypeService;
       this.$q = $q;
@@ -26,13 +26,13 @@ describe('awsServerGroupCommandBuilder', function() {
     }),
   );
 
-  afterEach(AWSProviderSettings.resetToOriginal);
+  afterEach(TENCENTCLOUDProviderSettings.resetToOriginal);
 
   describe('buildNewServerGroupCommand', function() {
     it('initializes to default values, setting usePreferredZone flag to true', function() {
       var command = null;
-      AWSProviderSettings.defaults.iamRole = '{{application}}IAMRole';
-      this.awsServerGroupCommandBuilder
+      TENCENTCLOUDProviderSettings.defaults.iamRole = '{{application}}IAMRole';
+      this.tencentCloudServerGroupCommandBuilder
         .buildNewServerGroupCommand({ name: 'appo', defaultCredentials: {}, defaultRegions: {} }, 'tencent')
         .then(function(result) {
           command = result;
@@ -59,7 +59,7 @@ describe('awsServerGroupCommandBuilder', function() {
       };
       var command = null;
 
-      this.awsServerGroupCommandBuilder
+      this.tencentCloudServerGroupCommandBuilder
         .buildServerGroupCommandFromExisting({ name: 'appo' }, baseServerGroup)
         .then(function(result) {
           command = result;
@@ -72,7 +72,7 @@ describe('awsServerGroupCommandBuilder', function() {
 
       baseServerGroup.asg.availabilityZones = ['g'];
 
-      this.awsServerGroupCommandBuilder
+      this.tencentCloudServerGroupCommandBuilder
         .buildServerGroupCommandFromExisting({ name: 'appo' }, baseServerGroup)
         .then(function(result) {
           command = result;
@@ -102,7 +102,7 @@ describe('awsServerGroupCommandBuilder', function() {
       };
       var command = null;
 
-      this.awsServerGroupCommandBuilder
+      this.tencentCloudServerGroupCommandBuilder
         .buildServerGroupCommandFromExisting({ name: 'appo' }, baseServerGroup)
         .then(function(result) {
           command = result;
@@ -133,7 +133,7 @@ describe('awsServerGroupCommandBuilder', function() {
       };
       var command = null;
 
-      this.awsServerGroupCommandBuilder
+      this.tencentCloudServerGroupCommandBuilder
         .buildServerGroupCommandFromExisting({ name: 'appo' }, baseServerGroup)
         .then(result => (command = result));
 
@@ -141,7 +141,7 @@ describe('awsServerGroupCommandBuilder', function() {
 
       expect(command.suspendedProcesses).toEqual(['x', 'a']);
 
-      this.awsServerGroupCommandBuilder
+      this.tencentCloudServerGroupCommandBuilder
         .buildServerGroupCommandFromExisting({ name: 'appo' }, baseServerGroup, 'editPipeline')
         .then(result => (command = result));
 
@@ -182,7 +182,7 @@ describe('awsServerGroupCommandBuilder', function() {
       };
       let command = null;
 
-      this.awsServerGroupCommandBuilder
+      this.tencentCloudServerGroupCommandBuilder
         .buildServerGroupCommandFromExisting({ name: 'appo' }, baseServerGroup)
         .then(result => (command = result));
 

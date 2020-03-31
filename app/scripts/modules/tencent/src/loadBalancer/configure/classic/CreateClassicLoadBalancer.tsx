@@ -16,9 +16,9 @@ import {
   ReactModal,
 } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
-import { IAmazonClassicLoadBalancer, IAmazonClassicLoadBalancerUpsertCommand } from 'tencent/domain';
-import { AwsReactInjector } from 'tencent/reactShims';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
+import { ITencentCloudClassicLoadBalancer, ITencentCloudClassicLoadBalancerUpsertCommand } from 'tencent/domain';
+import { TencentCloudReactInjector } from 'tencent/reactShims';
 
 import { AdvancedSettings } from './AdvancedSettings';
 import { HealthCheck } from './HealthCheck';
@@ -29,12 +29,12 @@ import { LoadBalancerLocation } from '../common/LoadBalancerLocation';
 import '../common/configure.less';
 
 export interface ICreateClassicLoadBalancerProps extends ILoadBalancerModalProps {
-  loadBalancer: IAmazonClassicLoadBalancer;
+  loadBalancer: ITencentCloudClassicLoadBalancer;
 }
 
 export interface ICreateClassicLoadBalancerState {
   isNew: boolean;
-  loadBalancerCommand: IAmazonClassicLoadBalancerUpsertCommand;
+  loadBalancerCommand: ITencentCloudClassicLoadBalancerUpsertCommand;
   taskMonitor: TaskMonitor;
 }
 
@@ -49,9 +49,9 @@ export class CreateClassicLoadBalancer extends React.Component<
 
   private _isUnmounted = false;
   private refreshUnsubscribe: () => void;
-  private certificateTypes = get(AWSProviderSettings, 'loadBalancers.certificateTypes', ['iam', 'acm']);
+  private certificateTypes = get(TENCENTCLOUDProviderSettings, 'loadBalancers.certificateTypes', ['iam', 'acm']);
 
-  public static show(props: ICreateClassicLoadBalancerProps): Promise<IAmazonClassicLoadBalancerUpsertCommand> {
+  public static show(props: ICreateClassicLoadBalancerProps): Promise<ITencentCloudClassicLoadBalancerUpsertCommand> {
     const modalProps = { dialogClassName: 'wizard-modal modal-lg' };
     return ReactModal.show(CreateClassicLoadBalancer, props, modalProps);
   }
@@ -60,8 +60,10 @@ export class CreateClassicLoadBalancer extends React.Component<
     super(props);
 
     const loadBalancerCommand = props.loadBalancer
-      ? AwsReactInjector.tencentLoadBalancerTransformer.convertClassicLoadBalancerForEditing(props.loadBalancer)
-      : AwsReactInjector.tencentLoadBalancerTransformer.constructNewClassicLoadBalancerTemplate(props.app);
+      ? TencentCloudReactInjector.tencentLoadBalancerTransformer.convertClassicLoadBalancerForEditing(
+          props.loadBalancer,
+        )
+      : TencentCloudReactInjector.tencentLoadBalancerTransformer.constructNewClassicLoadBalancerTemplate(props.app);
 
     this.state = {
       isNew: !props.loadBalancer,
@@ -78,20 +80,20 @@ export class CreateClassicLoadBalancer extends React.Component<
   ): string {
     if (
       certificateId &&
-      (certificateId.indexOf('arn:aws:iam::') !== 0 || certificateId.indexOf('arn:aws:acm:') !== 0)
+      (certificateId.indexOf('arn:tencentCloud:iam::') !== 0 || certificateId.indexOf('arn:tencentCloud:acm:') !== 0)
     ) {
       // If they really want to enter the ARN...
       if (certificateType === 'iam') {
-        return `arn:aws:iam::${accountId}:server-certificate/${certificateId}`;
+        return `arn:tencentCloud:iam::${accountId}:server-certificate/${certificateId}`;
       }
       if (certificateType === 'acm') {
-        return `arn:aws:acm:${region}:${accountId}:certificate/${certificateId}`;
+        return `arn:tencentCloud:acm:${region}:${accountId}:certificate/${certificateId}`;
       }
     }
     return certificateId;
   }
 
-  protected formatListeners(command: IAmazonClassicLoadBalancerUpsertCommand): IPromise<void> {
+  protected formatListeners(command: ITencentCloudClassicLoadBalancerUpsertCommand): IPromise<void> {
     return AccountService.getAccountDetails(command.credentials).then(account => {
       command.listeners.forEach(listener => {
         listener.sslCertificateId = this.certificateIdAsARN(
@@ -104,13 +106,13 @@ export class CreateClassicLoadBalancer extends React.Component<
     });
   }
 
-  private clearSecurityGroupsIfNotInVpc(loadBalancer: IAmazonClassicLoadBalancerUpsertCommand): void {
+  private clearSecurityGroupsIfNotInVpc(loadBalancer: ITencentCloudClassicLoadBalancerUpsertCommand): void {
     if (!loadBalancer.vpcId && !loadBalancer.subnetType) {
       loadBalancer.securityGroups = null;
     }
   }
 
-  private addHealthCheckToCommand(loadBalancer: IAmazonClassicLoadBalancerUpsertCommand): void {
+  private addHealthCheckToCommand(loadBalancer: ITencentCloudClassicLoadBalancerUpsertCommand): void {
     let healthCheck = null;
     const protocol = loadBalancer.healthCheckProtocol || '';
     if (protocol.startsWith('HTTP')) {
@@ -121,19 +123,19 @@ export class CreateClassicLoadBalancer extends React.Component<
     loadBalancer.healthCheck = healthCheck;
   }
 
-  public setAvailabilityZones(loadBalancerCommand: IAmazonClassicLoadBalancerUpsertCommand): void {
+  public setAvailabilityZones(loadBalancerCommand: ITencentCloudClassicLoadBalancerUpsertCommand): void {
     const availabilityZones: { [region: string]: string[] } = {};
     availabilityZones[loadBalancerCommand.region] = loadBalancerCommand.regionZones || [];
     loadBalancerCommand.availabilityZones = availabilityZones;
   }
 
-  protected formatCommand(command: IAmazonClassicLoadBalancerUpsertCommand): void {
+  protected formatCommand(command: ITencentCloudClassicLoadBalancerUpsertCommand): void {
     this.setAvailabilityZones(command);
     this.clearSecurityGroupsIfNotInVpc(command);
     this.addHealthCheckToCommand(command);
   }
 
-  protected onApplicationRefresh(values: IAmazonClassicLoadBalancerUpsertCommand): void {
+  protected onApplicationRefresh(values: ITencentCloudClassicLoadBalancerUpsertCommand): void {
     if (this._isUnmounted) {
       return;
     }
@@ -163,12 +165,12 @@ export class CreateClassicLoadBalancer extends React.Component<
     }
   }
 
-  private onTaskComplete(values: IAmazonClassicLoadBalancerUpsertCommand): void {
+  private onTaskComplete(values: ITencentCloudClassicLoadBalancerUpsertCommand): void {
     this.props.app.loadBalancers.refresh();
     this.refreshUnsubscribe = this.props.app.loadBalancers.onNextRefresh(null, () => this.onApplicationRefresh(values));
   }
 
-  private submit = (values: IAmazonClassicLoadBalancerUpsertCommand): void => {
+  private submit = (values: ITencentCloudClassicLoadBalancerUpsertCommand): void => {
     const { app, forPipelineConfig, closeModal } = this.props;
     const { isNew } = this.state;
 
@@ -198,8 +200,8 @@ export class CreateClassicLoadBalancer extends React.Component<
     }
   };
 
-  private validate = (_values: FormikValues): FormikErrors<IAmazonClassicLoadBalancerUpsertCommand> => {
-    const errors = {} as FormikErrors<IAmazonClassicLoadBalancerUpsertCommand>;
+  private validate = (_values: FormikValues): FormikErrors<ITencentCloudClassicLoadBalancerUpsertCommand> => {
+    const errors = {} as FormikErrors<ITencentCloudClassicLoadBalancerUpsertCommand>;
     return errors;
   };
 
@@ -215,7 +217,7 @@ export class CreateClassicLoadBalancer extends React.Component<
     }
 
     return (
-      <WizardModal<IAmazonClassicLoadBalancerUpsertCommand>
+      <WizardModal<ITencentCloudClassicLoadBalancerUpsertCommand>
         heading={heading}
         initialValues={loadBalancerCommand}
         taskMonitor={taskMonitor}

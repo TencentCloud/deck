@@ -1,1 +1,1 @@
-export * from './AwsModalFooter';
+export * from './ModalFooter';

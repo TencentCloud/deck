@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import { CollapsibleSection, NgReact, Overridable, Application } from '@spinnaker/core';
 
-import { IAmazonServerGroupDetailsSectionProps } from './IAmazonServerGroupDetailsSectionProps';
-import { AmazonResizeServerGroupModal } from '../resize/AmazonResizeServerGroupModal';
-import { IAmazonServerGroup } from 'tencent/domain';
+import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { TencentCloudResizeServerGroupModal } from '../resize/TencentCloudResizeServerGroupModal';
+import { ITencentCloudServerGroup } from 'tencent/domain';
 
-@Overridable('amazon.serverGroup.CapacityDetailsSection')
-export class CapacityDetailsSection extends React.Component<IAmazonServerGroupDetailsSectionProps> {
-  public static resizeServerGroup(serverGroup: IAmazonServerGroup, application: Application): void {
-    AmazonResizeServerGroupModal.show({ application, serverGroup });
+@Overridable('tencentCloud.serverGroup.CapacityDetailsSection')
+export class CapacityDetailsSection extends React.Component<ITencentCloudServerGroupDetailsSectionProps> {
+  public static resizeServerGroup(serverGroup: ITencentCloudServerGroup, application: Application): void {
+    TencentCloudResizeServerGroupModal.show({ application, serverGroup });
   }
 
   public render(): JSX.Element {

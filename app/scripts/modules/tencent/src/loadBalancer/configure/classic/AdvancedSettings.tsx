@@ -3,12 +3,12 @@ import { FormikProps } from 'formik';
 
 import { Validators, FormikFormField, NumberInput, HelpField } from '@spinnaker/core';
 
-import { IAmazonClassicLoadBalancerUpsertCommand } from 'tencent/domain';
+import { ITencentCloudClassicLoadBalancerUpsertCommand } from 'tencent/domain';
 
 import './AdvancedSettings.css';
 
 export interface IAdvancedSettingsProps {
-  formik: FormikProps<IAmazonClassicLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentCloudClassicLoadBalancerUpsertCommand>;
 }
 
 export class AdvancedSettings extends React.Component<IAdvancedSettingsProps> {
@@ -16,7 +16,7 @@ export class AdvancedSettings extends React.Component<IAdvancedSettingsProps> {
     const { values } = this.props.formik;
     const { maxValue } = Validators;
     return (
-      <div className="form-group AmazonLoadBalancer-AdvancedSettings">
+      <div className="form-group TencentCloudLoadBalancer-AdvancedSettings">
         <FormikFormField
           name="healthTimeout"
           label="Timeout"
@@ -62,7 +62,7 @@ export class AdvancedSettings extends React.Component<IAdvancedSettingsProps> {
         <div className="col-md-12">
           <p>
             Additional configuration options (cross-zone load balancing, session stickiness, access logs) are available
-            via the AWS console.
+            via the TENCENTCLOUD console.
           </p>
         </div>
       </div>

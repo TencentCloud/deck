@@ -74,7 +74,7 @@ describe('Component: metricAlarmChart', function() {
         comparisonOperator: 'GreaterThanThreshold',
         dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
         metricName: 'CPUUtilization',
-        namespace: 'aws/ec2',
+        namespace: 'tencentCloud/ec2',
         period: 300,
       };
       serverGroup = {
@@ -142,7 +142,7 @@ describe('Component: metricAlarmChart', function() {
         comparisonOperator: 'GreaterThanThreshold',
         dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
         metricName: 'CPUUtilization',
-        namespace: 'aws/ec2',
+        namespace: 'tencentCloud/ec2',
         period: 300,
       };
     });
@@ -210,7 +210,7 @@ describe('Component: metricAlarmChart', function() {
         threshold: 5,
         dimensions: [{ name: 'AutoScalingGroupName', value: 'asg-v000' }],
         metricName: 'CPUUtilization',
-        namespace: 'aws/ec2',
+        namespace: 'tencentCloud/ec2',
         period: 300,
       };
     });

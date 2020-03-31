@@ -8,7 +8,7 @@ export interface ITencentSnapshot {
   diskUsage: 'SYSTEM_DISK' | 'DATA_DISK';
   snapshotId: string;
 }
-export interface IAmazonImage {
+export interface ITencentCloudImage {
   accounts: string[];
   amis: {
     [region: string]: string[];
@@ -27,12 +27,12 @@ export interface IAmazonImage {
     [tag: string]: string;
   };
   tagsByImageId: {
-    [imageId: string]: IAmazonImage['tags'];
+    [imageId: string]: ITencentCloudImage['tags'];
   };
 }
 
-export class AwsImageReader {
-  public findImages(params: { q: string; region?: string }): IPromise<IAmazonImage[]> {
+export class TencentCloudImageReader {
+  public findImages(params: { q: string; region?: string }): IPromise<ITencentCloudImage[]> {
     if (!params.q || params.q.length < 3) {
       return $q.when([{ message: 'Please enter at least 3 characters...', disabled: true }]) as any;
     }
@@ -40,10 +40,10 @@ export class AwsImageReader {
     return API.one('images/find')
       .withParams({ ...params, provider: 'tencent' })
       .get()
-      .catch(() => [] as IAmazonImage[]);
+      .catch(() => [] as ITencentCloudImage[]);
   }
 
-  public getImage(amiName: string, region: string, credentials: string): IPromise<IAmazonImage> {
+  public getImage(amiName: string, region: string, credentials: string): IPromise<ITencentCloudImage> {
     return API.one('images')
       .one(credentials)
       .one(region)
@@ -51,6 +51,6 @@ export class AwsImageReader {
       .withParams({ provider: 'tencent' })
       .get()
       .then((results: any[]) => (results && results.length ? results[0] : null))
-      .catch(() => null as IAmazonImage);
+      .catch(() => null as ITencentCloudImage);
   }
 }

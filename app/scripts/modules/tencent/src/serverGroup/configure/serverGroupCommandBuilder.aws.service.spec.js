@@ -2,22 +2,28 @@
 
 import { AccountService, SubnetReader } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 
-describe('Service: awsServerGroup', function() {
+describe('Service: tencentCloudServerGroup', function() {
   beforeEach(window.module(require('./serverGroupCommandBuilder.service').name));
 
   beforeEach(
-    window.inject(function(_$httpBackend_, awsServerGroupCommandBuilder, _instanceTypeService_, _$q_, $rootScope) {
+    window.inject(function(
+      _$httpBackend_,
+      tencentCloudServerGroupCommandBuilder,
+      _instanceTypeService_,
+      _$q_,
+      $rootScope,
+    ) {
       this.$httpBackend = _$httpBackend_;
-      this.service = awsServerGroupCommandBuilder;
+      this.service = tencentCloudServerGroupCommandBuilder;
       this.$q = _$q_;
       this.$scope = $rootScope;
       spyOn(_instanceTypeService_, 'getCategoryForInstanceType').and.returnValue(_$q_.when('custom'));
     }),
   );
 
-  afterEach(AWSProviderSettings.resetToOriginal);
+  afterEach(TENCENTCLOUDProviderSettings.resetToOriginal);
 
   describe('buildServerGroupCommandFromPipeline', function() {
     beforeEach(function() {
@@ -33,7 +39,7 @@ describe('Service: awsServerGroup', function() {
         },
       };
 
-      AWSProviderSettings.defaults = {
+      TENCENTCLOUDProviderSettings.defaults = {
         account: 'test',
         region: 'us-east-1',
       };

@@ -5,7 +5,7 @@ import { IServerGroupCommand, IWizardPageComponent } from '@spinnaker/core';
 
 import { CapacitySelector } from '../capacity/CapacitySelector';
 import { MinMaxDesired } from '../capacity/MinMaxDesired';
-import { IAmazonServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 
 export interface IServerGroupCapacityProps {
   formik: FormikProps<IServerGroupCommand>;
@@ -13,7 +13,7 @@ export interface IServerGroupCapacityProps {
 }
 
 export class ServerGroupCapacity extends React.Component<IServerGroupCapacityProps>
-  implements IWizardPageComponent<IAmazonServerGroupCommand> {
+  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
   public validate(values: IServerGroupCommand): { [key: string]: string } {
     const errors: { [key: string]: string } = {};
 
@@ -21,10 +21,10 @@ export class ServerGroupCapacity extends React.Component<IServerGroupCapacityPro
       errors.capacity = 'Capacity min, max, and desired all have to be non-negative values.';
     }
     if (!this.props.hideTargetHealthyDeployPercentage) {
-      const amazonValues = values as IAmazonServerGroupCommand;
+      const tencentCloudValues = values as ITencentCloudServerGroupCommand;
       if (
-        amazonValues.targetHealthyDeployPercentage === undefined ||
-        amazonValues.targetHealthyDeployPercentage === null
+        tencentCloudValues.targetHealthyDeployPercentage === undefined ||
+        tencentCloudValues.targetHealthyDeployPercentage === null
       ) {
         errors.targetHealthyDeployPercentage = 'Target Healthy Deploy Percentage required.';
       }

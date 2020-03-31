@@ -2,14 +2,14 @@
 
 import { API } from '@spinnaker/core';
 
-import { AwsImageReader } from './image.reader';
+import { TencentCloudImageReader } from './image.reader';
 
-describe('Service: aws Image Reader', function() {
+describe('Service: tencentCloud Image Reader', function() {
   var service, $http, scope;
 
   beforeEach(
     window.inject(function($httpBackend, $rootScope) {
-      service = new AwsImageReader();
+      service = new TencentCloudImageReader();
       $http = $httpBackend;
       scope = $rootScope.$new();
     }),
@@ -25,7 +25,7 @@ describe('Service: aws Image Reader', function() {
       region = 'us-west-1';
 
     function buildQueryString() {
-      return API.baseUrl + '/images/find?provider=aws&q=' + query + '&region=' + region;
+      return API.baseUrl + '/images/find?provider=tencentCloud&q=' + query + '&region=' + region;
     }
 
     it('queries gate when 3 characters are supplied', function() {
@@ -99,7 +99,7 @@ describe('Service: aws Image Reader', function() {
       credentials = 'test';
 
     function buildQueryString() {
-      return [API.baseUrl, 'images', credentials, region, imageName].join('/') + '?provider=aws';
+      return [API.baseUrl, 'images', credentials, region, imageName].join('/') + '?provider=tencentCloud';
     }
 
     it('returns null if server returns 404 or an empty list', function() {

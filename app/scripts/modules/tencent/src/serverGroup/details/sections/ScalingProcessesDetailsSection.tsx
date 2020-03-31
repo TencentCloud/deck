@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IScalingProcess } from 'tencent/domain';
 import { CollapsibleSection, HelpField, ModalInjector, timestamp, Tooltip } from '@spinnaker/core';
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
-import { IAmazonServerGroupDetailsSectionProps } from './IAmazonServerGroupDetailsSectionProps';
+import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 
 export interface IScalingProcessesDetailsSectionState {
   autoScalingProcesses: IScalingProcess[];
@@ -11,10 +11,10 @@ export interface IScalingProcessesDetailsSectionState {
 }
 
 export class ScalingProcessesDetailsSection extends React.Component<
-  IAmazonServerGroupDetailsSectionProps,
+  ITencentCloudServerGroupDetailsSectionProps,
   IScalingProcessesDetailsSectionState
 > {
-  constructor(props: IAmazonServerGroupDetailsSectionProps) {
+  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
     super(props);
 
     this.state = this.getState(props);
@@ -32,7 +32,7 @@ export class ScalingProcessesDetailsSection extends React.Component<
     });
   };
 
-  private getState(props: IAmazonServerGroupDetailsSectionProps): IScalingProcessesDetailsSectionState {
+  private getState(props: ITencentCloudServerGroupDetailsSectionProps): IScalingProcessesDetailsSectionState {
     const { serverGroup } = props;
 
     const autoScalingProcesses: IScalingProcess[] = AutoScalingProcessService.normalizeScalingProcesses(serverGroup);
@@ -51,7 +51,7 @@ export class ScalingProcessesDetailsSection extends React.Component<
     return { autoScalingProcesses, scalingPoliciesDisabled, scheduledActionsDisabled };
   }
 
-  public componentWillReceiveProps(nextProps: IAmazonServerGroupDetailsSectionProps): void {
+  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
     this.setState(this.getState(nextProps));
   }
 

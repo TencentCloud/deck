@@ -22,8 +22,8 @@ import {
   ValidationMessage,
 } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
-import { IAmazonLoadBalancer, IAmazonLoadBalancerUpsertCommand } from 'tencent/domain';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
+import { ITencentCloudLoadBalancer, ITencentCloudLoadBalancerUpsertCommand } from 'tencent/domain';
 import { SubnetSelectField } from 'tencent/subnet';
 
 export interface ISubnetOption {
@@ -34,10 +34,10 @@ export interface ISubnetOption {
 
 export interface ILoadBalancerLocationProps {
   app: Application;
-  formik: FormikProps<IAmazonLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentCloudLoadBalancerUpsertCommand>;
   forPipelineConfig?: boolean;
   isNew?: boolean;
-  loadBalancer?: IAmazonLoadBalancer;
+  loadBalancer?: ITencentCloudLoadBalancer;
 }
 
 export interface ILoadBalancerLocationState {
@@ -50,7 +50,7 @@ export interface ILoadBalancerLocationState {
 }
 
 export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationProps, ILoadBalancerLocationState>
-  implements IWizardPageComponent<IAmazonLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentCloudLoadBalancerUpsertCommand> {
   public state: ILoadBalancerLocationState = {
     accounts: undefined,
     existingLoadBalancerNames: [],
@@ -63,8 +63,8 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
   private props$ = new Subject<ILoadBalancerLocationProps>();
   private destroy$ = new Subject<void>();
 
-  public validate(values: IAmazonLoadBalancerUpsertCommand) {
-    const errors = {} as FormikErrors<IAmazonLoadBalancerUpsertCommand>;
+  public validate(values: ITencentCloudLoadBalancerUpsertCommand) {
+    const errors = {} as FormikErrors<ITencentCloudLoadBalancerUpsertCommand>;
 
     if (this.state.existingLoadBalancerNames.includes(values.name)) {
       errors.name = `There is already a load balancer in ${values.credentials}:${values.region} with that name.`;
@@ -99,8 +99,11 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
   }
 
   private shouldHideInternalFlag(): boolean {
-    if (AWSProviderSettings) {
-      if (AWSProviderSettings.loadBalancers && AWSProviderSettings.loadBalancers.inferInternalFlagFromSubnet) {
+    if (TENCENTCLOUDProviderSettings) {
+      if (
+        TENCENTCLOUDProviderSettings.loadBalancers &&
+        TENCENTCLOUDProviderSettings.loadBalancers.inferInternalFlagFromSubnet
+      ) {
         // clouddriver will check the subnet if isInternal is competely omitted
         delete this.props.formik.values.isInternal;
         return true;
@@ -133,7 +136,9 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
       .switchMap(([currentAccount, _allAccounts]) => AccountService.getRegionsForAccount(currentAccount))
       .shareReplay(1);
 
-    const allLoadBalancers$ = this.props.app.getDataSource('loadBalancers').data$ as Observable<IAmazonLoadBalancer[]>;
+    const allLoadBalancers$ = this.props.app.getDataSource('loadBalancers').data$ as Observable<
+      ITencentCloudLoadBalancer[]
+    >;
     const regionLoadBalancers$ = Observable.combineLatest(allLoadBalancers$, form.account$, form.region$)
       .map(([allLoadBalancers, currentAccount, currentRegion]) => {
         return allLoadBalancers
@@ -256,7 +261,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               <div className={className}>
                 <strong>Your load balancer will be named: </strong>
                 <span>{values.name}</span>
-                <HelpField id="aws.loadBalancer.name" />
+                <HelpField id="tencentCloud.loadBalancer.name" />
                 <Field type="text" style={{ display: 'none' }} className="form-control input-sm no-spel" name="name" />
                 {errors.name && <ValidationMessage type="error" message={errors.name} />}
               </div>
@@ -282,7 +287,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
             />
             <div className="form-group">
               <div className="col-md-3 sm-label-right">
-                Stack <HelpField id="aws.loadBalancer.stack" />
+                Stack <HelpField id="tencentCloud.loadBalancer.stack" />
               </div>
               <div className="col-md-3">
                 <input
@@ -296,7 +301,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               <div className="col-md-6 form-inline">
                 <label className="sm-label-right">
                   <span>
-                    Detail <HelpField id="aws.loadBalancer.detail" />{' '}
+                    Detail <HelpField id="tencentCloud.loadBalancer.detail" />{' '}
                   </span>
                 </label>
                 <input
@@ -321,7 +326,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
 
             <SubnetSelectField
               labelColumns={3}
-              helpKey="aws.loadBalancer.subnet"
+              helpKey="tencentCloud.loadBalancer.subnet"
               component={values}
               field="subnetType"
               region={values.region}
@@ -332,7 +337,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
             {values.vpcId && !hideInternalFlag && (
               <div className="form-group">
                 <div className="col-md-3 sm-label-right">
-                  <b>Internal</b> <HelpField id="aws.loadBalancer.internal" />
+                  <b>Internal</b> <HelpField id="tencentCloud.loadBalancer.internal" />
                 </div>
                 <div className="col-md-7 checkbox">
                   <label>

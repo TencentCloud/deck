@@ -3,10 +3,13 @@ import { StateService } from '@uirouter/core';
 
 import { ApplicationModelBuilder, ISubnet } from '@spinnaker/core';
 
-import { AWS_LOAD_BALANCER_DETAILS_CTRL, AwsLoadBalancerDetailsController } from './loadBalancerDetails.controller';
+import {
+  TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL,
+  TencentCloudLoadBalancerDetailsController,
+} from './loadBalancerDetails.controller';
 
 describe('Controller: LoadBalancerDetailsCtrl', function() {
-  let controller: AwsLoadBalancerDetailsController;
+  let controller: TencentCloudLoadBalancerDetailsController;
   let $scope;
   let $state;
   const loadBalancer = {
@@ -17,7 +20,7 @@ describe('Controller: LoadBalancerDetailsCtrl', function() {
     vpcId: '1',
   };
 
-  beforeEach(mock.module(AWS_LOAD_BALANCER_DETAILS_CTRL));
+  beforeEach(mock.module(TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL));
 
   beforeEach(
     mock.inject(($controller: IControllerService, $rootScope: IRootScopeService, _$state_: StateService) => {
@@ -29,7 +32,7 @@ describe('Controller: LoadBalancerDetailsCtrl', function() {
         defaultData: null,
       });
       app.loadBalancers.data.push(loadBalancer);
-      controller = $controller(AwsLoadBalancerDetailsController, {
+      controller = $controller(TencentCloudLoadBalancerDetailsController, {
         $scope,
         loadBalancer,
         app,

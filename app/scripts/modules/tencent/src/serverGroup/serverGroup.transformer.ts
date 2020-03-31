@@ -6,13 +6,13 @@ import {
   IScalingAdjustmentView,
   IScalingPolicyView,
   IScalingPolicyAlarmView,
-  IAmazonServerGroup,
+  ITencentCloudServerGroup,
   IScalingPolicy,
-  IAmazonServerGroupView,
+  ITencentCloudServerGroupView,
 } from '../domain';
 import { VpcReader } from '../vpc/VpcReader';
 
-export class AwsServerGroupTransformer {
+export class TencentCloudServerGroupTransformer {
   private addComparator(alarm: IScalingPolicyAlarmView): void {
     if (!alarm.comparisonOperator) {
       return;
@@ -46,22 +46,22 @@ export class AwsServerGroupTransformer {
     return view;
   }
 
-  public normalizeServerGroupDetails(serverGroup: IAmazonServerGroup): IAmazonServerGroupView {
-    const view: IAmazonServerGroupView = { ...serverGroup } as IAmazonServerGroupView;
+  public normalizeServerGroupDetails(serverGroup: ITencentCloudServerGroup): ITencentCloudServerGroupView {
+    const view: ITencentCloudServerGroupView = { ...serverGroup } as ITencentCloudServerGroupView;
     if (serverGroup.scalingPolicies) {
       view.scalingPolicies = serverGroup.scalingPolicies.map(policy => this.transformScalingPolicy(policy));
     }
     return view;
   }
 
-  public normalizeServerGroup(serverGroup: IAmazonServerGroup): IPromise<IAmazonServerGroup> {
+  public normalizeServerGroup(serverGroup: ITencentCloudServerGroup): IPromise<ITencentCloudServerGroup> {
     serverGroup.instances.forEach(instance => {
       instance.vpcId = serverGroup.vpcId;
     });
     return VpcReader.listVpcs().then(vpc => this.addVpcNameToServerGroup(serverGroup)(vpc));
   }
 
-  private addVpcNameToServerGroup(serverGroup: IAmazonServerGroup): (vpc: IVpc[]) => IAmazonServerGroup {
+  private addVpcNameToServerGroup(serverGroup: ITencentCloudServerGroup): (vpc: IVpc[]) => ITencentCloudServerGroup {
     return (vpcs: IVpc[]) => {
       const match = vpcs.find(test => test.id === serverGroup.vpcId);
       serverGroup.vpcName = match ? match.name : '';
@@ -147,5 +147,8 @@ export class AwsServerGroupTransformer {
   }
 }
 
-export const AWS_SERVER_GROUP_TRANSFORMER = 'spinnaker.tencent.serverGroup.transformer';
-module(AWS_SERVER_GROUP_TRANSFORMER, []).service('tencentServerGroupTransformer', AwsServerGroupTransformer);
+export const TENCENTCLOUD_SERVER_GROUP_TRANSFORMER = 'spinnaker.tencent.serverGroup.transformer';
+module(TENCENTCLOUD_SERVER_GROUP_TRANSFORMER, []).service(
+  'tencentServerGroupTransformer',
+  TencentCloudServerGroupTransformer,
+);

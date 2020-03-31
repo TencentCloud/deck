@@ -4,14 +4,14 @@ import Select, { Option } from 'react-select';
 
 import { HelpField, MapEditor } from '@spinnaker/core';
 
-import { IAmazonServerGroupCommand, ITencentDisk } from '../../../serverGroupConfiguration.service';
+import { ITencentCloudServerGroupCommand, ITencentDisk } from '../../../serverGroupConfiguration.service';
 
 import { IServerGroupAdvancedSettingsProps } from './ServerGroupAdvancedSettings';
 
 export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGroupAdvancedSettingsProps> {
   private duplicateKeys = false;
 
-  public validate = (values: IAmazonServerGroupCommand) => {
+  public validate = (values: ITencentCloudServerGroupCommand) => {
     const errors = {} as any;
 
     if (!values.terminationPolicies || !values.terminationPolicies.length) {
@@ -116,7 +116,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>UserData (optional) </b>
-            <HelpField id="aws.serverGroup.base64UserData" />
+            <HelpField id="tencentCloud.serverGroup.base64UserData" />
           </div>
           <div className="col-md-6">
             <Field type="text" className="form-control input-sm no-spel" name="userData" />
@@ -125,7 +125,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>Security Service </b>
-            <HelpField id="aws.serverGroup.securityService" />
+            <HelpField id="tencentCloud.serverGroup.securityService" />
           </div>
 
           <div className="col-md-6 checkbox">
@@ -149,7 +149,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>Instance Monitoring </b>
-            <HelpField id="aws.serverGroup.instanceMonitoring" />
+            <HelpField id="tencentCloud.serverGroup.instanceMonitoring" />
           </div>
 
           <div className="col-md-6 checkbox">
@@ -358,7 +358,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="sm-label-left">
             <b>Tags (optional)</b>
-            <HelpField id="aws.serverGroup.tags" />
+            <HelpField id="tencentCloud.serverGroup.tags" />
           </div>
           <MapEditor model={values.tags as any} allowEmpty={true} onChange={this.tagsChanged} />
         </div>

@@ -13,7 +13,7 @@ import {
   createFakeReactSyntheticEvent,
 } from '@spinnaker/core';
 
-import { AWSProviderSettings } from 'tencent/aws.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 
 export interface ISubnetSelectInputProps extends Omit<ISelectInputProps, 'options'> {
   value: string;
@@ -34,7 +34,7 @@ export class SubnetSelectInput extends React.Component<ISubnetSelectInputProps, 
   public state: ISubnetSelectInputState = { options: [] };
 
   private isClassicLockout(region: string, credentials: string, application: Application): boolean {
-    const { classicLaunchLockout, classicLaunchWhitelist: whitelist } = AWSProviderSettings;
+    const { classicLaunchLockout, classicLaunchWhitelist: whitelist } = TENCENTCLOUDProviderSettings;
 
     const appCreationDate = Number(get(application, 'attributes.createTs', 0));
     const appCreatedAfterLockout = appCreationDate > (classicLaunchLockout || 0);
@@ -82,7 +82,7 @@ export class SubnetSelectInput extends React.Component<ISubnetSelectInputProps, 
 
   public applyDefaultSubnet() {
     const { value, onChange, subnets } = this.props;
-    const defaultSubnetType = get(SETTINGS, 'providers.aws.defaults.subnetType');
+    const defaultSubnetType = get(SETTINGS, 'providers.tencentCloud.defaults.subnetType');
     const defaultSubnet = subnets.find(subnet => defaultSubnetType === subnet.name) || subnets[0];
     if (!value && defaultSubnet) {
       onChange(createFakeReactSyntheticEvent({ name, value: defaultSubnet.id }));
