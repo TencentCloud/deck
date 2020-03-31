@@ -4,15 +4,15 @@ const angular = require('angular');
 
 import { VpcReader } from '../vpc/VpcReader';
 
-module.exports = angular
-  .module('spinnaker.tencent.search.searchResultFormatter', [])
-  .factory('tencentSearchResultFormatter', function() {
-    return {
-      securityGroups: function(entry) {
-        return VpcReader.getVpcName(entry.vpcId).then(function(vpcName) {
-          let region = vpcName ? entry.region + ' - ' + vpcName.toLowerCase() : entry.region;
-          return entry.name + ' (' + region + ')';
-        });
-      },
-    };
-  });
+export const TENCENT_SEARCH_SEARCHRESULTFORMATTER = 'spinnaker.tencent.search.searchResultFormatter';
+export const name = TENCENT_SEARCH_SEARCHRESULTFORMATTER; // for backwards compatibility
+angular.module(TENCENT_SEARCH_SEARCHRESULTFORMATTER, []).factory('tencentSearchResultFormatter', function() {
+  return {
+    securityGroups: function(entry) {
+      return VpcReader.getVpcName(entry.vpcId).then(function(vpcName) {
+        const region = vpcName ? entry.region + ' - ' + vpcName.toLowerCase() : entry.region;
+        return entry.name + ' (' + region + ')';
+      });
+    },
+  };
+});

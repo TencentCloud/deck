@@ -4,8 +4,10 @@ const angular = require('angular');
 
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.enableAsgStage', [])
+export const TENCENT_PIPELINE_STAGES_ENABLEASG_AWSENABLEASGSTAGE = 'spinnaker.tencent.pipeline.stage.enableAsgStage';
+export const name = TENCENT_PIPELINE_STAGES_ENABLEASG_AWSENABLEASGSTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_ENABLEASG_AWSENABLEASGSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'enableServerGroup',
@@ -24,9 +26,9 @@ module.exports = angular
   .controller('tencentEnableAsgStageCtrl', [
     '$scope',
     function($scope) {
-      var ctrl = this;
+      const ctrl = this;
 
-      let stage = $scope.stage;
+      const stage = $scope.stage;
 
       $scope.state = {
         accounts: false,

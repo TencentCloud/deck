@@ -49,7 +49,7 @@ export interface IUpsertAlarmDescription extends IConfigurableMetric {
   region: string;
   alarmDescription: string;
   comparisonOperator: AlarmComparisonOperator;
-  continuousTime: number;
+  evaluationPeriods: number;
   period: number;
   threshold: number;
   statistic: AlarmStatisticType;

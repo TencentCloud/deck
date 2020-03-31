@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 import { IServerGroup } from '@spinnaker/core';
 
-import { IConfigurableMetric } from 'tencent/serverGroup';
+import { IConfigurableMetric } from '../../../../../serverGroup';
 import { AWSProviderSettings } from 'tencent/aws.settings';
 import { NAMESPACES } from './namespaces';
 

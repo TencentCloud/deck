@@ -2,15 +2,21 @@ import { module } from 'angular';
 
 import { AWS_SECURITY_GROUP_READER } from './securityGroup.reader';
 import { INGRESS_RULE_GROUP_SELECTOR_COMPONENT } from './configure/ingressRuleGroupSelector.component';
+import { name as CLONE_CLONESECURITYGROUP_CONTROLLER } from './clone/cloneSecurityGroup.controller';
+import { TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from './configure/configSecurityGroup.mixin.controller';
+import { TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL } from './configure/CreateSecurityGroupCtrl';
+import { TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL } from './configure/EditSecurityGroupCtrl';
+import { TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER } from './details/securityGroupDetail.controller';
+import { name as SECURITYGROUP_TRANSFORMER } from './securityGroup.transformer';
 
 export const AWS_SECURITY_GROUP_MODULE = 'spinnaker.tencent.securityGroup';
 module(AWS_SECURITY_GROUP_MODULE, [
   AWS_SECURITY_GROUP_READER,
-  require('./clone/cloneSecurityGroup.controller').name,
+  CLONE_CLONESECURITYGROUP_CONTROLLER,
   INGRESS_RULE_GROUP_SELECTOR_COMPONENT,
-  require('./configure/configSecurityGroup.mixin.controller').name,
-  require('./configure/CreateSecurityGroupCtrl').name,
-  require('./configure/EditSecurityGroupCtrl').name,
-  require('./details/securityGroupDetail.controller').name,
-  require('./securityGroup.transformer').name,
+  TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER,
+  TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL,
+  TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL,
+  TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER,
+  SECURITYGROUP_TRANSFORMER,
 ]);

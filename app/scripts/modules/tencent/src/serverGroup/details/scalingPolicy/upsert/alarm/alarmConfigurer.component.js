@@ -5,10 +5,14 @@ const angular = require('angular');
 import { Subject } from 'rxjs';
 
 import { METRIC_SELECTOR_COMPONENT } from './metricSelector.component';
+import { name as DIMENSIONSEDITOR_COMPONENT } from './dimensionsEditor.component';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.scalingPolicy.alarm.configurer', [
-    require('./dimensionsEditor.component').name,
+export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT =
+  'spinnaker.tencent.serverGroup.details.scalingPolicy.alarm.configurer';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT, [
+    DIMENSIONSEDITOR_COMPONENT,
     METRIC_SELECTOR_COMPONENT,
   ])
   .component('tencentAlarmConfigurer', {
@@ -44,7 +48,7 @@ module.exports = angular
       this.alarmUpdated = new Subject();
 
       this.thresholdChanged = () => {
-        let source =
+        const source =
           this.modalViewState.comparatorBound === 'max' ? 'metricIntervalLowerBound' : 'metricIntervalUpperBound';
         if (this.command.step) {
           // always set the first step at the alarm threshold
@@ -57,7 +61,7 @@ module.exports = angular
       this.updateChart = () => this.alarmUpdated.next();
 
       this.alarmComparatorChanged = () => {
-        let previousComparatorBound = this.modalViewState.comparatorBound;
+        const previousComparatorBound = this.modalViewState.comparatorBound;
         this.modalViewState.comparatorBound =
           this.command.alarm.comparisonOperator.indexOf('GREATER') === 0 ? 'max' : 'min';
         if (

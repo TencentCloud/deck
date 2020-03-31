@@ -54,7 +54,7 @@ export class AmazonImageSelectInput extends React.Component<IAmazonImageSelector
     const imgIds = { [region]: [imageId] };
     const attributes = { virtualizationType: '*', createdTime: new Date().toISOString() };
 
-    return { imageName, imgIds, attributes } as IAmazonImage;
+    return ({ imageName, imgIds, attributes } as unknown) as IAmazonImage;
   }
 
   private loadImagesFromApplicationName(application: Application): IPromise<IAmazonImage[]> {
@@ -352,7 +352,10 @@ export class AmazonImageSelectInput extends React.Component<IAmazonImageSelector
             filterOptions={false as any}
             noResultsText={searchNoResultsText}
             options={searchResults}
-            onInputChange={searchInput => this.searchInput$.next(searchInput)}
+            onInputChange={val => {
+              this.searchInput$.next(val);
+              return val;
+            }}
             onChange={onChange}
           />
           {error}

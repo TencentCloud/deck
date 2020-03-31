@@ -4,8 +4,10 @@ const angular = require('angular');
 
 import { Registry, PipelineConfigService, StageConstants } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.tagImageStage', [])
+export const TENCENT_PIPELINE_STAGES_TAGIMAGE_AWSTAGIMAGESTAGE = 'spinnaker.tencent.pipeline.stage.tagImageStage';
+export const name = TENCENT_PIPELINE_STAGES_TAGIMAGE_AWSTAGIMAGESTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_TAGIMAGE_AWSTAGIMAGESTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'upsertImageTags',

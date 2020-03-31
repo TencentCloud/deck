@@ -4,7 +4,7 @@ import { Formik, Form, FormikErrors } from 'formik';
 
 import { TextInput, FormikFormField, ModalClose, ReactModal, SubmitButton, noop } from '@spinnaker/core';
 
-import { IAuthenticateOidcActionConfig } from 'tencent/loadBalancer/OidcConfigReader';
+import { IAuthenticateOidcActionConfig } from '../../OidcConfigReader';
 
 import './ConfigureConfigModal.css';
 

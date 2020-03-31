@@ -4,6 +4,7 @@ import { StateService } from '@uirouter/angularjs';
 import { Application, ILoadBalancer } from '@spinnaker/core';
 
 import { IAmazonApplicationLoadBalancer, ITargetGroup } from 'tencent/domain/IAmazonLoadBalancer';
+import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export interface ITargetGroupFromStateParams {
   accountId: string;
@@ -87,7 +88,7 @@ export class AwsTargetGroupDetailsController implements IController {
 }
 
 export const AWS_TARGET_GROUP_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.targetGroupDetails.controller';
-module(AWS_TARGET_GROUP_DETAILS_CTRL, [require('@uirouter/angularjs').default]).controller(
+module(AWS_TARGET_GROUP_DETAILS_CTRL, [UIROUTER_ANGULARJS]).controller(
   'tencentTargetGroupDetailsCtrl',
   AwsTargetGroupDetailsController,
 );

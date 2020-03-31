@@ -51,7 +51,8 @@ export class AmazonLoadBalancerDataUtils {
         const loadBalancers: IAmazonApplicationLoadBalancer[] = application
           .getDataSource('loadBalancers')
           .data.filter(
-            lb => lb.loadBalancerType === 'application' || lb.loadBalancerType === 'network',
+            (lb: { loadBalancerType: string }) =>
+              lb.loadBalancerType === 'application' || lb.loadBalancerType === 'network',
           ) as IAmazonApplicationLoadBalancer[];
         const targetGroups = serverGroup.targetGroups
           ? serverGroup.targetGroups

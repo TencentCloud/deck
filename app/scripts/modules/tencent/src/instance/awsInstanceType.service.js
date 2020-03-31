@@ -5,11 +5,13 @@ import _ from 'lodash';
 
 import { API } from '@spinnaker/core';
 
-module.exports = angular.module('spinnaker.tencent.instanceType.service', []).factory('tencentInstanceTypeService', [
+export const TENCENT_INSTANCE_AWSINSTANCETYPE_SERVICE = 'spinnaker.tencent.instanceType.service';
+export const name = TENCENT_INSTANCE_AWSINSTANCETYPE_SERVICE; // for backwards compatibility
+angular.module(TENCENT_INSTANCE_AWSINSTANCETYPE_SERVICE, []).factory('tencentInstanceTypeService', [
   '$http',
   '$q',
   function($http, $q) {
-    var m5 = {
+    const m5 = {
       type: 'm5',
       description:
         'm5 instances provide a balance of compute, memory, and network resources. They are a good choice for most applications.',
@@ -41,7 +43,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       ],
     };
 
-    var t2gp = {
+    const t2gp = {
       type: 't2',
       description:
         't2 instances are a good choice for workloads that don’t use the full CPU often or consistently, but occasionally need to burst (e.g. web servers, developer environments and small databases).',
@@ -65,7 +67,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       ],
     };
 
-    var t2 = {
+    const t2 = {
       type: 't2',
       description:
         't2 instances are a good choice for workloads that don’t use the full CPU often or consistently, but occasionally need to burst (e.g. web servers, developer environments and small databases).',
@@ -97,7 +99,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       ],
     };
 
-    var r5 = {
+    const r5 = {
       type: 'r5',
       description:
         'r5 instances are optimized for memory-intensive applications and have the lowest cost per GiB of RAM among Tencent EC2 instance types.',
@@ -137,7 +139,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       ],
     };
 
-    var categories = [
+    const categories = [
       {
         type: 'general',
         label: 'General Purpose',
@@ -168,7 +170,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       return $q.when(categories);
     }
 
-    var getAllTypesByRegion = function getAllTypesByRegion() {
+    const getAllTypesByRegion = function getAllTypesByRegion() {
       return API.one('instanceTypes')
         .get()
         .then(function(types) {
@@ -186,7 +188,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
 
     function getAvailableTypesForRegions(availableRegions, selectedRegions) {
       selectedRegions = selectedRegions || [];
-      var availableTypes = [];
+      let availableTypes = [];
 
       // prime the list of available types
       if (selectedRegions && selectedRegions.length) {
@@ -203,7 +205,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       return availableTypes;
     }
 
-    let families = {
+    const families = {
       paravirtual: ['c1', 'c3', 'hi1', 'hs1', 'm1', 'm2', 'm3', 't1'],
       hvm: ['c3', 'c4', 'd2', 'i2', 'g2', 'm3', 'm4', 'm5', 'p2', 'r3', 'r4', 'r5', 't2', 'x1'],
       vpcOnly: ['c4', 'm4', 'm5', 'r4', 'r5', 't2', 'x1'],
@@ -216,7 +218,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
           // show all instance types
           return true;
         }
-        let [family] = instanceType.split('.');
+        const [family] = instanceType.split('.');
         if (!vpcOnly && families.vpcOnly.includes(family)) {
           return false;
         }
@@ -231,7 +233,7 @@ module.exports = angular.module('spinnaker.tencent.instanceType.service', []).fa
       if (!instanceType) {
         return false;
       }
-      let [family] = instanceType.split('.');
+      const [family] = instanceType.split('.');
       return families.ebsOptimized.includes(family);
     }
 

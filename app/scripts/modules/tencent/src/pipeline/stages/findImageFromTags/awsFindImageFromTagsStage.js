@@ -4,8 +4,11 @@ const angular = require('angular');
 
 import { BakeryReader, Registry } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.findImageFromTagsStage', [])
+export const TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_AWSFINDIMAGEFROMTAGSSTAGE =
+  'spinnaker.tencent.pipeline.stage.findImageFromTagsStage';
+export const name = TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_AWSFINDIMAGEFROMTAGSSTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_AWSFINDIMAGEFROMTAGSSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'findImageFromTags',

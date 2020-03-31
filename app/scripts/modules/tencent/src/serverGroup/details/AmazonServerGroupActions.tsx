@@ -10,12 +10,13 @@ import {
   ModalInjector,
   NgReact,
   ReactInjector,
+  ConfirmationModalService,
   ServerGroupWarningMessageService,
   SETTINGS,
 } from '@spinnaker/core';
 
 import { IAmazonServerGroup, IAmazonServerGroupView } from 'tencent/domain';
-import { AmazonCloneServerGroupModal } from 'tencent/serverGroup/configure/wizard/AmazonCloneServerGroupModal';
+import { AmazonCloneServerGroupModal } from '../configure/wizard/AmazonCloneServerGroupModal';
 import { AwsReactInjector } from 'tencent/reactShims';
 import { IAmazonServerGroupCommand } from '../configure';
 import { AmazonResizeServerGroupModal } from './resize/AmazonResizeServerGroupModal';
@@ -103,7 +104,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
       confirmationModalParams.interestingHealthProviderNames = ['Tencent'];
     }
 
-    ReactInjector.confirmationModalService.confirm(confirmationModalParams);
+    ConfirmationModalService.confirm(confirmationModalParams);
   };
 
   private disableServerGroup = (): void => {
@@ -137,7 +138,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
       confirmationModalParams.interestingHealthProviderNames = ['Tencent'];
     }
 
-    ReactInjector.confirmationModalService.confirm(confirmationModalParams);
+    ConfirmationModalService.confirm(confirmationModalParams);
   };
 
   private enableServerGroup = (): void => {
@@ -154,12 +155,10 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
       cancelButtonText: 'No, I just want to enable the server group',
     };
 
-    ReactInjector.confirmationModalService
-      .confirm(confirmationModalParams)
+    ConfirmationModalService.confirm(confirmationModalParams)
       .then(() => this.rollbackServerGroup())
-      .catch(({ source }) => {
-        // don't show the enable modal if the user cancels with the header button
-        if (source === 'footer') {
+      .catch((e: { source: string }) => {
+        if (e.source === 'footer') {
           this.showEnableServerGroupModal();
         }
       });
@@ -193,7 +192,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
       confirmationModalParams.interestingHealthProviderNames = ['Tencent'];
     }
 
-    ReactInjector.confirmationModalService.confirm(confirmationModalParams);
+    ConfirmationModalService.confirm(confirmationModalParams);
   }
 
   private rollbackServerGroup = (): void => {

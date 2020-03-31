@@ -1,6 +1,6 @@
 import { IAccountDetails, IServerGroup, IAsg } from '@spinnaker/core';
 
-import { ISuspendedProcess, IScalingPolicyView } from 'tencent/domain';
+import { ISuspendedProcess, IScalingPolicyView } from '../domain';
 
 import { IScalingPolicy } from './IScalingPolicy';
 
@@ -19,10 +19,12 @@ export interface IAmazonAsg extends IAsg {
 }
 
 export interface IAmazonServerGroup extends IServerGroup {
+  [x: string]: any;
+  vpcName?: any;
   image?: any;
   scalingPolicies?: IScalingPolicy[];
   targetGroups?: string[];
-  asg: IAmazonAsg;
+  asg?: IAmazonAsg;
   accountName?: string;
   instanceCount?: number;
 }

@@ -5,8 +5,11 @@ import _ from 'lodash';
 
 import { SECURITY_GROUP_READER, SERVER_GROUP_WRITER, TaskMonitor, FirewallLabels } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.securityGroup.editSecurityGroups.modal.controller', [
+export const TENCENT_SERVERGROUP_DETAILS_SECURITYGROUP_EDITSECURITYGROUPS_MODAL_CONTROLLER =
+  'spinnaker.tencent.serverGroup.details.securityGroup.editSecurityGroups.modal.controller';
+export const name = TENCENT_SERVERGROUP_DETAILS_SECURITYGROUP_EDITSECURITYGROUPS_MODAL_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SECURITYGROUP_EDITSECURITYGROUPS_MODAL_CONTROLLER, [
     SERVER_GROUP_WRITER,
     SECURITY_GROUP_READER,
   ])
@@ -48,9 +51,9 @@ module.exports = angular
       this.isValid = () => this.state.verification.verified;
 
       securityGroupReader.getAllSecurityGroups().then(allGroups => {
-        let account = serverGroup.account,
-          region = serverGroup.region,
-          vpcId = serverGroup.vpcId;
+        const account = serverGroup.account;
+        const region = serverGroup.region;
+        const vpcId = serverGroup.vpcId;
         this.availableSecurityGroups = _.get(allGroups, [account, 'tencent', region].join('.'), [])
           .filter(group => group.vpcId === vpcId)
           .sort((a, b) => {
@@ -75,7 +78,7 @@ module.exports = angular
       });
 
       this.submit = () => {
-        var submitMethod = () => {
+        const submitMethod = () => {
           this.state.submitting = true;
           return serverGroupWriter.updateSecurityGroups(serverGroup, this.command.securityGroups, application);
         };

@@ -8,13 +8,19 @@ import { STEP_POLICY_ACTION } from './step/stepPolicyAction.component';
 import { ScalingPolicyWriter } from '../ScalingPolicyWriter';
 
 import './upsertScalingPolicy.modal.less';
+import EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART from 'exports-loader?"n3-line-chart"!n3-charts/build/LineChart';
+import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_SIMPLE_SIMPLEPOLICYACTION_COMPONENT } from './simple/simplePolicyAction.component';
+import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT } from './alarm/alarmConfigurer.component';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.scalingPolicy.upsertScalingPolicy.controller', [
-    require('exports-loader?"n3-line-chart"!n3-charts/build/LineChart'),
-    require('./simple/simplePolicyAction.component').name,
+export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER =
+  'spinnaker.tencent.serverGroup.details.scalingPolicy.upsertScalingPolicy.controller';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER, [
+    EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART,
+    TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_SIMPLE_SIMPLEPOLICYACTION_COMPONENT,
     STEP_POLICY_ACTION,
-    require('./alarm/alarmConfigurer.component').name,
+    TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT,
   ])
   .controller('tencentUpsertScalingPolicyCtrl', [
     '$uibModalInstance',
@@ -46,7 +52,7 @@ module.exports = angular
       }
 
       function initializeAlarm(command, policy) {
-        let metricAlarm = policy.metricAlarm;
+        const metricAlarm = policy.metricAlarm;
         command.alarm = {
           name: metricAlarm.alarmName,
           region: serverGroup.region,
@@ -68,7 +74,7 @@ module.exports = angular
       }
 
       this.initialize = () => {
-        var command = createCommand();
+        const command = createCommand();
 
         initializeAlarm(command, policy);
 
@@ -91,7 +97,7 @@ module.exports = angular
       };
 
       function initializeStepPolicy(command, policy) {
-        let threshold = command.alarm.threshold;
+        const threshold = command.alarm.threshold;
         command.step = {
           estimatedInstanceWarmup: policy.estimatedInstanceWarmup || command.cooldown || 600,
           metricAggregationType: 'AVERAGE',
@@ -103,7 +109,7 @@ module.exports = angular
             },
           ]
         ).map(adjustment => {
-          let step = {
+          const step = {
             adjustmentValue: Math.abs(adjustment.adjustmentValue),
           };
           if (adjustment.metricIntervalUpperBound !== undefined) {
@@ -124,11 +130,12 @@ module.exports = angular
       }
 
       this.boundsChanged = () => {
-        let source = this.viewState.comparatorBound === 'min' ? 'metricIntervalLowerBound' : 'metricIntervalUpperBound',
-          target = source === 'metricIntervalLowerBound' ? 'metricIntervalUpperBound' : 'metricIntervalLowerBound';
+        const source =
+          this.viewState.comparatorBound === 'min' ? 'metricIntervalLowerBound' : 'metricIntervalUpperBound';
+        const target = source === 'metricIntervalLowerBound' ? 'metricIntervalUpperBound' : 'metricIntervalLowerBound';
 
         if (this.command.step) {
-          let steps = this.command.step.stepAdjustments;
+          const steps = this.command.step.stepAdjustments;
           steps.forEach((step, index) => {
             if (steps.length > index + 1) {
               steps[index + 1][target] = step[source];
@@ -140,14 +147,14 @@ module.exports = angular
       };
 
       this.switchMode = () => {
-        let command = this.command;
-        let cooldownOrWarmup = command.step ? command.step.estimatedInstanceWarmup : command.simple.cooldown;
+        const command = this.command;
+        const cooldownOrWarmup = command.step ? command.step.estimatedInstanceWarmup : command.simple.cooldown;
         if (command.step) {
-          let policy = { cooldown: cooldownOrWarmup };
+          const policy = { cooldown: cooldownOrWarmup };
           delete command.step;
           initializeSimplePolicy(command, policy);
         } else {
-          let stepAdjustments = [
+          const stepAdjustments = [
             {
               adjustmentValue: command.simple.adjustmentValue,
             },
@@ -168,8 +175,8 @@ module.exports = angular
 
       this.action = this.viewState.isNew ? 'Create' : 'Edit';
 
-      let prepareCommandForSubmit = () => {
-        let command = _.cloneDeep(this.command);
+      const prepareCommandForSubmit = () => {
+        const command = _.cloneDeep(this.command);
 
         if (command.adjustmentType !== 'PERCENT_CHANGE_IN_CAPACITY') {
           delete command.minAdjustmentMagnitude;
@@ -224,8 +231,8 @@ module.exports = angular
       });
 
       this.save = () => {
-        let command = prepareCommandForSubmit();
-        var submitMethod = () => ScalingPolicyWriter.upsertScalingPolicy(application, command);
+        const command = prepareCommandForSubmit();
+        const submitMethod = () => ScalingPolicyWriter.upsertScalingPolicy(application, command);
 
         this.taskMonitor.submit(submitMethod);
       };

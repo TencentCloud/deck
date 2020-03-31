@@ -1,6 +1,6 @@
+//@ts-nocheck
 import * as React from 'react';
 import { cloneDeep } from 'lodash';
-
 import {
   FirewallLabels,
   ILoadBalancerModalProps,
@@ -202,7 +202,6 @@ export class CreateApplicationLoadBalancer extends React.Component<
     if (!isNew) {
       heading = `Edit ${loadBalancerCommand.name}: ${loadBalancerCommand.region}: ${loadBalancerCommand.credentials}`;
     }
-
     return (
       <WizardModal<IAmazonApplicationLoadBalancerUpsertCommand>
         heading={heading}

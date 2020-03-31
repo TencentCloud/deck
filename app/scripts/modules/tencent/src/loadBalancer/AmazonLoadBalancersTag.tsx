@@ -16,7 +16,7 @@ import {
   Spinner,
 } from '@spinnaker/core';
 
-import { AmazonLoadBalancerDataUtils } from 'tencent/loadBalancer/amazonLoadBalancerDataUtils';
+import { AmazonLoadBalancerDataUtils } from './amazonLoadBalancerDataUtils';
 import { IAmazonServerGroup, ITargetGroup } from 'tencent/domain';
 
 interface ILoadBalancerListItemProps {
@@ -125,11 +125,13 @@ export class AmazonLoadBalancersTag extends React.Component<ILoadBalancersTagPro
       this.forceUpdate();
     });
 
-    LoadBalancerDataUtils.populateLoadBalancers(this.props.application, this.props.serverGroup).then(loadBalancers => {
-      if (this.mounted) {
-        this.setState({ loadBalancers, isLoading: false });
-      }
-    });
+    LoadBalancerDataUtils.populateLoadBalancers(this.props.application, this.props.serverGroup).then(
+      (loadBalancers: any) => {
+        if (this.mounted) {
+          this.setState({ loadBalancers, isLoading: false });
+        }
+      },
+    );
     AmazonLoadBalancerDataUtils.populateTargetGroups(
       this.props.application,
       this.props.serverGroup as IAmazonServerGroup,
@@ -148,9 +150,9 @@ export class AmazonLoadBalancersTag extends React.Component<ILoadBalancersTagPro
   public render(): React.ReactElement<AmazonLoadBalancersTag> {
     const { loadBalancers, targetGroups, isLoading } = this.state;
 
-    const targetGroupCount = (targetGroups && targetGroups.length) || 0,
-      loadBalancerCount = (loadBalancers && loadBalancers.length) || 0,
-      totalCount = targetGroupCount + loadBalancerCount;
+    const targetGroupCount = (targetGroups && targetGroups.length) || 0;
+    const loadBalancerCount = (loadBalancers && loadBalancers.length) || 0;
+    const totalCount = targetGroupCount + loadBalancerCount;
 
     if (!totalCount) {
       return isLoading ? <Spinner size="nano" /> : null;

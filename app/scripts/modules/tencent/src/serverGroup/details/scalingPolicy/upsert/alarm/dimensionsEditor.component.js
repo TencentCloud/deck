@@ -8,8 +8,11 @@ import { Observable, Subject } from 'rxjs';
 
 import './dimensionsEditor.component.less';
 
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.scalingPolicy.dimensionEditor', [])
+export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT =
+  'spinnaker.tencent.serverGroup.details.scalingPolicy.dimensionEditor';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT, [])
   .component('dimensionsEditor', {
     bindings: {
       alarm: '=',
@@ -25,13 +28,13 @@ module.exports = angular
 
       this.fetchDimensionOptions = () => {
         this.viewState.loadingDimensions = true;
-        let filters = { namespace: this.alarm.namespace };
+        const filters = { namespace: this.alarm.namespace };
         return Observable.fromPromise(
           CloudMetricsReader.listMetrics('tencent', this.serverGroup.account, this.serverGroup.region, filters),
         );
       };
 
-      let dimensionSubject = new Subject();
+      const dimensionSubject = new Subject();
 
       dimensionSubject.switchMap(this.fetchDimensionOptions).subscribe(results => {
         this.viewState.loadingDimensions = false;

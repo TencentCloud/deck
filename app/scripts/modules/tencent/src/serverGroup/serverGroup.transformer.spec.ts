@@ -27,23 +27,23 @@ describe('tencentServerGroupTransformer', () => {
     });
 
     it('adds vpc name to server group', () => {
-      const serverGroup = {
+      const serverGroup = ({
         account: 'test',
         region: 'us-east-1',
         vpcId: 'vpc-1',
         instances: [],
-      } as IAmazonServerGroup;
+      } as unknown) as IAmazonServerGroup;
       transformer.normalizeServerGroup(serverGroup);
       $scope.$digest();
       expect(serverGroup.vpcName).toBe('main');
     });
 
     it('adds empty vpc name when no vpcId found on server group', () => {
-      const serverGroup = {
+      const serverGroup = ({
         account: 'test',
         region: 'us-east-1',
         instances: [],
-      } as IAmazonServerGroup;
+      } as unknown) as IAmazonServerGroup;
       transformer.normalizeServerGroup(serverGroup);
       $scope.$digest();
       expect(serverGroup.vpcName).toBe('');
@@ -73,7 +73,7 @@ describe('tencentServerGroupTransformer', () => {
 
   describe('normalize server group details', () => {
     it('adds appropriate comparator to alarm', () => {
-      const serverGroup = {
+      const serverGroup = ({
         scalingPolicies: [
           {
             alarms: [
@@ -85,7 +85,7 @@ describe('tencentServerGroupTransformer', () => {
             ],
           },
         ],
-      } as IAmazonServerGroup;
+      } as unknown) as IAmazonServerGroup;
       transformer.normalizeServerGroupDetails(serverGroup);
       const alarms = serverGroup.scalingPolicies[0].alarms as IScalingPolicyAlarmView[];
       expect(alarms.map(a => a.comparator)).toEqual(['&lt;', '&gt;', '&le;', '&ge;', undefined]);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { AccountService, Checklist } from '@spinnaker/core';
+import { AccountService, ChecklistInput } from '@spinnaker/core';
 
 export interface IAvailabilityZoneSelectorProps {
   region: string;
@@ -40,12 +40,14 @@ export class AvailabilityZoneSelector extends React.Component<
     const { credentials, onChange, region } = props;
     const { usePreferredZones } = this.state;
 
-    AccountService.getAvailabilityZonesForAccountAndRegion('tencent', credentials, region).then(preferredZones => {
-      this.setState({ defaultZones: preferredZones });
-      if (usePreferredZones && preferredZones) {
-        onChange(preferredZones.slice());
-      }
-    });
+    AccountService.getAvailabilityZonesForAccountAndRegion('tencent', credentials, region).then(
+      (preferredZones: string[]) => {
+        this.setState({ defaultZones: preferredZones });
+        if (usePreferredZones && preferredZones) {
+          onChange(preferredZones.slice());
+        }
+      },
+    );
   }
 
   private handleSelectedZonesChanged = (zones: Set<string>): void => {
@@ -84,10 +86,12 @@ export class AvailabilityZoneSelector extends React.Component<
             {!usePreferredZones && (
               <div>
                 Restrict server group instances to:
-                <Checklist
+                <ChecklistInput
                   items={new Set(allZones)}
-                  checked={new Set(selectedZones)}
-                  onChange={this.handleSelectedZonesChanged}
+                  checked={!!selectedZones}
+                  onChange={(e: React.ChangeEvent<any>) => {
+                    this.handleSelectedZonesChanged(e.target.value);
+                  }}
                 />
               </div>
             )}

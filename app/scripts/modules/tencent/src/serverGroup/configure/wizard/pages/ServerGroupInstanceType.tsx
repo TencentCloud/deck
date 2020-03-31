@@ -34,7 +34,7 @@ export class ServerGroupInstanceType extends React.Component<IServerGroupInstanc
     if (showTypeSelector && values) {
       const instanceTypeOptions = (values.backingData.filtered.instanceTypes || []).map(instanceType => {
         const regionInstanceTypes = values.backingData.instanceTypes[values.region] || [];
-        const instanceTypeInfo = regionInstanceTypes.find(({ name }) => name === instanceType);
+        const instanceTypeInfo = regionInstanceTypes.find((item: { name: string }) => item.name === instanceType);
         return {
           label: instanceTypeInfo
             ? `${instanceType}(${instanceTypeInfo.cpu}Core ${instanceTypeInfo.mem}GB)`

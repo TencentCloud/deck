@@ -17,12 +17,12 @@ import {
   IAmazonClassicLoadBalancerUpsertCommand,
   IAmazonLoadBalancer,
   IAmazonServerGroup,
-  IApplicationLoadBalancerSourceData,
   IClassicListenerDescription,
   IClassicLoadBalancerSourceData,
   INetworkLoadBalancerSourceData,
   IAmazonNetworkLoadBalancerUpsertCommand,
   ITargetGroup,
+  IListenerDescription,
 } from 'tencent/domain';
 import { VpcReader } from 'tencent/vpc/VpcReader';
 import { IPromise, module } from 'angular';
@@ -203,6 +203,7 @@ export class AwsLoadBalancerTransformer {
       healthCheckPath: loadBalancer.healthCheckPath,
       idleTimeout: loadBalancer.idleTimeout || 60,
       subnetType: loadBalancer.subnetType,
+      application: '',
     };
 
     if (loadBalancer.elb) {
@@ -271,7 +272,7 @@ export class AwsLoadBalancerTransformer {
       loadBalancerType: 'application',
       cloudProvider: loadBalancer.cloudProvider,
       credentials: loadBalancer.account || loadBalancer.credentials,
-      listeners: loadBalancer.listeners,
+      listeners: loadBalancer.listeners as IListenerDescription[],
       targetGroups: [],
       name: loadBalancer.name,
       regionZones: loadBalancer.availabilityZones,
@@ -281,6 +282,7 @@ export class AwsLoadBalancerTransformer {
       vpcId: loadBalancer.vpcId,
       idleTimeout: loadBalancer.idleTimeout || 60,
       deletionProtection: loadBalancer.deletionProtection || false,
+      application: '',
     };
     return toEdit;
   }
@@ -306,6 +308,7 @@ export class AwsLoadBalancerTransformer {
       subnetType: loadBalancer.subnetType,
       vpcId: undefined,
       deletionProtection: loadBalancer.deletionProtection,
+      application: '',
     };
 
     if (loadBalancer.elb) {
@@ -338,7 +341,7 @@ export class AwsLoadBalancerTransformer {
           // Remove the default rule because it already exists in defaultActions
           listener.rules = (listener.rules || []).filter(l => !l.default);
           listener.rules.forEach(rule => {
-            (rule.actions || []).forEach(action => {
+            (rule.actions || []).forEach((action: any) => {
               if (action.targetGroupName) {
                 action.targetGroupName = action.targetGroupName.replace(`${applicationName}-`, '');
               }
@@ -385,9 +388,9 @@ export class AwsLoadBalancerTransformer {
   }
 
   public constructNewClassicLoadBalancerTemplate(application: Application): IAmazonClassicLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account,
-      defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region,
-      defaultSubnetType = AWSProviderSettings.defaults.subnetType;
+    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
+    const defaultSubnetType = AWSProviderSettings.defaults.subnetType;
     return {
       application: application.name,
       availabilityZones: undefined,
@@ -426,11 +429,11 @@ export class AwsLoadBalancerTransformer {
   public constructNewApplicationLoadBalancerTemplate(
     application: Application,
   ): IAmazonApplicationLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account,
-      defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region,
-      defaultSubnetType = AWSProviderSettings.defaults.subnetType,
-      defaultPort = application.attributes.instancePort || SETTINGS.defaultInstancePort,
-      defaultTargetGroupName = `targetgroup`;
+    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
+    const defaultSubnetType = AWSProviderSettings.defaults.subnetType;
+    const defaultPort = application.attributes.instancePort || SETTINGS.defaultInstancePort;
+    const defaultTargetGroupName = `targetgroup`;
     return {
       application: application.name,
       name: '',
@@ -490,10 +493,10 @@ export class AwsLoadBalancerTransformer {
   }
 
   public constructNewNetworkLoadBalancerTemplate(application: Application): IAmazonNetworkLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account,
-      defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region,
-      defaultSubnetType = AWSProviderSettings.defaults.subnetType,
-      defaultTargetGroupName = `targetgroup`;
+    const defaultCredentials = application.defaultCredentials.tencent || AWSProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencent || AWSProviderSettings.defaults.region;
+    const defaultSubnetType = AWSProviderSettings.defaults.subnetType;
+    const defaultTargetGroupName = `targetgroup`;
     return {
       application: application.name,
       name: '',

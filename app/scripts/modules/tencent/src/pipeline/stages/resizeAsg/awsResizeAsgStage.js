@@ -4,8 +4,11 @@ const angular = require('angular');
 
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.aws.resizeAsgStage', [])
+export const TENCENT_PIPELINE_STAGES_RESIZEASG_AWSRESIZEASGSTAGE =
+  'spinnaker.tencent.pipeline.stage.aws.resizeAsgStage';
+export const name = TENCENT_PIPELINE_STAGES_RESIZEASG_AWSRESIZEASGSTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_RESIZEASG_AWSRESIZEASGSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'resizeServerGroup',
@@ -32,9 +35,9 @@ module.exports = angular
   .controller('tencentResizeAsgStageCtrl', [
     '$scope',
     function($scope) {
-      var ctrl = this;
+      const ctrl = this;
 
-      let stage = $scope.stage;
+      const stage = $scope.stage;
 
       $scope.viewState = {
         accountsLoaded: false,

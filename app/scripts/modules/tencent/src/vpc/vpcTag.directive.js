@@ -4,7 +4,9 @@ const angular = require('angular');
 
 import { VpcReader } from '../vpc/VpcReader';
 
-module.exports = angular.module('spinnaker.tencent.vpc.tag.directive', []).directive('tencentVpcTag', function() {
+export const TENCENT_VPC_VPCTAG_DIRECTIVE = 'spinnaker.tencent.vpc.tag.directive';
+export const name = TENCENT_VPC_VPCTAG_DIRECTIVE; // for backwards compatibility
+angular.module(TENCENT_VPC_VPCTAG_DIRECTIVE, []).directive('tencentVpcTag', function() {
   return {
     restrict: 'E',
     scope: {

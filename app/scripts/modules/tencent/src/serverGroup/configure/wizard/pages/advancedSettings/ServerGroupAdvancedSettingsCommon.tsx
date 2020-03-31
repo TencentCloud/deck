@@ -4,10 +4,7 @@ import Select, { Option } from 'react-select';
 
 import { HelpField, MapEditor } from '@spinnaker/core';
 
-import {
-  IAmazonServerGroupCommand,
-  ITencentDisk,
-} from 'tencent/serverGroup/configure/serverGroupConfiguration.service';
+import { IAmazonServerGroupCommand, ITencentDisk } from '../../../serverGroupConfiguration.service';
 
 import { IServerGroupAdvancedSettingsProps } from './ServerGroupAdvancedSettings';
 

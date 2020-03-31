@@ -13,13 +13,18 @@ import {
 } from '@spinnaker/core';
 
 import { VpcReader } from '../../vpc/VpcReader';
+import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
+import { TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER } from '../clone/cloneSecurityGroup.controller';
 
-module.exports = angular
-  .module('spinnaker.tencent.securityGroup.details.controller', [
-    require('@uirouter/angularjs').default,
+export const TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER =
+  'spinnaker.tencent.securityGroup.details.controller';
+export const name = TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER, [
+    UIROUTER_ANGULARJS,
     SECURITY_GROUP_READER,
     CONFIRMATION_MODAL_SERVICE,
-    require('../clone/cloneSecurityGroup.controller').name,
+    TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER,
   ])
   .controller('tencentSecurityGroupDetailsCtrl', [
     '$scope',
@@ -123,7 +128,7 @@ module.exports = angular
           size: 'lg',
           resolve: {
             securityGroup: function() {
-              var securityGroup = angular.copy($scope.securityGroup);
+              const securityGroup = angular.copy($scope.securityGroup);
               if (securityGroup.region) {
                 securityGroup.regions = [securityGroup.region];
               }

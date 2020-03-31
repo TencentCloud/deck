@@ -4,8 +4,11 @@ const angular = require('angular');
 
 import { AccountService, Registry } from '@spinnaker/core';
 
-module.exports = angular
-  .module('spinnaker.tencent.pipeline.stage.disableClusterStage', [])
+export const TENCENT_PIPELINE_STAGES_DISABLECLUSTER_AWSDISABLECLUSTERSTAGE =
+  'spinnaker.tencent.pipeline.stage.disableClusterStage';
+export const name = TENCENT_PIPELINE_STAGES_DISABLECLUSTER_AWSDISABLECLUSTERSTAGE; // for backwards compatibility
+angular
+  .module(TENCENT_PIPELINE_STAGES_DISABLECLUSTER_AWSDISABLECLUSTERSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'disableCluster',
@@ -26,9 +29,9 @@ module.exports = angular
   .controller('tencentDisableClusterStageCtrl', [
     '$scope',
     function($scope) {
-      var ctrl = this;
+      const ctrl = this;
 
-      let stage = $scope.stage;
+      const stage = $scope.stage;
 
       $scope.state = {
         accounts: false,

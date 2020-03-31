@@ -3,7 +3,6 @@ import { StateService } from '@uirouter/angularjs';
 
 import {
   Application,
-  CONFIRMATION_MODAL_SERVICE,
   IApplicationSecurityGroup,
   ILoadBalancer,
   ISecurityGroup,
@@ -20,6 +19,8 @@ import {
 import { IAmazonLoadBalancer, IAmazonLoadBalancerSourceData, IListenerAction, ITargetGroup } from 'tencent/domain';
 
 import { LOAD_BALANCER_ACTIONS } from './loadBalancerActions.component';
+import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
+import { head } from 'lodash';
 
 export interface ILoadBalancerFromStateParams {
   accountId: string;
@@ -148,13 +149,15 @@ export class AwsLoadBalancerDetailsController implements IController {
 
     return this.$q.when(null);
   }
+  public getFirstSubnetPurpose(subnetDetailsList: ISubnet[] = []) {
+    return head(subnetDetailsList.map(subnet => subnet.purpose)) || '';
+  }
 }
 
 export const AWS_LOAD_BALANCER_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.controller';
 module(AWS_LOAD_BALANCER_DETAILS_CTRL, [
-  require('@uirouter/angularjs').default,
+  UIROUTER_ANGULARJS,
   SECURITY_GROUP_READER,
   LOAD_BALANCER_ACTIONS,
   LOAD_BALANCER_READ_SERVICE,
-  CONFIRMATION_MODAL_SERVICE,
 ]).controller('tencentLoadBalancerDetailsCtrl', AwsLoadBalancerDetailsController);

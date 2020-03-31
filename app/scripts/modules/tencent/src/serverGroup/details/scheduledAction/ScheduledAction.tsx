@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TaskExecutor, ReactInjector, ITaskMonitorConfig } from '@spinnaker/core';
+import { TaskExecutor, ConfirmationModalService, ITaskMonitorConfig } from '@spinnaker/core';
 import { IScheduledAction } from 'tencent/domain';
 
 export interface IScheduledActionProps {
@@ -17,11 +17,10 @@ export class ScheduledAction extends React.Component<IScheduledActionProps> {
       onTaskComplete: () => application.serverGroups.refresh(),
     };
 
-    ReactInjector.confirmationModalService.confirm({
+    ConfirmationModalService.confirm({
       header: `Really delete ${action.scheduledActionId}?`,
       buttonText: 'Delete scaling policy',
       account: serverGroup.account,
-      provider: 'tencent',
       taskMonitorConfig: taskMonitor,
       submitMethod: () => {
         return TaskExecutor.executeTask({

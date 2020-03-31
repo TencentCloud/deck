@@ -28,9 +28,10 @@ import {
 } from '@spinnaker/core';
 
 import { IKeyPair, IAmazonLoadBalancerSourceData, IScalingProcess, IALBListener } from 'tencent/domain';
-import { VpcReader, ITencentVpc } from 'tencent/vpc';
+import { VpcReader, ITencentVpc } from '../../vpc';
 import { KeyPairsReader } from 'tencent/keyPairs';
 import { AutoScalingProcessService } from '../details/scalingProcesses/AutoScalingProcessService';
+import { AMAZON_INSTANCE_AWSINSTANCETYPE_SERVICE } from 'tencent';
 
 export type IBlockDeviceMappingSource = 'source' | 'ami' | 'default';
 
@@ -161,11 +162,11 @@ export class AwsServerGroupConfigurationService {
   ) {}
 
   public configureUpdateCommand(command: IAmazonServerGroupCommand): void {
-    command.backingData = {
+    command.backingData = ({
       enabledMetrics: clone(this.enabledMetrics),
       terminationPolicies: clone(this.terminationPolicies),
       diskTypes: clone(this.diskTypes),
-    } as IAmazonServerGroupCommandBackingData;
+    } as unknown) as IAmazonServerGroupCommandBackingData;
   }
 
   public configureCommand(application: Application, cmd: IAmazonServerGroupCommand): IPromise<void> {
@@ -604,7 +605,7 @@ export class AwsServerGroupConfigurationService {
 export const AWS_SERVER_GROUP_CONFIGURATION_SERVICE = 'spinnaker.tencent.serverGroup.configure.service';
 module(AWS_SERVER_GROUP_CONFIGURATION_SERVICE, [
   SECURITY_GROUP_READER,
-  require('amazon/instance/awsInstanceType.service').name,
+  AMAZON_INSTANCE_AWSINSTANCETYPE_SERVICE,
   LOAD_BALANCER_READ_SERVICE,
   CACHE_INITIALIZER_SERVICE,
   SERVER_GROUP_COMMAND_REGISTRY_PROVIDER,

@@ -4,8 +4,11 @@ const angular = require('angular');
 
 import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 import { format } from 'date-fns';
-module.exports = angular
-  .module('spinnaker.tencent.serverGroup.details.scheduledActions.editScheduledActions.modal.controller', [])
+export const TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER =
+  'spinnaker.tencent.serverGroup.details.scheduledActions.editScheduledActions.modal.controller';
+export const name = TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER; // for backwards compatibility
+angular
+  .module(TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER, [])
   .controller('tencentEditScheduledActionsCtrl', [
     '$scope',
     '$uibModalInstance',
@@ -54,18 +57,18 @@ module.exports = angular
         onTaskComplete: () => application.serverGroups.refresh(),
       });
 
-      let getBeijingTime = date => {
+      const getBeijingTime = date => {
         const timezone = 8; //目标时区时间，东八区
-        const offset_GMT = new Date().getTimezoneOffset(); // 本地时间和格林威治的时间差，单位为分钟
+        const offsetGmt = new Date().getTimezoneOffset(); // 本地时间和格林威治的时间差，单位为分钟
         const nowDate = new Date(date).getTime(); // 本地时间距 1970 年 1 月 1 日午夜（GMT 时间）之间的毫秒数
         return format(
-          new Date(nowDate + offset_GMT * 60 * 1000 + timezone * 60 * 60 * 1000),
+          new Date(nowDate + offsetGmt * 60 * 1000 + timezone * 60 * 60 * 1000),
           'YYYY-MM-DDTHH:mm:ss+08:00',
         );
       };
 
       this.submit = () => {
-        var job = $scope.command.scheduledActions.map(sa => ({
+        const job = $scope.command.scheduledActions.map(sa => ({
           type: 'upsertTencentScheduledActions',
           application: application.name,
           account: serverGroup.account,
@@ -84,7 +87,7 @@ module.exports = angular
           recurrence: sa.repeat == 'Yes' ? sa.recurrence : '* * * * *',
         }));
 
-        var submitMethod = function() {
+        const submitMethod = function() {
           return TaskExecutor.executeTask({
             job: job,
             application: application,
