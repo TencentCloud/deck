@@ -2,8 +2,6 @@
 
 const angular = require('angular');
 
-import { CONFIRMATION_MODAL_SERVICE } from '@spinnaker/core';
-
 import { SCALING_POLICY_POPOVER } from './popover/scalingPolicyPopover.component';
 import { ScalingPolicyWriter } from './ScalingPolicyWriter';
 
@@ -17,7 +15,6 @@ angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT, [
     UPSERT_UPSERTSCALINGPOLICY_CONTROLLER,
     SCALING_POLICY_POPOVER,
-    CONFIRMATION_MODAL_SERVICE,
   ])
   .component('tencentAlarmBasedSummary', {
     bindings: {
