@@ -5,7 +5,6 @@ import _ from 'lodash';
 
 import {
   CloudProviderRegistry,
-  CONFIRMATION_MODAL_SERVICE,
   RecentHistoryService,
   SECURITY_GROUP_READER,
   SecurityGroupWriter,
@@ -23,7 +22,6 @@ angular
   .module(TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER, [
     UIROUTER_ANGULARJS,
     SECURITY_GROUP_READER,
-    CONFIRMATION_MODAL_SERVICE,
     TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER,
   ])
   .controller('tencentSecurityGroupDetailsCtrl', [

@@ -3,14 +3,7 @@
 const angular = require('angular');
 import _ from 'lodash';
 
-import {
-  CloudProviderRegistry,
-  CONFIRMATION_MODAL_SERVICE,
-  InstanceReader,
-  RecentHistoryService,
-  SETTINGS,
-  FirewallLabels,
-} from '@spinnaker/core';
+import { CloudProviderRegistry, InstanceReader, RecentHistoryService, SETTINGS, FirewallLabels } from '@spinnaker/core';
 
 import { TENCENTCLOUD_INSTANCE_WRITE_SERVICE } from '../tencentCloud.instance.write.service';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
@@ -25,7 +18,6 @@ angular
     ANGULAR_UI_BOOTSTRAP,
     TENCENTCLOUD_INSTANCE_WRITE_SERVICE,
     VPC_VPCTAG_DIRECTIVE,
-    CONFIRMATION_MODAL_SERVICE,
   ])
   .controller('tencentInstanceDetailsCtrl', [
     '$scope',
