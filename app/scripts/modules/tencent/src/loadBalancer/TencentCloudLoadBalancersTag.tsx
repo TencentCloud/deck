@@ -16,7 +16,7 @@ import {
   Spinner,
 } from '@spinnaker/core';
 
-import { TencentCloudLoadBalancerDataUtils } from './tencentCloudLoadBalancerDataUtils';
+import { TencentCloudLoadBalancerDataUtils } from './TencentCloudLoadBalancerDataUtils';
 import { ITencentCloudServerGroup, ITargetGroup } from 'tencent/domain';
 
 interface ILoadBalancerListItemProps {
