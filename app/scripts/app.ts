@@ -18,7 +18,7 @@ import { AZURE_MODULE } from '@spinnaker/azure';
 import { HUAWEICLOUD_MODULE } from '@spinnaker/huaweicloud';
 import { DCOS_DCOS_MODULE } from './modules/dcos/dcos.module';
 import { CLOUD_FOUNDRY_MODULE } from '@spinnaker/cloudfoundry';
-import { TENCENT_MODULE } from '@spinnaker/tencent';
+import { TENCENT_MODULE } from '@spinnaker/tencentcloud';
 module('netflix.spinnaker', [
   CORE_MODULE,
   AMAZON_MODULE,
