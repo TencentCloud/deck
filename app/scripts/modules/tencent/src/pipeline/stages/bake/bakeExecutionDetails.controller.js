@@ -8,7 +8,6 @@ import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER =
   'spinnaker.tencent.pipeline.stage.bake.executionDetails.controller';
-export const name = TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER, [UIROUTER_ANGULARJS])
   .controller('tencentBakeExecutionDetailsCtrl', [

@@ -8,12 +8,13 @@ import { AuthenticationService } from '@spinnaker/core';
 import { TENCENTCLOUDProviderSettings } from 'tencent/tencentCloud.settings';
 
 import { PipelineTemplates, BakeExecutionLabel, BakeryReader, Registry, SETTINGS } from '@spinnaker/core';
-import { name as BAKEEXECUTIONDETAILS_CONTROLLER } from './bakeExecutionDetails.controller';
+import { TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER } from './bakeExecutionDetails.controller';
 
 export const TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE = 'spinnaker.tencent.pipeline.stage.bakeStage';
-export const name = TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE; // for backwards compatibility
 angular
-  .module(TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE, [BAKEEXECUTIONDETAILS_CONTROLLER])
+  .module(TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE, [
+    TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER,
+  ])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'bake',

@@ -6,7 +6,6 @@ import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 import { format } from 'date-fns';
 export const TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER =
   'spinnaker.tencent.serverGroup.details.scheduledActions.editScheduledActions.modal.controller';
-export const name = TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER, [])
   .controller('tencentEditScheduledActionsCtrl', [

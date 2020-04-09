@@ -5,7 +5,6 @@ import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE =
   'spinnaker.tencent.pipeline.stage.modifyScalingProcessStage';
-export const name = TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE, [])
   .config(function() {

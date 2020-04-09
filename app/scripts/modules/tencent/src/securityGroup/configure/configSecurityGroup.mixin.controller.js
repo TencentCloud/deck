@@ -18,7 +18,6 @@ import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER =
   'spinnaker.tencent.securityGroup.baseConfig.controller';
-export const name = TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER; // for backwards compatibility
 angular
   .module(TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER, [
     UIROUTER_ANGULARJS,

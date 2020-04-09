@@ -7,7 +7,6 @@ import { SERVER_GROUP_WRITER, TaskMonitor } from '@spinnaker/core';
 
 export const TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER =
   'spinnaker.tencent.serverGroup.details.rollback.controller';
-export const name = TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER, [SERVER_GROUP_WRITER])
   .controller('tencentRollbackServerGroupCtrl', [

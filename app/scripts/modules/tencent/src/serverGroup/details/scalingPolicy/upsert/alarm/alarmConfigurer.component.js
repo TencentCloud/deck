@@ -5,14 +5,13 @@ const angular = require('angular');
 import { Subject } from 'rxjs';
 
 import { METRIC_SELECTOR_COMPONENT } from './metricSelector.component';
-import { name as DIMENSIONSEDITOR_COMPONENT } from './dimensionsEditor.component';
+import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT } from './dimensionsEditor.component';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT =
   'spinnaker.tencent.serverGroup.details.scalingPolicy.alarm.configurer';
-export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT, [
-    DIMENSIONSEDITOR_COMPONENT,
+    TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT,
     METRIC_SELECTOR_COMPONENT,
   ])
   .component('tencentAlarmConfigurer', {

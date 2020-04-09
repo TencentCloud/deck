@@ -7,7 +7,6 @@ import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER =
   'spinnaker.tencent.serverGroup.details.autoscaling.process.controller';
-export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER, [])
   .controller('tencentModifyScalingProcessesCtrl', [

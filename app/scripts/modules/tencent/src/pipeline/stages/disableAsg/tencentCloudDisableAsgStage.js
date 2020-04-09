@@ -6,7 +6,6 @@ import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE =
   'spinnaker.tencent.pipeline.stage.disableAsgStage';
-export const name = TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE, [])
   .config(function() {

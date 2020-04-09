@@ -6,7 +6,6 @@ import { BakeryReader, Registry } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE =
   'spinnaker.tencent.pipeline.stage.findImageFromTagsStage';
-export const name = TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE, [])
   .config(function() {

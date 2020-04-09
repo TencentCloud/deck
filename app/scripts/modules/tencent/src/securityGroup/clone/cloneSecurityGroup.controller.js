@@ -3,13 +3,15 @@
 const angular = require('angular');
 
 import { AccountService, FirewallLabels } from '@spinnaker/core';
-import { name as CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from '../configure/configSecurityGroup.mixin.controller';
+
+import { TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from '../configure/configSecurityGroup.mixin.controller';
 
 export const TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER =
   'spinnaker.tencent.securityGroup.clone.controller';
-export const name = TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER; // for backwards compatibility
 angular
-  .module(TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER, [CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER])
+  .module(TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER, [
+    TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER,
+  ])
   .controller('tencentCloneSecurityGroupController', [
     '$scope',
     '$uibModalInstance',

@@ -4,7 +4,6 @@ const angular = require('angular');
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_SIMPLE_SIMPLEPOLICYACTION_COMPONENT =
   'spinnaker.tencent.serverGroup.details.scalingPolicy.upsert.actions.simplePolicy';
-export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_SIMPLE_SIMPLEPOLICYACTION_COMPONENT; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_SIMPLE_SIMPLEPOLICYACTION_COMPONENT, [])
   .component('tencentSimplePolicyAction', {

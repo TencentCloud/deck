@@ -6,7 +6,6 @@ import { SecurityGroupWriter, TaskMonitor, FirewallLabels } from '@spinnaker/cor
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL = 'spinnaker.tencent.securityGroup.edit.controller';
-export const name = TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL; // for backwards compatibility
 angular
   .module(TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL, [UIROUTER_ANGULARJS])
   .controller('tencentEditSecurityGroupCtrl', [

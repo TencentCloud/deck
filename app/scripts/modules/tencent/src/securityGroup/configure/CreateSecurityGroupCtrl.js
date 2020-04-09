@@ -7,7 +7,6 @@ import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL =
   'spinnaker.tencent.securityGroup.create.controller';
-export const name = TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL; // for backwards compatibility
 angular
   .module(TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL, [UIROUTER_ANGULARJS, CACHE_INITIALIZER_SERVICE])
   .controller('tencentCreateSecurityGroupCtrl', [

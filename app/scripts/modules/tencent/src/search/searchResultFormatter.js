@@ -5,7 +5,6 @@ const angular = require('angular');
 import { VpcReader } from '../vpc/VpcReader';
 
 export const TENCENT_SEARCH_SEARCHRESULTFORMATTER = 'spinnaker.tencent.search.searchResultFormatter';
-export const name = TENCENT_SEARCH_SEARCHRESULTFORMATTER; // for backwards compatibility
 angular.module(TENCENT_SEARCH_SEARCHRESULTFORMATTER, []).factory('tencentSearchResultFormatter', function() {
   return {
     securityGroups: function(entry) {

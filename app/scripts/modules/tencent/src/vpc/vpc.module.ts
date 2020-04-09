@@ -1,5 +1,5 @@
 import { module } from 'angular';
-import { name as VPCTAG_DIRECTIVE } from './vpcTag.directive';
+import { TENCENT_VPC_VPCTAG_DIRECTIVE } from './vpcTag.directive';
 
 export const VPC_MODULE = 'spinnaker.tencent.vpc';
-module(VPC_MODULE, [VPCTAG_DIRECTIVE]);
+module(VPC_MODULE, [TENCENT_VPC_VPCTAG_DIRECTIVE]);

@@ -6,7 +6,6 @@ import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE =
   'spinnaker.tencent.pipeline.stage.tencentCloud.resizeAsgStage';
-export const name = TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE, [])
   .config(function() {

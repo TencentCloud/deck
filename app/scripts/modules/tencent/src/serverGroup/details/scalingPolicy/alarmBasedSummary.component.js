@@ -6,14 +6,13 @@ import { SCALING_POLICY_POPOVER } from './popover/scalingPolicyPopover.component
 import { ScalingPolicyWriter } from './ScalingPolicyWriter';
 
 import './scalingPolicySummary.component.less';
-import { name as UPSERT_UPSERTSCALINGPOLICY_CONTROLLER } from './upsert/upsertScalingPolicy.controller';
+import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER } from './upsert/upsertScalingPolicy.controller';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT =
   'spinnaker.tencent.serverGroup.details.scalingPolicy.alarmBasedSummary.component';
-export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT, [
-    UPSERT_UPSERTSCALINGPOLICY_CONTROLLER,
+    TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER,
     SCALING_POLICY_POPOVER,
   ])
   .component('tencentAlarmBasedSummary', {

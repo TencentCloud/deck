@@ -7,7 +7,6 @@ import { AccountService, AppListExtractor, NameUtils, Registry, StageConstants }
 
 export const TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE =
   'spinnaker.tencent.pipeline.stage.cloneServerGroupStage';
-export const name = TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE, [])
   .config(function() {

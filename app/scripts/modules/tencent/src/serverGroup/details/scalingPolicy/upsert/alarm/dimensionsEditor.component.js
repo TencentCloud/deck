@@ -10,7 +10,6 @@ import './dimensionsEditor.component.less';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT =
   'spinnaker.tencent.serverGroup.details.scalingPolicy.dimensionEditor';
-export const name = TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT; // for backwards compatibility
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT, [])
   .component('dimensionsEditor', {

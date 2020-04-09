@@ -6,7 +6,6 @@ import { AccountService, Registry } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE =
   'spinnaker.tencent.pipeline.stage.scaleDownClusterStage';
-export const name = TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE; // for backwards compatibility
 angular
   .module(TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE, [])
   .config(function() {
