@@ -228,6 +228,12 @@ window.spinnakerSettings = {
         region: 'us-east-1',
       },
     },
+    tencentcloud: {
+      defaults: {
+        account: 'test',
+        region: 'ap-guangzhou',
+      },
+    },
   },
   pubsubProviders: ['google'], // TODO(joonlim): Add amazon once it is confirmed that amazon pub/sub works.
   triggerTypes: [
