@@ -93,7 +93,6 @@ module(TENCENT_MODULE, [
   TENCENTCLOUD_SERVER_GROUP_TRANSFORMER,
   TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,
   TENCENTCLOUD_LOAD_BALANCER_MODULE,
-  TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER,
   TENCENTCLOUD_SECURITY_GROUP_MODULE,
   SUBNET_RENDERER,
   VPC_MODULE,
@@ -131,11 +130,6 @@ module(TENCENT_MODULE, [
       commandBuilder: 'tencentServerGroupCommandBuilder',
       configurationService: 'tencentServerGroupConfigurationService',
       scalingActivitiesEnabled: true,
-    },
-    instance: {
-      instanceTypeService: 'tencentInstanceTypeService',
-      detailsTemplateUrl: require('./instance/details/instanceDetails.html'),
-      detailsController: 'tencentInstanceDetailsCtrl',
     },
     loadBalancer: {
       transformer: 'tencentLoadBalancerTransformer',
