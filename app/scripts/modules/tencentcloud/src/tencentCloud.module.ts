@@ -39,6 +39,7 @@ import {
   SecurityGroupsDetailsSection,
   TagsDetailsSection,
 } from './serverGroup/details/sections';
+import { CreateSecurityGroupModal } from './securityGroup/configure/CreateSecurityGroup/CreateSecurityGroupModal';
 
 import { DEPLOY_CLOUDFORMATION_STACK_STAGE } from './pipeline/stages/deployCloudFormation/deployCloudFormationStackStage';
 import { CLOUDFORMATION_TEMPLATE_ENTRY } from './pipeline/stages/deployCloudFormation/cloudFormationTemplateEntry.component';
@@ -149,8 +150,7 @@ module(TENCENT_MODULE, [
       reader: 'tencentSecurityGroupReader',
       detailsTemplateUrl: require('./securityGroup/details/securityGroupDetail.html'),
       detailsController: 'tencentSecurityGroupDetailsCtrl',
-      createSecurityGroupTemplateUrl: require('./securityGroup/configure/createSecurityGroup.html'),
-      createSecurityGroupController: 'tencentCreateSecurityGroupCtrl',
+      CreateSecurityGroupModal,
     },
     subnet: {
       renderer: 'tencentSubnetRenderer',
