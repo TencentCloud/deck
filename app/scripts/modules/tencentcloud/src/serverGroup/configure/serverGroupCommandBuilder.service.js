@@ -9,7 +9,7 @@ import { TENCENTCLOUDProviderSettings } from '../../tencentCloud.settings';
 import { TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
 
 export const TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
-  'spinnaker.tencent.serverGroupCommandBuilder.service';
+  'spinnaker.tencentcloud.serverGroupCommandBuilder.service';
 angular
   .module(TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE, [
     INSTANCE_TYPE_SERVICE,
@@ -25,9 +25,11 @@ angular
         const credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencentcloud');
 
         const defaultCredentials =
-          defaults.account || application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
+          defaults.account ||
+          application.defaultCredentials.tencentcloud ||
+          TENCENTCLOUDProviderSettings.defaults.account;
         const defaultRegion =
-          defaults.region || application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+          defaults.region || application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
         const defaultSubnet = defaults.subnet || TENCENTCLOUDProviderSettings.defaults.subnetType || '';
 
         const preferredZonesLoader = AccountService.getAvailabilityZonesForAccountAndRegion(
@@ -116,7 +118,7 @@ angular
               application.attributes.platformHealthOnlyShowOverride &&
               application.attributes.platformHealthOnly
             ) {
-              command.interestingHealthProviderNames = ['Tencent'];
+              command.interestingHealthProviderNames = ['Tencentcloud'];
             }
 
             return command;
@@ -130,7 +132,10 @@ angular
           'tencentcloud',
           pipelineCluster.instanceType,
         );
-        const commandOptions = { account: pipelineCluster.account, region: region };
+        const commandOptions = {
+          account: pipelineCluster.account,
+          region: region,
+        };
         const asyncLoader = $q.all({
           command: buildNewServerGroupCommand(application, commandOptions),
           instanceProfile: instanceTypeCategoryLoader,
@@ -197,7 +202,12 @@ angular
       function buildUpdateServerGroupCommand(serverGroup) {
         const command = {
           type: 'modifyAsg',
-          asgs: [{ asgName: serverGroup.name, region: serverGroup.region }],
+          asgs: [
+            {
+              asgName: serverGroup.name,
+              region: serverGroup.region,
+            },
+          ],
           cooldown: serverGroup.asg.defaultCooldown,
           enabledMetrics: _.get(serverGroup, 'asg.enabledMetrics', []).map(m => m.metric),
           terminationPolicies: angular.copy(serverGroup.asg.terminationPolicies),
@@ -297,7 +307,7 @@ angular
             application.attributes.platformHealthOnlyShowOverride &&
             application.attributes.platformHealthOnly
           ) {
-            command.interestingHealthProviderNames = ['Tencent'];
+            command.interestingHealthProviderNames = ['Tencentcloud'];
           }
 
           if (mode === 'editPipeline') {

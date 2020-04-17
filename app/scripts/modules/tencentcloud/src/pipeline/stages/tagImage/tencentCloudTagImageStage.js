@@ -5,7 +5,7 @@ const angular = require('angular');
 import { Registry, PipelineConfigService, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE =
-  'spinnaker.tencent.pipeline.stage.tagImageStage';
+  'spinnaker.tencentcloud.pipeline.stage.tagImageStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE, [])
   .config(function() {

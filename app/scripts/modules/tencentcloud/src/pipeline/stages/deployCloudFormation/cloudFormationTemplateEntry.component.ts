@@ -33,7 +33,7 @@ const cloudFormationTemplateEntryComponent: IComponentOptions = {
     ></json-editor>`,
 };
 
-export const CLOUDFORMATION_TEMPLATE_ENTRY = 'spinnaker.tencent.cloudformation.entry.component';
+export const CLOUDFORMATION_TEMPLATE_ENTRY = 'spinnaker.tencentcloud.cloudformation.entry.component';
 module(CLOUDFORMATION_TEMPLATE_ENTRY, []).component(
   'cloudFormationTemplateEntry',
   cloudFormationTemplateEntryComponent,

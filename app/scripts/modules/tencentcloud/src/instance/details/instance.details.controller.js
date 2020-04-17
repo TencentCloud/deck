@@ -10,7 +10,8 @@ import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 import ANGULAR_UI_BOOTSTRAP from 'angular-ui-bootstrap';
 import { TENCENT_VPC_VPCTAG_DIRECTIVE } from '../../vpc/vpcTag.directive';
 
-export const TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER = 'spinnaker.tencent.instance.details.controller';
+export const TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER =
+  'spinnaker.tencentcloud.instance.details.controller';
 angular
   .module(TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER, [
     UIROUTER_ANGULARJS,
@@ -66,7 +67,7 @@ angular
 
         instance.health = instance.health || [];
         const displayableMetrics = instance.health.filter(function(metric) {
-          return metric.type !== 'Tencent' || metric.state !== 'Unknown';
+          return metric.type !== 'Tencentcloud' || metric.state !== 'Unknown';
         });
         // backfill details where applicable
         if (latest.health) {
@@ -224,7 +225,15 @@ angular
           $scope.state.notFoundStandalone = true;
           RecentHistoryService.removeLastItem('instances');
         } else {
-          $state.go('^', { allowModalToStayOpen: true }, { location: 'replace' });
+          $state.go(
+            '^',
+            {
+              allowModalToStayOpen: true,
+            },
+            {
+              location: 'replace',
+            },
+          );
         }
       }
 
@@ -288,7 +297,11 @@ angular
           application: app,
           title: 'Terminating ' + instance.instanceId,
           onTaskComplete: function() {
-            if ($state.includes('**.instanceDetails', { instanceId: instance.instanceId })) {
+            if (
+              $state.includes('**.instanceDetails', {
+                instanceId: instance.instanceId,
+              })
+            ) {
               $state.go('^');
             }
           },
@@ -318,7 +331,11 @@ angular
           application: app,
           title: 'Terminating ' + instance.instanceId + ' and shrinking server group',
           onTaskComplete: function() {
-            if ($state.includes('**.instanceDetails', { instanceId: instance.instanceId })) {
+            if (
+              $state.includes('**.instanceDetails', {
+                instanceId: instance.instanceId,
+              })
+            ) {
               $state.go('^');
             }
           },
@@ -352,7 +369,7 @@ angular
 
         const submitMethod = (params = {}) => {
           if (app.attributes && app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
-            params.interestingHealthProviderNames = ['Tencent'];
+            params.interestingHealthProviderNames = ['Tencentcloud'];
           }
 
           return tencentCloudInstanceWriter.rebootInstance(instance, app, params);
@@ -364,7 +381,7 @@ angular
           account: instance.account,
           provider: 'tencentcloud',
           platformHealthOnlyShowOverride: app.attributes.platformHealthOnlyShowOverride,
-          platformHealthType: 'Tencent',
+          platformHealthType: 'Tencentcloud',
           taskMonitorConfig: taskMonitor,
           submitMethod: submitMethod,
         });

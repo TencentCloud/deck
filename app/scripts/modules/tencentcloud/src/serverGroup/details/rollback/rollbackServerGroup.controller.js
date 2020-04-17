@@ -6,7 +6,7 @@ import { get } from 'lodash';
 import { SERVER_GROUP_WRITER, TaskMonitor } from '@spinnaker/core';
 
 export const TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER =
-  'spinnaker.tencent.serverGroup.details.rollback.controller';
+  'spinnaker.tencentcloud.serverGroup.details.rollback.controller';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER, [SERVER_GROUP_WRITER])
   .controller('tencentRollbackServerGroupCtrl', [
@@ -82,7 +82,7 @@ angular
 
       if (application && application.attributes) {
         if (application.attributes.platformHealthOnlyShowOverride && application.attributes.platformHealthOnly) {
-          $scope.command.interestingHealthProviderNames = ['Tencent'];
+          $scope.command.interestingHealthProviderNames = ['Tencentcloud'];
         }
 
         $scope.command.platformHealthOnlyShowOverride = application.attributes.platformHealthOnlyShowOverride;

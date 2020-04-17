@@ -11,7 +11,7 @@ import {
 
 import { DeployCloudFormationStackConfigController } from './deployCloudFormationStackConfig.controller';
 
-export const DEPLOY_CLOUDFORMATION_STACK_STAGE = 'spinnaker.tencent.pipeline.stages.deployCloudFormationStage';
+export const DEPLOY_CLOUDFORMATION_STACK_STAGE = 'spinnaker.tencentcloud.pipeline.stages.deployCloudFormationStage';
 
 module(DEPLOY_CLOUDFORMATION_STACK_STAGE, [])
   .config(() => {

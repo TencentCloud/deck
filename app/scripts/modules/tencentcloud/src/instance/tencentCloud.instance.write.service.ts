@@ -101,7 +101,7 @@ export class TencentCloudInstanceWriter extends InstanceWriter {
   }
 }
 
-export const TENCENTCLOUD_INSTANCE_WRITE_SERVICE = 'spinnaker.tencent.instance.write.service';
+export const TENCENTCLOUD_INSTANCE_WRITE_SERVICE = 'spinnaker.tencentcloud.instance.write.service';
 module(TENCENTCLOUD_INSTANCE_WRITE_SERVICE, [INSTANCE_WRITE_SERVICE, PROVIDER_SERVICE_DELEGATE]).service(
   'tencentCloudInstanceWriter',
   TencentCloudInstanceWriter,

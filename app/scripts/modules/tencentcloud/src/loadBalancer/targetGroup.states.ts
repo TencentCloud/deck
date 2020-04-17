@@ -5,7 +5,7 @@ import { APPLICATION_STATE_PROVIDER, ApplicationStateProvider, INestedState } fr
 
 import { TargetGroupDetails } from './TargetGroupDetails';
 
-export const TARGET_GROUP_STATES = 'spinnaker.tencent.loadBalancer.targetGroup.states';
+export const TARGET_GROUP_STATES = 'spinnaker.tencentcloud.loadBalancer.targetGroup.states';
 module(TARGET_GROUP_STATES, [APPLICATION_STATE_PROVIDER]).config([
   'applicationStateProvider',
   (applicationStateProvider: ApplicationStateProvider) => {

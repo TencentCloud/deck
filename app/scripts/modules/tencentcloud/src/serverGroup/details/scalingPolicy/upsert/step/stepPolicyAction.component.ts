@@ -42,5 +42,5 @@ const stepPolicyActionComponent = {
   },
 };
 
-export const STEP_POLICY_ACTION = 'spinnaker.tencent.scalingPolicy.stepPolicy.action';
+export const STEP_POLICY_ACTION = 'spinnaker.tencentcloud.scalingPolicy.stepPolicy.action';
 module(STEP_POLICY_ACTION, []).component('tencentStepPolicyAction', stepPolicyActionComponent);

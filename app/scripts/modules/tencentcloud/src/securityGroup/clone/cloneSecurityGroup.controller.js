@@ -7,7 +7,7 @@ import { AccountService, FirewallLabels } from '@spinnaker/core';
 import { TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from '../configure/configSecurityGroup.mixin.controller';
 
 export const TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER =
-  'spinnaker.tencent.securityGroup.clone.controller';
+  'spinnaker.tencentcloud.securityGroup.clone.controller';
 angular
   .module(TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER, [
     TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER,

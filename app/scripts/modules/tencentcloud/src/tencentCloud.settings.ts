@@ -28,7 +28,7 @@ export interface ITENCENTCLOUDProviderSettings extends IProviderSettings {
 }
 
 export const TENCENTCLOUDProviderSettings: ITENCENTCLOUDProviderSettings = (SETTINGS.providers
-  .tencent as ITENCENTCLOUDProviderSettings) || {
+  .tencentcloud as ITENCENTCLOUDProviderSettings) || {
   defaults: {},
 };
 if (TENCENTCLOUDProviderSettings) {

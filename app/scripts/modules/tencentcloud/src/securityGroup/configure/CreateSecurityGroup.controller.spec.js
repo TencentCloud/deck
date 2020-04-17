@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import { AccountService, InfrastructureCaches, ModalWizard } from '@spinnaker/core';
 
 import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
-import { VpcReader } from 'tencent/vpc';
+import { VpcReader } from 'tencentcloud/vpc';
 
 describe('Controller: CreateSecurityGroup', function() {
   beforeEach(
@@ -21,7 +21,9 @@ describe('Controller: CreateSecurityGroup', function() {
       InfrastructureCaches.get = () => {
         return {
           getStats: () => {
-            return { ageMax: 0 };
+            return {
+              ageMax: 0,
+            };
           },
         };
       };
@@ -37,17 +39,61 @@ describe('Controller: CreateSecurityGroup', function() {
         this.$q = $q;
         this.securityGroupReader = securityGroupReader;
 
-        spyOn(AccountService, 'listAllAccounts').and.returnValue($q.when([{ name: 'prod' }, { name: 'test' }]));
+        spyOn(AccountService, 'listAllAccounts').and.returnValue(
+          $q.when([
+            {
+              name: 'prod',
+            },
+            {
+              name: 'test',
+            },
+          ]),
+        );
 
         spyOn(AccountService, 'getRegionsForAccount').and.returnValue($q.when(['us-east-1', 'us-west-1']));
 
         spyOn(VpcReader, 'listVpcs').and.returnValue(
           $q.when([
-            { id: 'vpc1-pe', name: 'vpc 1', account: 'prod', region: 'us-east-1', deprecated: false, label: 'vpc 1' },
-            { id: 'vpc2-pw', name: 'vpc 2', account: 'prod', region: 'us-west-1', deprecated: false, label: 'vpc 2' },
-            { id: 'vpc1-te', name: 'vpc 1', account: 'test', region: 'us-east-1', deprecated: false, label: 'vpc 1' },
-            { id: 'vpc2-te', name: 'vpc 2', account: 'test', region: 'us-east-1', deprecated: false, label: 'vpc 2' },
-            { id: 'vpc2-tw', name: 'vpc 2', account: 'test', region: 'us-west-1', deprecated: false, label: 'vpc 2' },
+            {
+              id: 'vpc1-pe',
+              name: 'vpc 1',
+              account: 'prod',
+              region: 'us-east-1',
+              deprecated: false,
+              label: 'vpc 1',
+            },
+            {
+              id: 'vpc2-pw',
+              name: 'vpc 2',
+              account: 'prod',
+              region: 'us-west-1',
+              deprecated: false,
+              label: 'vpc 2',
+            },
+            {
+              id: 'vpc1-te',
+              name: 'vpc 1',
+              account: 'test',
+              region: 'us-east-1',
+              deprecated: false,
+              label: 'vpc 1',
+            },
+            {
+              id: 'vpc2-te',
+              name: 'vpc 2',
+              account: 'test',
+              region: 'us-east-1',
+              deprecated: false,
+              label: 'vpc 2',
+            },
+            {
+              id: 'vpc2-tw',
+              name: 'vpc 2',
+              account: 'test',
+              region: 'us-west-1',
+              deprecated: false,
+              label: 'vpc 2',
+            },
           ]),
         );
 
@@ -56,29 +102,81 @@ describe('Controller: CreateSecurityGroup', function() {
             prod: {
               tencentCloud: {
                 'us-east-1': [
-                  { name: 'group1', vpcId: null, id: '1' },
-                  { name: 'group2', vpcId: null, id: '2' },
-                  { name: 'group3', vpcId: 'vpc1-pe', id: '3' },
+                  {
+                    name: 'group1',
+                    vpcId: null,
+                    id: '1',
+                  },
+                  {
+                    name: 'group2',
+                    vpcId: null,
+                    id: '2',
+                  },
+                  {
+                    name: 'group3',
+                    vpcId: 'vpc1-pe',
+                    id: '3',
+                  },
                 ],
                 'us-west-1': [
-                  { name: 'group1', vpcId: null, id: '1' },
-                  { name: 'group3', vpcId: 'vpc2-pw', id: '3' },
+                  {
+                    name: 'group1',
+                    vpcId: null,
+                    id: '1',
+                  },
+                  {
+                    name: 'group3',
+                    vpcId: 'vpc2-pw',
+                    id: '3',
+                  },
                 ],
               },
             },
             test: {
               tencentCloud: {
                 'us-east-1': [
-                  { name: 'group1', vpcId: null, id: '1' },
-                  { name: 'group2', vpcId: 'vpc1-te', id: '2' },
-                  { name: 'group3', vpcId: 'vpc1-te', id: '3' },
-                  { name: 'group4', vpcId: 'vpc2-te', id: '4' },
+                  {
+                    name: 'group1',
+                    vpcId: null,
+                    id: '1',
+                  },
+                  {
+                    name: 'group2',
+                    vpcId: 'vpc1-te',
+                    id: '2',
+                  },
+                  {
+                    name: 'group3',
+                    vpcId: 'vpc1-te',
+                    id: '3',
+                  },
+                  {
+                    name: 'group4',
+                    vpcId: 'vpc2-te',
+                    id: '4',
+                  },
                 ],
                 'us-west-1': [
-                  { name: 'group1', vpcId: null, id: '1' },
-                  { name: 'group3', vpcId: 'vpc1-tw', id: '3' },
-                  { name: 'group3', vpcId: 'vpc2-tw', id: '3' },
-                  { name: 'group5', vpcId: 'vpc2-tw', id: '5' },
+                  {
+                    name: 'group1',
+                    vpcId: null,
+                    id: '1',
+                  },
+                  {
+                    name: 'group3',
+                    vpcId: 'vpc1-tw',
+                    id: '3',
+                  },
+                  {
+                    name: 'group3',
+                    vpcId: 'vpc2-tw',
+                    id: '3',
+                  },
+                  {
+                    name: 'group5',
+                    vpcId: 'vpc2-tw',
+                    id: '5',
+                  },
                 ],
               },
             },
@@ -88,10 +186,17 @@ describe('Controller: CreateSecurityGroup', function() {
         this.initializeCtrl = function() {
           this.ctrl = $controller('tencentCloudCreateSecurityGroupCtrl', {
             $scope: this.$scope,
-            $uibModalInstance: { result: this.$q.when(null) },
+            $uibModalInstance: {
+              result: this.$q.when(null),
+            },
             securityGroupReader: this.securityGroupReader,
-            application: this.application || { attributes: {} },
-            securityGroup: { regions: [], securityGroupIngress: [] },
+            application: this.application || {
+              attributes: {},
+            },
+            securityGroup: {
+              regions: [],
+              securityGroupIngress: [],
+            },
           });
           this.$scope.$digest();
         };
@@ -178,7 +283,11 @@ describe('Controller: CreateSecurityGroup', function() {
 
       it('removes rules that are not available when account changes', function() {
         let securityGroup = this.$scope.securityGroup;
-        this.$scope.availableSecurityGroups.forEach(group => securityGroup.securityGroupIngress.push({ name: group }));
+        this.$scope.availableSecurityGroups.forEach(group =>
+          securityGroup.securityGroupIngress.push({
+            name: group,
+          }),
+        );
         expect(securityGroup.securityGroupIngress.length).toBe(2);
 
         securityGroup.credentials = 'test';
@@ -191,8 +300,18 @@ describe('Controller: CreateSecurityGroup', function() {
       it('does not repeatedly add removed rule warnings when multiple rules for the same group are removed', function() {
         let securityGroup = this.$scope.securityGroup;
         this.$scope.availableSecurityGroups.forEach(group => {
-          securityGroup.securityGroupIngress.push({ name: group, startPort: 7001, endPort: 7001, protocol: 'HTTPS' });
-          securityGroup.securityGroupIngress.push({ name: group, startPort: 7000, endPort: 7000, protocol: 'HTTP' });
+          securityGroup.securityGroupIngress.push({
+            name: group,
+            startPort: 7001,
+            endPort: 7001,
+            protocol: 'HTTPS',
+          });
+          securityGroup.securityGroupIngress.push({
+            name: group,
+            startPort: 7000,
+            endPort: 7000,
+            protocol: 'HTTP',
+          });
         });
         expect(securityGroup.securityGroupIngress.length).toBe(4);
 
@@ -233,42 +352,66 @@ describe('Controller: CreateSecurityGroup', function() {
       });
 
       it('does not hide classic when application is older than lockout date', function() {
-        this.application = { attributes: { createTs: 9 } };
+        this.application = {
+          attributes: {
+            createTs: 9,
+          },
+        };
         init(this);
         expect(this.$scope.hideClassic).toBe(false);
       });
 
       it('hides classic when application createTs is numeric and the same as lockout', function() {
         TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
-        this.application = { attributes: { createTs: 10 } };
+        this.application = {
+          attributes: {
+            createTs: 10,
+          },
+        };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('hides classic when application createTs is numeric and after lockout', function() {
         TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
-        this.application = { attributes: { createTs: 11 } };
+        this.application = {
+          attributes: {
+            createTs: 11,
+          },
+        };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('hides classic when application createTs is a string and the same as lockout', function() {
         TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
-        this.application = { attributes: { createTs: '10' } };
+        this.application = {
+          attributes: {
+            createTs: '10',
+          },
+        };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('hides classic when application createTs is a string and after lockout', function() {
         TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
-        this.application = { attributes: { createTs: '11' } };
+        this.application = {
+          attributes: {
+            createTs: '11',
+          },
+        };
         init(this);
         expect(this.$scope.hideClassic).toBe(true);
       });
 
       it('sets vpcId to first active if classic is locked', function() {
         TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
-        this.application = { attributes: { createTs: 10 } };
+        this.application = {
+          attributes: {
+            createTs: 10,
+          },
+        };
         this.initializeCtrl();
 
         this.$scope.securityGroup.credentials = 'prod';
@@ -284,7 +427,11 @@ describe('Controller: CreateSecurityGroup', function() {
       it('leaves vpcId alone if already selected and classic locked', function() {
         TENCENTCLOUDProviderSettings.classicLaunchLockout = 10;
 
-        this.application = { attributes: { createTs: 10 } };
+        this.application = {
+          attributes: {
+            createTs: 10,
+          },
+        };
         this.initializeCtrl();
         this.$scope.securityGroup.vpcId = 'vpc2-te';
         this.$scope.securityGroup.vpcName = 'vpc 2';

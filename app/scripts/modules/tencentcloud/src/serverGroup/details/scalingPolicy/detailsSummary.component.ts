@@ -27,5 +27,5 @@ export const scalingPolicyDetailsSummary: IComponentOptions = {
   template: `<div ng-include src="$ctrl.templateUrl"></div>`,
 };
 
-export const DETAILS_SUMMARY = 'spinnaker.tencent.scalingPolicy.details.summary.component';
+export const DETAILS_SUMMARY = 'spinnaker.tencentcloud.scalingPolicy.details.summary.component';
 module(DETAILS_SUMMARY, []).component('tencentScalingPolicySummary', scalingPolicyDetailsSummary);

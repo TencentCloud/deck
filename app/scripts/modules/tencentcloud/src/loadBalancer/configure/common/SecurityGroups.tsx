@@ -123,7 +123,8 @@ export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecur
       .withLatestFrom(formValues$)
       .map(([[allSecurityGroups], formValues]) => {
         const forAccount = allSecurityGroups[Number(formValues.credentials)] || {};
-        const forRegion = ((forAccount as any).tencent && (forAccount as any).tencent[formValues.region]) || [];
+        const forRegion =
+          ((forAccount as any).tencentcloud && (forAccount as any).tencentcloud[formValues.region]) || [];
         return forRegion.sort();
       });
 

@@ -6,7 +6,7 @@ import { CACHE_INITIALIZER_SERVICE, FirewallLabels } from '@spinnaker/core';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL =
-  'spinnaker.tencent.securityGroup.create.controller';
+  'spinnaker.tencentcloud.securityGroup.create.controller';
 angular
   .module(TENCENT_SECURITYGROUP_CONFIGURE_CREATESECURITYGROUPCTRL, [UIROUTER_ANGULARJS, CACHE_INITIALIZER_SERVICE])
   .controller('tencentCreateSecurityGroupCtrl', [

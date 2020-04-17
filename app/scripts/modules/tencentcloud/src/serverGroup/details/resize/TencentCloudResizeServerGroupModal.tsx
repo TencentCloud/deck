@@ -96,7 +96,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
       }),
       platformHealthOnlyShowOverride: attributes.platformHealthOnlyShowOverride,
       interestingHealthProviderNames:
-        attributes.platformHealthOnlyShowOverride && attributes.platformHealthOnly ? ['Tencent'] : null,
+        attributes.platformHealthOnlyShowOverride && attributes.platformHealthOnly ? ['Tencentcloud'] : null,
     };
   }
 
@@ -435,7 +435,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
                         <div className="col-md-8 col-md-offset-3">
                           <PlatformHealthOverride
                             interestingHealthProviderNames={this.state.interestingHealthProviderNames}
-                            platformHealthType="Tencent"
+                            platformHealthType="Tencentcloud"
                             onChange={this.platformHealthOverrideChanged}
                             showHelpDetails={true}
                           />

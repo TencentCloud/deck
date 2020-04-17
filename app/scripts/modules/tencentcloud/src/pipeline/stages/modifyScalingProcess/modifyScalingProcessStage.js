@@ -4,7 +4,7 @@ const angular = require('angular');
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE =
-  'spinnaker.tencent.pipeline.stage.modifyScalingProcessStage';
+  'spinnaker.tencentcloud.pipeline.stage.modifyScalingProcessStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE, [])
   .config(function() {
@@ -18,12 +18,31 @@ angular
       executionDetailsUrl: require('./modifyScalingProcessExecutionDetails.html'),
       executionConfigSections: ['modifyScalingProcessesConfig', 'taskStatus'],
       validators: [
-        { type: 'requiredField', fieldName: 'cluster' },
-        { type: 'requiredField', fieldName: 'target' },
-        { type: 'requiredField', fieldName: 'action' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'processes' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'target',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'action',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'processes',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
       cloudProvider: 'tencentcloud',
       strategy: true,
@@ -74,11 +93,11 @@ angular
       stage.target = stage.target || $scope.targets[0].val;
       stage.cloudProvider = 'tencentcloud';
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
 
       $scope.toggleProcess = function(process) {

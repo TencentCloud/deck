@@ -60,11 +60,13 @@
         <dt>ID</dt>
         <dd>{{securityGroup.id}}</dd>
         <dt>Account</dt>
-        <dd><account-tag account="securityGroup.accountName"></account-tag></dd>
+        <dd>
+          <account-tag account="securityGroup.accountName"></account-tag>
+        </dd>
         <dt>Region</dt>
         <dd>{{securityGroup.region}}</dd>
         <!-- <dt>VPC</dt>
-        <dd><tencent-vpc-tag vpc-id="securityGroup.vpcId"></tencent-vpc-tag></dd> -->
+        <dd><tencentcloud-vpc-tag vpc-id="securityGroup.vpcId"></tencentcloud-vpc-tag></dd> -->
         <dt>Description</dt>
         <dd>{{securityGroup.description}}</dd>
       </dl>

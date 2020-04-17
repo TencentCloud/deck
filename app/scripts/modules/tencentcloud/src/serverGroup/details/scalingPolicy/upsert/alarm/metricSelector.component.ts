@@ -127,5 +127,5 @@ const component: IComponentOptions = {
       </div>`,
 };
 
-export const METRIC_SELECTOR_COMPONENT = 'spinnaker.tencent.scalingPolicy.alarm.metric.editor';
+export const METRIC_SELECTOR_COMPONENT = 'spinnaker.tencentcloud.scalingPolicy.alarm.metric.editor';
 module(METRIC_SELECTOR_COMPONENT, []).component('tencentMetricSelector', component);

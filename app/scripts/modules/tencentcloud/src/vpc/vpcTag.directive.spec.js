@@ -17,20 +17,20 @@ describe('Directives: vpcTag', function() {
 
   describe('vpc tag rendering - no VPC provided', function() {
     it('displays default message when no vpcId supplied', function() {
-      var domNode = this.compile('<tencent-vpc-tag></tencent-vpc-tag>')(this.scope);
+      var domNode = this.compile('<tencentcloud-vpc-tag></tencentcloud-vpc-tag>')(this.scope);
       this.scope.$digest();
       expect(domNode.find('span').text()).toBe('None (EC2 Classic)');
     });
 
     it('displays default message when undefined vpcId supplied', function() {
-      var domNode = this.compile('<tencent-vpc-tag vpc-id="notDefined"></tencent-vpc-tag>')(this.scope);
+      var domNode = this.compile('<tencentcloud-vpc-tag vpc-id="notDefined"></tencentcloud-vpc-tag>')(this.scope);
       this.scope.$digest();
       expect(domNode.find('span').text()).toBe('None (EC2 Classic)');
     });
 
     it('displays default message when null vpcId supplied', function() {
       this.scope.vpcId = null;
-      var domNode = this.compile('<tencent-vpc-tag vpc-id="vpcId"></tencent-vpc-tag>')(this.scope);
+      var domNode = this.compile('<tencentcloud-vpc-tag vpc-id="vpcId"></tencentcloud-vpc-tag>')(this.scope);
       this.scope.$digest();
       expect(domNode.find('span').text()).toBe('None (EC2 Classic)');
     });
@@ -42,7 +42,7 @@ describe('Directives: vpcTag', function() {
         return $q.when('Main VPC');
       });
       this.scope.vpcId = 'vpc-1';
-      var domNode = this.compile('<tencent-vpc-tag vpc-id="vpcId"></tencent-vpc-tag>')(this.scope);
+      var domNode = this.compile('<tencentcloud-vpc-tag vpc-id="vpcId"></tencentcloud-vpc-tag>')(this.scope);
       this.scope.$digest();
       expect(domNode.find('span').text()).toBe('Main VPC (vpc-1)');
     });
@@ -52,7 +52,7 @@ describe('Directives: vpcTag', function() {
         return $q.when(null);
       });
       this.scope.vpcId = 'vpc-2';
-      var domNode = this.compile('<tencent-vpc-tag vpc-id="vpcId"></tencent-vpc-tag>')(this.scope);
+      var domNode = this.compile('<tencentcloud-vpc-tag vpc-id="vpcId"></tencentcloud-vpc-tag>')(this.scope);
       this.scope.$digest();
       expect(domNode.find('span').text()).toBe('(vpc-2)');
     });

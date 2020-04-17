@@ -5,7 +5,7 @@ const angular = require('angular');
 import { AccountService, Registry } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE =
-  'spinnaker.tencent.pipeline.stage.tencentCloud.shrinkClusterStage';
+  'spinnaker.tencentcloud.pipeline.stage.tencentCloud.shrinkClusterStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE, [])
   .config(function() {
@@ -16,10 +16,24 @@ angular
       accountExtractor: stage => [stage.context.credentials],
       configAccountExtractor: stage => [stage.credentials],
       validators: [
-        { type: 'requiredField', fieldName: 'cluster' },
-        { type: 'requiredField', fieldName: 'shrinkToSize', fieldLabel: 'shrink to [X] Server Groups' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'shrinkToSize',
+          fieldLabel: 'shrink to [X] Server Groups',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
     });
   })
@@ -43,11 +57,11 @@ angular
       stage.regions = stage.regions || [];
       stage.cloudProvider = 'tencentcloud';
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
 
       if (stage.shrinkToSize === undefined) {

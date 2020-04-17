@@ -17,7 +17,7 @@ import {
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER =
-  'spinnaker.tencent.securityGroup.baseConfig.controller';
+  'spinnaker.tencentcloud.securityGroup.baseConfig.controller';
 angular
   .module(TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER, [
     UIROUTER_ANGULARJS,
@@ -189,7 +189,7 @@ angular
 
           let availableGroups;
           if (account && region) {
-            availableGroups = (securityGroups[account] && securityGroups[account].tencent[region]) || [];
+            availableGroups = (securityGroups[account] && securityGroups[account].tencentcloud[region]) || [];
           } else {
             availableGroups = securityGroups;
           }

@@ -3,7 +3,7 @@ import { module } from 'angular';
 import { TencentCloudNgReact } from './tencentCloud.ngReact';
 import { TencentCloudReactInjector } from './tencentCloud.react.injector';
 
-export const TENCENT_REACT_MODULE = 'spinnaker.tencent.react';
+export const TENCENT_REACT_MODULE = 'spinnaker.tencentcloud.react';
 module(TENCENT_REACT_MODULE, []).run([
   '$injector',
   function($injector: any) {

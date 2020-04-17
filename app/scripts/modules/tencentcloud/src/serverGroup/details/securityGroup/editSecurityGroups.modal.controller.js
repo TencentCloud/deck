@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { SECURITY_GROUP_READER, SERVER_GROUP_WRITER, TaskMonitor, FirewallLabels } from '@spinnaker/core';
 
 export const TENCENT_SERVERGROUP_DETAILS_SECURITYGROUP_EDITSECURITYGROUPS_MODAL_CONTROLLER =
-  'spinnaker.tencent.serverGroup.details.securityGroup.editSecurityGroups.modal.controller';
+  'spinnaker.tencentcloud.serverGroup.details.securityGroup.editSecurityGroups.modal.controller';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SECURITYGROUP_EDITSECURITYGROUPS_MODAL_CONTROLLER, [
     SERVER_GROUP_WRITER,

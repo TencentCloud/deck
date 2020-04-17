@@ -9,8 +9,8 @@
       <h4 class="section-heading">Target Metric</h4>
       <div class="section-body">
         <p>
-          With target tracking policies, Tencent will automatically adjust the size of your ASG to keep the selected
-          metric as close as possible to the selected value.
+          With target tracking policies, Tencentcloud will automatically adjust the size of your ASG to keep the
+          selected metric as close as possible to the selected value.
         </p>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-md-2 sm-label-right">Metric</div>
@@ -29,11 +29,11 @@
             </div>
 
             <div ng-if="$ctrl.state.metricType === 'custom'">
-              <tencent-metric-selector
+              <tencentcloud-metric-selector
                 alarm-updated="$ctrl.alarmUpdated"
                 alarm="$ctrl.command.targetTrackingConfiguration.customizedMetricSpecification"
                 server-group="$ctrl.serverGroup"
-              ></tencent-metric-selector>
+              ></tencentcloud-metric-selector>
               <div>
                 <a href ng-click="$ctrl.toggleMetricType()">Use a predefined metric</a>
               </div>
@@ -76,7 +76,8 @@
                 alarm-updated="$ctrl.alarmUpdated"
                 state="$ctrl.state"
                 server-group="$ctrl.serverGroup"
-              ></target-tracking-chart>
+              >
+              </target-tracking-chart>
               <div class="small help-contents" style="margin-left: 45px">
                 <b>Note:</b> to zoom in, hold down the alt key and use your mouse to select an area. Double-click to
                 zoom back out.

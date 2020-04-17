@@ -5,7 +5,7 @@ const angular = require('angular');
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE =
-  'spinnaker.tencent.pipeline.stage.tencentCloud.destroyAsgStage';
+  'spinnaker.tencentcloud.pipeline.stage.tencentCloud.destroyAsgStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE, [])
   .config(function() {
@@ -23,10 +23,23 @@ angular
           message:
             'This pipeline will attempt to destroy a server group without deploying a new version into the same cluster.',
         },
-        { type: 'requiredField', fieldName: 'cluster' },
-        { type: 'requiredField', fieldName: 'target' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'target',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
     });
   })
@@ -52,11 +65,11 @@ angular
       stage.regions = stage.regions || [];
       stage.cloudProvider = 'tencentcloud';
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
 
       if (!stage.target) {

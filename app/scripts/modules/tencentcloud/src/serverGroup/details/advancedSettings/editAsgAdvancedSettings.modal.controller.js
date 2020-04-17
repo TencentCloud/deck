@@ -6,7 +6,7 @@ import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 import { TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE } from '../../configure/serverGroupCommandBuilder.service';
 
 export const TENCENT_SERVERGROUP_DETAILS_ADVANCEDSETTINGS_EDITASGADVANCEDSETTINGS_MODAL_CONTROLLER =
-  'spinnaker.tencent.serverGroup.editAsgAdvancedSettings.modal.controller';
+  'spinnaker.tencentcloud.serverGroup.editAsgAdvancedSettings.modal.controller';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_ADVANCEDSETTINGS_EDITASGADVANCEDSETTINGS_MODAL_CONTROLLER, [
     TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE,

@@ -64,7 +64,7 @@ module.exports = {
         'imports',
         'commonImports.less',
       ),
-      tencent: path.join(__dirname, 'src'),
+      tencentcloud: path.join(__dirname, 'src'),
     },
   },
   module: {
@@ -72,59 +72,128 @@ module.exports = {
       {
         test: /\.js$/,
         use: [
-          { loader: 'cache-loader' },
-          { loader: 'thread-loader', options: { workers: WEBPACK_THREADS } },
-          { loader: 'babel-loader' },
-          { loader: 'envify-loader' },
-          { loader: 'eslint-loader' },
+          {
+            loader: 'cache-loader',
+          },
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: WEBPACK_THREADS,
+            },
+          },
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'envify-loader',
+          },
+          {
+            loader: 'eslint-loader',
+          },
         ],
         exclude: exclusionPattern,
       },
       {
         test: /\.tsx?$/,
         use: [
-          { loader: 'cache-loader' },
-          { loader: 'thread-loader', options: { workers: WEBPACK_THREADS } },
-          { loader: 'ts-loader', options: { happyPackMode: true } },
-          { loader: 'tslint-loader' },
+          {
+            loader: 'cache-loader',
+          },
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: WEBPACK_THREADS,
+            },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              happyPackMode: true,
+            },
+          },
+          {
+            loader: 'tslint-loader',
+          },
         ],
         exclude: exclusionPattern,
       },
       {
         test: /\.less$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
-          { loader: 'less-loader' },
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'less-loader',
+          },
         ],
       },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'postcss-loader' }],
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
       },
       {
         test: /\.html$/,
         exclude: exclusionPattern,
         use: [
-          { loader: 'ngtemplate-loader?relativeTo=' + path.resolve(__dirname) + '&prefix=tencent' },
-          { loader: 'html-loader' },
+          {
+            loader: 'ngtemplate-loader?relativeTo=' + path.resolve(__dirname) + '&prefix=tencentcloud',
+          },
+          {
+            loader: 'html-loader',
+          },
         ],
       },
       {
         test: /\.(woff|woff2|otf|ttf|eot|png|gif|ico|svg)$/,
-        use: [{ loader: 'file-loader', options: { name: '[name].[hash:5].[ext]' } }],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:5].[ext]',
+            },
+          },
+        ],
       },
       {
         test: require.resolve('jquery'),
-        use: [{ loader: 'expose-loader?$' }, { loader: 'expose-loader?jQuery' }],
+        use: [
+          {
+            loader: 'expose-loader?$',
+          },
+          {
+            loader: 'expose-loader?jQuery',
+          },
+        ],
       },
     ],
   },
-  plugins: [new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })],
+  plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      checkSyntacticErrors: true,
+    }),
+  ],
   externals: [
     '@spinnaker/core',
     'exports-loader?"n3-line-chart"!n3-charts/build/LineChart.js',
-    nodeExternals({ modulesDir: '../../../../node_modules' }),
+    nodeExternals({
+      modulesDir: '../../../../node_modules',
+    }),
   ],
 };

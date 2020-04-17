@@ -90,7 +90,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
       submitMethod,
       askForReason: true,
       platformHealthOnlyShowOverride: app.attributes.platformHealthOnlyShowOverride,
-      platformHealthType: 'Tencent',
+      platformHealthType: 'Tencentcloud',
       onTaskComplete: () => {
         if (ReactInjector.$state.includes('**.serverGroup', stateParams)) {
           ReactInjector.$state.go('^');
@@ -101,7 +101,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
     ServerGroupWarningMessageService.addDestroyWarningMessage(app, serverGroup, confirmationModalParams);
 
     if (app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
-      confirmationModalParams.interestingHealthProviderNames = ['Tencent'];
+      confirmationModalParams.interestingHealthProviderNames = ['Tencentcloud'];
     }
 
     ConfirmationModalService.confirm(confirmationModalParams);
@@ -127,7 +127,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
       interestingHealthProviderNames: undefined as string[],
       taskMonitorConfig: taskMonitor,
       platformHealthOnlyShowOverride: app.attributes.platformHealthOnlyShowOverride,
-      platformHealthType: 'Tencent',
+      platformHealthType: 'Tencentcloud',
       submitMethod,
       askForReason: true,
     };
@@ -135,7 +135,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
     ServerGroupWarningMessageService.addDisableWarningMessage(app, serverGroup, confirmationModalParams);
 
     if (app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
-      confirmationModalParams.interestingHealthProviderNames = ['Tencent'];
+      confirmationModalParams.interestingHealthProviderNames = ['Tencentcloud'];
     }
 
     ConfirmationModalService.confirm(confirmationModalParams);
@@ -183,13 +183,13 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
       interestingHealthProviderNames: undefined as string[],
       taskMonitorConfig: taskMonitor,
       platformHealthOnlyShowOverride: app.attributes.platformHealthOnlyShowOverride,
-      platformHealthType: 'Tencent',
+      platformHealthType: 'Tencentcloud',
       submitMethod,
       askForReason: true,
     };
 
     if (app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
-      confirmationModalParams.interestingHealthProviderNames = ['Tencent'];
+      confirmationModalParams.interestingHealthProviderNames = ['Tencentcloud'];
     }
 
     ConfirmationModalService.confirm(confirmationModalParams);

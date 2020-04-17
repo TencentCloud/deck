@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { AccountService, AppListExtractor, NameUtils, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE =
-  'spinnaker.tencent.pipeline.stage.cloneServerGroupStage';
+  'spinnaker.tencentcloud.pipeline.stage.cloneServerGroupStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE, [])
   .config(function() {
@@ -17,10 +17,24 @@ angular
       executionStepLabelUrl: require('./cloneServerGroupStepLabel.html'),
       accountExtractor: stage => stage.context.credentials,
       validators: [
-        { type: 'requiredField', fieldName: 'targetCluster', fieldLabel: 'cluster' },
-        { type: 'requiredField', fieldName: 'target' },
-        { type: 'requiredField', fieldName: 'region' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'targetCluster',
+          fieldLabel: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'target',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'region',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
     });
   })
@@ -49,11 +63,11 @@ angular
         $scope.application.attributes.platformHealthOnlyShowOverride &&
         $scope.application.attributes.platformHealthOnly
       ) {
-        stage.interestingHealthProviderNames = ['Tencent'];
+        stage.interestingHealthProviderNames = ['Tencentcloud'];
       }
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
 
       if (stage.isNew) {

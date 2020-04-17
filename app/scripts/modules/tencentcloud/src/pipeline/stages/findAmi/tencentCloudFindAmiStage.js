@@ -4,7 +4,8 @@ const angular = require('angular');
 
 import { AccountService, Registry } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE = 'spinnaker.tencent.pipeline.stage.findAmiStage';
+export const TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE =
+  'spinnaker.tencentcloud.pipeline.stage.findAmiStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE, [])
   .config(function() {
@@ -14,10 +15,23 @@ angular
       cloudProvider: 'tencentcloud',
       templateUrl: require('./findAmiStage.html'),
       validators: [
-        { type: 'requiredField', fieldName: 'cluster' },
-        { type: 'requiredField', fieldName: 'selectionStrategy', fieldLabel: 'Server Group Selection' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'credentials' },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'selectionStrategy',
+          fieldLabel: 'Server Group Selection',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+        },
       ],
     });
   })
@@ -66,11 +80,11 @@ angular
       if (angular.isUndefined(stage.onlyEnabled)) {
         stage.onlyEnabled = true;
       }
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
 
       $scope.$watch('stage.credentials', $scope.accountUpdated);

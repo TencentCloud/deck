@@ -10,7 +10,7 @@ import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings
 import { PipelineTemplates, BakeExecutionLabel, BakeryReader, Registry, SETTINGS } from '@spinnaker/core';
 import { TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER } from './bakeExecutionDetails.controller';
 
-export const TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE = 'spinnaker.tencent.pipeline.stage.bakeStage';
+export const TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE = 'spinnaker.tencentcloud.pipeline.stage.bakeStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE, [
     TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER,
@@ -29,8 +29,14 @@ angular
       },
       defaultTimeoutMs: 60 * 60 * 1000, // 60 minutes
       validators: [
-        { type: 'requiredField', fieldName: 'package' },
-        { type: 'requiredField', fieldName: 'regions' },
+        {
+          type: 'requiredField',
+          fieldName: 'package',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
         {
           type: 'upstreamVersionProvided',
           checkParentTriggers: true,
@@ -85,11 +91,11 @@ angular
           } else if (!$scope.regions.includes($scope.stage.region)) {
             delete $scope.stage.region;
           }
-          if (!$scope.stage.regions.length && $scope.application.defaultRegions.tencent) {
-            $scope.stage.regions.push($scope.application.defaultRegions.tencent);
+          if (!$scope.stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+            $scope.stage.regions.push($scope.application.defaultRegions.tencentcloud);
           }
-          if (!$scope.stage.regions.length && $scope.application.defaultRegions.tencent) {
-            $scope.stage.regions.push($scope.application.defaultRegions.tencent);
+          if (!$scope.stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+            $scope.stage.regions.push($scope.application.defaultRegions.tencentcloud);
           }
           $scope.baseOsOptions = results.baseOsOptions.baseImages;
           $scope.baseLabelOptions = results.baseLabelOptions;

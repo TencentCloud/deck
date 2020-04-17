@@ -98,7 +98,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
       const account = credentials || accountName;
       let availableGroups;
       if (account && region) {
-        availableGroups = (securityGroups[account] && securityGroups[account].tencent[region]) || [];
+        availableGroups = (securityGroups[account] && securityGroups[account].tencentcloud[region]) || [];
       } else {
         availableGroups = securityGroups;
       }

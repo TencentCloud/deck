@@ -14,7 +14,7 @@ import './metricAlarmChart.component.less';
 import EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART from 'exports-loader?"n3-line-chart"!n3-charts/build/LineChart';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_CHART_METRICALARMCHART_COMPONENT =
-  'spinnaker.tencent.serverGroup.details.scalingPolicy.metricAlarmChart.component';
+  'spinnaker.tencentcloud.serverGroup.details.scalingPolicy.metricAlarmChart.component';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_CHART_METRICALARMCHART_COMPONENT, [
     EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART,
@@ -65,17 +65,35 @@ angular
             loading: true,
             noData: false, // flag set when server error occurs or no data available from server
             threshold: [
-              { val: threshold, timestamp: start },
-              { val: threshold, timestamp: end },
+              {
+                val: threshold,
+                timestamp: start,
+              },
+              {
+                val: threshold,
+                timestamp: end,
+              },
             ],
             datapoints: [],
             baseline: [
-              { val: 0, timestamp: start },
-              { val: 0, timestamp: end },
+              {
+                val: 0,
+                timestamp: start,
+              },
+              {
+                val: 0,
+                timestamp: end,
+              },
             ],
             topline: [
-              { val: topline, timestamp: start },
-              { val: topline, timestamp: end },
+              {
+                val: topline,
+                timestamp: start,
+              },
+              {
+                val: topline,
+                timestamp: end,
+              },
             ],
           };
         };
@@ -131,10 +149,16 @@ angular
           const statKey = _.camelCase(this.alarm.statistic);
           initializeStatistics(statKey);
 
-          const ticks = this.ticks || { x: 6, y: 3 };
+          const ticks = this.ticks || {
+            x: 6,
+            y: 3,
+          };
 
           this.chartOptions = {
-            margin: this.margins || { top: 5, left: 5 },
+            margin: this.margins || {
+              top: 5,
+              left: 5,
+            },
             tooltipHook: tooltipHook,
             series: [
               {
@@ -175,10 +199,20 @@ angular
               },
             ],
             axes: {
-              x: { key: 'timestamp', type: 'date', ticks: ticks.x },
-              y: { ticks: ticks.y },
-              x2: { ticks: 0 }, // hide right hand x-axis labels
-              y2: { ticks: 0 }, // hide top y-axis labels
+              x: {
+                key: 'timestamp',
+                type: 'date',
+                ticks: ticks.x,
+              },
+              y: {
+                ticks: ticks.y,
+              },
+              x2: {
+                ticks: 0,
+              }, // hide right hand x-axis labels
+              y2: {
+                ticks: 0,
+              }, // hide top y-axis labels
             },
             zoom: {
               x: true,

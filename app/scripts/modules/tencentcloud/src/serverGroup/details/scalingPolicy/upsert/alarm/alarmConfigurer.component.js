@@ -8,7 +8,7 @@ import { METRIC_SELECTOR_COMPONENT } from './metricSelector.component';
 import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT } from './dimensionsEditor.component';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT =
-  'spinnaker.tencent.serverGroup.details.scalingPolicy.alarm.configurer';
+  'spinnaker.tencentcloud.serverGroup.details.scalingPolicy.alarm.configurer';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT, [
     TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT,
@@ -29,19 +29,49 @@ angular
       };
 
       this.comparators = [
-        { label: '>=', value: 'GREATER_THAN_OR_EQUAL_TO' },
-        { label: '>', value: 'GREATER_THAN' },
-        { label: '<=', value: 'LESS_THAN_OR_EQUAL_TO' },
-        { label: '<', value: 'LESS_THAN' },
+        {
+          label: '>=',
+          value: 'GREATER_THAN_OR_EQUAL_TO',
+        },
+        {
+          label: '>',
+          value: 'GREATER_THAN',
+        },
+        {
+          label: '<=',
+          value: 'LESS_THAN_OR_EQUAL_TO',
+        },
+        {
+          label: '<',
+          value: 'LESS_THAN',
+        },
       ];
 
       this.periods = [
-        { label: '1 minute', value: 60 },
-        { label: '5 minutes', value: 60 * 5 },
-        { label: '15 minutes', value: 60 * 15 },
-        { label: '1 hour', value: 60 * 60 },
-        { label: '4 hours', value: 60 * 60 * 4 },
-        { label: '1 day', value: 60 * 60 * 24 },
+        {
+          label: '1 minute',
+          value: 60,
+        },
+        {
+          label: '5 minutes',
+          value: 60 * 5,
+        },
+        {
+          label: '15 minutes',
+          value: 60 * 15,
+        },
+        {
+          label: '1 hour',
+          value: 60 * 60,
+        },
+        {
+          label: '4 hours',
+          value: 60 * 60 * 4,
+        },
+        {
+          label: '1 day',
+          value: 60 * 60 * 24,
+        },
       ];
 
       this.alarmUpdated = new Subject();
@@ -68,7 +98,11 @@ angular
           this.modalViewState.comparatorBound !== previousComparatorBound &&
           this.command.step
         ) {
-          this.command.step.stepAdjustments = [{ adjustmentValue: 1 }];
+          this.command.step.stepAdjustments = [
+            {
+              adjustmentValue: 1,
+            },
+          ];
           this.thresholdChanged();
         }
         this.alarmUpdated.next();

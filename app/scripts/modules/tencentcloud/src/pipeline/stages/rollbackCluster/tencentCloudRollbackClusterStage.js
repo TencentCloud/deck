@@ -5,7 +5,7 @@ const angular = require('angular');
 import { AccountService, Registry } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE =
-  'spinnaker.tencent.pipeline.stage.rollbackClusterStage';
+  'spinnaker.tencentcloud.pipeline.stage.rollbackClusterStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE, [])
   .config(function() {
@@ -14,9 +14,19 @@ angular
       cloudProvider: 'tencentcloud',
       templateUrl: require('./rollbackClusterStage.html'),
       validators: [
-        { type: 'requiredField', fieldName: 'cluster' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
     });
   })
@@ -51,14 +61,14 @@ angular
         $scope.application.attributes.platformHealthOnlyShowOverride &&
         $scope.application.attributes.platformHealthOnly
       ) {
-        stage.interestingHealthProviderNames = ['Tencent'];
+        stage.interestingHealthProviderNames = ['Tencentcloud'];
       }
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
     },
   ]);

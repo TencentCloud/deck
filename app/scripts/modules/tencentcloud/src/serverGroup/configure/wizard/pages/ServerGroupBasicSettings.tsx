@@ -233,7 +233,7 @@ export class ServerGroupBasicSettings
               onChange={(evt: any) => this.accountUpdated(evt.target.value)}
               readOnly={readOnlyFields.credentials}
               accounts={accounts}
-              provider="tencent"
+              provider="tencentcloud"
             />
           </div>
         </div>

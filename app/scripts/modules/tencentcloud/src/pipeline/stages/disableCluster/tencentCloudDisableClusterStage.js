@@ -5,7 +5,7 @@ const angular = require('angular');
 import { AccountService, Registry } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE =
-  'spinnaker.tencent.pipeline.stage.disableClusterStage';
+  'spinnaker.tencentcloud.pipeline.stage.disableClusterStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE, [])
   .config(function() {
@@ -14,14 +14,24 @@ angular
       cloudProvider: 'tencentcloud',
       templateUrl: require('./disableClusterStage.html'),
       validators: [
-        { type: 'requiredField', fieldName: 'cluster' },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
         {
           type: 'requiredField',
           fieldName: 'remainingEnabledServerGroups',
           fieldLabel: 'Keep [X] enabled Server Groups',
         },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
     });
   })
@@ -55,14 +65,14 @@ angular
         $scope.application.attributes.platformHealthOnlyShowOverride &&
         $scope.application.attributes.platformHealthOnly
       ) {
-        stage.interestingHealthProviderNames = ['Tencent'];
+        stage.interestingHealthProviderNames = ['Tencentcloud'];
       }
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
 
       if (stage.remainingEnabledServerGroups === undefined) {

@@ -159,7 +159,7 @@ export class TencentCloudLoadBalancerDetailsController implements IController {
   }
 }
 
-export const TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL = 'spinnaker.tencent.loadBalancer.details.controller';
+export const TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL = 'spinnaker.tencentcloud.loadBalancer.details.controller';
 module(TENCENTCLOUD_LOAD_BALANCER_DETAILS_CTRL, [
   UIROUTER_ANGULARJS,
   SECURITY_GROUP_READER,

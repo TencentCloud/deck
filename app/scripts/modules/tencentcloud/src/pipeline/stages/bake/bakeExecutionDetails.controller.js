@@ -7,7 +7,7 @@ import { SETTINGS } from '@spinnaker/core';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
 export const TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER =
-  'spinnaker.tencent.pipeline.stage.bake.executionDetails.controller';
+  'spinnaker.tencentcloud.pipeline.stage.bake.executionDetails.controller';
 angular
   .module(TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER, [UIROUTER_ANGULARJS])
   .controller('tencentBakeExecutionDetailsCtrl', [

@@ -23,7 +23,7 @@ const scalingPolicyPopover: IComponentOptions = {
   },
 };
 
-export const SCALING_POLICY_POPOVER = 'spinnaker.tencent.serverGroup.details.scalingPolicy.popover.component';
+export const SCALING_POLICY_POPOVER = 'spinnaker.tencentcloud.serverGroup.details.scalingPolicy.popover.component';
 module(SCALING_POLICY_POPOVER, [TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_CHART_METRICALARMCHART_COMPONENT]).component(
   'tencentScalingPolicyPopover',
   scalingPolicyPopover,

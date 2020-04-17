@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER =
-  'spinnaker.tencent.serverGroup.details.autoscaling.process.controller';
+  'spinnaker.tencentcloud.serverGroup.details.autoscaling.process.controller';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPROCESSES_MODIFYSCALINGPROCESSES_CONTROLLER, [])
   .controller('tencentModifyScalingProcessesCtrl', [
@@ -28,21 +28,29 @@ angular
       };
 
       const currentlyEnabled = _.chain($scope.command)
-        .filter({ enabled: true })
+        .filter({
+          enabled: true,
+        })
         .map('name')
         .value();
       const currentlySuspended = _.chain($scope.command)
-        .filter({ enabled: false })
+        .filter({
+          enabled: false,
+        })
         .map('name')
         .value();
 
       this.isDirty = function() {
         const enabledSelections = _.chain($scope.command)
-          .filter({ enabled: true })
+          .filter({
+            enabled: true,
+          })
           .map('name')
           .value();
         const suspendedSelections = _.chain($scope.command)
-          .filter({ enabled: false })
+          .filter({
+            enabled: false,
+          })
           .map('name')
           .value();
         const toEnable = _.intersection(currentlySuspended, enabledSelections);
@@ -60,11 +68,15 @@ angular
 
       this.submit = function() {
         const enabledSelections = _.chain($scope.command)
-          .filter({ enabled: true })
+          .filter({
+            enabled: true,
+          })
           .map('name')
           .value();
         const suspendedSelections = _.chain($scope.command)
-          .filter({ enabled: false })
+          .filter({
+            enabled: false,
+          })
           .map('name')
           .value();
         const toEnable = _.intersection(currentlySuspended, enabledSelections);

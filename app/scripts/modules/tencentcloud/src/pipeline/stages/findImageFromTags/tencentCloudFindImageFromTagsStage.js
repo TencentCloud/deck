@@ -5,7 +5,7 @@ const angular = require('angular');
 import { BakeryReader, Registry } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE =
-  'spinnaker.tencent.pipeline.stage.findImageFromTagsStage';
+  'spinnaker.tencentcloud.pipeline.stage.findImageFromTagsStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE, [])
   .config(function() {
@@ -16,9 +16,18 @@ angular
       executionDetailsUrl: require('./findImageFromTagsExecutionDetails.html'),
       executionConfigSections: ['findImageConfig', 'taskStatus'],
       validators: [
-        { type: 'requiredField', fieldName: 'packageName' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'tags' },
+        {
+          type: 'requiredField',
+          fieldName: 'packageName',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'tags',
+        },
       ],
     });
   })

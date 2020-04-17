@@ -76,15 +76,15 @@ const component: IComponentOptions = {
   },
   controller: TargetTrackingChartController,
   template: `
-    <tencent-metric-alarm-chart alarm="$ctrl.alarm"
+    <tencentcloud-metric-alarm-chart alarm="$ctrl.alarm"
                         style="height: 150px;"
                         alarm-updated="$ctrl.alarmUpdated"
                         ticks="{x: 12, y: 5}"
                         margins="{top: 10, left: 50}"
                         stats="$ctrl.state"
-                        server-group="$ctrl.serverGroup"></tencent-metric-alarm-chart>
+                        server-group="$ctrl.serverGroup"></tencentcloud-metric-alarm-chart>
   `,
 };
 
-export const TARGET_TRACKING_CHART_COMPONENT = 'spinnaker.tencent.scalingPolicy.targetTracking.chart.component';
+export const TARGET_TRACKING_CHART_COMPONENT = 'spinnaker.tencentcloud.scalingPolicy.targetTracking.chart.component';
 module(TARGET_TRACKING_CHART_COMPONENT, []).component('targetTrackingChart', component);

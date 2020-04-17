@@ -390,8 +390,9 @@ export class TencentCloudLoadBalancerTransformer {
   public constructNewClassicLoadBalancerTemplate(
     application: Application,
   ): ITencentCloudClassicLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
-    const defaultRegion = application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+    const defaultCredentials =
+      application.defaultCredentials.tencentcloud || TENCENTCLOUDProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
     const defaultSubnetType = TENCENTCLOUDProviderSettings.defaults.subnetType;
     return {
       application: application.name,
@@ -431,8 +432,9 @@ export class TencentCloudLoadBalancerTransformer {
   public constructNewApplicationLoadBalancerTemplate(
     application: Application,
   ): ITencentCloudApplicationLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
-    const defaultRegion = application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+    const defaultCredentials =
+      application.defaultCredentials.tencentcloud || TENCENTCLOUDProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
     const defaultSubnetType = TENCENTCLOUDProviderSettings.defaults.subnetType;
     const defaultPort = application.attributes.instancePort || SETTINGS.defaultInstancePort;
     const defaultTargetGroupName = `targetgroup`;
@@ -497,8 +499,9 @@ export class TencentCloudLoadBalancerTransformer {
   public constructNewNetworkLoadBalancerTemplate(
     application: Application,
   ): ITencentCloudNetworkLoadBalancerUpsertCommand {
-    const defaultCredentials = application.defaultCredentials.tencent || TENCENTCLOUDProviderSettings.defaults.account;
-    const defaultRegion = application.defaultRegions.tencent || TENCENTCLOUDProviderSettings.defaults.region;
+    const defaultCredentials =
+      application.defaultCredentials.tencentcloud || TENCENTCLOUDProviderSettings.defaults.account;
+    const defaultRegion = application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
     const defaultSubnetType = TENCENTCLOUDProviderSettings.defaults.subnetType;
     const defaultTargetGroupName = `targetgroup`;
     return {
@@ -558,7 +561,7 @@ export class TencentCloudLoadBalancerTransformer {
   }
 }
 
-export const TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencent.loadBalancer.transformer';
+export const TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencentcloud.loadBalancer.transformer';
 module(TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER, []).service(
   'tencentLoadBalancerTransformer',
   TencentCloudLoadBalancerTransformer,

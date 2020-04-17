@@ -9,7 +9,7 @@ import './scalingPolicySummary.component.less';
 import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER } from './upsert/upsertScalingPolicy.controller';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT =
-  'spinnaker.tencent.serverGroup.details.scalingPolicy.alarmBasedSummary.component';
+  'spinnaker.tencentcloud.serverGroup.details.scalingPolicy.alarmBasedSummary.component';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_ALARMBASEDSUMMARY_COMPONENT, [
     TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER,

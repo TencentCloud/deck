@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { API } from '@spinnaker/core';
 
-export const TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE = 'spinnaker.tencent.instanceType.service';
+export const TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE = 'spinnaker.tencentcloud.instanceType.service';
 angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('tencentInstanceTypeService', [
   '$http',
   '$q',
@@ -20,7 +20,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'Large',
           cpu: 2,
           memory: 8,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
         {
@@ -28,7 +30,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'XLarge',
           cpu: 4,
           memory: 16,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 2,
         },
         {
@@ -36,7 +40,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: '2XLarge',
           cpu: 8,
           memory: 32,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 4,
         },
       ],
@@ -52,7 +58,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'Small',
           cpu: 1,
           memory: 2,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
         {
@@ -60,7 +68,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'Medium',
           cpu: 2,
           memory: 4,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
       ],
@@ -76,7 +86,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'Nano',
           cpu: 1,
           memory: 0.5,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
         {
@@ -84,7 +96,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'Micro',
           cpu: 1,
           memory: 1,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
         {
@@ -92,7 +106,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'Small',
           cpu: 1,
           memory: 2,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
       ],
@@ -101,14 +117,16 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
     const r5 = {
       type: 'r5',
       description:
-        'r5 instances are optimized for memory-intensive applications and have the lowest cost per GiB of RAM among Tencent EC2 instance types.',
+        'r5 instances are optimized for memory-intensive applications and have the lowest cost per GiB of RAM among Tencentcloud EC2 instance types.',
       instanceTypes: [
         {
           name: 'r5.large',
           label: 'Large',
           cpu: 2,
           memory: 15.25,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 1,
         },
         {
@@ -116,7 +134,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: 'XLarge',
           cpu: 4,
           memory: 30.5,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 2,
         },
         {
@@ -124,7 +144,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: '2XLarge',
           cpu: 8,
           memory: 61,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 2,
         },
         {
@@ -132,7 +154,9 @@ angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('t
           label: '4XLarge',
           cpu: 16,
           memory: 122,
-          storage: { type: 'EBS' },
+          storage: {
+            type: 'EBS',
+          },
           costFactor: 3,
         },
       ],

@@ -4,5 +4,5 @@ import { TARGET_TRACKING_SUMMARY_COMPONENT } from './targetTrackingSummary.compo
 import { TARGET_TRACKING_CHART_COMPONENT } from './targetTrackingChart.component';
 import './TargetTrackingPolicy.config';
 
-export const TARGET_TRACKING_MODULE = 'spinnaker.tencent.scalingPolicy.targetTracking';
+export const TARGET_TRACKING_MODULE = 'spinnaker.tencentcloud.scalingPolicy.targetTracking';
 module(TARGET_TRACKING_MODULE, [TARGET_TRACKING_CHART_COMPONENT, TARGET_TRACKING_SUMMARY_COMPONENT]);

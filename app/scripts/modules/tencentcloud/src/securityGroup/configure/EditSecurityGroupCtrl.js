@@ -5,7 +5,8 @@ const angular = require('angular');
 import { SecurityGroupWriter, TaskMonitor, FirewallLabels } from '@spinnaker/core';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-export const TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL = 'spinnaker.tencent.securityGroup.edit.controller';
+export const TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL =
+  'spinnaker.tencentcloud.securityGroup.edit.controller';
 angular
   .module(TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL, [UIROUTER_ANGULARJS])
   .controller('tencentEditSecurityGroupCtrl', [

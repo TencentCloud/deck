@@ -13,7 +13,7 @@ import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_SIMPLE_SIMPLEPOLICYACT
 import { TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_ALARMCONFIGURER_COMPONENT } from './alarm/alarmConfigurer.component';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER =
-  'spinnaker.tencent.serverGroup.details.scalingPolicy.upsertScalingPolicy.controller';
+  'spinnaker.tencentcloud.serverGroup.details.scalingPolicy.upsertScalingPolicy.controller';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_UPSERTSCALINGPOLICY_CONTROLLER, [
     EXPORTS_LOADER__N3_LINE_CHART__N3_CHARTS_BUILD_LINECHART,
@@ -149,7 +149,9 @@ angular
         const command = this.command;
         const cooldownOrWarmup = command.step ? command.step.estimatedInstanceWarmup : command.simple.cooldown;
         if (command.step) {
-          const policy = { cooldown: cooldownOrWarmup };
+          const policy = {
+            cooldown: cooldownOrWarmup,
+          };
           delete command.step;
           initializeSimplePolicy(command, policy);
         } else {

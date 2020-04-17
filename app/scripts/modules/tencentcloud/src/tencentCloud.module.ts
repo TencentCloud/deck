@@ -19,7 +19,7 @@ import { TencentCloudLoadBalancersTag } from './loadBalancer/TencentCloudLoadBal
 
 import './deploymentStrategy/rollingPush.strategy';
 
-import './logo/tencent.logo.less';
+import './logo/tencentcloud.logo.less';
 import { TencentCloudCloneServerGroupModal } from './serverGroup/configure/wizard/CloneServerGroupModal';
 import { CreateApplicationLoadBalancer } from './loadBalancer/configure/application/CreateApplicationLoadBalancer';
 import { TencentCloudServerGroupActions } from './serverGroup/details/TencentCloudServerGroupActions';
@@ -67,7 +67,7 @@ templates.keys().forEach(function(key) {
   templates(key);
 });
 
-import tencentcloudLogo from './logo/tencent.logo.svg';
+import tencentcloudLogo from './logo/tencentcloud.logo.svg';
 
 export const TENCENT_MODULE = 'spinnaker.tencentcloud';
 module(TENCENT_MODULE, [
@@ -100,7 +100,7 @@ module(TENCENT_MODULE, [
   CLOUDFORMATION_TEMPLATE_ENTRY,
 ]).config(() => {
   CloudProviderRegistry.registerProvider('tencentcloud', {
-    name: 'Tencent',
+    name: 'Tencentcloud',
     logo: {
       path: tencentcloudLogo,
     },

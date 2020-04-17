@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
 import './dimensionsEditor.component.less';
 
 export const TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT =
-  'spinnaker.tencent.serverGroup.details.scalingPolicy.dimensionEditor';
+  'spinnaker.tencentcloud.serverGroup.details.scalingPolicy.dimensionEditor';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCALINGPOLICY_UPSERT_ALARM_DIMENSIONSEDITOR_COMPONENT, [])
   .component('dimensionsEditor', {
@@ -27,7 +27,9 @@ angular
 
       this.fetchDimensionOptions = () => {
         this.viewState.loadingDimensions = true;
-        const filters = { namespace: this.alarm.namespace };
+        const filters = {
+          namespace: this.alarm.namespace,
+        };
         return Observable.fromPromise(
           CloudMetricsReader.listMetrics('tencentcloud', this.serverGroup.account, this.serverGroup.region, filters),
         );

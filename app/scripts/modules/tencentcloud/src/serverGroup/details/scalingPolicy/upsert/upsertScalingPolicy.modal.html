@@ -8,12 +8,12 @@
     <form name="form" novalidate>
       <h4 class="section-heading">Conditions</h4>
       <div class="section-body">
-        <tencent-alarm-configurer
+        <tencentcloud-alarm-configurer
           command="ctrl.command"
           modal-view-state="ctrl.viewState"
           server-group="ctrl.serverGroup"
           bounds-changed="ctrl.boundsChanged()"
-        ></tencent-alarm-configurer>
+        ></tencentcloud-alarm-configurer>
       </div>
       <h4 class="section-heading">Actions</h4>
       <div class="section-body" ng-if="!ctrl.command.alarm.metricName">
@@ -30,17 +30,15 @@
             </div>
           </div>
 
-          <tencent-simple-policy-action
-            command="ctrl.command"
-            view-state="ctrl.viewState"
-          ></tencent-simple-policy-action>
+          <tencentcloud-simple-policy-action command="ctrl.command" view-state="ctrl.viewState">
+          </tencentcloud-simple-policy-action>
         </div>
         <div ng-if="ctrl.command.step">
-          <tencent-step-policy-action
+          <tencentcloud-step-policy-action
             command="ctrl.command"
             view-state="ctrl.viewState"
             bounds-changed="ctrl.boundsChanged()"
-          ></tencent-step-policy-action>
+          ></tencentcloud-step-policy-action>
         </div>
       </div>
       <!-- <h4 class="section-heading">Additional Settings</h4>

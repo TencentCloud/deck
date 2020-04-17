@@ -265,7 +265,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
                   value={values.credentials}
                   onChange={(evt: any) => this.accountUpdated(evt.target.value)}
                   accounts={accounts}
-                  provider="tencent"
+                  provider="tencentcloud"
                 />
               </div>
             </div>

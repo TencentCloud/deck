@@ -58,7 +58,7 @@ const helpContents: { [key: string]: string } = {
   'tencentCloud.serverGroup.detail':
     '(Optional) <b>Detail</b> is a string of free-form alphanumeric characters and hyphens to describe any other variables.',
   'tencentCloud.serverGroup.imageName':
-    '(Required) <b>Image</b> is the deployable Tencent Machine Image. Images are restricted to the account and region selected.',
+    '(Required) <b>Image</b> is the deployable Tencentcloud Machine Image. Images are restricted to the account and region selected.',
   'tencentCloud.serverGroup.legacyUdf': `<p>(Optional) <b>User Data Format</b> allows overriding of the format used when generating user data during deployment. The default format used is configured
       in the application's attributes, editable via the 'Config' tab.</p>
       <p><b>Default</b> will use the value from the application's configuration.</p>

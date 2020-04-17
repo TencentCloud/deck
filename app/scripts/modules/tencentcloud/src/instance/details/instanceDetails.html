@@ -116,7 +116,9 @@
           >
         </dd>
         <dt ng-if="instance.serverGroup">VPC</dt>
-        <dd ng-if="instance.serverGroup"><tencent-vpc-tag vpc-id="instance.vpcId"></tencent-vpc-tag></dd>
+        <dd ng-if="instance.serverGroup">
+          <tencentcloud-vpc-tag vpc-id="instance.vpcId"></tencentcloud-vpc-tag>
+        </dd>
         <dt ng-if="instance.subnetId">Subnet</dt>
         <dd ng-if="instance.subnetId">{{instance.subnetId}}</dd>
         <dt ng-if="instance.imageId">Image ID</dt>

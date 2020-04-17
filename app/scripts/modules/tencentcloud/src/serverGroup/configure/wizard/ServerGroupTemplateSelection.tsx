@@ -53,7 +53,7 @@ export class ServerGroupTemplateSelection extends React.Component<
 
     return (
       <DeployInitializer
-        cloudProvider="tencent"
+        cloudProvider="tencentcloud"
         application={app}
         command={command}
         onDismiss={onDismiss}

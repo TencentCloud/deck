@@ -29,7 +29,7 @@ class TencentCloudApplicationNameValidator implements IApplicationNameValidator 
 
   private validateLength(name: string, warnings: string[], errors: string[]) {
     if (name.length > 250) {
-      errors.push('The maximum length for an application in Tencent is 250 characters.');
+      errors.push('The maximum length for an application in Tencentcloud is 250 characters.');
       return;
     }
     if (name.length > 240) {
@@ -45,7 +45,7 @@ class TencentCloudApplicationNameValidator implements IApplicationNameValidator 
     }
     if (name.length > 20) {
       if (name.length > 32) {
-        warnings.push(`You will not be able to create an Tencent load balancer for this application if the
+        warnings.push(`You will not be able to create an Tencentcloud load balancer for this application if the
             application's name is longer than 32 characters (currently: ${name.length} characters)`);
       } else {
         if (name.length >= 30) {

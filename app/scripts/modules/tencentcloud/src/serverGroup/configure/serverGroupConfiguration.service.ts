@@ -31,7 +31,7 @@ import { IKeyPair, ITencentCloudLoadBalancerSourceData, IScalingProcess, IALBLis
 import { VpcReader, ITencentVpc } from '../../vpc';
 import { KeyPairsReader } from 'tencentcloud/keyPairs';
 import { AutoScalingProcessService } from '../details/scalingProcesses/AutoScalingProcessService';
-// import { TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from 'tencent';
+// import { TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from 'tencentcloud';
 
 export type IBlockDeviceMappingSource = 'source' | 'ami' | 'default';
 
@@ -387,8 +387,8 @@ export class TencentCloudServerGroupConfigurationService {
   }
 
   public getRegionalSecurityGroups(command: ITencentCloudServerGroupCommand): ISecurityGroup[] {
-    const newSecurityGroups = command.backingData.securityGroups[command.credentials] || { tencent: {} };
-    return chain(newSecurityGroups.tencent[command.region])
+    const newSecurityGroups = command.backingData.securityGroups[command.credentials] || { tencentcloud: {} };
+    return chain(newSecurityGroups.tencentcloud[command.region])
       .sortBy('name')
       .value();
   }
@@ -604,7 +604,7 @@ export class TencentCloudServerGroupConfigurationService {
   }
 }
 
-export const TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE = 'spinnaker.tencent.serverGroup.configure.service';
+export const TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE = 'spinnaker.tencentcloud.serverGroup.configure.service';
 module(TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE, [
   SECURITY_GROUP_READER,
   // TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,

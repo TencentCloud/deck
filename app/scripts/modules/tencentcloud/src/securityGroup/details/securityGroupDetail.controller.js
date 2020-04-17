@@ -16,7 +16,7 @@ import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 import { TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER } from '../clone/cloneSecurityGroup.controller';
 
 export const TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER =
-  'spinnaker.tencent.securityGroup.details.controller';
+  'spinnaker.tencentcloud.securityGroup.details.controller';
 angular
   .module(TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER, [
     UIROUTER_ANGULARJS,
@@ -90,7 +90,15 @@ angular
           $scope.state.loading = false;
           RecentHistoryService.removeLastItem('securityGroups');
         } else {
-          $state.go('^', { allowModalToStayOpen: true }, { location: 'replace' });
+          $state.go(
+            '^',
+            {
+              allowModalToStayOpen: true,
+            },
+            {
+              location: 'replace',
+            },
+          );
         }
       }
 
@@ -140,7 +148,9 @@ angular
 
       this.deleteSecurityGroup = function deleteSecurityGroup() {
         let isRetry = false;
-        const retryParams = { removeDependencies: true };
+        const retryParams = {
+          removeDependencies: true,
+        };
 
         const taskMonitor = {
           application: application,

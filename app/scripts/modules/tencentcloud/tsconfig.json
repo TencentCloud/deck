@@ -31,8 +31,8 @@
     "paths": {
       "@spinnaker/core": ["../../core/src"],
       "core/*": ["../../core/lib/*"],
-      "tencent/*": ["*"],
-      "tencent": ["."]
+      "tencentcloud/*": ["*"],
+      "tencentcloud": ["."]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

@@ -5,7 +5,7 @@ const angular = require('angular');
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
 export const TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE =
-  'spinnaker.tencent.pipeline.stage.tencentCloud.resizeAsgStage';
+  'spinnaker.tencentcloud.pipeline.stage.tencentCloud.resizeAsgStage';
 angular
   .module(TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE, [])
   .config(function() {
@@ -23,11 +23,27 @@ angular
           message:
             'This pipeline will attempt to resize a server group without deploying a new version into the same cluster.',
         },
-        { type: 'requiredField', fieldName: 'target' },
-        { type: 'requiredField', fieldName: 'action' },
-        { type: 'requiredField', fieldName: 'regions' },
-        { type: 'requiredField', fieldName: 'cluster' },
-        { type: 'requiredField', fieldName: 'credentials', fieldLabel: 'account' },
+        {
+          type: 'requiredField',
+          fieldName: 'target',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'action',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'regions',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'cluster',
+        },
+        {
+          type: 'requiredField',
+          fieldName: 'credentials',
+          fieldLabel: 'account',
+        },
       ],
     });
   })
@@ -98,14 +114,14 @@ angular
         $scope.application.attributes.platformHealthOnlyShowOverride &&
         $scope.application.attributes.platformHealthOnly
       ) {
-        stage.interestingHealthProviderNames = ['Tencent'];
+        stage.interestingHealthProviderNames = ['Tencentcloud'];
       }
 
-      if (!stage.credentials && $scope.application.defaultCredentials.tencent) {
-        stage.credentials = $scope.application.defaultCredentials.tencent;
+      if (!stage.credentials && $scope.application.defaultCredentials.tencentcloud) {
+        stage.credentials = $scope.application.defaultCredentials.tencentcloud;
       }
-      if (!stage.regions.length && $scope.application.defaultRegions.tencent) {
-        stage.regions.push($scope.application.defaultRegions.tencent);
+      if (!stage.regions.length && $scope.application.defaultRegions.tencentcloud) {
+        stage.regions.push($scope.application.defaultRegions.tencentcloud);
       }
 
       ctrl.updateResizeType = function() {

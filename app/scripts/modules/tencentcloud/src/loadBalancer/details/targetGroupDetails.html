@@ -57,7 +57,9 @@
         <dt>In</dt>
         <dd><account-tag account="ctrl.targetGroup.account" pad="right"></account-tag> {{ctrl.targetGroup.region}}</dd>
         <dt>VPC</dt>
-        <dd><tencent-vpc-tag vpc-id="ctrl.targetGroup.vpcId"></tencent-vpc-tag></dd>
+        <dd>
+          <tencentcloud-vpc-tag vpc-id="ctrl.targetGroup.vpcId"></tencentcloud-vpc-tag>
+        </dd>
         <dt>Protocol</dt>
         <dd>{{ctrl.targetGroup.protocol}}</dd>
         <dt>Port</dt>

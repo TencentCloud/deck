@@ -88,5 +88,6 @@ const component: IComponentOptions = {
   `,
 };
 
-export const TARGET_TRACKING_SUMMARY_COMPONENT = 'spinnaker.tencent.scalingPolicy.targetTracking.summary.component';
+export const TARGET_TRACKING_SUMMARY_COMPONENT =
+  'spinnaker.tencentcloud.scalingPolicy.targetTracking.summary.component';
 module(TARGET_TRACKING_SUMMARY_COMPONENT, []).component('targetTrackingSummary', component);

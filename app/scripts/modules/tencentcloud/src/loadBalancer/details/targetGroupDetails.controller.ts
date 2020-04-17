@@ -90,7 +90,7 @@ export class TencentCloudTargetGroupDetailsController implements IController {
 }
 
 export const TENCENTCLOUD_TARGET_GROUP_DETAILS_CTRL =
-  'spinnaker.tencent.loadBalancer.details.targetGroupDetails.controller';
+  'spinnaker.tencentcloud.loadBalancer.details.targetGroupDetails.controller';
 module(TENCENTCLOUD_TARGET_GROUP_DETAILS_CTRL, [UIROUTER_ANGULARJS]).controller(
   'tencentTargetGroupDetailsCtrl',
   TencentCloudTargetGroupDetailsController,
