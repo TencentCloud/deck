@@ -148,8 +148,6 @@ module(TENCENT_MODULE, [
     securityGroup: {
       transformer: 'tencentSecurityGroupTransformer',
       reader: 'tencentSecurityGroupReader',
-      detailsTemplateUrl: require('./securityGroup/details/securityGroupDetail.html'),
-      detailsController: 'tencentSecurityGroupDetailsCtrl',
       CreateSecurityGroupModal,
     },
     subnet: {

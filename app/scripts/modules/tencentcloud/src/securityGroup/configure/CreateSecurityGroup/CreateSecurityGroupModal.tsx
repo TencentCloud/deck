@@ -20,7 +20,7 @@ import Ingress from './CreateSecurityGroupIngress';
 import { LoadBalancerLocation } from './CreateSecurityGroupLocation';
 import { ISecurityGroupIngress } from './define';
 
-interface ICreateSecurityGroup extends ISecurityGroup {
+export interface ICreateSecurityGroup extends ISecurityGroup {
   inRules?: ISecurityGroupIngress[];
   description: string;
 }
@@ -179,13 +179,13 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     infiniteScroll.currentItems += infiniteScroll.numToAdd;
     this.setState({ infiniteScroll });
   }
-  protected onApplicationRefresh() {
+  protected onApplicationRefresh = (): void => {
     if (this._isUnmounted) {
       return;
     }
     this.refreshUnsubscribe = undefined;
-    const { securityGroup } = this.state;
     this.props.dismissModal();
+    const securityGroup = this.state.securityGroup;
     const newStateParams = {
       provider: 'tencentcloud',
       name: securityGroup.name,
@@ -198,7 +198,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     } else {
       ReactInjector.$state.go('^.firewallDetails', newStateParams);
     }
-  }
+  };
 
   submit = (values: ICreateSecurityGroup) => {
     const { inRules, stack, detail, credentials, name, description, region } = values;
@@ -223,7 +223,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     taskMonitor.submit(() => {
       return SecurityGroupWriter.upsertSecurityGroup(command, this.props.application, 'Create');
     });
-    this.setState({ taskMonitor });
+    this.setState({ taskMonitor, securityGroup: values });
   };
 
   private _isUnmounted = false;
@@ -237,18 +237,18 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     }
   }
 
-  private onTaskComplete() {
+  private onTaskComplete = (): void => {
     this.props.application.securityGroups.refresh();
     this.refreshUnsubscribe = this.props.application.securityGroups.onNextRefresh(null, this.onApplicationRefresh);
-  }
+  };
 
   public render() {
     const { application, isNew, dismissModal } = this.props;
-    const { taskMonitor } = this.state;
+    const { taskMonitor, securityGroup } = this.state;
     return (
-      <WizardModal<>
+      <WizardModal<ICreateSecurityGroup>
         heading={`${isNew ? 'Creating' : 'Updating'} ${FirewallLabels.get('Firewall')}`}
-        initialValues={}
+        initialValues={securityGroup}
         taskMonitor={taskMonitor}
         dismissModal={dismissModal}
         submitButtonLabel={isNew ? 'Create' : 'Update'}
@@ -261,13 +261,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
                 wizard={wizard}
                 order={nextIdx()}
                 render={({ innerRef }) => (
-                  <LoadBalancerLocation
-                    forPipelineConfig
-                    app={application}
-                    formik={formik}
-                    isNew={isNew}
-                    ref={innerRef}
-                  />
+                  <LoadBalancerLocation app={application} formik={formik} isNew={isNew} ref={innerRef} />
                 )}
               />
               <WizardPage

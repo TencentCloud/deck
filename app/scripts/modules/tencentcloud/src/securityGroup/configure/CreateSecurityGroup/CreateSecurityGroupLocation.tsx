@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import { IPromise } from 'angular';
-import { chain, isNil } from 'lodash';
+import { isNil } from 'lodash';
 import { Field, FormikErrors, FormikProps } from 'formik';
 import { Observable, Subject } from 'rxjs';
 
@@ -13,17 +12,15 @@ import {
   IAccount,
   IMoniker,
   IRegion,
-  ISubnet,
   IWizardPageComponent,
   NameUtils,
   RegionSelectField,
   Spinner,
-  SubnetReader,
   ValidationMessage,
 } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
-import { ITencentCloudLoadBalancer, ITencentCloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { ITencentCloudLoadBalancer } from 'tencentcloud/domain';
+import { ICreateSecurityGroup } from './CreateSecurityGroupModal';
 
 export interface ISubnetOption {
   vpcId: string;
@@ -33,7 +30,7 @@ export interface ISubnetOption {
 
 export interface ILoadBalancerLocationProps {
   app: Application;
-  formik: FormikProps<ITencentCloudLoadBalancerUpsertCommand>;
+  formik: FormikProps<ICreateSecurityGroup>;
   forPipelineConfig?: boolean;
   isNew?: boolean;
   loadBalancer?: ITencentCloudLoadBalancer;
@@ -42,28 +39,24 @@ export interface ILoadBalancerLocationProps {
 export interface ILoadBalancerLocationState {
   accounts: IAccount[];
   existingLoadBalancerNames: string[];
-  hideInternalFlag: boolean;
   internalFlagToggled: boolean;
   regions: IRegion[];
-  subnets: ISubnetOption[];
 }
 
 export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationProps, ILoadBalancerLocationState>
-  implements IWizardPageComponent<ITencentCloudLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ICreateSecurityGroup> {
   public state: ILoadBalancerLocationState = {
     accounts: undefined,
     existingLoadBalancerNames: [],
-    hideInternalFlag: false,
     internalFlagToggled: false,
     regions: [],
-    subnets: [],
   };
 
   private props$ = new Subject<ILoadBalancerLocationProps>();
   private destroy$ = new Subject<void>();
 
-  public validate(values: ITencentCloudLoadBalancerUpsertCommand) {
-    const errors = {} as FormikErrors<ITencentCloudLoadBalancerUpsertCommand>;
+  public validate(values: ICreateSecurityGroup) {
+    const errors = {} as FormikErrors<ICreateSecurityGroup>;
 
     if (this.state.existingLoadBalancerNames.includes(values.name)) {
       errors.name = `There is already a load balancer in ${values.credentials}:${values.region} with that name.`;
@@ -97,22 +90,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
     delete values.name;
   }
 
-  private shouldHideInternalFlag(): boolean {
-    if (TENCENTCLOUDProviderSettings) {
-      if (
-        TENCENTCLOUDProviderSettings.loadBalancers &&
-        TENCENTCLOUDProviderSettings.loadBalancers.inferInternalFlagFromSubnet
-      ) {
-        // clouddriver will check the subnet if isInternal is competely omitted
-        delete this.props.formik.values.isInternal;
-        return true;
-      }
-    }
-    return false;
-  }
-
   public componentDidMount(): void {
-    this.setState({ hideInternalFlag: this.shouldHideInternalFlag() });
     if (this.props.loadBalancer && this.props.isNew) {
       this.buildName();
     }
@@ -123,9 +101,9 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
     const form = {
       account$: formValues$.map(x => x.credentials).distinctUntilChanged(),
       region$: formValues$.map(x => x.region).distinctUntilChanged(),
-      subnetPurpose$: formValues$.map(x => x.subnetType).distinctUntilChanged(),
       stack$: formValues$.map(x => x.stack).distinctUntilChanged(),
       detail$: formValues$.map(x => x.detail).distinctUntilChanged(),
+      description$: formValues$.map(x => x.description).distinctUntilChanged(),
     };
 
     const allAccounts$ = Observable.fromPromise(AccountService.listAccounts('tencentcloud')).shareReplay(1);
@@ -146,15 +124,6 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
       })
       .shareReplay(1);
 
-    const regionSubnets$ = Observable.combineLatest(form.account$, form.region$)
-      .switchMap(([currentAccount, currentRegion]) => this.getAvailableSubnets(currentAccount, currentRegion))
-      .map(availableSubnets => this.makeSubnetOptions(availableSubnets))
-      .shareReplay(1);
-
-    const subnet$ = Observable.combineLatest(regionSubnets$, form.subnetPurpose$).map(
-      ([allSubnets, subnetPurpose]) => allSubnets && allSubnets.find(subnet => subnet.id === subnetPurpose),
-    );
-
     const moniker$ = Observable.combineLatest(appName$, form.stack$, form.detail$).map(([app, stack, detail]) => {
       return { app, stack, detail, cluster: NameUtils.getClusterName(app, stack, detail) } as IMoniker;
     });
@@ -168,21 +137,15 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
           this.props.formik.setFieldValue('region', accountRegions[0] && accountRegions[0].name);
         }
       });
-
-    subnet$.takeUntil(this.destroy$).subscribe(subnet => {
-      this.props.formik.setFieldValue('vpcId', subnet && subnet.vpcId);
-      this.props.formik.setFieldValue('subnetType', subnet && subnet.id);
-    });
-
     moniker$.takeUntil(this.destroy$).subscribe(moniker => {
       this.props.formik.setFieldValue('moniker', moniker);
       this.props.formik.setFieldValue('name', moniker.cluster);
     });
 
-    Observable.combineLatest(allAccounts$, accountRegions$, regionLoadBalancers$, regionSubnets$)
+    Observable.combineLatest(allAccounts$, accountRegions$, regionLoadBalancers$)
       .takeUntil(this.destroy$)
-      .subscribe(([accounts, regions, existingLoadBalancerNames, subnets]) => {
-        return this.setState({ accounts, regions, existingLoadBalancerNames, subnets });
+      .subscribe(([accounts, regions, existingLoadBalancerNames]) => {
+        return this.setState({ accounts, regions, existingLoadBalancerNames });
       });
   }
 
@@ -192,22 +155,6 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
 
   public componentWillUnmount(): void {
     this.destroy$.next();
-  }
-
-  private getAvailableSubnets(credentials: string, region: string): IPromise<ISubnet[]> {
-    return SubnetReader.listSubnetsByProvider('tencentcloud').then(subnets => {
-      return chain(subnets)
-        .filter({ account: credentials, region })
-        .value();
-    });
-  }
-
-  private makeSubnetOptions(availableSubnets: ISubnet[]): ISubnetOption[] {
-    return availableSubnets.map(({ id, name, vpcId }) => ({
-      id,
-      name,
-      vpcId,
-    }));
   }
 
   private accountUpdated = (account: string): void => {
@@ -278,9 +225,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               regions={regions}
             />
             <div className="form-group">
-              <div className="col-md-3 sm-label-right">
-                Stack <HelpField id="tencentCloud.loadBalancer.stack" />
-              </div>
+              <div className="col-md-3 sm-label-right">Stack</div>
               <div className="col-md-3">
                 <input
                   type="text"
@@ -292,9 +237,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               </div>
               <div className="col-md-6 form-inline">
                 <label className="sm-label-right">
-                  <span>
-                    Detail <HelpField id="tencentCloud.loadBalancer.detail" />{' '}
-                  </span>
+                  <span>Detail</span>
                 </label>
                 <input
                   type="text"
