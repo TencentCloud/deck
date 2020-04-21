@@ -16,17 +16,6 @@
       <span class="glyphicon glyphicon-transfer"></span>
       <h3 class="horizontal middle space-between flex-1" select-on-dbl-click>
         {{securityGroup.name || '(not found)'}}
-        <render-if-feature feature="entityTags">
-          <entity-notifications
-            entity="securityGroup"
-            application="ctrl.application"
-            placement="bottom"
-            h-offset-percent="90%"
-            entity-type="securityGroup"
-            page-location="details"
-            on-update="ctrl.application.securityGroups.refresh()"
-          ></entity-notifications>
-        </render-if-feature>
       </h3>
     </div>
     <div class="actions">

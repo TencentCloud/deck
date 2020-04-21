@@ -1,21 +1,187 @@
 import * as React from 'react';
-// import _ from 'lodash';
-// import {
-//   CloudProviderRegistry,
-//   RecentHistoryService,
-//   SECURITY_GROUP_READER,
-//   SecurityGroupWriter,
-//   FirewallLabels,
-// } from '@spinnaker/core';
+import { isEmpty } from 'lodash';
+import { UISref } from '@uirouter/react';
 
-interface ISecurityGroupDetailProps {}
-interface ISecurityGroupDetailState {}
+import {
+  RecentHistoryService,
+  FirewallLabels,
+  ReactInjector,
+  Application,
+  ISecurityGroup,
+  Details,
+  CollapsibleSection,
+  AccountTag,
+} from '@spinnaker/core';
+
+import { Actions } from './Actions';
+interface ISecurityGroupIngress {
+  index: number;
+  protocol: string;
+  port: string | number;
+  cidrBlock: string | number;
+  action: string;
+}
+
+export interface ISecurityGroupDetail extends ISecurityGroup {
+  inRules: ISecurityGroupIngress[];
+  description: string;
+}
+interface ISecurityGroupDetailProps {
+  app: Application;
+  resolvedSecurityGroup: ISecurityGroupDetail;
+}
+interface ISecurityGroupDetailState {
+  loading: boolean;
+  notFound: boolean;
+  securityGroup: ISecurityGroupDetail;
+}
 
 class SecurityGroupDetail extends React.Component<ISecurityGroupDetailProps, ISecurityGroupDetailState> {
-  state = {};
+  constructor(props: ISecurityGroupDetailProps) {
+    super(props);
+  }
+  state = {
+    loading: true,
+    notFound: false,
+    securityGroup: this.props.resolvedSecurityGroup,
+  };
+  private group = '';
+  private _isUnmounted = false;
+  componentDidMount() {
+    const { app } = this.props;
+    this.extractSecurityGroup().then(() => {
+      if (!this._isUnmounted && !app.isStandalone) {
+        app.securityGroups.onRefresh(null, this.extractSecurityGroup);
+      }
+    });
+  }
+  public componentWillUnmount(): void {
+    this._isUnmounted = true;
+  }
+  private extractSecurityGroup = () => {
+    const { app } = this.props;
+    const securityGroup = this.state.securityGroup;
+    return ReactInjector.securityGroupReader
+      .getSecurityGroupDetails(
+        app,
+        securityGroup.accountId,
+        securityGroup.provider,
+        securityGroup.region,
+        securityGroup.vpcId,
+        securityGroup.name,
+      )
+      .then(details => {
+        this.setState({
+          loading: false,
+        });
+        if (!details || isEmpty(details)) {
+          this.fourOhFour();
+        } else {
+          const applicationSecurityGroup = ReactInjector.securityGroupReader.getApplicationSecurityGroup(
+            app,
+            securityGroup.accountId,
+            securityGroup.region,
+            securityGroup.name,
+          );
+          this.setState({
+            securityGroup: Object.assign(securityGroup, applicationSecurityGroup, details),
+          });
+        }
+      }, this.fourOhFour);
+  };
 
-  render() {
-    return <div>create view</div>;
+  fourOhFour() {
+    if (this._isUnmounted) {
+      return;
+    }
+    const { app } = this.props;
+
+    if (app.isStandalone) {
+      this.group = this.state.securityGroup.name;
+      this.setState({
+        notFound: true,
+        loading: false,
+      });
+      RecentHistoryService.removeLastItem('securityGroups');
+    } else {
+      ReactInjector.$state.go('^', { allowModalToStayOpen: true }, { location: 'replace' });
+    }
+  }
+  public render(): JSX.Element {
+    const { notFound, loading, securityGroup } = this.state;
+    const { app } = this.props;
+    return (
+      <>
+        {notFound ? (
+          <section>
+            <h3>
+              Could not find {FirewallLabels.get('Firewall')} {this.group}.
+            </h3>
+            <UISref to="home.infrastructure">
+              <a>Back to search results</a>
+            </UISref>
+          </section>
+        ) : (
+          // @ts-ignore
+          <Details loading={loading}>
+            <Details.Header
+              name={securityGroup.name || '(not found)'}
+              icon={<i className="glyphicon glyphicon-transfer" />}
+            >
+              <div className="actions">
+                <Actions application={app} securityGroup={securityGroup} />
+              </div>
+            </Details.Header>
+            <div className="content">
+              {
+                // @ts-ignore
+                <CollapsibleSection heading={`${FirewallLabels.get('Firewall')} Details`} expanded>
+                  <dl className="dl-horizontal dl-medium">
+                    <dt>ID</dt>
+                    <dd>{securityGroup.id}</dd>
+                    <dt>Account</dt>
+                    <dd>
+                      {
+                        // @ts-ignore
+                        <AccountTag account={securityGroup.accountName} />
+                      }
+                    </dd>
+                    <dt>Region</dt>
+                    <dd>{securityGroup.region}</dd>
+                    <dt>Description</dt>
+                    <dd>{securityGroup.description}</dd>
+                  </dl>
+                </CollapsibleSection>
+              }
+              {!!securityGroup.inRules && (
+                // @ts-ignore
+                <CollapsibleSection
+                  expanded={securityGroup.inRules.length > 0}
+                  heading={`${FirewallLabels.get('Firewall')} Rules ${securityGroup.inRules.length || 0}`}
+                >
+                  {securityGroup.inRules.length === 0 ? (
+                    <div>None</div>
+                  ) : (
+                    securityGroup.inRules.map(rule => (
+                      <dl className="dl-horizontal dl-medium" key={rule.index}>
+                        <dt>Source</dt>
+                        <dd>{rule.cidrBlock}</dd>
+                        <dt>Policy</dt>
+                        <dd>{rule.action}</dd>
+                        <dt>Protocol Port</dt>
+                        <dd>
+                          {rule.protocol}: {rule.port}
+                        </dd>
+                      </dl>
+                    ))
+                  )}
+                </CollapsibleSection>
+              )}
+            </div>
+          </Details>
+        )}
+      </>
+    );
   }
 }
 

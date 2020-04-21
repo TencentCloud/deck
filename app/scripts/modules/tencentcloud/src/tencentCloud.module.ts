@@ -39,6 +39,8 @@ import {
   SecurityGroupsDetailsSection,
   TagsDetailsSection,
 } from './serverGroup/details/sections';
+import SecurityGroupDetails from './securityGroup/details/SecurityGroupDetails';
+
 import { CreateSecurityGroupModal } from './securityGroup/configure/CreateSecurityGroup/CreateSecurityGroupModal';
 
 import { DEPLOY_CLOUDFORMATION_STACK_STAGE } from './pipeline/stages/deployCloudFormation/deployCloudFormationStackStage';
@@ -149,6 +151,7 @@ module(TENCENT_MODULE, [
       transformer: 'tencentSecurityGroupTransformer',
       reader: 'tencentSecurityGroupReader',
       CreateSecurityGroupModal,
+      details: SecurityGroupDetails,
     },
     subnet: {
       renderer: 'tencentSubnetRenderer',

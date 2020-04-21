@@ -246,6 +246,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     const { application, isNew, dismissModal } = this.props;
     const { taskMonitor, securityGroup } = this.state;
     return (
+      // @ts-ignore
       <WizardModal<ICreateSecurityGroup>
         heading={`${isNew ? 'Creating' : 'Updating'} ${FirewallLabels.get('Firewall')}`}
         initialValues={securityGroup}
@@ -254,22 +255,29 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
         submitButtonLabel={isNew ? 'Create' : 'Update'}
         closeModal={this.submit}
         render={({ formik, nextIdx, wizard }) => {
+          // @ts-ignore
           return (
             <>
-              <WizardPage
-                label="Location"
-                wizard={wizard}
-                order={nextIdx()}
-                render={({ innerRef }) => (
-                  <LoadBalancerLocation app={application} formik={formik} isNew={isNew} ref={innerRef} />
-                )}
-              />
-              <WizardPage
-                label="Ingress"
-                wizard={wizard}
-                order={nextIdx()}
-                render={({ innerRef }) => <Ingress formik={formik} app={application} ref={innerRef} />}
-              />
+              {
+                // @ts-ignore
+                <WizardPage
+                  label="Location"
+                  wizard={wizard}
+                  order={nextIdx()}
+                  render={({ innerRef }) => (
+                    <LoadBalancerLocation app={application} formik={formik} isNew={isNew} ref={innerRef} />
+                  )}
+                />
+              }
+              {
+                // @ts-ignore
+                <WizardPage
+                  label="Ingress"
+                  wizard={wizard}
+                  order={nextIdx()}
+                  render={({ innerRef }) => <Ingress formik={formik} ref={innerRef} />}
+                />
+              }
             </>
           );
         }}
