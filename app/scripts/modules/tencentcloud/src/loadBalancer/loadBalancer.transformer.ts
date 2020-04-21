@@ -91,7 +91,7 @@ export class TencentCloudLoadBalancerTransformer {
     containerType: string,
     healthType: string,
   ): void {
-    serverGroups.forEach(serverGroup => {
+    (serverGroups || []).forEach(serverGroup => {
       serverGroup.account = serverGroup.account || container.account;
       serverGroup.region = serverGroup.region || container.region;
       serverGroup.cloudProvider = serverGroup.cloudProvider || container.cloudProvider;

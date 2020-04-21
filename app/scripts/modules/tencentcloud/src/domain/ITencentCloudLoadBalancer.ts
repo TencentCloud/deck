@@ -23,11 +23,15 @@ export interface ITencentCloudLoadBalancer extends ILoadBalancer {
   provider: any;
   type: any;
   instances: any[];
+  accountId?: string;
+  createTime?: string;
   availabilityZones?: string[];
   credentials?: string;
+  listeners?: any[];
   detachedInstances?: IInstance[];
   elb?: ITencentCloudLoadBalancerSourceData;
   isInternal?: boolean;
+  loadBalacnerVips: string[];
   regionZones: string[];
   serverGroups: ITencentCloudServerGroup[];
   subnets?: string[];

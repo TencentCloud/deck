@@ -24,7 +24,7 @@ import { TencentCloudCloneServerGroupModal } from './serverGroup/configure/wizar
 import { CreateApplicationLoadBalancer } from './loadBalancer/configure/application/CreateApplicationLoadBalancer';
 import { TencentCloudServerGroupActions } from './serverGroup/details/TencentCloudServerGroupActions';
 import { tencentCloudServerGroupDetailsGetter } from './serverGroup/details/tencentCloudServerGroupDetailsGetter';
-
+import LoadBalancerDetails from './loadBalancer/details/loadBalancerDetails';
 import {
   AdvancedSettingsDetailsSection,
   TencentCloudInfoDetailsSection,
@@ -72,6 +72,7 @@ templates.keys().forEach(function(key) {
 import tencentcloudLogo from './logo/tencentcloud.logo.svg';
 
 export const TENCENT_MODULE = 'spinnaker.tencentcloud';
+
 module(TENCENT_MODULE, [
   TENCENT_REACT_MODULE,
   TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE,
@@ -133,11 +134,8 @@ module(TENCENT_MODULE, [
     },
     loadBalancer: {
       transformer: 'tencentLoadBalancerTransformer',
-      detailsTemplateUrl: require('./loadBalancer/details/loadBalancerDetails.html'),
-      detailsController: 'tencentLoadBalancerDetailsCtrl',
+      details: LoadBalancerDetails,
       CreateLoadBalancerModal: CreateApplicationLoadBalancer,
-      targetGroupDetailsTemplateUrl: require('./loadBalancer/details/targetGroupDetails.html'),
-      targetGroupDetailsController: 'tencentTargetGroupDetailsCtrl',
       ClusterContainer: TencentCloudLoadBalancerClusterContainer,
       LoadBalancersTag: TencentCloudLoadBalancersTag,
     },

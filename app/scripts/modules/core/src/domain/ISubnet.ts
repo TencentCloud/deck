@@ -10,4 +10,5 @@ export interface ISubnet {
   deprecated: boolean;
   target?: string;
   vpcId?: string;
+  cidrBlock?: string;
 }

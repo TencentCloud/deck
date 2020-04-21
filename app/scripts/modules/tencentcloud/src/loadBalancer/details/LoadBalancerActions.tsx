@@ -13,7 +13,7 @@ import {
 
 import { ITencentCloudLoadBalancer, ITencentCloudLoadBalancerDeleteCommand } from 'tencentcloud/domain';
 
-import { ILoadBalancerFromStateParams } from './loadBalancerDetails.controller';
+import { ILoadBalancerFromStateParams } from './loadBalancerDetails';
 import { LoadBalancerTypes } from '../configure/LoadBalancerTypes';
 
 export interface ILoadBalancerActionsProps {
@@ -118,14 +118,14 @@ export class LoadBalancerActions extends React.Component<ILoadBalancerActionsPro
                 Edit Load Balancer
               </a>
             </li>
-            {!loadBalancer.instances.length && (
+            {!(loadBalancer.instances || []).length && (
               <li>
                 <a className="clickable" onClick={this.deleteLoadBalancer}>
                   Delete Load Balancer
                 </a>
               </li>
             )}
-            {loadBalancer.instances.length > 0 && (
+            {(loadBalancer.instances || []).length > 0 && (
               <li className="disabled">
                 <a className="clickable" onClick={this.deleteLoadBalancer}>
                   Delete Load Balancer{' '}
