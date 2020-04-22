@@ -20,7 +20,7 @@ import {
 } from '@spinnaker/core';
 
 import { ITencentCloudLoadBalancer } from 'tencentcloud/domain';
-import { ICreateSecurityGroup } from './CreateSecurityGroupModal';
+import { ISecurityGroupDetail } from '../../define';
 
 export interface ISubnetOption {
   vpcId: string;
@@ -30,7 +30,7 @@ export interface ISubnetOption {
 
 export interface ILoadBalancerLocationProps {
   app: Application;
-  formik: FormikProps<ICreateSecurityGroup>;
+  formik: FormikProps<ISecurityGroupDetail>;
   forPipelineConfig?: boolean;
   isNew?: boolean;
   loadBalancer?: ITencentCloudLoadBalancer;
@@ -44,7 +44,7 @@ export interface ILoadBalancerLocationState {
 }
 
 export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationProps, ILoadBalancerLocationState>
-  implements IWizardPageComponent<ICreateSecurityGroup> {
+  implements IWizardPageComponent<ISecurityGroupDetail> {
   public state: ILoadBalancerLocationState = {
     accounts: undefined,
     existingLoadBalancerNames: [],
@@ -55,8 +55,8 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
   private props$ = new Subject<ILoadBalancerLocationProps>();
   private destroy$ = new Subject<void>();
 
-  public validate(values: ICreateSecurityGroup) {
-    const errors = {} as FormikErrors<ICreateSecurityGroup>;
+  public validate(values: ISecurityGroupDetail) {
+    const errors = {} as FormikErrors<ISecurityGroupDetail>;
 
     if (this.state.existingLoadBalancerNames.includes(values.name)) {
       errors.name = `There is already a load balancer in ${values.credentials}:${values.region} with that name.`;

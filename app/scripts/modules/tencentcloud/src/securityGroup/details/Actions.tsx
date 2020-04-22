@@ -8,7 +8,9 @@ import {
   SecurityGroupWriter,
   ISecurityGroupJob,
 } from '@spinnaker/core';
-import { ISecurityGroupDetail } from './SecurityGroupDetails';
+
+import { ISecurityGroupDetail } from '../define';
+import { EditSecurityGroupModal } from '../configure/EditSecurityGroup';
 
 export interface IActionsProps {
   application: Application;
@@ -24,9 +26,11 @@ export class Actions extends React.Component<IActionsProps, IActionsState> {
   state = {};
   public componentWillMount(): void {}
 
-  public editFunction = (): void => {};
+  public handleEdit = (): void => {
+    EditSecurityGroupModal.show(this.props);
+  };
 
-  public deleteSecurityGroup = (): void => {
+  public handleDelete = (): void => {
     const { application, securityGroup } = this.props;
     let isRetry = false;
     const retryParams = {
@@ -79,13 +83,13 @@ export class Actions extends React.Component<IActionsProps, IActionsState> {
           </Dropdown.Toggle>
           <Dropdown.Menu className="dropdown-menu">
             <li>
-              <a className="clickable" onClick={this.editFunction}>
+              <a className="clickable" onClick={this.handleEdit}>
                 Edit {FirewallLabels.get('Firewall')}
               </a>
             </li>
 
             <li>
-              <a className="clickable" onClick={this.deleteSecurityGroup}>
+              <a className="clickable" onClick={this.handleDelete}>
                 Delete {FirewallLabels.get('Firewall')}
               </a>
             </li>

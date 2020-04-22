@@ -15,18 +15,12 @@ import {
 import { Subject } from 'rxjs';
 import { get, uniq, intersection } from 'lodash';
 import { ISecurityGroup } from '@spinnaker/core';
-import { ICreateSecurityGroupProps } from './define';
-import Ingress from './CreateSecurityGroupIngress';
+import { ISecurityGroupProps, ISecurityGroupDetail } from '../../define';
 import { LoadBalancerLocation } from './CreateSecurityGroupLocation';
-import { ISecurityGroupIngress } from './define';
-
-export interface ICreateSecurityGroup extends ISecurityGroup {
-  inRules?: ISecurityGroupIngress[];
-  description: string;
-}
+import Ingress from './CreateSecurityGroupIngress';
 export interface ICreateSecurityGroupState {
   taskMonitor: TaskMonitor;
-  securityGroup: ICreateSecurityGroup;
+  securityGroup: ISecurityGroupDetail;
   accounts: any[];
   regions: any[];
   submitting: boolean;
@@ -43,45 +37,44 @@ export interface ICreateSecurityGroupState {
   namePreview: string;
 }
 
-export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGroupProps, ICreateSecurityGroupState> {
-  public static defaultProps: Partial<ICreateSecurityGroupProps> = {
+export class CreateSecurityGroupModal extends React.Component<ISecurityGroupProps, ICreateSecurityGroupState> {
+  public static defaultProps: Partial<ISecurityGroupProps> = {
     closeModal: noop,
     dismissModal: noop,
   };
 
-  public static show(props: ICreateSecurityGroupProps): Promise<ISecurityGroup> {
+  public static show(props: ISecurityGroupProps): Promise<ISecurityGroup> {
     const modalProps = { dialogClassName: 'wizard-modal modal-lg' };
     return ReactModal.show(CreateSecurityGroupModal, props, modalProps);
   }
 
-  constructor(props: ICreateSecurityGroupProps) {
+  constructor(props: ISecurityGroupProps) {
     super(props);
+    this.state = {
+      taskMonitor: null,
+      accounts: [],
+      regions: [],
+      securityGroup: {
+        description: '',
+      },
+      submitting: false,
+      refreshingSecurityGroups: false,
+      infiniteScroll: {
+        numToAdd: 20,
+        currentItems: 20,
+      },
+      allSecurityGroups: [],
+      availableSecurityGroups: [],
+      existingSecurityGroupNames: [],
+      securityGroupsLoaded: false,
+      refreshTime: '',
+      namePreview: '',
+    };
   }
 
   componentDidMount() {
     this.initializeSecurityGroups().then(this.initializeAccounts);
   }
-
-  public state: ICreateSecurityGroupState = {
-    taskMonitor: null,
-    accounts: [],
-    regions: [],
-    securityGroup: {
-      description: '',
-    },
-    submitting: false,
-    refreshingSecurityGroups: false,
-    infiniteScroll: {
-      numToAdd: 20,
-      currentItems: 20,
-    },
-    allSecurityGroups: [],
-    availableSecurityGroups: [],
-    existingSecurityGroupNames: [],
-    securityGroupsLoaded: false,
-    refreshTime: '',
-    namePreview: '',
-  };
 
   setSecurityGroupRefreshTime() {
     this.setState({
@@ -185,13 +178,14 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     }
     this.refreshUnsubscribe = undefined;
     this.props.dismissModal();
-    const securityGroup = this.state.securityGroup;
+    this.setState({ taskMonitor: undefined });
+    const { name, region, vpcId } = this.state.securityGroup;
     const newStateParams = {
       provider: 'tencentcloud',
-      name: securityGroup.name,
+      name,
       accountId: this.getAccount(),
-      region: securityGroup.region,
-      vpcId: securityGroup.vpcId,
+      region,
+      vpcId,
     };
     if (!ReactInjector.$state.includes('**.firewallDetails')) {
       ReactInjector.$state.go('.firewallDetails', newStateParams);
@@ -200,7 +194,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
     }
   };
 
-  submit = (values: ICreateSecurityGroup) => {
+  submit = (values: ISecurityGroupDetail) => {
     const { inRules, stack, detail, credentials, name, description, region } = values;
     const taskMonitor = new TaskMonitor({
       application: this.props.application,
@@ -275,7 +269,7 @@ export class CreateSecurityGroupModal extends React.Component<ICreateSecurityGro
                   label="Ingress"
                   wizard={wizard}
                   order={nextIdx()}
-                  render={({ innerRef }) => <Ingress formik={formik} ref={innerRef} />}
+                  render={({ innerRef }) => <Ingress app={application} formik={formik} ref={innerRef} />}
                 />
               }
             </>

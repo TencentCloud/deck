@@ -7,25 +7,14 @@ import {
   FirewallLabels,
   ReactInjector,
   Application,
-  ISecurityGroup,
   Details,
   CollapsibleSection,
   AccountTag,
 } from '@spinnaker/core';
 
 import { Actions } from './Actions';
-interface ISecurityGroupIngress {
-  index: number;
-  protocol: string;
-  port: string | number;
-  cidrBlock: string | number;
-  action: string;
-}
+import { ISecurityGroupDetail } from '../define';
 
-export interface ISecurityGroupDetail extends ISecurityGroup {
-  inRules: ISecurityGroupIngress[];
-  description: string;
-}
 interface ISecurityGroupDetailProps {
   app: Application;
   resolvedSecurityGroup: ISecurityGroupDetail;
@@ -107,7 +96,7 @@ class SecurityGroupDetail extends React.Component<ISecurityGroupDetailProps, ISe
       ReactInjector.$state.go('^', { allowModalToStayOpen: true }, { location: 'replace' });
     }
   }
-  public render(): JSX.Element {
+  public render() {
     const { notFound, loading, securityGroup } = this.state;
     const { app } = this.props;
     return (
@@ -156,7 +145,7 @@ class SecurityGroupDetail extends React.Component<ISecurityGroupDetailProps, ISe
               {!!securityGroup.inRules && (
                 // @ts-ignore
                 <CollapsibleSection
-                  expanded={securityGroup.inRules.length > 0}
+                  defaultExpanded={securityGroup.inRules.length > 0}
                   heading={`${FirewallLabels.get('Firewall')} Rules ${securityGroup.inRules.length || 0}`}
                 >
                   {securityGroup.inRules.length === 0 ? (
