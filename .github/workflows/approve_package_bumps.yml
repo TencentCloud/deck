@@ -15,6 +15,7 @@ on:
       - 'app/scripts/modules/kubernetes/package.json'
       - 'app/scripts/modules/oracle/package.json'
       - 'app/scripts/modules/titus/package.json'
+      - 'app/scripts/modules/tencentcloud/package.json'
 
 env:
   NODE_VERSION: 10.15.1

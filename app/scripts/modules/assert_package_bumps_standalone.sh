@@ -88,9 +88,11 @@ done
 echo ""
 echo ""
 
-if [[ $HAS_PURE_PKG_BUMP == "true" ]] ; then
- [[ "$GITHUB_ACTIONS" == "true" ]] && echo "::set-output name=ispurebump::true"
- echo "This is a pure package bump."
-else
- echo "No packages were bumped."
-fi
+echo "::set-output name=ispurebump::false"
+
+#if [[ $HAS_PURE_PKG_BUMP == "true" ]] ; then
+# [[ "$GITHUB_ACTIONS" == "true" ]] && echo "::set-output name=ispurebump::true"
+# echo "This is a pure package bump."
+#else
+# echo "No packages were bumped."
+#fi
