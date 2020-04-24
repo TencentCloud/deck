@@ -34,47 +34,47 @@ for PKGJSON in */package.json ; do
 
   HAS_PKG_BUMP=$(git diff -U0 "$TARGET_BRANCH" -- "$PKGJSON" | grep -c '"version":')
   if [ "$HAS_PKG_BUMP" -ne 0 ] ; then
-    FROM_VERSION=$(git diff "$TARGET_BRANCH" -- "$PKGJSON" | grep '^-.*"version":' | sed -e 's/^.*version": "//' -e 's/[",]//g')
-    TO_VERSION=$(git diff "$TARGET_BRANCH" -- "$PKGJSON" | grep '^\+.*"version":' | sed -e 's/^.*": "//' -e 's/[",]//g')
-
-    # Ensuring that the version change is the only change in package.json
-    PKG_JSON_OTHER_CHANGES=$(git diff --numstat "$TARGET_BRANCH" -- "$PKGJSON" | cut -f 1)
-    if [ "$PKG_JSON_OTHER_CHANGES" -ne 1 ] ; then
-      echo "==================================================="
-      echo "                Impure package bump"
-      echo "==================================================="
-      echo ""
-      echo "Version change found in $MODULE/package.json"
-      echo "However, other changes were found in package.json"
-      echo ""
-      echo "Version changed from $FROM_VERSION -> $TO_VERSION:"
-      echo ""
-      echo "git diff of package.json:"
-      echo "=========================================="
-      git diff "$TARGET_BRANCH" -- "$PKGJSON" >&2
-      echo "=========================================="
-      exit 3
-    fi
-
-
-    # checking that the only files changed are app/scripts/modules/*/package.json
-    OTHER_FILES_CHANGED=$(git diff --name-only "$TARGET_BRANCH" | grep -c -v "app/scripts/modules/.*/package.json")
-    if [ "$OTHER_FILES_CHANGED" -ne 0 ] ; then
-      echo "==================================================="
-      echo "                Impure package bump"
-      echo "==================================================="
-      echo ""
-      echo "Version change found in $MODULE/package.json"
-      echo "However, other files were also changed"
-      echo ""
-      echo "Version changed from $FROM_VERSION -> $TO_VERSION:"
-      echo ""
-      echo "List of all files changed:"
-      echo "=========================================="
-      git diff --name-only "$TARGET_BRANCH" >&2
-      echo "=========================================="
-      exit 4
-    fi
+#    FROM_VERSION=$(git diff "$TARGET_BRANCH" -- "$PKGJSON" | grep '^-.*"version":' | sed -e 's/^.*version": "//' -e 's/[",]//g')
+#    TO_VERSION=$(git diff "$TARGET_BRANCH" -- "$PKGJSON" | grep '^\+.*"version":' | sed -e 's/^.*": "//' -e 's/[",]//g')
+#
+#    # Ensuring that the version change is the only change in package.json
+#    PKG_JSON_OTHER_CHANGES=$(git diff --numstat "$TARGET_BRANCH" -- "$PKGJSON" | cut -f 1)
+#    if [ "$PKG_JSON_OTHER_CHANGES" -ne 1 ] ; then
+#      echo "==================================================="
+#      echo "                Impure package bump"
+#      echo "==================================================="
+#      echo ""
+#      echo "Version change found in $MODULE/package.json"
+#      echo "However, other changes were found in package.json"
+#      echo ""
+#      echo "Version changed from $FROM_VERSION -> $TO_VERSION:"
+#      echo ""
+#      echo "git diff of package.json:"
+#      echo "=========================================="
+#      git diff "$TARGET_BRANCH" -- "$PKGJSON" >&2
+#      echo "=========================================="
+#      exit 3
+#    fi
+#
+#
+#    # checking that the only files changed are app/scripts/modules/*/package.json
+#    OTHER_FILES_CHANGED=$(git diff --name-only "$TARGET_BRANCH" | grep -c -v "app/scripts/modules/.*/package.json")
+#    if [ "$OTHER_FILES_CHANGED" -ne 0 ] ; then
+#      echo "==================================================="
+#      echo "                Impure package bump"
+#      echo "==================================================="
+#      echo ""
+#      echo "Version change found in $MODULE/package.json"
+#      echo "However, other files were also changed"
+#      echo ""
+#      echo "Version changed from $FROM_VERSION -> $TO_VERSION:"
+#      echo ""
+#      echo "List of all files changed:"
+#      echo "=========================================="
+#      git diff --name-only "$TARGET_BRANCH" >&2
+#      echo "=========================================="
+#      exit 4
+#    fi
 
 
 
