@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - release-*
+      - test-ci
 
 env:
   NODE_VERSION: 12.16.0
