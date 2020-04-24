@@ -135,7 +135,12 @@ jobs:
     strategy:
       matrix:
         packages:
-          ['core amazon docker titus', 'appengine azure cloudfoundry', 'ecs oracle', 'google huaweicloud kubernetes']
+          [
+            'core amazon docker titus',
+            'appengine azure cloudfoundry',
+            'ecs oracle',
+            'google huaweicloud kubernetes tencentcloud',
+          ]
 
     steps:
       - uses: actions/checkout@v2
