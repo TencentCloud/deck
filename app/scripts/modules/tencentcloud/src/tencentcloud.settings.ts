@@ -6,6 +6,7 @@ export interface IClassicLaunchWhitelist {
 }
 
 export interface ITencentCloudProviderSettings extends IProviderSettings {
+  resetToOriginal?: any;
   defaults: {
     account?: string;
     region?: string;
