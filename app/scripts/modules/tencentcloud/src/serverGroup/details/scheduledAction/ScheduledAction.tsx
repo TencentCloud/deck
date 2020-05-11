@@ -26,7 +26,7 @@ export class ScheduledAction extends React.Component<IScheduledActionProps> {
         return TaskExecutor.executeTask({
           job: [
             {
-              type: 'deleteTencentScheduledAction',
+              type: 'deleteTencentCloudScheduledAction',
               applications: application.name,
               account: serverGroup.account,
               accountName: serverGroup.account,

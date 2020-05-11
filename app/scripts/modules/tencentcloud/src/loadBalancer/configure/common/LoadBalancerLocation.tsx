@@ -181,7 +181,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
     });
 
     Observable.combineLatest(allAccounts$, accountRegions$, regionLoadBalancers$, regionSubnets$)
-      .takeUntil(this.destroy$)
+      .takeUntil(this.destroy$) // 直到 this.destroy$ 发出值，即组件销毁，它便完成
       .subscribe(([accounts, regions, existingLoadBalancerNames, subnets]) => {
         return this.setState({ accounts, regions, existingLoadBalancerNames, subnets });
       });

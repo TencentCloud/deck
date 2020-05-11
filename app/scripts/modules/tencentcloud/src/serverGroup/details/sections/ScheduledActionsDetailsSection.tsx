@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { CollapsibleSection, ModalInjector, Tooltip } from '@spinnaker/core';
+import { CollapsibleSection, Tooltip } from '@spinnaker/core';
 
 import { IScalingProcess } from 'tencentcloud/domain';
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
 
 import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 import { ScheduledAction } from '../scheduledAction/ScheduledAction';
-// import EditScheduledActionsModal from '../scheduledAction/EditScheduledActionsModal';
+import EditScheduledActionsModal from '../scheduledAction/EditScheduledActionsModal';
 
 export interface IScheduledActionsDetailsSectionState {
   scheduledActionsDisabled: boolean;
@@ -38,20 +38,8 @@ export class ScheduledActionsDetailsSection extends React.Component<
 
   public handleEdit = (): void => {};
 
-  //  private editScheduledActions = (): void => {
-  //    EditScheduledActionsModal.show(this.props);
-  //  };
-
   private editScheduledActions = (): void => {
-    ModalInjector.modalService.open({
-      templateUrl: require('../scheduledAction/editScheduledActions.modal.html'),
-      controller: 'EditScheduledActionsCtrl as ctrl',
-      size: 'lg',
-      resolve: {
-        application: () => this.props.app,
-        serverGroup: () => this.props.serverGroup,
-      },
-    });
+    EditScheduledActionsModal.show(this.props);
   };
 
   public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
