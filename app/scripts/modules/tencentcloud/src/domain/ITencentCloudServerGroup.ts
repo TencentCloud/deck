@@ -38,6 +38,8 @@ export interface IScheduledAction {
   minSize: number;
   maxSize: number;
   desiredCapacity: number;
+  repeat?: string;
+  operationType?: string;
 }
 
 export interface ITencentCloudServerGroupView extends ITencentCloudServerGroup {

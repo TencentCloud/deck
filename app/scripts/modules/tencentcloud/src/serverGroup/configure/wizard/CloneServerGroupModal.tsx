@@ -75,6 +75,11 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
         title: 'Creating your server group',
         modalInstance: TaskMonitor.modalInstanceEmulation(() => this.props.dismissModal()),
         onTaskComplete: this.onTaskComplete,
+        onTaskRetry: () => {
+          this.setState({
+            taskMonitor: null,
+          });
+        },
       }),
     };
   }

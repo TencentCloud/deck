@@ -3,11 +3,12 @@ import * as React from 'react';
 import { CollapsibleSection, Overridable, Tooltip } from '@spinnaker/core';
 
 import { ITencentCloudServerGroupView, IScalingProcess } from 'tencentcloud/domain';
-import { TencentCloudNgReact } from 'tencentcloud/reactShims';
+
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
 
 import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 import { CreateScalingPolicyButton } from '../scalingPolicy/CreateScalingPolicyButton';
+import AlarmBasedSummary from '../scalingPolicy/AlarmBasedSummary';
 
 @Overridable('tencentCloud.serverGroup.ScalingPoliciesDetailsSection')
 export class ScalingPoliciesDetailsSection extends React.Component<ITencentCloudServerGroupDetailsSectionProps> {
@@ -28,9 +29,6 @@ export class ScalingPoliciesDetailsSection extends React.Component<ITencentCloud
   public render(): JSX.Element {
     const { app, serverGroup } = this.props;
     const scalingPoliciesDisabled = ScalingPoliciesDetailsSection.arePoliciesDisabled(serverGroup);
-
-    const { ScalingPolicySummary } = TencentCloudNgReact;
-
     return (
       <CollapsibleSection
         cacheKey="Scaling Policies"
@@ -54,12 +52,7 @@ export class ScalingPoliciesDetailsSection extends React.Component<ITencentCloud
           </div>
         )}
         {serverGroup.scalingPolicies.map(policy => (
-          <ScalingPolicySummary
-            key={policy.autoScalingPolicyId}
-            policy={policy}
-            serverGroup={serverGroup}
-            application={app}
-          />
+          <AlarmBasedSummary key={policy.autoScalingPolicyId} policy={policy} />
         ))}
         <CreateScalingPolicyButton serverGroup={serverGroup} application={app} />
       </CollapsibleSection>

@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import { Application, ModalInjector } from '@spinnaker/core';
+import { Application } from '@spinnaker/core';
 
 import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
 import { ITencentCloudServerGroupView } from 'tencentcloud/domain';
+import UpsertScalingPlicyModal from './upsert/UpsertScalingPlicyModal';
 
 export interface ICreateScalingPolicyButtonProps {
   application: Application;
@@ -35,20 +36,11 @@ export class CreateScalingPolicyButton extends React.Component<
 
   public createStepPolicy(): void {
     const { serverGroup, application } = this.props;
-
-    ModalInjector.modalService
-      .open({
-        templateUrl: require('./upsert/upsertScalingPolicy.modal.html'),
-        controller: 'tencentUpsertScalingPolicyCtrl',
-        controllerAs: 'ctrl',
-        size: 'lg',
-        resolve: {
-          policy: () => TencentCloudReactInjector.tencentServerGroupTransformer.constructNewStepScalingPolicyTemplate(),
-          serverGroup: () => serverGroup,
-          application: () => application,
-        },
-      })
-      .result.catch(() => {});
+    UpsertScalingPlicyModal.show({
+      serverGroup,
+      application,
+      policy: TencentCloudReactInjector.tencentServerGroupTransformer.constructNewStepScalingPolicyTemplate(),
+    });
   }
 
   public typeSelected = (typeSelection: string): void => {

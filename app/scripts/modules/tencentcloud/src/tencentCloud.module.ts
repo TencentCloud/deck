@@ -6,10 +6,13 @@ import { TENCENTCLOUD_LOAD_BALANCER_MODULE } from './loadBalancer/loadBalancer.m
 import { TENCENT_REACT_MODULE } from './reactShims/tencentCloud.react.module';
 import { TENCENTCLOUD_SECURITY_GROUP_MODULE } from './securityGroup/securityGroup.module';
 import { TENCENTCLOUD_SERVER_GROUP_TRANSFORMER } from './serverGroup/serverGroup.transformer';
+
 import './validation/ApplicationNameValidator';
 import { VPC_MODULE } from './vpc/vpc.module';
 import { SUBNET_RENDERER } from './subnet/subnet.renderer';
-import { SERVER_GROUP_DETAILS_MODULE } from './serverGroup/details/serverGroupDetails.module';
+// import { SERVER_GROUP_DETAILS_MODULE } from './serverGroup/details/serverGroupDetails.module';
+import { TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE } from './serverGroup/configure/serverGroupCommandBuilder.service';
+
 import { COMMON_MODULE } from './common/common.module';
 import './help/tencentcloud.help';
 
@@ -60,7 +63,6 @@ import { TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERST
 import { TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE } from './pipeline/stages/shrinkCluster/tencentCloudShrinkClusterStage';
 import { TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE } from './pipeline/stages/tagImage/tencentCloudTagImageStage';
 import { TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from './instance/tencentCloudInstanceType.service';
-import { TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER } from './instance/details/instance.details.controller';
 import { TENCENT_SEARCH_SEARCHRESULTFORMATTER } from './search/searchResultFormatter';
 
 // load all templates into the $templateCache
@@ -89,7 +91,8 @@ module(TENCENT_MODULE, [
   TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE,
   TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE,
   TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE,
-  SERVER_GROUP_DETAILS_MODULE,
+  // SERVER_GROUP_DETAILS_MODULE,
+  TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE,
   COMMON_MODULE,
   TENCENTCLOUD_SERVER_GROUP_TRANSFORMER,
   TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,

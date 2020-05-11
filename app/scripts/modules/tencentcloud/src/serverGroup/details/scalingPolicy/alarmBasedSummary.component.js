@@ -1,6 +1,7 @@
 'use strict';
 
 const angular = require('angular');
+import { ConfirmationModalService } from '@spinnaker/core';
 
 import { SCALING_POLICY_POPOVER } from './popover/scalingPolicyPopover.component';
 import { ScalingPolicyWriter } from './ScalingPolicyWriter';
@@ -27,7 +28,6 @@ angular
       'confirmationModalService',
       function($uibModal, confirmationModalService) {
         this.popoverTemplate = require('./popover/scalingPolicyDetails.popover.html');
-
         this.editPolicy = () => {
           $uibModal.open({
             templateUrl: require('./upsert/upsertScalingPolicy.modal.html'),
@@ -52,7 +52,7 @@ angular
           const submitMethod = () =>
             ScalingPolicyWriter.deleteScalingPolicy(this.application, this.serverGroup, this.policy);
 
-          confirmationModalService.confirm({
+          ConfirmationModalService.confirm({
             header: 'Really delete ' + this.policy.scalingPolicyName + '?',
             buttonText: 'Delete scaling policy',
             account: this.serverGroup.account, // don't confirm if it's a junk policy

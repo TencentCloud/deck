@@ -5,10 +5,10 @@ const angular = require('angular');
 import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 import { format } from 'date-fns';
 export const TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER =
-  'spinnaker.tencentcloud.serverGroup.details.scheduledActions.editScheduledActions.modal.controller';
+  'spinnaker.tencentcloud.serverGroup.details.scheduledAction.editScheduledActions.modal.controller';
 angular
   .module(TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER, [])
-  .controller('tencentEditScheduledActionsCtrl', [
+  .controller('EditScheduledActionsCtrl', [
     '$scope',
     '$uibModalInstance',
     'application',

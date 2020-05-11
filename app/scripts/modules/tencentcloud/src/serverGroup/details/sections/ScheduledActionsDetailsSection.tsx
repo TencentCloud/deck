@@ -7,6 +7,7 @@ import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProces
 
 import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 import { ScheduledAction } from '../scheduledAction/ScheduledAction';
+// import EditScheduledActionsModal from '../scheduledAction/EditScheduledActionsModal';
 
 export interface IScheduledActionsDetailsSectionState {
   scheduledActionsDisabled: boolean;
@@ -35,10 +36,16 @@ export class ScheduledActionsDetailsSection extends React.Component<
     return { scheduledActionsDisabled };
   }
 
+  public handleEdit = (): void => {};
+
+  //  private editScheduledActions = (): void => {
+  //    EditScheduledActionsModal.show(this.props);
+  //  };
+
   private editScheduledActions = (): void => {
     ModalInjector.modalService.open({
       templateUrl: require('../scheduledAction/editScheduledActions.modal.html'),
-      controller: 'tencentEditScheduledActionsCtrl as ctrl',
+      controller: 'EditScheduledActionsCtrl as ctrl',
       size: 'lg',
       resolve: {
         application: () => this.props.app,
