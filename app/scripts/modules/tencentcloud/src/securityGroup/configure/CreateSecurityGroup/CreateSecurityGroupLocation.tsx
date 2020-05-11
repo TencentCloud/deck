@@ -260,7 +260,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               <div className="form-group">
                 <div className="col-md-3 sm-label-right">Description (required)</div>
                 <div className="col-md-7">
-                  <textarea
+                  <input
                     required={true}
                     className={`form-control input-sm no-spel`}
                     value={values.description}

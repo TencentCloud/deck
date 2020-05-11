@@ -85,16 +85,16 @@ export class CreateSecurityGroupModal extends React.Component<ISecurityGroupProp
   private initializeSecurityGroups() {
     return ReactInjector.securityGroupReader.getAllSecurityGroups().then(securityGroups => {
       this.setSecurityGroupRefreshTime();
-      const {
-        securityGroup: { credentials, accountName, region },
-      } = this.state;
-      const account = credentials || accountName;
-      let availableGroups;
-      if (account && region) {
-        availableGroups = (securityGroups[account] && securityGroups[account].tencentcloud[region]) || [];
-      } else {
-        availableGroups = securityGroups;
-      }
+      // const {
+      //   securityGroup: { credentials, accountName, region },
+      // } = this.state;
+      // const account = credentials || accountName;
+      // let availableGroups;
+      // if (account && region) {
+      //   availableGroups = (securityGroups[account] && securityGroups[account].tencentcloud[region]) || [];
+      // } else {
+      //   availableGroups = securityGroups;
+      // }
       this.setState({
         allSecurityGroups: (securityGroups as unknown) as [],
         // availableSecurityGroups: availableGroups.map((i: { name: string }) => i.name),

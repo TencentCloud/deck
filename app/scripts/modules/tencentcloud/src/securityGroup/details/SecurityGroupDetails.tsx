@@ -12,7 +12,8 @@ import {
   AccountTag,
 } from '@spinnaker/core';
 
-import { Actions } from './Actions';
+import { SecurityGroupActions } from './SecurityGroupActions';
+
 import { ISecurityGroupDetail } from '../define';
 
 interface ISecurityGroupDetailProps {
@@ -118,7 +119,7 @@ class SecurityGroupDetail extends React.Component<ISecurityGroupDetailProps, ISe
               icon={<i className="glyphicon glyphicon-transfer" />}
             >
               <div className="actions">
-                <Actions application={app} securityGroup={securityGroup} />
+                <SecurityGroupActions application={app} securityGroup={securityGroup} />
               </div>
             </Details.Header>
             <div className="content">

@@ -7,6 +7,8 @@ import {
   FirewallLabels,
   SecurityGroupWriter,
   ISecurityGroupJob,
+  SETTINGS,
+  NgReact,
 } from '@spinnaker/core';
 
 import { ISecurityGroupDetail } from '../define';
@@ -19,7 +21,7 @@ export interface IActionsProps {
 
 export interface IActionsState {}
 
-export class Actions extends React.Component<IActionsProps, IActionsState> {
+export class SecurityGroupActions extends React.Component<IActionsProps, IActionsState> {
   constructor(props: IActionsProps) {
     super(props);
   }
@@ -28,6 +30,10 @@ export class Actions extends React.Component<IActionsProps, IActionsState> {
 
   public handleEdit = (): void => {
     EditSecurityGroupModal.show(this.props);
+  };
+
+  private entityTagUpdate = (): void => {
+    this.props.application.securityGroup.refresh();
   };
 
   public handleDelete = (): void => {
@@ -61,9 +67,7 @@ export class Actions extends React.Component<IActionsProps, IActionsState> {
     ConfirmationModalService.confirm({
       header: 'Really delete ' + securityGroup.name + '?',
       buttonText: 'Delete ' + securityGroup.name,
-      // provider: 'tencentcloud',
       account: securityGroup.accountId,
-      // applicationName: app.name,
       taskMonitorConfig: taskMonitor,
       submitMethod: submitMethod,
       retryBody: `<div><p>Retry deleting the ${FirewallLabels.get(
@@ -72,9 +76,9 @@ export class Actions extends React.Component<IActionsProps, IActionsState> {
     });
   };
 
-  // private entityTagUpdate = (): void => {};
-
   public render() {
+    const { application, securityGroup } = this.props;
+
     return (
       <div style={{ display: 'inline-block' }}>
         <Dropdown className="dropdown" id="function-actions-dropdown">
@@ -93,14 +97,14 @@ export class Actions extends React.Component<IActionsProps, IActionsState> {
                 Delete {FirewallLabels.get('Firewall')}
               </a>
             </li>
-            {/* {SETTINGS && SETTINGS.feature.entityTags && (
-              <AddEntityTagLinks
-                component={functionDef}
-                application={app}
-                entityType="function"
+            {SETTINGS && SETTINGS.feature.entityTags && (
+              <NgReact.AddEntityTagLinks
+                component={securityGroup}
+                application={application}
+                entityType="securityGroup"
                 onUpdate={this.entityTagUpdate}
               />
-            )} */}
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </div>

@@ -74,7 +74,7 @@ export class EditSecurityGroupModal extends React.Component<IEditSecurityGroupPr
     const { taskMonitor } = this.state;
     return (
       // @ts-ignore
-      <WizardModal<ICreateSecurityGroup>
+      <WizardModal<ISecurityGroupDetail>
         heading={`Edit ${securityGroup.name}: ${securityGroup.region}: ${securityGroup.accountName}`}
         dismissModal={dismissModal}
         taskMonitor={taskMonitor}
