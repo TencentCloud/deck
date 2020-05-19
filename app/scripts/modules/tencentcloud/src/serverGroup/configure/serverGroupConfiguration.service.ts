@@ -31,7 +31,6 @@ import { IKeyPair, ITencentCloudLoadBalancerSourceData, IScalingProcess, IALBLis
 import { VpcReader, ITencentVpc } from '../../vpc';
 import { KeyPairsReader } from 'tencentcloud/keyPairs';
 import { AutoScalingProcessService } from '../details/scalingProcesses/AutoScalingProcessService';
-// import { TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from 'tencentcloud';
 
 export type IBlockDeviceMappingSource = 'source' | 'ami' | 'default';
 
@@ -607,7 +606,6 @@ export class TencentCloudServerGroupConfigurationService {
 export const TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE = 'spinnaker.tencentcloud.serverGroup.configure.service';
 module(TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE, [
   SECURITY_GROUP_READER,
-  // TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,
   LOAD_BALANCER_READ_SERVICE,
   CACHE_INITIALIZER_SERVICE,
   SERVER_GROUP_COMMAND_REGISTRY_PROVIDER,

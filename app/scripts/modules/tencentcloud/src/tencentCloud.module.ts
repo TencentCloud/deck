@@ -10,7 +10,6 @@ import { TENCENTCLOUD_SERVER_GROUP_TRANSFORMER } from './serverGroup/serverGroup
 import './validation/ApplicationNameValidator';
 import { VPC_MODULE } from './vpc/vpc.module';
 import { SUBNET_RENDERER } from './subnet/subnet.renderer';
-// import { SERVER_GROUP_DETAILS_MODULE } from './serverGroup/details/serverGroupDetails.module';
 import { TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE } from './serverGroup/configure/serverGroupCommandBuilder.service';
 
 import { COMMON_MODULE } from './common/common.module';
@@ -37,7 +36,7 @@ import {
   LogsDetailsSection,
   PackageDetailsSection,
   ScalingPoliciesDetailsSection,
-  // ScalingProcessesDetailsSection,
+  ScalingProcessesDetailsSection,
   ScheduledActionsDetailsSection,
   SecurityGroupsDetailsSection,
   TagsDetailsSection,
@@ -91,7 +90,6 @@ module(TENCENT_MODULE, [
   TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE,
   TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE,
   TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE,
-  // SERVER_GROUP_DETAILS_MODULE,
   TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE,
   COMMON_MODULE,
   TENCENTCLOUD_SERVER_GROUP_TRANSFORMER,
@@ -122,7 +120,7 @@ module(TENCENT_MODULE, [
         HealthDetailsSection,
         LaunchConfigDetailsSection,
         SecurityGroupsDetailsSection,
-        // ScalingProcessesDetailsSection,
+        ScalingProcessesDetailsSection,
         ScalingPoliciesDetailsSection,
         ScheduledActionsDetailsSection,
         TagsDetailsSection,

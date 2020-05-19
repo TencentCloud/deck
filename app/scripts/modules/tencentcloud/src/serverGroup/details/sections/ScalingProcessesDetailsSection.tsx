@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IScalingProcess } from 'tencentcloud/domain';
-import { CollapsibleSection, HelpField, ModalInjector, timestamp, Tooltip } from '@spinnaker/core';
+import { CollapsibleSection, HelpField, timestamp, Tooltip } from '@spinnaker/core';
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
 import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
 
@@ -20,17 +20,7 @@ export class ScalingProcessesDetailsSection extends React.Component<
     this.state = this.getState(props);
   }
 
-  private toggleScalingProcesses = (): void => {
-    ModalInjector.modalService.open({
-      templateUrl: require('../scalingProcesses/modifyScalingProcesses.html'),
-      controller: 'tencentModifyScalingProcessesCtrl as ctrl',
-      resolve: {
-        serverGroup: () => this.props.serverGroup,
-        application: () => this.props.app,
-        processes: () => this.state.autoScalingProcesses,
-      },
-    });
-  };
+  // private toggleScalingProcesses = (): void => {};
 
   private getState(props: ITencentCloudServerGroupDetailsSectionProps): IScalingProcessesDetailsSectionState {
     const { serverGroup } = props;
@@ -94,9 +84,9 @@ export class ScalingProcessesDetailsSection extends React.Component<
             </li>
           ))}
         </ul>
-        <a className="clickable" onClick={this.toggleScalingProcesses}>
+        {/* <a className="clickable" onClick={this.toggleScalingProcesses}>
           Edit Scaling Processes
-        </a>
+        </a> */}
       </CollapsibleSection>
     );
   }

@@ -52,7 +52,7 @@ export class ScalingPoliciesDetailsSection extends React.Component<ITencentCloud
           </div>
         )}
         {serverGroup.scalingPolicies.map(policy => (
-          <AlarmBasedSummary key={policy.autoScalingPolicyId} policy={policy} />
+          <AlarmBasedSummary key={policy.autoScalingPolicyId} policy={policy} {...this.props} />
         ))}
         <CreateScalingPolicyButton serverGroup={serverGroup} application={app} />
       </CollapsibleSection>
