@@ -16,8 +16,8 @@ export class TencentCloudSecurityGroupTransformer {
   }
 }
 
-export const TENCENT_SECURITYGROUP_TRANSFORMER = 'spinnaker.tencentcloud.securityGroup.transformer';
-module(TENCENT_SECURITYGROUP_TRANSFORMER, []).factory(
-  'tencentSecurityGroupTransformer',
+export const TENCENTCLOUD_SECURITYGROUP_TRANSFORMER = 'spinnaker.tencentcloud.securityGroup.transformer';
+module(TENCENTCLOUD_SECURITYGROUP_TRANSFORMER, []).factory(
+  'tencentCloudSecurityGroupTransformer',
   TencentCloudSecurityGroupTransformer,
 );

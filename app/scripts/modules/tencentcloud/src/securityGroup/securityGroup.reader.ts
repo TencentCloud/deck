@@ -12,4 +12,7 @@ export class TencentCloudSecurityGroupReader {
 }
 
 export const TENCENTCLOUD_SECURITY_GROUP_READER = 'spinnaker.tencentcloud.securityGroup.reader';
-module(TENCENTCLOUD_SECURITY_GROUP_READER, []).service('tencentSecurityGroupReader', TencentCloudSecurityGroupReader);
+module(TENCENTCLOUD_SECURITY_GROUP_READER, []).service(
+  'tencentCloudSecurityGroupReader',
+  TencentCloudSecurityGroupReader,
+);

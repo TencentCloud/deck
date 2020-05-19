@@ -35,7 +35,7 @@ export class DisableClusterStage extends React.Component<IProps, IState> {
       get(application, 'attributes.platformHealthOnly')
     ) {
       updateStageField({
-        interestingHealthProviderNames: ['Tencent'],
+        interestingHealthProviderNames: ['Tencentcloud'],
       });
     }
 

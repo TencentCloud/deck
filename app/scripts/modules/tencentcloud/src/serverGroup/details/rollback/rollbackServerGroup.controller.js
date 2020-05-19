@@ -5,11 +5,11 @@ const angular = require('angular');
 import { get } from 'lodash';
 import { SERVER_GROUP_WRITER, TaskMonitor } from '@spinnaker/core';
 
-export const TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER =
+export const TENCENTCLOUD_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER =
   'spinnaker.tencentcloud.serverGroup.details.rollback.controller';
 angular
-  .module(TENCENT_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER, [SERVER_GROUP_WRITER])
-  .controller('tencentRollbackServerGroupCtrl', [
+  .module(TENCENTCLOUD_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER, [SERVER_GROUP_WRITER])
+  .controller('tencentCloudRollbackServerGroupCtrl', [
     '$scope',
     '$uibModalInstance',
     'serverGroupWriter',

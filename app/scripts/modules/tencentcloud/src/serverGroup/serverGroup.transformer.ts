@@ -149,6 +149,6 @@ export class TencentCloudServerGroupTransformer {
 
 export const TENCENTCLOUD_SERVER_GROUP_TRANSFORMER = 'spinnaker.tencentcloud.serverGroup.transformer';
 module(TENCENTCLOUD_SERVER_GROUP_TRANSFORMER, []).service(
-  'tencentServerGroupTransformer',
+  'tencentCloudServerGroupTransformer',
   TencentCloudServerGroupTransformer,
 );

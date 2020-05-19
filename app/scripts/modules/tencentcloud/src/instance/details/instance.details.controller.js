@@ -8,18 +8,18 @@ import { CloudProviderRegistry, InstanceReader, RecentHistoryService, SETTINGS, 
 import { TENCENTCLOUD_INSTANCE_WRITE_SERVICE } from '../tencentCloud.instance.write.service';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 import ANGULAR_UI_BOOTSTRAP from 'angular-ui-bootstrap';
-import { TENCENT_VPC_VPCTAG_DIRECTIVE } from '../../vpc/vpcTag.directive';
+import { TENCENTCLOUD_VPC_VPCTAG_DIRECTIVE } from '../../vpc/vpcTag.directive';
 
-export const TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER =
+export const TENCENTCLOUD_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER =
   'spinnaker.tencentcloud.instance.details.controller';
 angular
-  .module(TENCENT_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER, [
+  .module(TENCENTCLOUD_INSTANCE_DETAILS_INSTANCE_DETAILS_CONTROLLER, [
     UIROUTER_ANGULARJS,
     ANGULAR_UI_BOOTSTRAP,
     TENCENTCLOUD_INSTANCE_WRITE_SERVICE,
-    TENCENT_VPC_VPCTAG_DIRECTIVE,
+    TENCENTCLOUD_VPC_VPCTAG_DIRECTIVE,
   ])
-  .controller('tencentInstanceDetailsCtrl', [
+  .controller('tencentCloudInstanceDetailsCtrl', [
     '$scope',
     '$state',
     '$uibModal',

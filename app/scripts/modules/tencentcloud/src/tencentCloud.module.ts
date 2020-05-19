@@ -3,14 +3,15 @@ import { module } from 'angular';
 import { CloudProviderRegistry, DeploymentStrategyRegistry } from '@spinnaker/core';
 
 import { TENCENTCLOUD_LOAD_BALANCER_MODULE } from './loadBalancer/loadBalancer.module';
-import { TENCENT_REACT_MODULE } from './reactShims/tencentCloud.react.module';
+import { TENCENTCLOUD_REACT_MODULE } from './reactShims/tencentCloud.react.module';
 import { TENCENTCLOUD_SECURITY_GROUP_MODULE } from './securityGroup/securityGroup.module';
 import { TENCENTCLOUD_SERVER_GROUP_TRANSFORMER } from './serverGroup/serverGroup.transformer';
 
 import './validation/ApplicationNameValidator';
 import { VPC_MODULE } from './vpc/vpc.module';
 import { SUBNET_RENDERER } from './subnet/subnet.renderer';
-import { TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE } from './serverGroup/configure/serverGroupCommandBuilder.service';
+
+import { TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE } from './serverGroup/configure/serverGroupCommandBuilder.service';
 
 import { COMMON_MODULE } from './common/common.module';
 import './help/tencentcloud.help';
@@ -47,22 +48,22 @@ import { CreateSecurityGroupModal } from './securityGroup/configure/CreateSecuri
 
 import { DEPLOY_CLOUDFORMATION_STACK_STAGE } from './pipeline/stages/deployCloudFormation/deployCloudFormationStackStage';
 import { CLOUDFORMATION_TEMPLATE_ENTRY } from './pipeline/stages/deployCloudFormation/cloudFormationTemplateEntry.component';
-import { TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE } from './pipeline/stages/bake/tencentCloudBakeStage';
-import { TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE } from './pipeline/stages/cloneServerGroup/tencentCloudCloneServerGroupStage';
-import { TENCENT_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE } from './pipeline/stages/destroyAsg/tencentCloudDestroyAsgStage';
-import { TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE } from './pipeline/stages/disableAsg/tencentCloudDisableAsgStage';
-import { TENCENT_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE } from './pipeline/stages/disableCluster/tencentCloudDisableClusterStage';
-import { TENCENT_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE } from './pipeline/stages/rollbackCluster/tencentCloudRollbackClusterStage';
-import { TENCENT_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE } from './pipeline/stages/enableAsg/tencentCloudEnableAsgStage';
-import { TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE } from './pipeline/stages/findAmi/tencentCloudFindAmiStage';
-import { TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE } from './pipeline/stages/findImageFromTags/tencentCloudFindImageFromTagsStage';
-import { TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE } from './pipeline/stages/modifyScalingProcess/modifyScalingProcessStage';
-import { TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE } from './pipeline/stages/resizeAsg/tencentCloudResizeAsgStage';
-import { TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE } from './pipeline/stages/scaleDownCluster/tencentCloudScaleDownClusterStage';
-import { TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE } from './pipeline/stages/shrinkCluster/tencentCloudShrinkClusterStage';
-import { TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE } from './pipeline/stages/tagImage/tencentCloudTagImageStage';
-import { TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from './instance/tencentCloudInstanceType.service';
-import { TENCENT_SEARCH_SEARCHRESULTFORMATTER } from './search/searchResultFormatter';
+import { TENCENTCLOUD_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE } from './pipeline/stages/bake/tencentCloudBakeStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE } from './pipeline/stages/cloneServerGroup/tencentCloudCloneServerGroupStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE } from './pipeline/stages/destroyAsg/tencentCloudDestroyAsgStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE } from './pipeline/stages/disableAsg/tencentCloudDisableAsgStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE } from './pipeline/stages/disableCluster/tencentCloudDisableClusterStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE } from './pipeline/stages/rollbackCluster/tencentCloudRollbackClusterStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE } from './pipeline/stages/enableAsg/tencentCloudEnableAsgStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE } from './pipeline/stages/findAmi/tencentCloudFindAmiStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE } from './pipeline/stages/findImageFromTags/tencentCloudFindImageFromTagsStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE } from './pipeline/stages/modifyScalingProcess/modifyScalingProcessStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE } from './pipeline/stages/resizeAsg/tencentCloudResizeAsgStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE } from './pipeline/stages/scaleDownCluster/tencentCloudScaleDownClusterStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE } from './pipeline/stages/shrinkCluster/tencentCloudShrinkClusterStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE } from './pipeline/stages/tagImage/tencentCloudTagImageStage';
+import { TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE } from './instance/tencentCloudInstanceType.service';
+import { TENCENTCLOUD_SEARCH_SEARCHRESULTFORMATTER } from './search/searchResultFormatter';
 
 // load all templates into the $templateCache
 const templates = require.context('./', true, /\.html$/);
@@ -72,33 +73,33 @@ templates.keys().forEach(function(key) {
 
 import tencentcloudLogo from './logo/tencentcloud.logo.svg';
 
-export const TENCENT_MODULE = 'spinnaker.tencentcloud';
+export const TENCENTCLOUD_MODULE = 'spinnaker.tencentcloud';
 
-module(TENCENT_MODULE, [
-  TENCENT_REACT_MODULE,
-  TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE,
-  TENCENT_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE,
-  TENCENT_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE,
-  TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE,
-  TENCENT_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE,
-  TENCENT_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE,
-  TENCENT_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE,
-  TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE,
-  TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE,
-  TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE,
-  TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE,
-  TENCENT_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE,
-  TENCENT_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE,
-  TENCENT_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE,
-  TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE,
+module(TENCENTCLOUD_MODULE, [
+  TENCENTCLOUD_REACT_MODULE,
+  TENCENTCLOUD_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE,
+  TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE,
+  TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE,
   COMMON_MODULE,
   TENCENTCLOUD_SERVER_GROUP_TRANSFORMER,
-  TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,
+  TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE,
   TENCENTCLOUD_LOAD_BALANCER_MODULE,
   TENCENTCLOUD_SECURITY_GROUP_MODULE,
   SUBNET_RENDERER,
   VPC_MODULE,
-  TENCENT_SEARCH_SEARCHRESULTFORMATTER,
+  TENCENTCLOUD_SEARCH_SEARCHRESULTFORMATTER,
   DEPLOY_CLOUDFORMATION_STACK_STAGE,
   CLOUDFORMATION_TEMPLATE_ENTRY,
 ]).config(() => {
@@ -111,7 +112,7 @@ module(TENCENT_MODULE, [
       reader: TencentCloudImageReader,
     },
     serverGroup: {
-      transformer: 'tencentServerGroupTransformer',
+      transformer: 'tencentCloudServerGroupTransformer',
       detailsActions: TencentCloudServerGroupActions,
       detailsGetter: tencentCloudServerGroupDetailsGetter,
       detailsSections: [
@@ -129,28 +130,28 @@ module(TENCENT_MODULE, [
         LogsDetailsSection,
       ],
       CloneServerGroupModal: TencentCloudCloneServerGroupModal,
-      commandBuilder: 'tencentServerGroupCommandBuilder',
-      configurationService: 'tencentServerGroupConfigurationService',
+      commandBuilder: 'tencentCloudServerGroupCommandBuilder',
+      configurationService: 'tencentCloudServerGroupConfigurationService',
       scalingActivitiesEnabled: true,
     },
     loadBalancer: {
-      transformer: 'tencentLoadBalancerTransformer',
+      transformer: 'tencentCloudLoadBalancerTransformer',
       details: LoadBalancerDetails,
       CreateLoadBalancerModal: CreateApplicationLoadBalancer,
       ClusterContainer: TencentCloudLoadBalancerClusterContainer,
       LoadBalancersTag: TencentCloudLoadBalancersTag,
     },
     securityGroup: {
-      transformer: 'tencentSecurityGroupTransformer',
-      reader: 'tencentSecurityGroupReader',
+      transformer: 'tencentCloudSecurityGroupTransformer',
+      reader: 'tencentCloudSecurityGroupReader',
       CreateSecurityGroupModal,
       details: SecurityGroupDetails,
     },
     subnet: {
-      renderer: 'tencentSubnetRenderer',
+      renderer: 'tencentCloudSubnetRenderer',
     },
     search: {
-      resultFormatter: 'tencentSearchResultFormatter',
+      resultFormatter: 'tencentCloudSearchResultFormatter',
     },
   });
 });

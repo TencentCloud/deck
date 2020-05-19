@@ -4,7 +4,7 @@ import Select, { Option } from 'react-select';
 
 import { HelpField, MapEditor } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupCommand, ITencentDisk } from '../../../serverGroupConfiguration.service';
+import { ITencentCloudServerGroupCommand, ITencentCloudDisk } from '../../../serverGroupConfiguration.service';
 
 import { IServerGroupAdvancedSettingsProps } from './ServerGroupAdvancedSettings';
 
@@ -34,17 +34,17 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
     setFieldValue('dataDisks', values.dataDisks);
   };
 
-  private dataDiskTypeChange = (dataDisk: ITencentDisk, value: string) => {
+  private dataDiskTypeChange = (dataDisk: ITencentCloudDisk, value: string) => {
     dataDisk.diskType = value;
     this.updateDataDisks();
   };
 
-  private dataDiskSizeChange = (dataDisk: ITencentDisk, value: number) => {
+  private dataDiskSizeChange = (dataDisk: ITencentCloudDisk, value: number) => {
     dataDisk.diskSize = value;
     this.updateDataDisks();
   };
 
-  private dataDiskSnapshotIdChange = (dataDisk: ITencentDisk, value: string) => {
+  private dataDiskSnapshotIdChange = (dataDisk: ITencentCloudDisk, value: string) => {
     dataDisk.snapshotId = value;
     this.updateDataDisks();
   };

@@ -124,7 +124,7 @@ export class ShrinkClusterStage extends React.Component<IProps, IState> {
             </label>
           </div>
         </div>
-        {/*<StagePlatformHealthOverride application={application} stage={stage} platform-health-type="'Tencent'" />*/}
+        {/*<StagePlatformHealthOverride application={application} stage={stage} platform-health-type="'Tencentcloud'" />*/}
       </div>
     );
   }

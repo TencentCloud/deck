@@ -173,4 +173,7 @@ const ingressRuleSelector: IComponentOptions = {
 
 export const INGRESS_RULE_GROUP_SELECTOR_COMPONENT =
   'spinnaker.tencentcloud.securityGroup.configure.ingressRuleGroupSelector';
-module(INGRESS_RULE_GROUP_SELECTOR_COMPONENT, []).component('tencentIngressRuleGroupSelector', ingressRuleSelector);
+module(INGRESS_RULE_GROUP_SELECTOR_COMPONENT, []).component(
+  'tencentCloudIngressRuleGroupSelector',
+  ingressRuleSelector,
+);

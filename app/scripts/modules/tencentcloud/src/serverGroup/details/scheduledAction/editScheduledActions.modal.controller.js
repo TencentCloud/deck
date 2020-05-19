@@ -4,10 +4,10 @@ const angular = require('angular');
 
 import { TaskExecutor, TaskMonitor } from '@spinnaker/core';
 import { format } from 'date-fns';
-export const TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER =
+export const TENCENTCLOUD_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER =
   'spinnaker.tencentcloud.serverGroup.details.scheduledAction.editScheduledActions.modal.controller';
 angular
-  .module(TENCENT_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER, [])
+  .module(TENCENTCLOUD_SERVERGROUP_DETAILS_SCHEDULEDACTION_EDITSCHEDULEDACTIONS_MODAL_CONTROLLER, [])
   .controller('EditScheduledActionsCtrl', [
     '$scope',
     '$uibModalInstance',
@@ -68,7 +68,7 @@ angular
 
       this.submit = () => {
         const job = $scope.command.scheduledActions.map(sa => ({
-          type: 'upsertTencentScheduledActions',
+          type: 'upsertTencentCloudScheduledActions',
           application: application.name,
           account: serverGroup.account,
           accountName: serverGroup.account,

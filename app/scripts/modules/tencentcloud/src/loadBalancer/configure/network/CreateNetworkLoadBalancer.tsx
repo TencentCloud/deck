@@ -59,10 +59,12 @@ export class CreateNetworkLoadBalancer extends React.Component<
     super(props);
 
     const loadBalancerCommand = props.loadBalancer
-      ? TencentCloudReactInjector.tencentLoadBalancerTransformer.convertNetworkLoadBalancerForEditing(
+      ? TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.convertNetworkLoadBalancerForEditing(
           props.loadBalancer,
         )
-      : TencentCloudReactInjector.tencentLoadBalancerTransformer.constructNewNetworkLoadBalancerTemplate(props.app);
+      : TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.constructNewNetworkLoadBalancerTemplate(
+          props.app,
+        );
 
     this.state = {
       isNew: !props.loadBalancer,

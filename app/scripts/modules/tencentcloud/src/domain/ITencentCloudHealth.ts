@@ -6,7 +6,7 @@ export interface ITencentCloudHealth extends IHealth {
   targetGroups: ITargetGroup[];
 }
 
-export interface ITencentHealthCheck {
+export interface ITencentCloudHealthCheck {
   healthSwitch: number;
   timeOut: number;
   intervalTime: number;

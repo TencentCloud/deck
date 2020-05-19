@@ -2,7 +2,7 @@ import { IPromise } from 'angular';
 import { $q } from 'ngimport';
 
 import { API } from '@spinnaker/core';
-export interface ITencentSnapshot {
+export interface ITencentCloudSnapshot {
   diskSize: string;
   diskType: string;
   diskUsage: 'SYSTEM_DISK' | 'DATA_DISK';
@@ -19,7 +19,7 @@ export interface ITencentCloudImage {
   attributes: {
     createdTime?: string;
     creationDate?: string;
-    snapshotSet?: ITencentSnapshot[];
+    snapshotSet?: ITencentCloudSnapshot[];
     osPlatform: string;
   };
   imageName: string;

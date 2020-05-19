@@ -134,15 +134,17 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
 
     command.credentialsChanged(command);
     command.regionChanged(command);
-    TencentCloudReactInjector.tencentServerGroupConfigurationService.configureSubnetPurposes(command);
+    TencentCloudReactInjector.tencentCloudServerGroupConfigurationService.configureSubnetPurposes(command);
   };
 
   private configureCommand = () => {
     const { application, command } = this.props;
-    TencentCloudReactInjector.tencentServerGroupConfigurationService.configureCommand(application, command).then(() => {
-      this.initializeCommand();
-      this.setState({ loaded: true, requiresTemplateSelection: false });
-    });
+    TencentCloudReactInjector.tencentCloudServerGroupConfigurationService
+      .configureCommand(application, command)
+      .then(() => {
+        this.initializeCommand();
+        this.setState({ loaded: true, requiresTemplateSelection: false });
+      });
   };
 
   private normalizeCommand = ({ tags }: ITencentCloudServerGroupCommand) => {

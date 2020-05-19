@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 import { API } from '@spinnaker/core';
 
-export const TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE = 'spinnaker.tencentcloud.instanceType.service';
-angular.module(TENCENT_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('tencentInstanceTypeService', [
+export const TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE = 'spinnaker.tencentcloud.instanceType.service';
+angular.module(TENCENTCLOUD_INSTANCE_TENCENTCLOUDINSTANCETYPE_SERVICE, []).factory('tencentCloudInstanceTypeService', [
   '$http',
   '$q',
   function($http, $q) {

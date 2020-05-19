@@ -563,6 +563,6 @@ export class TencentCloudLoadBalancerTransformer {
 
 export const TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencentcloud.loadBalancer.transformer';
 module(TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER, []).service(
-  'tencentLoadBalancerTransformer',
+  'tencentCloudLoadBalancerTransformer',
   TencentCloudLoadBalancerTransformer,
 );

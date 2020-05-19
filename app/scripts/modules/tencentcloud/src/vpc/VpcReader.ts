@@ -1,7 +1,7 @@
 import { IPromise } from 'angular';
 
 import { IVpc, NetworkReader } from '@spinnaker/core';
-export interface ITencentVpc extends IVpc {
+export interface ITencentCloudVpc extends IVpc {
   isDefault?: boolean;
 }
 export class VpcReader {

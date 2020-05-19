@@ -28,7 +28,7 @@ import {
 } from '@spinnaker/core';
 
 import { IKeyPair, ITencentCloudLoadBalancerSourceData, IScalingProcess, IALBListener } from 'tencentcloud/domain';
-import { VpcReader, ITencentVpc } from '../../vpc';
+import { VpcReader, ITencentCloudVpc } from '../../vpc';
 import { KeyPairsReader } from 'tencentcloud/keyPairs';
 import { AutoScalingProcessService } from '../details/scalingProcesses/AutoScalingProcessService';
 
@@ -41,16 +41,16 @@ export interface ITencentCloudServerGroupCommandDirty extends IServerGroupComman
 export interface ITencentCloudServerGroupCommandResult extends IServerGroupCommandResult {
   dirty: ITencentCloudServerGroupCommandDirty;
 }
-export interface ITencentLbListenerMap {
+export interface ITencentCloudLbListenerMap {
   [key: string]: IALBListener[];
 }
 export interface ITencentCloudServerGroupCommandBackingDataFiltered extends IServerGroupCommandBackingDataFiltered {
   keyPairs: IKeyPair[];
   targetGroups: string[];
-  vpcList: ITencentVpc[];
+  vpcList: ITencentCloudVpc[];
   lbList: ITencentCloudLoadBalancerSourceData[];
   listenerList: IALBListener[];
-  lbListenerMap: ITencentLbListenerMap;
+  lbListenerMap: ITencentCloudLbListenerMap;
 }
 
 export interface ITencentCloudServerGroupCommandBackingData extends IServerGroupCommandBackingData {
@@ -60,30 +60,30 @@ export interface ITencentCloudServerGroupCommandBackingData extends IServerGroup
   targetGroups: string[];
   scalingProcesses: IScalingProcess[];
   diskTypes: string[];
-  vpcList: ITencentVpc[];
+  vpcList: ITencentCloudVpc[];
   listenerList: IALBListener[];
 }
 
 export interface ITencentCloudServerGroupCommandViewState extends IServerGroupCommandViewState {
   dirty: ITencentCloudServerGroupCommandDirty;
 }
-export interface ITencentDisk {
+export interface ITencentCloudDisk {
   diskType: string;
   diskSize: number;
   snapshotId?: string;
   index?: number;
 }
-export interface ITencentForwardLoadBalancerTargetAttribute {
+export interface ITencentCloudForwardLoadBalancerTargetAttribute {
   port: number;
   weight: number;
 }
-export interface ITencentForwardLoadBalancer {
+export interface ITencentCloudForwardLoadBalancer {
   loadBalancerId: string;
   listenerId: string;
   locationId?: string;
-  targetAttributes: ITencentForwardLoadBalancerTargetAttribute[];
+  targetAttributes: ITencentCloudForwardLoadBalancerTargetAttribute[];
 }
-export interface ITencentInternetAccessible {
+export interface ITencentCloudInternetAccessible {
   internetChargeType: string;
   internetMaxBandwidthOut: number;
   publicIpAssigned: boolean;
@@ -91,11 +91,11 @@ export interface ITencentInternetAccessible {
 export interface ITencentCloudServerGroupCommand extends IServerGroupCommand {
   detail: string;
   subnetIds: string[];
-  internetAccessible: ITencentInternetAccessible;
-  systemDisk: ITencentDisk;
-  dataDisks: ITencentDisk[];
+  internetAccessible: ITencentCloudInternetAccessible;
+  systemDisk: ITencentCloudDisk;
+  dataDisks: ITencentCloudDisk[];
   osPlatform: string;
-  forwardLoadBalancers: ITencentForwardLoadBalancer[];
+  forwardLoadBalancers: ITencentCloudForwardLoadBalancer[];
   loadBalancerId: string;
   listenerId: string;
   locationId: string;
@@ -147,14 +147,14 @@ export class TencentCloudServerGroupConfigurationService {
   private diskTypes = ['CLOUD_BASIC', 'CLOUD_PREMIUM', 'CLOUD_SSD'];
   public static $inject = [
     'securityGroupReader',
-    'tencentInstanceTypeService',
+    'tencentCloudInstanceTypeService',
     'cacheInitializer',
     'loadBalancerReader',
     'serverGroupCommandRegistry',
   ];
   constructor(
     private securityGroupReader: SecurityGroupReader,
-    private tencentInstanceTypeService: any,
+    private tencentCloudInstanceTypeService: any,
     private cacheInitializer: CacheInitializerService,
     private loadBalancerReader: LoadBalancerReader,
     private serverGroupCommandRegistry: ServerGroupCommandRegistry,
@@ -232,7 +232,7 @@ export class TencentCloudServerGroupConfigurationService {
         loadBalancers: this.loadBalancerReader.listLoadBalancers('tencentcloud'),
         preferredZones: AccountService.getPreferredZonesByAccount('tencentcloud'),
         keyPairs: KeyPairsReader.listKeyPairs(),
-        instanceTypes: this.tencentInstanceTypeService.getAllTypesByRegion(),
+        instanceTypes: this.tencentCloudInstanceTypeService.getAllTypesByRegion(),
         enabledMetrics: $q.when(clone(this.enabledMetrics)),
         terminationPolicies: $q.when(clone(this.terminationPolicies)),
         diskTypes: $q.when(clone(this.diskTypes)),
@@ -317,9 +317,10 @@ export class TencentCloudServerGroupConfigurationService {
 
   public configureInstanceTypes(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
     const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
-    const filtered = this.tencentInstanceTypeService.getAvailableTypesForRegions(command.backingData.instanceTypes, [
-      command.region,
-    ]);
+    const filtered = this.tencentCloudInstanceTypeService.getAvailableTypesForRegions(
+      command.backingData.instanceTypes,
+      [command.region],
+    );
     if (command.instanceType && !filtered.includes(command.instanceType)) {
       result.dirty.instanceType = command.instanceType;
       command.instanceType = null;
@@ -596,7 +597,7 @@ export class TencentCloudServerGroupConfigurationService {
       this.configureInstanceTypes(command);
 
     cmd.instanceTypeChanged = (command: ITencentCloudServerGroupCommand): void => {
-      command.ebsOptimized = this.tencentInstanceTypeService.isEbsOptimized(command.instanceType);
+      command.ebsOptimized = this.tencentCloudInstanceTypeService.isEbsOptimized(command.instanceType);
     };
 
     this.applyOverrides('attachEventHandlers', cmd);
@@ -609,4 +610,4 @@ module(TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE, [
   LOAD_BALANCER_READ_SERVICE,
   CACHE_INITIALIZER_SERVICE,
   SERVER_GROUP_COMMAND_REGISTRY_PROVIDER,
-]).service('tencentServerGroupConfigurationService', TencentCloudServerGroupConfigurationService);
+]).service('tencentCloudServerGroupConfigurationService', TencentCloudServerGroupConfigurationService);

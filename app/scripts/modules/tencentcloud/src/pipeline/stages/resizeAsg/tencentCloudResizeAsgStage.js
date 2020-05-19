@@ -4,10 +4,10 @@ const angular = require('angular');
 
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.tencentCloud.resizeAsgStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE, [])
+  .module(TENCENTCLOUD_PIPELINE_STAGES_RESIZEASG_TENCENTCLOUDRESIZEASGSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'resizeServerGroup',
@@ -47,7 +47,7 @@ angular
       ],
     });
   })
-  .controller('tencentResizeAsgStageCtrl', [
+  .controller('tencentCloudResizeAsgStageCtrl', [
     '$scope',
     function($scope) {
       const ctrl = this;

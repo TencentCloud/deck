@@ -4,10 +4,10 @@ const angular = require('angular');
 
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.disableAsgStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE, [])
+  .module(TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'disableServerGroup',
@@ -41,7 +41,7 @@ angular
       ],
     });
   })
-  .controller('tencentDisableAsgStageCtrl', [
+  .controller('tencentCloudDisableAsgStageCtrl', [
     '$scope',
     function($scope) {
       const stage = $scope.stage;

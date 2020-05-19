@@ -4,7 +4,7 @@ import { TENCENTCLOUD_SERVER_GROUP_TRANSFORMER, TencentCloudServerGroupTransform
 import { IScalingPolicyAlarmView, ITencentCloudServerGroup, IStepAdjustment } from '../domain';
 import { VpcReader } from '../vpc/VpcReader';
 
-describe('tencentServerGroupTransformer', () => {
+describe('tencentCloudServerGroupTransformer', () => {
   let transformer: TencentCloudServerGroupTransformer, $q: IQService, $scope: IScope;
 
   beforeEach(mock.module(TENCENTCLOUD_SERVER_GROUP_TRANSFORMER));

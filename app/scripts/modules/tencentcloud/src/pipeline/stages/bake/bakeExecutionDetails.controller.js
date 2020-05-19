@@ -6,11 +6,11 @@ import { get } from 'lodash';
 import { SETTINGS } from '@spinnaker/core';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-export const TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER =
+export const TENCENTCLOUD_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER =
   'spinnaker.tencentcloud.pipeline.stage.bake.executionDetails.controller';
 angular
-  .module(TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER, [UIROUTER_ANGULARJS])
-  .controller('tencentBakeExecutionDetailsCtrl', [
+  .module(TENCENTCLOUD_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER, [UIROUTER_ANGULARJS])
+  .controller('tencentCloudBakeExecutionDetailsCtrl', [
     '$scope',
     '$stateParams',
     'executionDetailsSectionService',

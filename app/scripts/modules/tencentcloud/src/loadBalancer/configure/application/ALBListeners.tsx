@@ -16,7 +16,7 @@ import {
   ListenerRuleConditionField,
   IRedirectActionConfig,
   IListenerActionType,
-  ITencentHealthCheck,
+  ITencentCloudHealthCheck,
 } from 'tencentcloud/domain';
 
 import { ConfigureOidcConfigModal } from './ConfigureOidcConfigModal';
@@ -189,7 +189,7 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
   }
 
   private handleHealthCheckChanged = (
-    healthCheck: ITencentHealthCheck,
+    healthCheck: ITencentCloudHealthCheck,
     key: string,
     newValue: string | number | boolean,
   ): void => {
@@ -680,11 +680,11 @@ const Rules = SortableContainer((props: IRulesProps) => (
 ));
 
 interface IHealthCheckProps {
-  healthCheck?: ITencentHealthCheck;
+  healthCheck?: ITencentCloudHealthCheck;
   isL7: boolean;
   isNewListener: boolean;
   handleHealthCheckChanged: (
-    healthCheck: ITencentHealthCheck,
+    healthCheck: ITencentCloudHealthCheck,
     key: string,
     newValue: string | number | boolean,
   ) => void;

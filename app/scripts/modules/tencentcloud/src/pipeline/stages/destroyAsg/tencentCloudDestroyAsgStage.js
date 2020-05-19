@@ -4,10 +4,10 @@ const angular = require('angular');
 
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.tencentCloud.destroyAsgStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE, [])
+  .module(TENCENTCLOUD_PIPELINE_STAGES_DESTROYASG_TENCENTCLOUDDESTROYASGSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'destroyServerGroup',
@@ -43,7 +43,7 @@ angular
       ],
     });
   })
-  .controller('tencentDestroyAsgStageCtrl', [
+  .controller('tencentCloudDestroyAsgStageCtrl', [
     '$scope',
     function($scope) {
       const stage = $scope.stage;

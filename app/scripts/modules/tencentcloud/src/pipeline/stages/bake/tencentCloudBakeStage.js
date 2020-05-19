@@ -8,12 +8,13 @@ import { AuthenticationService } from '@spinnaker/core';
 import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
 
 import { PipelineTemplates, BakeExecutionLabel, BakeryReader, Registry, SETTINGS } from '@spinnaker/core';
-import { TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER } from './bakeExecutionDetails.controller';
+import { TENCENTCLOUD_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER } from './bakeExecutionDetails.controller';
 
-export const TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE = 'spinnaker.tencentcloud.pipeline.stage.bakeStage';
+export const TENCENTCLOUD_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE =
+  'spinnaker.tencentcloud.pipeline.stage.bakeStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE, [
-    TENCENT_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER,
+  .module(TENCENTCLOUD_PIPELINE_STAGES_BAKE_TENCENTCLOUDBAKESTAGE, [
+    TENCENTCLOUD_PIPELINE_STAGES_BAKE_BAKEEXECUTIONDETAILS_CONTROLLER,
   ])
   .config(function() {
     Registry.pipeline.registerStage({
@@ -51,7 +52,7 @@ angular
       restartable: true,
     });
   })
-  .controller('tencentBakeStageCtrl', [
+  .controller('tencentCloudBakeStageCtrl', [
     '$scope',
     '$q',
     '$uibModal',

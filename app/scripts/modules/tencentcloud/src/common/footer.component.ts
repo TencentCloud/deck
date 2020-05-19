@@ -25,4 +25,4 @@ const footerComponent: IComponentOptions = {
 };
 
 export const TENCENTCLOUD_FOOTER_COMPONENT = 'spinnaker.tencentcloud.footer';
-module(TENCENTCLOUD_FOOTER_COMPONENT, []).component('tencentFooter', footerComponent);
+module(TENCENTCLOUD_FOOTER_COMPONENT, []).component('tencentCloudFooter', footerComponent);

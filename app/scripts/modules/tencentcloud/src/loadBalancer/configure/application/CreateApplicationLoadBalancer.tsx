@@ -60,10 +60,12 @@ export class CreateApplicationLoadBalancer extends React.Component<
     const loadBalancerCommand = props.command
       ? (props.command as ITencentCloudApplicationLoadBalancerUpsertCommand) // ejecting from a wizard
       : props.loadBalancer
-      ? TencentCloudReactInjector.tencentLoadBalancerTransformer.convertApplicationLoadBalancerForEditing(
+      ? TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.convertApplicationLoadBalancerForEditing(
           props.loadBalancer,
         )
-      : TencentCloudReactInjector.tencentLoadBalancerTransformer.constructNewApplicationLoadBalancerTemplate(props.app);
+      : TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.constructNewApplicationLoadBalancerTemplate(
+          props.app,
+        );
 
     this.state = {
       includeSecurityGroups: !!loadBalancerCommand.vpcId,

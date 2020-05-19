@@ -9,4 +9,4 @@ export class TencentCloudSubnetRenderer {
 }
 
 export const SUBNET_RENDERER = 'spinnaker.tencentcloud.subnet.renderer';
-module(SUBNET_RENDERER, []).service('tencentSubnetRenderer', TencentCloudSubnetRenderer);
+module(SUBNET_RENDERER, []).service('tencentCloudSubnetRenderer', TencentCloudSubnetRenderer);

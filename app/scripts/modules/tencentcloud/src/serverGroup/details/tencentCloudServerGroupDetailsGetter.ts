@@ -51,7 +51,7 @@ export function tencentCloudServerGroupDetailsGetter(
         // it's possible the summary was not found because the clusters are still loading
         Object.assign(details, summary, { account: serverGroupInfo.accountId });
 
-        const serverGroup = TencentCloudReactInjector.tencentServerGroupTransformer.normalizeServerGroupDetails(
+        const serverGroup = TencentCloudReactInjector.tencentCloudServerGroupTransformer.normalizeServerGroupDetails(
           details,
         );
 

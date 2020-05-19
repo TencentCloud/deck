@@ -44,7 +44,7 @@ export class CloneServerGroupStage extends React.Component<IProps, IState> {
       get(application, 'attributes.platformHealthOnly')
     ) {
       updateStageField({
-        interestingHealthProviderNames: ['Tencent'],
+        interestingHealthProviderNames: ['Tencentcloud'],
       });
     }
 
@@ -314,7 +314,7 @@ export class CloneServerGroupStage extends React.Component<IProps, IState> {
         {/*<stage-platform-health-override*/}
         {/*  application="application"*/}
         {/*  stage="stage"*/}
-        {/*  platform-health-type="'Tencent'"*/}
+        {/*  platform-health-type="'Tencentcloud'"*/}
         {/*></stage-platform-health-override>*/}
         {/*<deployment-strategy-selector field-columns="6" command="stage"></deployment-strategy-selector>*/}
         {

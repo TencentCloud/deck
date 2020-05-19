@@ -8,18 +8,18 @@ import { AccountService, INSTANCE_TYPE_SERVICE, NameUtils, SubnetReader } from '
 import { TENCENTCLOUDProviderSettings } from '../../tencentCloud.settings';
 import { TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
 
-export const TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
+export const TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
   'spinnaker.tencentcloud.serverGroupCommandBuilder.service';
 angular
-  .module(TENCENT_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE, [
+  .module(TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE, [
     INSTANCE_TYPE_SERVICE,
     TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE,
   ])
-  .factory('tencentServerGroupCommandBuilder', [
+  .factory('tencentCloudServerGroupCommandBuilder', [
     '$q',
     'instanceTypeService',
-    'tencentServerGroupConfigurationService',
-    function($q, instanceTypeService, tencentServerGroupConfigurationService) {
+    'tencentCloudServerGroupConfigurationService',
+    function($q, instanceTypeService, tencentCloudServerGroupConfigurationService) {
       function buildNewServerGroupCommand(application, defaults) {
         defaults = defaults || {};
         const credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencentcloud');
@@ -213,7 +213,7 @@ angular
           terminationPolicies: angular.copy(serverGroup.asg.terminationPolicies),
           credentials: serverGroup.account,
         };
-        tencentServerGroupConfigurationService.configureUpdateCommand(command);
+        tencentCloudServerGroupConfigurationService.configureUpdateCommand(command);
         return command;
       }
 

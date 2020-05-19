@@ -4,10 +4,10 @@ const angular = require('angular');
 
 import { BakeryReader, Registry } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.findImageFromTagsStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE, [])
+  .module(TENCENTCLOUD_PIPELINE_STAGES_FINDIMAGEFROMTAGS_TENCENTCLOUDFINDIMAGEFROMTAGSSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'findImageFromTags',
@@ -31,7 +31,7 @@ angular
       ],
     });
   })
-  .controller('tencentFindImageFromTagsStageCtrl', [
+  .controller('tencentCloudFindImageFromTagsStageCtrl', [
     '$scope',
     function($scope) {
       $scope.stage.tags = $scope.stage.tags || {};

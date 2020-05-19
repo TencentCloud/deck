@@ -4,10 +4,10 @@ const angular = require('angular');
 
 import { AccountService, Registry } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE =
   'spinnaker.tencentcloud.pipeline.stage.findAmiStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE, [])
+  .module(TENCENTCLOUD_PIPELINE_STAGES_FINDAMI_TENCENTCLOUDFINDAMISTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       provides: 'findImage',
@@ -35,7 +35,7 @@ angular
       ],
     });
   })
-  .controller('tencentFindAmiStageCtrl', [
+  .controller('tencentCloudFindAmiStageCtrl', [
     '$scope',
     function($scope) {
       const stage = $scope.stage;

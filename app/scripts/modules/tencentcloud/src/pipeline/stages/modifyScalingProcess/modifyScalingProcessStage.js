@@ -3,10 +3,10 @@
 const angular = require('angular');
 import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-export const TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.modifyScalingProcessStage';
 angular
-  .module(TENCENT_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE, [])
+  .module(TENCENTCLOUD_PIPELINE_STAGES_MODIFYSCALINGPROCESS_MODIFYSCALINGPROCESSSTAGE, [])
   .config(function() {
     Registry.pipeline.registerStage({
       label: 'Modify Scaling Process',

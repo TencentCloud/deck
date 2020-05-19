@@ -25,7 +25,7 @@ describe('Service: tencentCloud Image Reader', function() {
       region = 'us-west-1';
 
     function buildQueryString() {
-      return API.baseUrl + '/images/find?provider=tencentCloud&q=' + query + '&region=' + region;
+      return API.baseUrl + '/images/find?provider=tencentcloud&q=' + query + '&region=' + region;
     }
 
     it('queries gate when 3 characters are supplied', function() {

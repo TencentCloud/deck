@@ -5,11 +5,11 @@ const angular = require('angular');
 import { SecurityGroupWriter, TaskMonitor, FirewallLabels } from '@spinnaker/core';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-export const TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL =
+export const TENCENTCLOUD_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL =
   'spinnaker.tencentcloud.securityGroup.edit.controller';
 angular
-  .module(TENCENT_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL, [UIROUTER_ANGULARJS])
-  .controller('tencentEditSecurityGroupCtrl', [
+  .module(TENCENTCLOUD_SECURITYGROUP_CONFIGURE_EDITSECURITYGROUPCTRL, [UIROUTER_ANGULARJS])
+  .controller('tencentCloudEditSecurityGroupCtrl', [
     '$scope',
     '$uibModalInstance',
     '$state',
@@ -37,7 +37,7 @@ angular
       };
       angular.extend(
         this,
-        $controller('tencentConfigSecurityGroupMixin', {
+        $controller('tencentCloudConfigSecurityGroupMixin', {
           $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           application: application,

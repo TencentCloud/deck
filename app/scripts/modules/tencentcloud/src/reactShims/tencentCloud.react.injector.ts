@@ -8,15 +8,27 @@ import { TencentCloudLoadBalancerTransformer } from '../loadBalancer/loadBalance
 
 // prettier-ignore
 export class TencentCloudReactInject extends ReactInject {
-  public get tencentInstanceTypeService() { return this.$injector.get('tencentInstanceTypeService') as any; }
-  public get tencentLoadBalancerTransformer() { return this.$injector.get('tencentLoadBalancerTransformer') as TencentCloudLoadBalancerTransformer; }
-  public get tencentServerGroupCommandBuilder() { return this.$injector.get('tencentServerGroupCommandBuilder') as any; }
-  public get tencentServerGroupConfigurationService() { return this.$injector.get('tencentServerGroupConfigurationService') as TencentCloudServerGroupConfigurationService; }
-  public get tencentServerGroupTransformer() { return this.$injector.get('tencentServerGroupTransformer') as TencentCloudServerGroupTransformer; }
+         public get tencentCloudCloudInstanceTypeService() {
+           return this.$injector.get('tencentCloudInstanceTypeService') as any;
+         }
+         public get tencentCloudLoadBalancerTransformer() {
+           return this.$injector.get('tencentCloudLoadBalancerTransformer') as TencentCloudLoadBalancerTransformer;
+         }
+         public get tencentCloudServerGroupCommandBuilder() {
+           return this.$injector.get('tencentCloudServerGroupCommandBuilder') as any;
+         }
+         public get tencentCloudServerGroupConfigurationService() {
+           return this.$injector.get(
+             'tencentCloudServerGroupConfigurationService',
+           ) as TencentCloudServerGroupConfigurationService;
+         }
+         public get tencentCloudServerGroupTransformer() {
+           return this.$injector.get('tencentCloudServerGroupTransformer') as TencentCloudServerGroupTransformer;
+         }
 
-  public initialize($injector: IInjectorService) {
-    this.$injector = $injector;
-  }
-}
+         public initialize($injector: IInjectorService) {
+           this.$injector = $injector;
+         }
+       }
 
 export const TencentCloudReactInjector: TencentCloudReactInject = new TencentCloudReactInject();

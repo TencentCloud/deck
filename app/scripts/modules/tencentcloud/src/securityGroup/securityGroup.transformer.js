@@ -4,11 +4,11 @@ const angular = require('angular');
 
 import { VpcReader } from '../vpc/VpcReader';
 
-export const TENCENT_SECURITYGROUP_SECURITYGROUP_TRANSFORMER = 'spinnaker.tencent.securityGroup.transformer';
-export const name = TENCENT_SECURITYGROUP_SECURITYGROUP_TRANSFORMER; // for backwards compatibility
+export const TENCENTCLOUD_SECURITYGROUP_SECURITYGROUP_TRANSFORMER = 'spinnaker.cloud.securityGroup.transformer';
+export const name = TENCENTCLOUD_SECURITYGROUP_SECURITYGROUP_TRANSFORMER; // for backwards compatibility
 angular
-  .module(TENCENT_SECURITYGROUP_SECURITYGROUP_TRANSFORMER, [])
-  .factory('tencentSecurityGroupTransformer', function() {
+  .module(TENCENTCLOUD_SECURITYGROUP_SECURITYGROUP_TRANSFORMER, [])
+  .factory('tencentCloudSecurityGroupTransformer', function() {
     function normalizeSecurityGroup(securityGroup) {
       return VpcReader.listVpcs().then(addVpcNameToSecurityGroup(securityGroup));
     }

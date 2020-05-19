@@ -16,14 +16,14 @@ import {
 } from '@spinnaker/core';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
 
-export const TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER =
+export const TENCENTCLOUD_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER =
   'spinnaker.tencentcloud.securityGroup.baseConfig.controller';
 angular
-  .module(TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER, [
+  .module(TENCENTCLOUD_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER, [
     UIROUTER_ANGULARJS,
     SECURITY_GROUP_READER,
   ])
-  .controller('tencentConfigSecurityGroupMixin', [
+  .controller('tencentCloudConfigSecurityGroupMixin', [
     '$scope',
     '$state',
     '$uibModalInstance',

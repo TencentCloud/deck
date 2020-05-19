@@ -13,17 +13,17 @@ import {
 
 import { VpcReader } from '../../vpc/VpcReader';
 import { default as UIROUTER_ANGULARJS } from '@uirouter/angularjs';
-import { TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER } from '../clone/cloneSecurityGroup.controller';
+import { TENCENTCLOUD_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER } from '../clone/cloneSecurityGroup.controller';
 
-export const TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER =
+export const TENCENTCLOUD_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER =
   'spinnaker.tencentcloud.securityGroup.details.controller';
 angular
-  .module(TENCENT_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER, [
+  .module(TENCENTCLOUD_SECURITYGROUP_DETAILS_SECURITYGROUPDETAIL_CONTROLLER, [
     UIROUTER_ANGULARJS,
     SECURITY_GROUP_READER,
-    TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER,
+    TENCENTCLOUD_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER,
   ])
-  .controller('tencentSecurityGroupDetailsCtrl', [
+  .controller('tencentCloudSecurityGroupDetailsCtrl', [
     '$scope',
     '$state',
     'resolvedSecurityGroup',
@@ -113,7 +113,7 @@ angular
       this.editInboundRules = function editInboundRules() {
         $uibModal.open({
           templateUrl: require('../configure/editSecurityGroup.html'),
-          controller: 'tencentEditSecurityGroupCtrl as ctrl',
+          controller: 'tencentCloudEditSecurityGroupCtrl as ctrl',
           size: 'lg',
           resolve: {
             securityGroup: function() {
@@ -129,7 +129,7 @@ angular
       this.cloneSecurityGroup = function cloneSecurityGroup() {
         $uibModal.open({
           templateUrl: require('../clone/cloneSecurityGroup.html'),
-          controller: 'tencentCloneSecurityGroupController as ctrl',
+          controller: 'tencentCloudCloneSecurityGroupController as ctrl',
           size: 'lg',
           resolve: {
             securityGroup: function() {

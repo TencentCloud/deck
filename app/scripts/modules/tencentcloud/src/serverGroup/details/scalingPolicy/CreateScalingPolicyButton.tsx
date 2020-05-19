@@ -39,7 +39,7 @@ export class CreateScalingPolicyButton extends React.Component<
     UpsertScalingPlicyModal.show({
       serverGroup,
       application,
-      policy: TencentCloudReactInjector.tencentServerGroupTransformer.constructNewStepScalingPolicyTemplate(),
+      policy: TencentCloudReactInjector.tencentCloudServerGroupTransformer.constructNewStepScalingPolicyTemplate(),
     });
   }
 

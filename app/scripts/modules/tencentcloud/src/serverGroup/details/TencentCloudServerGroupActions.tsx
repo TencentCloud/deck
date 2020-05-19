@@ -237,26 +237,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
       allServerGroups,
       application: app,
     };
-
     RollbackServerGroup.show(resolve);
-    // ModalInjector.modalService.open({
-    //   templateUrl: require('./rollback/rollbackServerGroup.html'),
-    //   controller: 'tencentRollbackServerGroupCtrl as ctrl',
-    //   resolve: {
-    //     serverGroup: () => serverGroup,
-    //     previousServerGroup: () => previousServerGroup,
-    //     disabledServerGroups: () => {
-    //       const cluster = find(app.clusters, {
-    //         name: serverGroup.cluster,
-    //         account: serverGroup.account,
-    //         serverGroups: [],
-    //       });
-    //       return filter(cluster.serverGroups, { isDisabled: true, region: serverGroup.region });
-    //     },
-    //     allServerGroups: () => allServerGroups,
-    //     application: () => app,
-    //   },
-    // });
   };
 
   private resizeServerGroup = (): void => {
@@ -266,7 +247,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
 
   private cloneServerGroup = (): void => {
     const { app, serverGroup } = this.props;
-    TencentCloudReactInjector.tencentServerGroupCommandBuilder
+    TencentCloudReactInjector.tencentCloudServerGroupCommandBuilder
       .buildServerGroupCommandFromExisting(app, serverGroup)
       .then((command: ITencentCloudServerGroupCommand) => {
         const title = `Clone ${serverGroup.name}`;

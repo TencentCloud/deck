@@ -34,7 +34,7 @@ export class RollbackClusterStage extends React.Component<IProps, IState> {
       application.attributes.platformHealthOnly
     ) {
       updateStageField({
-        interestingHealthProviderNames: ['Tencent'],
+        interestingHealthProviderNames: ['Tencentcloud'],
       });
     }
 

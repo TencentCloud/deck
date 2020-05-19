@@ -11,7 +11,7 @@ import {
 import { IAuthenticateOidcActionConfig } from 'tencentcloud/loadBalancer/OidcConfigReader';
 
 import { ITencentCloudServerGroup } from './ITencentCloudServerGroup';
-import { ITencentHealthCheck } from './ITencentCloudHealth';
+import { ITencentCloudHealthCheck } from './ITencentCloudHealth';
 
 export type ClassicListenerProtocol = 'HTTP' | 'HTTPS' | 'TCP' | 'SSL';
 export type ALBListenerProtocol = 'HTTP' | 'HTTPS' | 'TCP' | 'UDP';
@@ -144,7 +144,7 @@ export interface IListenerRule {
   domain: string;
   url: string;
   locationId?: string;
-  healthCheck?: ITencentHealthCheck;
+  healthCheck?: ITencentCloudHealthCheck;
   default?: boolean;
   priority?: number | 'default';
   [key: string]: any;
@@ -200,7 +200,7 @@ export interface IListenerDescription {
   port: number;
   sslPolicy?: string;
   rules?: IListenerRule[];
-  healthCheck?: ITencentHealthCheck;
+  healthCheck?: ITencentCloudHealthCheck;
   listenerName?: string;
 }
 

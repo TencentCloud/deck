@@ -4,15 +4,15 @@ const angular = require('angular');
 
 import { AccountService, FirewallLabels } from '@spinnaker/core';
 
-import { TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from '../configure/configSecurityGroup.mixin.controller';
+import { TENCENTCLOUD_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER } from '../configure/configSecurityGroup.mixin.controller';
 
-export const TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER =
+export const TENCENTCLOUD_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER =
   'spinnaker.tencentcloud.securityGroup.clone.controller';
 angular
-  .module(TENCENT_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER, [
-    TENCENT_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER,
+  .module(TENCENTCLOUD_SECURITYGROUP_CLONE_CLONESECURITYGROUP_CONTROLLER, [
+    TENCENTCLOUD_SECURITYGROUP_CONFIGURE_CONFIGSECURITYGROUP_MIXIN_CONTROLLER,
   ])
-  .controller('tencentCloneSecurityGroupController', [
+  .controller('tencentCloudCloneSecurityGroupController', [
     '$scope',
     '$uibModalInstance',
     '$controller',
@@ -33,7 +33,7 @@ angular
 
       angular.extend(
         this,
-        $controller('tencentConfigSecurityGroupMixin', {
+        $controller('tencentCloudConfigSecurityGroupMixin', {
           $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           application: application,

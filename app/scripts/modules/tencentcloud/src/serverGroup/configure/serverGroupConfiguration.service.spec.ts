@@ -19,7 +19,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
   let service: TencentCloudServerGroupConfigurationService,
     $q: IQService,
     securityGroupReader: SecurityGroupReader,
-    tencentInstanceTypeService: any,
+    tencentCloudInstanceTypeService: any,
     cacheInitializer: CacheInitializerService,
     loadBalancerReader: LoadBalancerReader,
     $scope: IScope;
@@ -31,7 +31,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
       _tencentCloudServerGroupConfigurationService_: TencentCloudServerGroupConfigurationService,
       _$q_: IQService,
       _securityGroupReader_: SecurityGroupReader,
-      _tencentInstanceTypeService_: any,
+      _tencentCloudInstanceTypeService_: any,
       _cacheInitializer_: CacheInitializerService,
       _loadBalancerReader_: LoadBalancerReader,
       $rootScope: IRootScopeService,
@@ -39,7 +39,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
       service = _tencentCloudServerGroupConfigurationService_;
       $q = _$q_;
       securityGroupReader = _securityGroupReader_;
-      tencentInstanceTypeService = _tencentInstanceTypeService_;
+      tencentCloudInstanceTypeService = _tencentCloudInstanceTypeService_;
       cacheInitializer = _cacheInitializer_;
       loadBalancerReader = _loadBalancerReader_;
       $scope = $rootScope.$new();
@@ -89,7 +89,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
       spyOn(SubnetReader, 'listSubnets').and.returnValue($q.when([]));
       spyOn(AccountService, 'getPreferredZonesByAccount').and.returnValue($q.when([]));
       spyOn(KeyPairsReader, 'listKeyPairs').and.returnValue($q.when([]));
-      spyOn(tencentInstanceTypeService, 'getAllTypesByRegion').and.returnValue($q.when([]));
+      spyOn(tencentCloudInstanceTypeService, 'getAllTypesByRegion').and.returnValue($q.when([]));
       const refreshCacheSpy = spyOn(cacheInitializer, 'refreshCache').and.returnValue($q.when(null));
 
       const command = {
