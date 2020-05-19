@@ -67,6 +67,7 @@ export interface IStepAdjustment {
 }
 
 export interface IScalingPolicy {
+  scalingPolicyName?: any;
   alarmName?: string;
   alarms?: IScalingPolicyAlarmView[];
   policyARN?: string;

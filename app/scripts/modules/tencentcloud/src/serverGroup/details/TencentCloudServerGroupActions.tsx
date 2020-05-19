@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Dropdown, Tooltip } from 'react-bootstrap';
-import { get, find, filter, orderBy } from 'lodash';
+import { get, orderBy } from 'lodash';
 
 import {
   ClusterTargetBuilder,
   IOwnerOption,
   IServerGroupActionsProps,
   IServerGroupJob,
-  ModalInjector,
   NgReact,
   ReactInjector,
   ConfirmationModalService,
@@ -20,6 +19,7 @@ import { TencentCloudCloneServerGroupModal } from '../configure/wizard/CloneServ
 import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
 import { ITencentCloudServerGroupCommand } from '../configure';
 import { TencentCloudResizeServerGroupModal } from './resize/TencentCloudResizeServerGroupModal';
+import RollbackServerGroup from '../details/rollback/RollbackServerGroup';
 
 export interface ITencentCloudServerGroupActionsProps extends IServerGroupActionsProps {
   serverGroup: ITencentCloudServerGroupView;
@@ -231,27 +231,32 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
       previousServerGroup = allServerGroups[0];
     }
 
-    ModalInjector.modalService.open({
-      templateUrl: ReactInjector.overrideRegistry.getTemplate(
-        'tencentCloud.rollback.modal',
-        require('./rollback/rollbackServerGroup.html'),
-      ),
-      controller: 'tencentRollbackServerGroupCtrl as ctrl',
-      resolve: {
-        serverGroup: () => serverGroup,
-        previousServerGroup: () => previousServerGroup,
-        disabledServerGroups: () => {
-          const cluster = find(app.clusters, {
-            name: serverGroup.cluster,
-            account: serverGroup.account,
-            serverGroups: [],
-          });
-          return filter(cluster.serverGroups, { isDisabled: true, region: serverGroup.region });
-        },
-        allServerGroups: () => allServerGroups,
-        application: () => app,
-      },
-    });
+    const resolve = {
+      serverGroup,
+      previousServerGroup,
+      allServerGroups,
+      application: app,
+    };
+
+    RollbackServerGroup.show(resolve);
+    // ModalInjector.modalService.open({
+    //   templateUrl: require('./rollback/rollbackServerGroup.html'),
+    //   controller: 'tencentRollbackServerGroupCtrl as ctrl',
+    //   resolve: {
+    //     serverGroup: () => serverGroup,
+    //     previousServerGroup: () => previousServerGroup,
+    //     disabledServerGroups: () => {
+    //       const cluster = find(app.clusters, {
+    //         name: serverGroup.cluster,
+    //         account: serverGroup.account,
+    //         serverGroups: [],
+    //       });
+    //       return filter(cluster.serverGroups, { isDisabled: true, region: serverGroup.region });
+    //     },
+    //     allServerGroups: () => allServerGroups,
+    //     application: () => app,
+    //   },
+    // });
   };
 
   private resizeServerGroup = (): void => {

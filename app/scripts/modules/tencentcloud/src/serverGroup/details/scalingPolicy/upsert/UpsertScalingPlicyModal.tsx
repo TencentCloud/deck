@@ -260,7 +260,7 @@ export default class UpsertScalingPlicyModal extends React.Component<
     return (
       // @ts-ignore
       <WizardModal<>
-        heading={`Edit Scheduled Actions for ${serverGroup.name}`}
+        heading={`${viewState.isNew ? 'Create' : 'Edit'} scaling policy`}
         dismissModal={dismissModal}
         formClassName="form-inline scaling-policy-modal"
         taskMonitor={taskMonitor}

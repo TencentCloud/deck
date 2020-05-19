@@ -33,7 +33,7 @@ angular
       $scope.allServerGroups = allServerGroups.sort((a, b) => b.name.localeCompare(a.name));
       $scope.verification = {};
 
-      const desired = serverGroup.capacity.desired;
+      const desired = serverGroup.capacity ? serverGroup.capacity.desired : '';
 
       let rollbackType = 'EXPLICIT';
 

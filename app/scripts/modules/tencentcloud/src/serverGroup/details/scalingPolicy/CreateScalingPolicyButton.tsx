@@ -55,7 +55,6 @@ export class CreateScalingPolicyButton extends React.Component<
   };
 
   public render() {
-    // const { min, max } = this.props.serverGroup.capacity;
     return (
       <div>
         <a

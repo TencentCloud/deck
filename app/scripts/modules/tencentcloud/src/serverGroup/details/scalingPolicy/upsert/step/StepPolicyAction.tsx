@@ -92,7 +92,7 @@ export default class StepPolicyAction extends React.Component<Props, State> {
     return (
       <section className="policy-action">
         {stepAdjustments.map((item: any, index: number) => (
-          <div style={{ margin: '0 0 10px 0' }}>
+          <div key={index} style={{ margin: '0 0 10px 0' }}>
             {index === 0 ? (
               <SelectInput
                 required={true}
