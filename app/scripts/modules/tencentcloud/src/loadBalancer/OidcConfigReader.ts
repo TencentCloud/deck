@@ -1,20 +1,7 @@
 import { IPromise } from 'angular';
 
 import { API } from '@spinnaker/core';
-
-export interface IAuthenticateOidcActionConfig {
-  authorizationEndpoint: string;
-  authenticationRequestExtraParams?: any;
-  clientId: string;
-  clientSecret?: string;
-  idpLogoutUrl?: string;
-  issuer: string;
-  scope: string;
-  sessionCookieName: string;
-  sessionTimeout?: number;
-  tokenEndpoint: string;
-  userInfoEndpoint: string;
-}
+import { IAuthenticateOidcActionConfig } from 'tencentcloud/domain';
 
 export class OidcConfigReader {
   public static getOidcConfigsByApp(app: string): IPromise<IAuthenticateOidcActionConfig[]> {

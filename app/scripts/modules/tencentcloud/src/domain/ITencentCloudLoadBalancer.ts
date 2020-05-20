@@ -8,8 +8,6 @@ import {
   ISubnet,
 } from '@spinnaker/core';
 
-import { IAuthenticateOidcActionConfig } from 'tencentcloud/loadBalancer/OidcConfigReader';
-
 import { ITencentCloudServerGroup } from './ITencentCloudServerGroup';
 import { ITencentCloudHealthCheck } from './ITencentCloudHealth';
 
@@ -17,6 +15,20 @@ export type ClassicListenerProtocol = 'HTTP' | 'HTTPS' | 'TCP' | 'SSL';
 export type ALBListenerProtocol = 'HTTP' | 'HTTPS' | 'TCP' | 'UDP';
 export type IListenerActionType = 'forward' | 'authenticate-oidc' | 'redirect';
 export type NLBListenerProtocol = 'TCP';
+
+export interface IAuthenticateOidcActionConfig {
+  authorizationEndpoint: string;
+  authenticationRequestExtraParams?: any;
+  clientId: string;
+  clientSecret?: string;
+  idpLogoutUrl?: string;
+  issuer: string;
+  scope: string;
+  sessionCookieName: string;
+  sessionTimeout?: number;
+  tokenEndpoint: string;
+  userInfoEndpoint: string;
+}
 
 export interface ITencentCloudLoadBalancer extends ILoadBalancer {
   loadBalancerType: any;
