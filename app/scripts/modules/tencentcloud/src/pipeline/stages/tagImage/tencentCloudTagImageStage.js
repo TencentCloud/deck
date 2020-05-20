@@ -9,7 +9,6 @@ import { TagImage } from './TagImage';
 
 export const TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE =
   'spinnaker.tencentcloud.pipeline.stage.tagImageStage';
-export const name = TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE; // for backwards compatibility
 angular.module(TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE_TENCENTCLOUDTAGIMAGESTAGE, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'upsertImageTags',

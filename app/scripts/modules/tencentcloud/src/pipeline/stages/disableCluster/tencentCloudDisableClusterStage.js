@@ -7,7 +7,6 @@ import { AccountService, Registry } from '@spinnaker/core';
 
 export const TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.disableClusterStage';
-export const name = TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE; // for backwards compatibility
 angular.module(TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'disableCluster',

@@ -8,7 +8,6 @@ import { CloneServerGroupStepLabel } from './CloneServerGroupStepLabel';
 
 export const TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE =
   'spinnaker.tencentcloud.pipeline.stage.cloneServerGroupStage';
-export const name = TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE; // for backwards compatibility
 angular.module(TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'cloneServerGroup',
