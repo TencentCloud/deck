@@ -1,6 +1,6 @@
 {
   "name": "@spinnaker/tencentcloud",
-  "version": "0.0.186",
+  "version": "0.0.19",
   "main": "lib/lib.js",
   "typings": "lib/index.d.ts",
   "scripts": {
