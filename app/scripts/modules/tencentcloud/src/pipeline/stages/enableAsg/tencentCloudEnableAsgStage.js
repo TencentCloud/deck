@@ -13,7 +13,6 @@ angular.module(TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE
     alias: 'enableAsg',
     cloudProvider: 'tencentcloud',
     component: EnableAgsStage,
-    executionStepLabelUrl: require('./enableAsgStepLabel.html'),
     validators: [
       {
         type: 'requiredField',

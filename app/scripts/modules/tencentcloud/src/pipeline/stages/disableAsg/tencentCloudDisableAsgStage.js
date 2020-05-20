@@ -12,7 +12,6 @@ angular.module(TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTA
     alias: 'disableAsg',
     component: DisbaleAgsStage,
     cloudProvider: 'tencentcloud',
-    executionStepLabelUrl: require('./disableAsgStepLabel.html'),
     validators: [
       {
         type: 'targetImpedance',
