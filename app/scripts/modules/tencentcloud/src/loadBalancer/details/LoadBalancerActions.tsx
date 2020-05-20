@@ -11,14 +11,14 @@ import {
   HelpField,
 } from '@spinnaker/core';
 
-import { ITencentCloudLoadBalancer, ITencentCloudLoadBalancerDeleteCommand } from 'tencentcloud/domain';
+import { ITencentcloudLoadBalancer, ITencentcloudLoadBalancerDeleteCommand } from 'tencentcloud/domain';
 
 import { ILoadBalancerFromStateParams } from './loadBalancerDetails';
 import { LoadBalancerTypes } from '../configure/LoadBalancerTypes';
 
 export interface ILoadBalancerActionsProps {
   app: Application;
-  loadBalancer: ITencentCloudLoadBalancer;
+  loadBalancer: ITencentcloudLoadBalancer;
   loadBalancerFromParams: ILoadBalancerFromStateParams;
 }
 
@@ -75,7 +75,7 @@ export class LoadBalancerActions extends React.Component<ILoadBalancerActionsPro
       onTaskComplete: () => this.props.app.loadBalancers.refresh(),
     };
 
-    const command: ITencentCloudLoadBalancerDeleteCommand = {
+    const command: ITencentcloudLoadBalancerDeleteCommand = {
       application: app.name,
       cloudProvider: loadBalancer.cloudProvider,
       loadBalancerName: loadBalancer.name,

@@ -2,18 +2,18 @@ import * as React from 'react';
 import Select, { Option } from 'react-select';
 import { Application, Overridable, timestamp, relativeTime } from '@spinnaker/core';
 
-import { ITencentCloudCertificate } from 'tencentcloud/domain';
+import { ITencentcloudCertificate } from 'tencentcloud/domain';
 
-export interface ITencentCloudCertificateSelectFieldProps {
-  certificates: { [accountName: string]: ITencentCloudCertificate[] };
+export interface ITencentcloudCertificateSelectFieldProps {
+  certificates: { [accountName: string]: ITencentcloudCertificate[] };
   accountName: string;
   currentValue: string;
   onCertificateSelect: (certificateName: string) => void;
   app: Application;
 }
 
-@Overridable('tencentCloud.certificateSelectField')
-export class TencentCloudCertificateSelectField extends React.Component<ITencentCloudCertificateSelectFieldProps> {
+@Overridable('tencentcloud.certificateSelectField')
+export class TencentcloudCertificateSelectField extends React.Component<ITencentcloudCertificateSelectFieldProps> {
   public render() {
     const { certificates, accountName, onCertificateSelect, currentValue } = this.props;
     const certificatesForAccount = certificates[accountName] || [];

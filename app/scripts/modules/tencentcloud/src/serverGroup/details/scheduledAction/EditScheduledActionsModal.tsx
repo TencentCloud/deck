@@ -115,7 +115,7 @@ export default class EditScheduledActionsModal extends React.Component<
         recurrence,
         endTime,
       }) => ({
-        type: 'upsertTencentCloudScheduledActions',
+        type: 'upsertTencentcloudScheduledActions',
         application: app.name,
         account,
         accountName: account,

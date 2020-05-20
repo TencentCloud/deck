@@ -1,1 +1,1 @@
-export * from './tencentCloud.react.injector';
+export * from './tencentcloud.react.injector';

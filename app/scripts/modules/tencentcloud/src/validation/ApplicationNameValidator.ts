@@ -1,7 +1,7 @@
 import { ApplicationNameValidator, FirewallLabels, IApplicationNameValidator } from '@spinnaker/core';
-import { TENCENTCLOUDProviderSettings } from '../tencentCloud.settings';
+import { TENCENTCLOUDProviderSettings } from '../tencentcloud.settings';
 
-class TencentCloudApplicationNameValidator implements IApplicationNameValidator {
+class TencentcloudApplicationNameValidator implements IApplicationNameValidator {
   private validateSpecialCharacters(name: string, errors: string[]): void {
     const pattern = /^[a-zA-Z_0-9.]*$/g;
     if (!pattern.test(name)) {
@@ -79,4 +79,4 @@ class TencentCloudApplicationNameValidator implements IApplicationNameValidator 
     };
   }
 }
-ApplicationNameValidator.registerValidator('tencentcloud', new TencentCloudApplicationNameValidator());
+ApplicationNameValidator.registerValidator('tencentcloud', new TencentcloudApplicationNameValidator());

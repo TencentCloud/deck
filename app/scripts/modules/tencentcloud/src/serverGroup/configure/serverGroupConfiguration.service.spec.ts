@@ -12,14 +12,14 @@ import {
 import { KeyPairsReader } from 'tencentcloud/keyPairs';
 import {
   TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE,
-  TencentCloudServerGroupConfigurationService,
+  TencentcloudServerGroupConfigurationService,
 } from './serverGroupConfiguration.service';
 
-describe('Service: tencentCloudServerGroupConfiguration', function() {
-  let service: TencentCloudServerGroupConfigurationService,
+describe('Service: tencentcloudServerGroupConfiguration', function() {
+  let service: TencentcloudServerGroupConfigurationService,
     $q: IQService,
     securityGroupReader: SecurityGroupReader,
-    tencentCloudInstanceTypeService: any,
+    tencentcloudInstanceTypeService: any,
     cacheInitializer: CacheInitializerService,
     loadBalancerReader: LoadBalancerReader,
     $scope: IScope;
@@ -28,18 +28,18 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
 
   beforeEach(
     mock.inject(function(
-      _tencentCloudServerGroupConfigurationService_: TencentCloudServerGroupConfigurationService,
+      _tencentcloudServerGroupConfigurationService_: TencentcloudServerGroupConfigurationService,
       _$q_: IQService,
       _securityGroupReader_: SecurityGroupReader,
-      _tencentCloudInstanceTypeService_: any,
+      _tencentcloudInstanceTypeService_: any,
       _cacheInitializer_: CacheInitializerService,
       _loadBalancerReader_: LoadBalancerReader,
       $rootScope: IRootScopeService,
     ) {
-      service = _tencentCloudServerGroupConfigurationService_;
+      service = _tencentcloudServerGroupConfigurationService_;
       $q = _$q_;
       securityGroupReader = _securityGroupReader_;
-      tencentCloudInstanceTypeService = _tencentCloudInstanceTypeService_;
+      tencentcloudInstanceTypeService = _tencentcloudInstanceTypeService_;
       cacheInitializer = _cacheInitializer_;
       loadBalancerReader = _loadBalancerReader_;
       $scope = $rootScope.$new();
@@ -89,7 +89,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
       spyOn(SubnetReader, 'listSubnets').and.returnValue($q.when([]));
       spyOn(AccountService, 'getPreferredZonesByAccount').and.returnValue($q.when([]));
       spyOn(KeyPairsReader, 'listKeyPairs').and.returnValue($q.when([]));
-      spyOn(tencentCloudInstanceTypeService, 'getAllTypesByRegion').and.returnValue($q.when([]));
+      spyOn(tencentcloudInstanceTypeService, 'getAllTypesByRegion').and.returnValue($q.when([]));
       const refreshCacheSpy = spyOn(cacheInitializer, 'refreshCache').and.returnValue($q.when(null));
 
       const command = {
@@ -208,7 +208,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
     beforeEach(function() {
       this.allSecurityGroups = {
         test: {
-          tencentCloud: {
+          tencentcloud: {
             'us-west-1': [
               { name: 'sg1', id: 'sg-1a', vpcId: null },
               { name: 'sg2', id: 'sg-2a', vpcId: null },
@@ -231,7 +231,7 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
         backingData: {
           securityGroups: this.allSecurityGroups,
           filtered: {
-            securityGroups: this.allSecurityGroups.test.tencentCloud['us-west-1'],
+            securityGroups: this.allSecurityGroups.test.tencentcloud['us-west-1'],
           },
         },
         securityGroups: ['sg-1a', 'sg-2a'],
@@ -279,14 +279,14 @@ describe('Service: tencentCloudServerGroupConfiguration', function() {
     });
 
     it('updates filteredData to new region - no VPC', function() {
-      const expected = this.allSecurityGroups.test.tencentCloud['us-east-1'].slice(0, 2);
+      const expected = this.allSecurityGroups.test.tencentcloud['us-east-1'].slice(0, 2);
       this.command.region = 'us-east-1';
       service.configureSecurityGroupOptions(this.command);
       expect(this.command.backingData.filtered.securityGroups).toEqual(expected);
     });
 
     it('updates filteredData to new VPC', function() {
-      const expected = this.allSecurityGroups.test.tencentCloud['us-west-1'].slice(3, 5);
+      const expected = this.allSecurityGroups.test.tencentcloud['us-west-1'].slice(3, 5);
       this.command.vpcId = 'vpc-1';
       service.configureSecurityGroupOptions(this.command);
       expect(this.command.backingData.filtered.securityGroups).toEqual(expected);

@@ -2,7 +2,7 @@ import { module } from 'angular';
 import { VpcReader } from '../vpc/VpcReader';
 import { IVpc, ISecurityGroup } from '@spinnaker/core';
 
-export class TencentCloudSecurityGroupTransformer {
+export class TencentcloudSecurityGroupTransformer {
   addVpcNameToSecurityGroup(securityGroup: ISecurityGroup) {
     return (vpcs: IVpc[]) => {
       const matches = vpcs.filter(test => {
@@ -18,6 +18,6 @@ export class TencentCloudSecurityGroupTransformer {
 
 export const TENCENTCLOUD_SECURITYGROUP_TRANSFORMER = 'spinnaker.tencentcloud.securityGroup.transformer';
 module(TENCENTCLOUD_SECURITYGROUP_TRANSFORMER, []).factory(
-  'tencentCloudSecurityGroupTransformer',
-  TencentCloudSecurityGroupTransformer,
+  'tencentcloudSecurityGroupTransformer',
+  TencentcloudSecurityGroupTransformer,
 );

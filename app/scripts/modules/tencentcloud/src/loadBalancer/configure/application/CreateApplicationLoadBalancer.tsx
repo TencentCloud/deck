@@ -14,10 +14,10 @@ import {
 } from '@spinnaker/core';
 
 import {
-  ITencentCloudApplicationLoadBalancer,
-  ITencentCloudApplicationLoadBalancerUpsertCommand,
+  ITencentcloudApplicationLoadBalancer,
+  ITencentcloudApplicationLoadBalancerUpsertCommand,
 } from 'tencentcloud/domain';
-import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
+import { TencentcloudReactInjector } from 'tencentcloud/reactShims';
 
 import { ALBListeners } from './ALBListeners';
 import { LoadBalancerLocation } from '../common/LoadBalancerLocation';
@@ -25,13 +25,13 @@ import { SecurityGroups } from '../common/SecurityGroups';
 import '../common/configure.less';
 
 export interface ICreateApplicationLoadBalancerProps extends ILoadBalancerModalProps {
-  loadBalancer: ITencentCloudApplicationLoadBalancer;
+  loadBalancer: ITencentcloudApplicationLoadBalancer;
 }
 
 export interface ICreateApplicationLoadBalancerState {
   includeSecurityGroups: boolean;
   isNew: boolean;
-  loadBalancerCommand: ITencentCloudApplicationLoadBalancerUpsertCommand;
+  loadBalancerCommand: ITencentcloudApplicationLoadBalancerUpsertCommand;
   taskMonitor: TaskMonitor;
 }
 
@@ -49,7 +49,7 @@ export class CreateApplicationLoadBalancer extends React.Component<
 
   public static show(
     props: ICreateApplicationLoadBalancerProps,
-  ): Promise<ITencentCloudApplicationLoadBalancerUpsertCommand> {
+  ): Promise<ITencentcloudApplicationLoadBalancerUpsertCommand> {
     const modalProps = { dialogClassName: 'wizard-modal modal-lg' };
     return ReactModal.show(CreateApplicationLoadBalancer, props, modalProps);
   }
@@ -58,12 +58,12 @@ export class CreateApplicationLoadBalancer extends React.Component<
     super(props);
 
     const loadBalancerCommand = props.command
-      ? (props.command as ITencentCloudApplicationLoadBalancerUpsertCommand) // ejecting from a wizard
+      ? (props.command as ITencentcloudApplicationLoadBalancerUpsertCommand) // ejecting from a wizard
       : props.loadBalancer
-      ? TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.convertApplicationLoadBalancerForEditing(
+      ? TencentcloudReactInjector.tencentcloudLoadBalancerTransformer.convertApplicationLoadBalancerForEditing(
           props.loadBalancer,
         )
-      : TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.constructNewApplicationLoadBalancerTemplate(
+      : TencentcloudReactInjector.tencentcloudLoadBalancerTransformer.constructNewApplicationLoadBalancerTemplate(
           props.app,
         );
 
@@ -83,20 +83,20 @@ export class CreateApplicationLoadBalancer extends React.Component<
   ): string {
     if (
       certificateId &&
-      (certificateId.indexOf('arn:tencentCloud:iam::') !== 0 || certificateId.indexOf('arn:tencentCloud:acm:') !== 0)
+      (certificateId.indexOf('arn:tencentcloud:iam::') !== 0 || certificateId.indexOf('arn:tencentcloud:acm:') !== 0)
     ) {
       // If they really want to enter the ARN...
       if (certificateType === 'iam') {
-        return `arn:tencentCloud:iam::${accountId}:server-certificate/${certificateId}`;
+        return `arn:tencentcloud:iam::${accountId}:server-certificate/${certificateId}`;
       }
       if (certificateType === 'acm') {
-        return `arn:tencentCloud:acm:${region}:${accountId}:certificate/${certificateId}`;
+        return `arn:tencentcloud:acm:${region}:${accountId}:certificate/${certificateId}`;
       }
     }
     return certificateId;
   }
 
-  private formatListeners(command: ITencentCloudApplicationLoadBalancerUpsertCommand): void {
+  private formatListeners(command: ITencentcloudApplicationLoadBalancerUpsertCommand): void {
     command.listener = command.listeners.map(listener => {
       if (listener.healthCheck) {
         delete listener.healthCheck.showAdvancedSetting;
@@ -117,7 +117,7 @@ export class CreateApplicationLoadBalancer extends React.Component<
     });
   }
 
-  private formatCommand(base: ITencentCloudApplicationLoadBalancerUpsertCommand): any {
+  private formatCommand(base: ITencentcloudApplicationLoadBalancerUpsertCommand): any {
     const { app } = this.props;
     const command = {
       type: 'upsertLoadBalancer',
@@ -141,7 +141,7 @@ export class CreateApplicationLoadBalancer extends React.Component<
     return command;
   }
 
-  protected onApplicationRefresh(values: ITencentCloudApplicationLoadBalancerUpsertCommand): void {
+  protected onApplicationRefresh(values: ITencentcloudApplicationLoadBalancerUpsertCommand): void {
     if (this._isUnmounted) {
       return;
     }
@@ -171,12 +171,12 @@ export class CreateApplicationLoadBalancer extends React.Component<
     }
   }
 
-  private onTaskComplete(values: ITencentCloudApplicationLoadBalancerUpsertCommand): void {
+  private onTaskComplete(values: ITencentcloudApplicationLoadBalancerUpsertCommand): void {
     this.props.app.loadBalancers.refresh();
     this.refreshUnsubscribe = this.props.app.loadBalancers.onNextRefresh(null, () => this.onApplicationRefresh(values));
   }
 
-  private submit = (values: ITencentCloudApplicationLoadBalancerUpsertCommand): void => {
+  private submit = (values: ITencentcloudApplicationLoadBalancerUpsertCommand): void => {
     const { app, forPipelineConfig, closeModal } = this.props;
     const { isNew } = this.state;
 
@@ -212,7 +212,7 @@ export class CreateApplicationLoadBalancer extends React.Component<
       heading = `Edit ${loadBalancerCommand.name}: ${loadBalancerCommand.region}: ${loadBalancerCommand.credentials}`;
     }
     return (
-      <WizardModal<ITencentCloudApplicationLoadBalancerUpsertCommand>
+      <WizardModal<ITencentcloudApplicationLoadBalancerUpsertCommand>
         heading={heading}
         initialValues={loadBalancerCommand}
         taskMonitor={taskMonitor}

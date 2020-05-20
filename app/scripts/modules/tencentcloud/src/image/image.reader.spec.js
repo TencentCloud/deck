@@ -2,14 +2,14 @@
 
 import { API } from '@spinnaker/core';
 
-import { TencentCloudImageReader } from './image.reader';
+import { TencentcloudImageReader } from './image.reader';
 
-describe('Service: tencentCloud Image Reader', function() {
+describe('Service: tencentcloud Image Reader', function() {
   var service, $http, scope;
 
   beforeEach(
     window.inject(function($httpBackend, $rootScope) {
-      service = new TencentCloudImageReader();
+      service = new TencentcloudImageReader();
       $http = $httpBackend;
       scope = $rootScope.$new();
     }),
@@ -99,7 +99,7 @@ describe('Service: tencentCloud Image Reader', function() {
       credentials = 'test';
 
     function buildQueryString() {
-      return [API.baseUrl, 'images', credentials, region, imageName].join('/') + '?provider=tencentCloud';
+      return [API.baseUrl, 'images', credentials, region, imageName].join('/') + '?provider=tencentcloud';
     }
 
     it('returns null if server returns 404 or an empty list', function() {

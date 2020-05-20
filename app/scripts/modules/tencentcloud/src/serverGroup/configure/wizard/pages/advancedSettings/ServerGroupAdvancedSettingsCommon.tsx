@@ -4,14 +4,14 @@ import Select, { Option } from 'react-select';
 
 import { HelpField, MapEditor } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupCommand, ITencentCloudDisk } from '../../../serverGroupConfiguration.service';
+import { ITencentcloudServerGroupCommand, ITencentcloudDisk } from '../../../serverGroupConfiguration.service';
 
 import { IServerGroupAdvancedSettingsProps } from './ServerGroupAdvancedSettings';
 
 export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGroupAdvancedSettingsProps> {
   private duplicateKeys = false;
 
-  public validate = (values: ITencentCloudServerGroupCommand) => {
+  public validate = (values: ITencentcloudServerGroupCommand) => {
     const errors = {} as any;
 
     if (!values.terminationPolicies || !values.terminationPolicies.length) {
@@ -34,17 +34,17 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
     setFieldValue('dataDisks', values.dataDisks);
   };
 
-  private dataDiskTypeChange = (dataDisk: ITencentCloudDisk, value: string) => {
+  private dataDiskTypeChange = (dataDisk: ITencentcloudDisk, value: string) => {
     dataDisk.diskType = value;
     this.updateDataDisks();
   };
 
-  private dataDiskSizeChange = (dataDisk: ITencentCloudDisk, value: number) => {
+  private dataDiskSizeChange = (dataDisk: ITencentcloudDisk, value: number) => {
     dataDisk.diskSize = value;
     this.updateDataDisks();
   };
 
-  private dataDiskSnapshotIdChange = (dataDisk: ITencentCloudDisk, value: string) => {
+  private dataDiskSnapshotIdChange = (dataDisk: ITencentcloudDisk, value: string) => {
     dataDisk.snapshotId = value;
     this.updateDataDisks();
   };
@@ -116,7 +116,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>UserData (optional) </b>
-            <HelpField id="tencentCloud.serverGroup.base64UserData" />
+            <HelpField id="tencentcloud.serverGroup.base64UserData" />
           </div>
           <div className="col-md-6">
             <Field type="text" className="form-control input-sm no-spel" name="userData" />
@@ -125,7 +125,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>Security Service </b>
-            <HelpField id="tencentCloud.serverGroup.securityService" />
+            <HelpField id="tencentcloud.serverGroup.securityService" />
           </div>
 
           <div className="col-md-6 checkbox">
@@ -149,7 +149,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="col-md-5 sm-label-right">
             <b>Instance Monitoring </b>
-            <HelpField id="tencentCloud.serverGroup.instanceMonitoring" />
+            <HelpField id="tencentcloud.serverGroup.instanceMonitoring" />
           </div>
 
           <div className="col-md-6 checkbox">
@@ -358,7 +358,7 @@ export class ServerGroupAdvancedSettingsCommon extends React.Component<IServerGr
         <div className="form-group">
           <div className="sm-label-left">
             <b>Tags (optional)</b>
-            <HelpField id="tencentCloud.serverGroup.tags" />
+            <HelpField id="tencentcloud.serverGroup.tags" />
           </div>
           <MapEditor model={values.tags as any} allowEmpty={true} onChange={this.tagsChanged} />
         </div>

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { CollapsibleSection } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { ITencentcloudServerGroupDetailsSectionProps } from './ITencentcloudServerGroupDetailsSectionProps';
 
 export interface IPackageDetailsSectionState {
   commitHash: string;
@@ -10,16 +10,16 @@ export interface IPackageDetailsSectionState {
 }
 
 export class PackageDetailsSection extends React.Component<
-  ITencentCloudServerGroupDetailsSectionProps,
+  ITencentcloudServerGroupDetailsSectionProps,
   IPackageDetailsSectionState
 > {
-  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
+  constructor(props: ITencentcloudServerGroupDetailsSectionProps) {
     super(props);
 
     this.state = this.getState(props);
   }
 
-  private getState(props: ITencentCloudServerGroupDetailsSectionProps): IPackageDetailsSectionState {
+  private getState(props: ITencentcloudServerGroupDetailsSectionProps): IPackageDetailsSectionState {
     const { serverGroup } = props;
 
     const buildInfo = serverGroup.buildInfo || {};
@@ -40,7 +40,7 @@ export class PackageDetailsSection extends React.Component<
     return { commitHash, jenkinsLink };
   }
 
-  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
+  public componentWillReceiveProps(nextProps: ITencentcloudServerGroupDetailsSectionProps): void {
     this.setState(this.getState(nextProps));
   }
 

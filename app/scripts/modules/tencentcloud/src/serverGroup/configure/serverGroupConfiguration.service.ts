@@ -27,82 +27,82 @@ import {
   IServerGroupCommandViewState,
 } from '@spinnaker/core';
 
-import { IKeyPair, ITencentCloudLoadBalancerSourceData, IScalingProcess, IALBListener } from 'tencentcloud/domain';
-import { VpcReader, ITencentCloudVpc } from '../../vpc';
+import { IKeyPair, ITencentcloudLoadBalancerSourceData, IScalingProcess, IALBListener } from 'tencentcloud/domain';
+import { VpcReader, ITencentcloudVpc } from '../../vpc';
 import { KeyPairsReader } from 'tencentcloud/keyPairs';
 import { AutoScalingProcessService } from '../details/scalingProcesses/AutoScalingProcessService';
 
 export type IBlockDeviceMappingSource = 'source' | 'ami' | 'default';
 
-export interface ITencentCloudServerGroupCommandDirty extends IServerGroupCommandDirty {
+export interface ITencentcloudServerGroupCommandDirty extends IServerGroupCommandDirty {
   targetGroups?: string[];
 }
 
-export interface ITencentCloudServerGroupCommandResult extends IServerGroupCommandResult {
-  dirty: ITencentCloudServerGroupCommandDirty;
+export interface ITencentcloudServerGroupCommandResult extends IServerGroupCommandResult {
+  dirty: ITencentcloudServerGroupCommandDirty;
 }
-export interface ITencentCloudLbListenerMap {
+export interface ITencentcloudLbListenerMap {
   [key: string]: IALBListener[];
 }
-export interface ITencentCloudServerGroupCommandBackingDataFiltered extends IServerGroupCommandBackingDataFiltered {
+export interface ITencentcloudServerGroupCommandBackingDataFiltered extends IServerGroupCommandBackingDataFiltered {
   keyPairs: IKeyPair[];
   targetGroups: string[];
-  vpcList: ITencentCloudVpc[];
-  lbList: ITencentCloudLoadBalancerSourceData[];
+  vpcList: ITencentcloudVpc[];
+  lbList: ITencentcloudLoadBalancerSourceData[];
   listenerList: IALBListener[];
-  lbListenerMap: ITencentCloudLbListenerMap;
+  lbListenerMap: ITencentcloudLbListenerMap;
 }
 
-export interface ITencentCloudServerGroupCommandBackingData extends IServerGroupCommandBackingData {
-  appLoadBalancers: ITencentCloudLoadBalancerSourceData[];
-  filtered: ITencentCloudServerGroupCommandBackingDataFiltered;
+export interface ITencentcloudServerGroupCommandBackingData extends IServerGroupCommandBackingData {
+  appLoadBalancers: ITencentcloudLoadBalancerSourceData[];
+  filtered: ITencentcloudServerGroupCommandBackingDataFiltered;
   keyPairs: IKeyPair[];
   targetGroups: string[];
   scalingProcesses: IScalingProcess[];
   diskTypes: string[];
-  vpcList: ITencentCloudVpc[];
+  vpcList: ITencentcloudVpc[];
   listenerList: IALBListener[];
 }
 
-export interface ITencentCloudServerGroupCommandViewState extends IServerGroupCommandViewState {
-  dirty: ITencentCloudServerGroupCommandDirty;
+export interface ITencentcloudServerGroupCommandViewState extends IServerGroupCommandViewState {
+  dirty: ITencentcloudServerGroupCommandDirty;
 }
-export interface ITencentCloudDisk {
+export interface ITencentcloudDisk {
   diskType: string;
   diskSize: number;
   snapshotId?: string;
   index?: number;
 }
-export interface ITencentCloudForwardLoadBalancerTargetAttribute {
+export interface ITencentcloudForwardLoadBalancerTargetAttribute {
   port: number;
   weight: number;
 }
-export interface ITencentCloudForwardLoadBalancer {
+export interface ITencentcloudForwardLoadBalancer {
   loadBalancerId: string;
   listenerId: string;
   locationId?: string;
-  targetAttributes: ITencentCloudForwardLoadBalancerTargetAttribute[];
+  targetAttributes: ITencentcloudForwardLoadBalancerTargetAttribute[];
 }
-export interface ITencentCloudInternetAccessible {
+export interface ITencentcloudInternetAccessible {
   internetChargeType: string;
   internetMaxBandwidthOut: number;
   publicIpAssigned: boolean;
 }
-export interface ITencentCloudServerGroupCommand extends IServerGroupCommand {
+export interface ITencentcloudServerGroupCommand extends IServerGroupCommand {
   detail: string;
   subnetIds: string[];
-  internetAccessible: ITencentCloudInternetAccessible;
-  systemDisk: ITencentCloudDisk;
-  dataDisks: ITencentCloudDisk[];
+  internetAccessible: ITencentcloudInternetAccessible;
+  systemDisk: ITencentcloudDisk;
+  dataDisks: ITencentcloudDisk[];
   osPlatform: string;
-  forwardLoadBalancers: ITencentCloudForwardLoadBalancer[];
+  forwardLoadBalancers: ITencentcloudForwardLoadBalancer[];
   loadBalancerId: string;
   listenerId: string;
   locationId: string;
   port: number;
   weight: number;
   associatePublicIpAddress: boolean;
-  backingData: ITencentCloudServerGroupCommandBackingData;
+  backingData: ITencentcloudServerGroupCommandBackingData;
   copySourceCustomBlockDeviceMappings: boolean;
   ebsOptimized: boolean;
   healthCheckGracePeriod: number;
@@ -121,18 +121,18 @@ export interface ITencentCloudServerGroupCommand extends IServerGroupCommand {
   targetGroups: string[];
   spelTargetGroups: string[];
   spelLoadBalancers: string[];
-  viewState: ITencentCloudServerGroupCommandViewState;
+  viewState: ITencentcloudServerGroupCommandViewState;
 
   getBlockDeviceMappingsSource: (command: IServerGroupCommand) => IBlockDeviceMappingSource;
   selectBlockDeviceMappingsSource: (command: IServerGroupCommand, selection: string) => void;
-  usePreferredZonesChanged: (command: IServerGroupCommand) => ITencentCloudServerGroupCommandResult;
+  usePreferredZonesChanged: (command: IServerGroupCommand) => ITencentcloudServerGroupCommandResult;
   clusterChanged: (command: IServerGroupCommand) => void;
   regionIsDeprecated: (command: IServerGroupCommand) => boolean;
   vpcIdChanged: (command: IServerGroupCommand) => IServerGroupCommandResult;
-  loadBalancerChanged: (command: ITencentCloudServerGroupCommand) => IServerGroupCommandResult;
+  loadBalancerChanged: (command: ITencentcloudServerGroupCommand) => IServerGroupCommandResult;
 }
 
-export class TencentCloudServerGroupConfigurationService {
+export class TencentcloudServerGroupConfigurationService {
   private enabledMetrics = [
     'GroupMinSize',
     'GroupMaxSize',
@@ -147,31 +147,31 @@ export class TencentCloudServerGroupConfigurationService {
   private diskTypes = ['CLOUD_BASIC', 'CLOUD_PREMIUM', 'CLOUD_SSD'];
   public static $inject = [
     'securityGroupReader',
-    'tencentCloudInstanceTypeService',
+    'tencentcloudInstanceTypeService',
     'cacheInitializer',
     'loadBalancerReader',
     'serverGroupCommandRegistry',
   ];
   constructor(
     private securityGroupReader: SecurityGroupReader,
-    private tencentCloudInstanceTypeService: any,
+    private tencentcloudInstanceTypeService: any,
     private cacheInitializer: CacheInitializerService,
     private loadBalancerReader: LoadBalancerReader,
     private serverGroupCommandRegistry: ServerGroupCommandRegistry,
   ) {}
 
-  public configureUpdateCommand(command: ITencentCloudServerGroupCommand): void {
+  public configureUpdateCommand(command: ITencentcloudServerGroupCommand): void {
     command.backingData = ({
       enabledMetrics: clone(this.enabledMetrics),
       terminationPolicies: clone(this.terminationPolicies),
       diskTypes: clone(this.diskTypes),
-    } as unknown) as ITencentCloudServerGroupCommandBackingData;
+    } as unknown) as ITencentcloudServerGroupCommandBackingData;
   }
 
-  public configureCommand(application: Application, cmd: ITencentCloudServerGroupCommand): IPromise<void> {
+  public configureCommand(application: Application, cmd: ITencentcloudServerGroupCommand): IPromise<void> {
     this.applyOverrides('beforeConfiguration', cmd);
     // TODO: Instead of attaching these to the command itself, they could be static methods
-    cmd.toggleSuspendedProcess = (command: ITencentCloudServerGroupCommand, process: string): void => {
+    cmd.toggleSuspendedProcess = (command: ITencentcloudServerGroupCommand, process: string): void => {
       command.suspendedProcesses = command.suspendedProcesses || [];
       const processIndex = command.suspendedProcesses.indexOf(process);
       if (processIndex === -1) {
@@ -181,17 +181,17 @@ export class TencentCloudServerGroupConfigurationService {
       }
     };
 
-    cmd.processIsSuspended = (command: ITencentCloudServerGroupCommand, process: string): boolean =>
+    cmd.processIsSuspended = (command: ITencentcloudServerGroupCommand, process: string): boolean =>
       command.suspendedProcesses.includes(process);
 
-    cmd.onStrategyChange = (command: ITencentCloudServerGroupCommand, strategy: IDeploymentStrategy): void => {
+    cmd.onStrategyChange = (command: ITencentcloudServerGroupCommand, strategy: IDeploymentStrategy): void => {
       // Any strategy other than None or Custom should force traffic to be enabled
       if (strategy.key !== '' && strategy.key !== 'custom') {
         command.suspendedProcesses = (command.suspendedProcesses || []).filter(p => p !== 'AddToLoadBalancer');
       }
     };
 
-    cmd.getBlockDeviceMappingsSource = (command: ITencentCloudServerGroupCommand): IBlockDeviceMappingSource => {
+    cmd.getBlockDeviceMappingsSource = (command: ITencentcloudServerGroupCommand): IBlockDeviceMappingSource => {
       if (command.copySourceCustomBlockDeviceMappings) {
         return 'source';
       } else if (command.useAmiBlockDeviceMappings) {
@@ -200,7 +200,7 @@ export class TencentCloudServerGroupConfigurationService {
       return 'default';
     };
 
-    cmd.selectBlockDeviceMappingsSource = (command: ITencentCloudServerGroupCommand, selection: string): void => {
+    cmd.selectBlockDeviceMappingsSource = (command: ITencentcloudServerGroupCommand, selection: string): void => {
       if (selection === 'source') {
         // copy block device mappings from source asg
         command.copySourceCustomBlockDeviceMappings = true;
@@ -216,7 +216,7 @@ export class TencentCloudServerGroupConfigurationService {
       }
     };
 
-    cmd.regionIsDeprecated = (command: ITencentCloudServerGroupCommand): boolean => {
+    cmd.regionIsDeprecated = (command: ITencentcloudServerGroupCommand): boolean => {
       return (
         has(command, 'backingData.filtered.regions') &&
         command.backingData.filtered.regions.some(region => region.name === command.region && region.deprecated)
@@ -232,18 +232,18 @@ export class TencentCloudServerGroupConfigurationService {
         loadBalancers: this.loadBalancerReader.listLoadBalancers('tencentcloud'),
         preferredZones: AccountService.getPreferredZonesByAccount('tencentcloud'),
         keyPairs: KeyPairsReader.listKeyPairs(),
-        instanceTypes: this.tencentCloudInstanceTypeService.getAllTypesByRegion(),
+        instanceTypes: this.tencentcloudInstanceTypeService.getAllTypesByRegion(),
         enabledMetrics: $q.when(clone(this.enabledMetrics)),
         terminationPolicies: $q.when(clone(this.terminationPolicies)),
         diskTypes: $q.when(clone(this.diskTypes)),
       })
-      .then((backingData: Partial<ITencentCloudServerGroupCommandBackingData>) => {
+      .then((backingData: Partial<ITencentcloudServerGroupCommandBackingData>) => {
         let securityGroupReloader = $q.when();
         backingData.accounts = keys(backingData.credentialsKeyedByAccount);
-        backingData.filtered = {} as ITencentCloudServerGroupCommandBackingDataFiltered;
+        backingData.filtered = {} as ITencentcloudServerGroupCommandBackingDataFiltered;
         backingData.scalingProcesses = AutoScalingProcessService.listProcesses();
         backingData.appLoadBalancers = application.getDataSource('loadBalancers').data;
-        cmd.backingData = backingData as ITencentCloudServerGroupCommandBackingData;
+        cmd.backingData = backingData as ITencentcloudServerGroupCommandBackingData;
         backingData.filtered.securityGroups = this.getRegionalSecurityGroups(cmd);
         if (cmd.viewState.disableImageSelection) {
           this.configureInstanceTypes(cmd);
@@ -265,7 +265,7 @@ export class TencentCloudServerGroupConfigurationService {
       });
   }
 
-  public applyOverrides(phase: string, command: ITencentCloudServerGroupCommand): void {
+  public applyOverrides(phase: string, command: ITencentcloudServerGroupCommand): void {
     this.serverGroupCommandRegistry.getCommandOverrides('tencentcloud').forEach((override: any) => {
       if (override[phase]) {
         override[phase](command);
@@ -273,8 +273,8 @@ export class TencentCloudServerGroupConfigurationService {
     });
   }
 
-  public configureKeyPairs(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureKeyPairs(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     if (command.credentials && command.region) {
       // isDefault is imperfect, since we don't know what the previous account/region was, but probably a safe bet
       const isDefault = some<any>(
@@ -315,9 +315,9 @@ export class TencentCloudServerGroupConfigurationService {
     return result;
   }
 
-  public configureInstanceTypes(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
-    const filtered = this.tencentCloudInstanceTypeService.getAvailableTypesForRegions(
+  public configureInstanceTypes(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
+    const filtered = this.tencentcloudInstanceTypeService.getAvailableTypesForRegions(
       command.backingData.instanceTypes,
       [command.region],
     );
@@ -330,8 +330,8 @@ export class TencentCloudServerGroupConfigurationService {
     return result;
   }
 
-  public configureImages(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureImages(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     if (command.viewState.disableImageSelection) {
       return result;
     }
@@ -342,15 +342,15 @@ export class TencentCloudServerGroupConfigurationService {
     return result;
   }
 
-  public configureAvailabilityZones(command: ITencentCloudServerGroupCommand): void {
+  public configureAvailabilityZones(command: ITencentcloudServerGroupCommand): void {
     command.backingData.filtered.availabilityZones = find<IRegion>(
       command.backingData.credentialsKeyedByAccount[command.credentials].regions,
       { name: command.region },
     ).availabilityZones;
   }
 
-  public configureVpcList(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureVpcList(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     const filteredData = command.backingData.filtered;
     if (command.region === null) {
       return result;
@@ -368,8 +368,8 @@ export class TencentCloudServerGroupConfigurationService {
     return result;
   }
 
-  public configureSubnetPurposes(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureSubnetPurposes(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     if (command.region === null) {
       return result;
     }
@@ -386,15 +386,15 @@ export class TencentCloudServerGroupConfigurationService {
     return result;
   }
 
-  public getRegionalSecurityGroups(command: ITencentCloudServerGroupCommand): ISecurityGroup[] {
+  public getRegionalSecurityGroups(command: ITencentcloudServerGroupCommand): ISecurityGroup[] {
     const newSecurityGroups = command.backingData.securityGroups[command.credentials] || { tencentcloud: {} };
     return chain(newSecurityGroups.tencentcloud[command.region])
       .sortBy('name')
       .value();
   }
 
-  public configureSecurityGroupOptions(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureSecurityGroupOptions(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     const currentOptions: ISecurityGroup[] = command.backingData.filtered.securityGroups;
     const newRegionalSecurityGroups = this.getRegionalSecurityGroups(command);
     const isExpression =
@@ -428,7 +428,7 @@ export class TencentCloudServerGroupConfigurationService {
   }
 
   public refreshSecurityGroups(
-    command: ITencentCloudServerGroupCommand,
+    command: ITencentcloudServerGroupCommand,
     skipCommandReconfiguration?: boolean,
   ): IPromise<void> {
     return this.cacheInitializer.refreshCache('securityGroups').then(() => {
@@ -441,7 +441,7 @@ export class TencentCloudServerGroupConfigurationService {
     });
   }
 
-  private getLoadBalancerMap(command: ITencentCloudServerGroupCommand): ITencentCloudLoadBalancerSourceData[] {
+  private getLoadBalancerMap(command: ITencentcloudServerGroupCommand): ITencentcloudLoadBalancerSourceData[] {
     if (command.backingData.loadBalancers) {
       return chain(command.backingData.loadBalancers)
         .map('accounts')
@@ -450,8 +450,8 @@ export class TencentCloudServerGroupConfigurationService {
         .map('regions')
         .flattenDeep()
         .filter({ name: command.region })
-        .map<ITencentCloudLoadBalancerSourceData>('loadBalancers')
-        .flattenDeep<ITencentCloudLoadBalancerSourceData>()
+        .map<ITencentcloudLoadBalancerSourceData>('loadBalancers')
+        .flattenDeep<ITencentcloudLoadBalancerSourceData>()
         .value();
     }
 
@@ -459,8 +459,8 @@ export class TencentCloudServerGroupConfigurationService {
     return appLoadBalancers.filter(lb => lb.region === command.region && lb.account === command.credentials);
   }
 
-  public configureLoadBalancerOptions(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureLoadBalancerOptions(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     const newLoadBalancers = this.getLoadBalancerMap(command).filter(lb => lb.vpcId === command.vpcId);
     command.backingData.filtered.lbList = newLoadBalancers;
     command.backingData.filtered.lbListenerMap = {};
@@ -475,7 +475,7 @@ export class TencentCloudServerGroupConfigurationService {
     return result;
   }
 
-  public refreshLoadBalancerListenerMap(command: ITencentCloudServerGroupCommand) {
+  public refreshLoadBalancerListenerMap(command: ITencentcloudServerGroupCommand) {
     return Promise.all(
       command.backingData.filtered.lbList.map(flb =>
         this.loadBalancerReader
@@ -492,13 +492,13 @@ export class TencentCloudServerGroupConfigurationService {
     });
   }
 
-  public configureListenerOptions(command: ITencentCloudServerGroupCommand): IServerGroupCommandResult {
-    const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+  public configureListenerOptions(command: ITencentcloudServerGroupCommand): IServerGroupCommandResult {
+    const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
     command.backingData.filtered.listenerList = command.backingData.listenerList;
     return result;
   }
 
-  public refreshListeners(command: ITencentCloudServerGroupCommand) {
+  public refreshListeners(command: ITencentcloudServerGroupCommand) {
     return this.loadBalancerReader
       .getLoadBalancerDetails('tencentcloud', command.credentials, command.region, command.loadBalancerId)
       .then(loadBalancers => {
@@ -508,12 +508,12 @@ export class TencentCloudServerGroupConfigurationService {
   }
 
   // TODO: Instead of attaching these to the command itself, they could be static methods
-  public attachEventHandlers(cmd: ITencentCloudServerGroupCommand): void {
+  public attachEventHandlers(cmd: ITencentcloudServerGroupCommand): void {
     cmd.usePreferredZonesChanged = (
-      command: ITencentCloudServerGroupCommand,
-    ): ITencentCloudServerGroupCommandResult => {
+      command: ITencentcloudServerGroupCommand,
+    ): ITencentcloudServerGroupCommandResult => {
       const currentZoneCount = command.availabilityZones ? command.availabilityZones.length : 0;
-      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+      const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
       const preferredZonesForAccount = command.backingData.preferredZones[command.credentials];
       if (preferredZonesForAccount && preferredZonesForAccount[command.region] && command.viewState.usePreferredZones) {
         command.availabilityZones = cloneDeep(preferredZonesForAccount[command.region].sort());
@@ -530,8 +530,8 @@ export class TencentCloudServerGroupConfigurationService {
       return result;
     };
 
-    cmd.vpcIdChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
-      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+    cmd.vpcIdChanged = (command: ITencentcloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
       extend(result.dirty, this.configureSubnetPurposes(command).dirty);
       extend(result.dirty, this.configureLoadBalancerOptions(command).dirty);
       command.viewState.dirty = command.viewState.dirty || {};
@@ -540,18 +540,18 @@ export class TencentCloudServerGroupConfigurationService {
     };
 
     cmd.subnetChanged = (): IServerGroupCommandResult => {
-      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+      const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
       return result;
     };
 
-    cmd.loadBalancerChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
-      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+    cmd.loadBalancerChanged = (command: ITencentcloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
       extend(result.dirty, this.configureListenerOptions(command).dirty);
       return result;
     };
 
-    cmd.regionChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
-      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+    cmd.regionChanged = (command: ITencentcloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
       const filteredData = command.backingData.filtered;
       extend(result.dirty, this.configureVpcList(command).dirty);
       if (command.region) {
@@ -569,12 +569,12 @@ export class TencentCloudServerGroupConfigurationService {
       return result;
     };
 
-    cmd.clusterChanged = (command: ITencentCloudServerGroupCommand): void => {
+    cmd.clusterChanged = (command: ITencentcloudServerGroupCommand): void => {
       command.moniker = NameUtils.getMoniker(command.application, command.stack, command.detail);
     };
 
-    cmd.credentialsChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult => {
-      const result: ITencentCloudServerGroupCommandResult = { dirty: {} };
+    cmd.credentialsChanged = (command: ITencentcloudServerGroupCommand): IServerGroupCommandResult => {
+      const result: ITencentcloudServerGroupCommandResult = { dirty: {} };
       const backingData = command.backingData;
       if (command.credentials) {
         const regionsForAccount: IAccountDetails =
@@ -593,11 +593,11 @@ export class TencentCloudServerGroupConfigurationService {
       return result;
     };
 
-    cmd.imageChanged = (command: ITencentCloudServerGroupCommand): IServerGroupCommandResult =>
+    cmd.imageChanged = (command: ITencentcloudServerGroupCommand): IServerGroupCommandResult =>
       this.configureInstanceTypes(command);
 
-    cmd.instanceTypeChanged = (command: ITencentCloudServerGroupCommand): void => {
-      command.ebsOptimized = this.tencentCloudInstanceTypeService.isEbsOptimized(command.instanceType);
+    cmd.instanceTypeChanged = (command: ITencentcloudServerGroupCommand): void => {
+      command.ebsOptimized = this.tencentcloudInstanceTypeService.isEbsOptimized(command.instanceType);
     };
 
     this.applyOverrides('attachEventHandlers', cmd);
@@ -610,4 +610,4 @@ module(TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE, [
   LOAD_BALANCER_READ_SERVICE,
   CACHE_INITIALIZER_SERVICE,
   SERVER_GROUP_COMMAND_REGISTRY_PROVIDER,
-]).service('tencentCloudServerGroupConfigurationService', TencentCloudServerGroupConfigurationService);
+]).service('tencentcloudServerGroupConfigurationService', TencentcloudServerGroupConfigurationService);

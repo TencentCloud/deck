@@ -2,12 +2,12 @@ import { IPromise } from 'angular';
 import { groupBy, sortBy } from 'lodash';
 
 import { AccountService, CertificateReader } from '@spinnaker/core';
-import { ITencentCloudCertificate } from 'tencentcloud/domain';
+import { ITencentcloudCertificate } from 'tencentcloud/domain';
 
-export class TencentCloudCertificateReader {
-  public static listCertificates(): IPromise<{ [accountId: string]: ITencentCloudCertificate[] }> {
+export class TencentcloudCertificateReader {
+  public static listCertificates(): IPromise<{ [accountId: string]: ITencentcloudCertificate[] }> {
     return CertificateReader.listCertificatesByProvider('tencentcloud').then(
-      (certificates: ITencentCloudCertificate[]) => {
+      (certificates: ITencentcloudCertificate[]) => {
         // This account grouping should really go into clouddriver but since it's not, put it here for now.
         return AccountService.listAllAccounts('tencentcloud').then(allAccountDetails => {
           const accountIdToName = allAccountDetails.reduce((acc, accountDetails) => {

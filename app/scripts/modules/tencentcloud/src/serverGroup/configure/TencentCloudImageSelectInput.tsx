@@ -6,33 +6,33 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 import { Application, HelpField, TetheredSelect, ValidationMessage } from '@spinnaker/core';
 
-import { TencentCloudImageReader, ITencentCloudImage } from '../../image';
+import { TencentcloudImageReader, ITencentcloudImage } from '../../image';
 
-export interface ITencentCloudImageSelectorProps {
-  onChange: (value: ITencentCloudImage) => void;
-  value: ITencentCloudImage;
+export interface ITencentcloudImageSelectorProps {
+  onChange: (value: ITencentcloudImage) => void;
+  value: ITencentcloudImage;
   application: Application;
   credentials: string;
   region: string;
 }
 
-export interface ITencentCloudImageSelectorState {
+export interface ITencentcloudImageSelectorState {
   errorMessage?: string;
   selectionMode: 'packageImages' | 'searchAllImages';
   searchString: string;
-  searchResults: ITencentCloudImage[];
+  searchResults: ITencentcloudImage[];
   isSearching: boolean;
-  packageImages: ITencentCloudImage[];
+  packageImages: ITencentcloudImage[];
   isLoadingPackageImages: boolean;
 }
 
 type sortImagesByOptions = 'name' | 'ts';
 
-export class TencentCloudImageSelectInput extends React.Component<
-  ITencentCloudImageSelectorProps,
-  ITencentCloudImageSelectorState
+export class TencentcloudImageSelectInput extends React.Component<
+  ITencentcloudImageSelectorProps,
+  ITencentcloudImageSelectorState
 > {
-  public state: ITencentCloudImageSelectorState = {
+  public state: ITencentcloudImageSelectorState = {
     errorMessage: null,
     selectionMode: 'packageImages',
     searchString: '',
@@ -42,13 +42,13 @@ export class TencentCloudImageSelectInput extends React.Component<
     isLoadingPackageImages: true,
   };
 
-  private tencentCloudImageReader = new TencentCloudImageReader();
-  private props$ = new Subject<ITencentCloudImageSelectorProps>();
+  private tencentcloudImageReader = new TencentcloudImageReader();
+  private props$ = new Subject<ITencentcloudImageSelectorProps>();
   private searchInput$ = new Subject<string>();
   private destroy$ = new Subject();
   private sortImagesBy$ = new BehaviorSubject<sortImagesByOptions>('ts');
 
-  public static makeFakeImage(imageName: string, imageId: string, region: string): ITencentCloudImage {
+  public static makeFakeImage(imageName: string, imageId: string, region: string): ITencentcloudImage {
     if (!imageName && !imageId) {
       return null;
     }
@@ -57,12 +57,12 @@ export class TencentCloudImageSelectInput extends React.Component<
     const imgIds = { [region]: [imageId] };
     const attributes = { virtualizationType: '*', createdTime: new Date().toISOString() };
 
-    return ({ imageName, imgIds, attributes } as unknown) as ITencentCloudImage;
+    return ({ imageName, imgIds, attributes } as unknown) as ITencentcloudImage;
   }
 
-  private loadImagesFromApplicationName(application: Application): IPromise<ITencentCloudImage[]> {
+  private loadImagesFromApplicationName(application: Application): IPromise<ITencentcloudImage[]> {
     const query = application.name.replace(/_/g, '[_\\-]') + '*';
-    return this.tencentCloudImageReader.findImages({ q: query });
+    return this.tencentcloudImageReader.findImages({ q: query });
   }
 
   private buildQueryForSimilarImages(imageName: string) {
@@ -78,23 +78,23 @@ export class TencentCloudImageSelectInput extends React.Component<
     return tooShort ? null : packageBase + (addDashToQuery ? '-*' : '*');
   }
 
-  private loadImageById(imageId: string, region: string, credentials: string): IPromise<ITencentCloudImage> {
+  private loadImageById(imageId: string, region: string, credentials: string): IPromise<ITencentcloudImage> {
     return !imageId
       ? $q.when(null)
-      : this.tencentCloudImageReader.getImage(imageId, region, credentials).catch(() => null);
+      : this.tencentcloudImageReader.getImage(imageId, region, credentials).catch(() => null);
   }
 
-  private searchForImages(query: string): IPromise<ITencentCloudImage[]> {
+  private searchForImages(query: string): IPromise<ITencentcloudImage[]> {
     const hasMinLength = query && query.length >= 3;
-    return hasMinLength ? this.tencentCloudImageReader.findImages({ q: query }) : $q.when([]);
+    return hasMinLength ? this.tencentcloudImageReader.findImages({ q: query }) : $q.when([]);
   }
 
   private fetchPackageImages(
-    value: ITencentCloudImage,
+    value: ITencentcloudImage,
     region: string,
     credentials: string,
     application: Application,
-  ): IPromise<ITencentCloudImage[]> {
+  ): IPromise<ITencentcloudImage[]> {
     const imageId = value && value.imgIds && value.imgIds[region] && value.imgIds[region][0];
 
     return this.loadImageById(imageId, region, credentials).then(image => {
@@ -112,13 +112,13 @@ export class TencentCloudImageSelectInput extends React.Component<
     });
   }
 
-  private selectImage(selectedImage: ITencentCloudImage) {
+  private selectImage(selectedImage: ITencentcloudImage) {
     if (this.props.value !== selectedImage) {
       this.props.onChange(selectedImage);
     }
   }
 
-  private findMatchingImage(images: ITencentCloudImage[], selectedImage: ITencentCloudImage) {
+  private findMatchingImage(images: ITencentcloudImage[], selectedImage: ITencentcloudImage) {
     const { region } = this.props;
     const selectImageId =
       selectedImage && selectedImage.imgIds[region] && selectedImage && selectedImage.imgIds[region][0];
@@ -136,7 +136,7 @@ export class TencentCloudImageSelectInput extends React.Component<
       .catch(err => {
         console.error(err);
         this.setState({ errorMessage: 'Unable to load package images' });
-        return Observable.of([] as ITencentCloudImage[]);
+        return Observable.of([] as ITencentcloudImage[]);
       })
       .do(() => this.setState({ isLoadingPackageImages: false }));
 
@@ -158,7 +158,7 @@ export class TencentCloudImageSelectInput extends React.Component<
       .catch(err => {
         console.error(err);
         this.setState({ errorMessage: 'Unable to search for images' });
-        return Observable.of([] as ITencentCloudImage[]);
+        return Observable.of([] as ITencentcloudImage[]);
       })
       .do(() => this.setState({ isSearching: false }));
 
@@ -167,7 +167,7 @@ export class TencentCloudImageSelectInput extends React.Component<
       .map(([searchResults, latestRegion, sortImagesBy]) => {
         const { searchString } = this.state;
         if (searchResults.length === 0 && !!/img-[0-9a-f]{8}/.exec(searchString)) {
-          const fakeImage = TencentCloudImageSelectInput.makeFakeImage(searchString, searchString, latestRegion);
+          const fakeImage = TencentcloudImageSelectInput.makeFakeImage(searchString, searchString, latestRegion);
           return [fakeImage].filter(x => !!x);
         }
 
@@ -241,7 +241,7 @@ export class TencentCloudImageSelectInput extends React.Component<
     );
   };
 
-  private sortImages(images: ITencentCloudImage[], sortImagesBy: sortImagesByOptions): ITencentCloudImage[] {
+  private sortImages(images: ITencentcloudImage[], sortImagesBy: sortImagesByOptions): ITencentcloudImage[] {
     return images.slice().sort((a, b) => {
       if (sortImagesBy === 'ts') {
         if (a.attributes.createdTime && b.attributes.createdTime) {
@@ -306,7 +306,7 @@ export class TencentCloudImageSelectInput extends React.Component<
     } = this.state;
     const isPackageImagesLoaded = !!packageImages;
 
-    const ImageOptionRenderer = (image: ITencentCloudImage) => {
+    const ImageOptionRenderer = (image: ITencentcloudImage) => {
       const imgIds = image.imgIds || {};
       const imageIdForSelectedRegion = imgIds[region] && imgIds[region][0];
       const message = imageIdForSelectedRegion
@@ -383,7 +383,7 @@ export class TencentCloudImageSelectInput extends React.Component<
           <button type="button" className="link" onClick={() => this.setState({ selectionMode: 'searchAllImages' })}>
             Search All Images
           </button>{' '}
-          <HelpField id="tencentCloud.serverGroup.allImages" />
+          <HelpField id="tencentcloud.serverGroup.allImages" />
         </div>
       );
     } else {
@@ -400,7 +400,7 @@ export class TencentCloudImageSelectInput extends React.Component<
           <button type="button" className="link" onClick={() => this.setState({ selectionMode: 'searchAllImages' })}>
             Search All Images
           </button>{' '}
-          <HelpField id="tencentCloud.serverGroup.allImages" />
+          <HelpField id="tencentcloud.serverGroup.allImages" />
         </div>
       );
     }

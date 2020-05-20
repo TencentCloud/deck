@@ -9,14 +9,14 @@ import {
   IALBListenerCertificate,
   IListenerDescription,
   IALBTargetGroupDescription,
-  ITencentCloudApplicationLoadBalancerUpsertCommand,
+  ITencentcloudApplicationLoadBalancerUpsertCommand,
   IListenerAction,
   IListenerRule,
   IListenerRuleCondition,
   ListenerRuleConditionField,
   IRedirectActionConfig,
   IListenerActionType,
-  ITencentCloudHealthCheck,
+  ITencentcloudHealthCheck,
 } from 'tencentcloud/domain';
 
 import { ConfigureOidcConfigModal } from './ConfigureOidcConfigModal';
@@ -45,12 +45,12 @@ export interface IAuthenticateOidcActionConfig {
 
 export interface IALBListenersProps {
   app: Application;
-  formik: FormikProps<ITencentCloudApplicationLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudApplicationLoadBalancerUpsertCommand>;
   isNewListener: boolean;
 }
 
 export class ALBListeners extends React.Component<IALBListenersProps, IALBListenersState>
-  implements IWizardPageComponent<ITencentCloudApplicationLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentcloudApplicationLoadBalancerUpsertCommand> {
   public protocols = ['HTTP', 'HTTPS', 'TCP', 'UDP'];
   private defaultHttpCheck = {
     // httpCheckDomain: undefined,
@@ -107,8 +107,8 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
   }
 
   public validate(
-    values: ITencentCloudApplicationLoadBalancerUpsertCommand,
-  ): FormikErrors<ITencentCloudApplicationLoadBalancerUpsertCommand> {
+    values: ITencentcloudApplicationLoadBalancerUpsertCommand,
+  ): FormikErrors<ITencentcloudApplicationLoadBalancerUpsertCommand> {
     const errors = {} as any;
     const missingRuleFields = values.listeners.find(l => {
       const rulesHaveMissingFields = !!l.rules.find(rule => {
@@ -189,7 +189,7 @@ export class ALBListeners extends React.Component<IALBListenersProps, IALBListen
   }
 
   private handleHealthCheckChanged = (
-    healthCheck: ITencentCloudHealthCheck,
+    healthCheck: ITencentcloudHealthCheck,
     key: string,
     newValue: string | number | boolean,
   ): void => {
@@ -543,7 +543,7 @@ const Rule = SortableElement((props: IRuleProps) => (
               <td colSpan={2}>
                 <div className="listener-rule-condition col-md-6">
                   <label>Host</label>
-                  {/* <HelpField id="tencentCloud.loadBalancer.ruleCondition.host" /> */}
+                  {/* <HelpField id="tencentcloud.loadBalancer.ruleCondition.host" /> */}
                   <input
                     disabled={!props.isNewListener}
                     className="form-control input-sm"
@@ -557,7 +557,7 @@ const Rule = SortableElement((props: IRuleProps) => (
                 </div>
                 <div className="listener-rule-condition col-md-6">
                   <label>Path</label>
-                  {/* <HelpField id="tencentCloud.loadBalancer.ruleCondition.path" /> */}
+                  {/* <HelpField id="tencentcloud.loadBalancer.ruleCondition.path" /> */}
                   <input
                     disabled={!props.isNewListener}
                     className="form-control input-sm"
@@ -680,11 +680,11 @@ const Rules = SortableContainer((props: IRulesProps) => (
 ));
 
 interface IHealthCheckProps {
-  healthCheck?: ITencentCloudHealthCheck;
+  healthCheck?: ITencentcloudHealthCheck;
   isL7: boolean;
   isNewListener: boolean;
   handleHealthCheckChanged: (
-    healthCheck: ITencentCloudHealthCheck,
+    healthCheck: ITencentcloudHealthCheck,
     key: string,
     newValue: string | number | boolean,
   ) => void;

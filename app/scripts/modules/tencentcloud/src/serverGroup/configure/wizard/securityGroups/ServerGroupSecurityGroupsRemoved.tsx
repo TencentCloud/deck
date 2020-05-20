@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { FirewallLabels, noop } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { ITencentcloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 
 export interface IServerGroupSecurityGroupsRemovedProps {
-  command?: ITencentCloudServerGroupCommand;
+  command?: ITencentcloudServerGroupCommand;
   removed?: string[];
   onClear?: () => void;
 }

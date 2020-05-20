@@ -3,23 +3,23 @@ import { ModalFooter } from 'react-bootstrap';
 
 import { AccountService, UserVerification, IAccountDetails } from '@spinnaker/core';
 
-export interface ITencentCloudModalFooterProps {
+export interface ITencentcloudModalFooterProps {
   account: string;
   isValid?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 }
 
-export interface ITencentCloudModalFooterState {
+export interface ITencentcloudModalFooterState {
   verified: boolean;
   requireVerification: boolean;
 }
 
-export class TencentCloudModalFooter extends React.Component<
-  ITencentCloudModalFooterProps,
-  ITencentCloudModalFooterState
+export class TencentcloudModalFooter extends React.Component<
+  ITencentcloudModalFooterProps,
+  ITencentcloudModalFooterState
 > {
-  public static defaultProps: Partial<ITencentCloudModalFooterProps> = {
+  public static defaultProps: Partial<ITencentcloudModalFooterProps> = {
     isValid: true,
   };
 

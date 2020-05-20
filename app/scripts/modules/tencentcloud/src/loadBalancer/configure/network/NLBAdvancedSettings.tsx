@@ -3,10 +3,10 @@ import { Field, FormikProps } from 'formik';
 
 import { HelpField } from '@spinnaker/core';
 
-import { ITencentCloudNetworkLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { ITencentcloudNetworkLoadBalancerUpsertCommand } from 'tencentcloud/domain';
 
 export interface INLBAdvancedSettingsProps {
-  formik: FormikProps<ITencentCloudNetworkLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudNetworkLoadBalancerUpsertCommand>;
 }
 
 export class NLBAdvancedSettings extends React.Component<INLBAdvancedSettingsProps> {

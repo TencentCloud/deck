@@ -1,5 +1,5 @@
-export { TENCENTCLOUD_MODULE } from './tencentCloud.module';
-export * from './tencentCloud.settings';
+export { TENCENTCLOUD_MODULE } from './tencentcloud.module';
+export * from './tencentcloud.settings';
 
 export * from './certificates';
 export * from './common';

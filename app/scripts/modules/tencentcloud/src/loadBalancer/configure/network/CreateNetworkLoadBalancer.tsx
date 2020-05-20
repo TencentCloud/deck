@@ -16,9 +16,9 @@ import {
   noop,
 } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
-import { ITencentCloudNetworkLoadBalancer, ITencentCloudNetworkLoadBalancerUpsertCommand } from 'tencentcloud/domain';
-import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
+import { ITencentcloudNetworkLoadBalancer, ITencentcloudNetworkLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { TencentcloudReactInjector } from 'tencentcloud/reactShims';
 
 import { NLBListeners } from './NLBListeners';
 import { TargetGroups } from './TargetGroups';
@@ -28,12 +28,12 @@ import { LoadBalancerLocation } from '../common/LoadBalancerLocation';
 import '../common/configure.less';
 
 export interface ICreateNetworkLoadBalancerProps extends ILoadBalancerModalProps {
-  loadBalancer: ITencentCloudNetworkLoadBalancer;
+  loadBalancer: ITencentcloudNetworkLoadBalancer;
 }
 
 export interface ICreateApplicationLoadBalancerState {
   isNew: boolean;
-  loadBalancerCommand: ITencentCloudNetworkLoadBalancerUpsertCommand;
+  loadBalancerCommand: ITencentcloudNetworkLoadBalancerUpsertCommand;
   taskMonitor: TaskMonitor;
 }
 
@@ -50,7 +50,7 @@ export class CreateNetworkLoadBalancer extends React.Component<
   private refreshUnsubscribe: () => void;
   private certificateTypes = get(TENCENTCLOUDProviderSettings, 'loadBalancers.certificateTypes', ['iam', 'acm']);
 
-  public static show(props: ICreateNetworkLoadBalancerProps): Promise<ITencentCloudNetworkLoadBalancerUpsertCommand> {
+  public static show(props: ICreateNetworkLoadBalancerProps): Promise<ITencentcloudNetworkLoadBalancerUpsertCommand> {
     const modalProps = { dialogClassName: 'wizard-modal modal-lg' };
     return ReactModal.show(CreateNetworkLoadBalancer, props, modalProps);
   }
@@ -59,10 +59,10 @@ export class CreateNetworkLoadBalancer extends React.Component<
     super(props);
 
     const loadBalancerCommand = props.loadBalancer
-      ? TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.convertNetworkLoadBalancerForEditing(
+      ? TencentcloudReactInjector.tencentcloudLoadBalancerTransformer.convertNetworkLoadBalancerForEditing(
           props.loadBalancer,
         )
-      : TencentCloudReactInjector.tencentCloudLoadBalancerTransformer.constructNewNetworkLoadBalancerTemplate(
+      : TencentcloudReactInjector.tencentcloudLoadBalancerTransformer.constructNewNetworkLoadBalancerTemplate(
           props.app,
         );
 
@@ -80,20 +80,20 @@ export class CreateNetworkLoadBalancer extends React.Component<
   ): string {
     if (
       certificateId &&
-      (certificateId.indexOf('arn:tencentCloud:iam::') !== 0 || certificateId.indexOf('arn:tencentCloud:acm:') !== 0)
+      (certificateId.indexOf('arn:tencentcloud:iam::') !== 0 || certificateId.indexOf('arn:tencentcloud:acm:') !== 0)
     ) {
       // If they really want to enter the ARN...
       if (certificateType === 'iam') {
-        return `arn:tencentCloud:iam::${accountId}:server-certificate/${certificateId}`;
+        return `arn:tencentcloud:iam::${accountId}:server-certificate/${certificateId}`;
       }
       if (certificateType === 'acm') {
-        return `arn:tencentCloud:acm:${region}:${accountId}:certificate/${certificateId}`;
+        return `arn:tencentcloud:acm:${region}:${accountId}:certificate/${certificateId}`;
       }
     }
     return certificateId;
   }
 
-  private formatListeners(command: ITencentCloudNetworkLoadBalancerUpsertCommand): IPromise<void> {
+  private formatListeners(command: ITencentcloudNetworkLoadBalancerUpsertCommand): IPromise<void> {
     return AccountService.getAccountDetails(command.credentials).then(account => {
       command.listeners.forEach(listener => {
         if (listener.protocol === 'TCP') {
@@ -112,7 +112,7 @@ export class CreateNetworkLoadBalancer extends React.Component<
     });
   }
 
-  private setAvailabilityZones(loadBalancerCommand: ITencentCloudNetworkLoadBalancerUpsertCommand): void {
+  private setAvailabilityZones(loadBalancerCommand: ITencentcloudNetworkLoadBalancerUpsertCommand): void {
     const availabilityZones: { [region: string]: string[] } = {};
     availabilityZones[loadBalancerCommand.region] = loadBalancerCommand.regionZones || [];
     loadBalancerCommand.availabilityZones = availabilityZones;
@@ -122,7 +122,7 @@ export class CreateNetworkLoadBalancer extends React.Component<
     return `${this.props.app.name}-${name}`;
   }
 
-  private manageTargetGroupNames(command: ITencentCloudNetworkLoadBalancerUpsertCommand): void {
+  private manageTargetGroupNames(command: ITencentcloudNetworkLoadBalancerUpsertCommand): void {
     (command.targetGroups || []).forEach(targetGroupDescription => {
       targetGroupDescription.name = this.addAppName(targetGroupDescription.name);
     });
@@ -142,7 +142,7 @@ export class CreateNetworkLoadBalancer extends React.Component<
     });
   }
 
-  private manageRules(command: ITencentCloudNetworkLoadBalancerUpsertCommand): void {
+  private manageRules(command: ITencentcloudNetworkLoadBalancerUpsertCommand): void {
     command.listeners.forEach(listener => {
       listener.rules.forEach((rule, index) => {
         // Set the priority in array order, starting with 1
@@ -155,13 +155,13 @@ export class CreateNetworkLoadBalancer extends React.Component<
     });
   }
 
-  private formatCommand(command: ITencentCloudNetworkLoadBalancerUpsertCommand): void {
+  private formatCommand(command: ITencentcloudNetworkLoadBalancerUpsertCommand): void {
     this.setAvailabilityZones(command);
     this.manageTargetGroupNames(command);
     this.manageRules(command);
   }
 
-  protected onApplicationRefresh(values: ITencentCloudNetworkLoadBalancerUpsertCommand): void {
+  protected onApplicationRefresh(values: ITencentcloudNetworkLoadBalancerUpsertCommand): void {
     if (this._isUnmounted) {
       return;
     }
@@ -191,12 +191,12 @@ export class CreateNetworkLoadBalancer extends React.Component<
     }
   }
 
-  private onTaskComplete(values: ITencentCloudNetworkLoadBalancerUpsertCommand): void {
+  private onTaskComplete(values: ITencentcloudNetworkLoadBalancerUpsertCommand): void {
     this.props.app.loadBalancers.refresh();
     this.refreshUnsubscribe = this.props.app.loadBalancers.onNextRefresh(null, () => this.onApplicationRefresh(values));
   }
 
-  private submit = (values: ITencentCloudNetworkLoadBalancerUpsertCommand): void => {
+  private submit = (values: ITencentcloudNetworkLoadBalancerUpsertCommand): void => {
     const { app, forPipelineConfig, closeModal } = this.props;
     const { isNew } = this.state;
 
@@ -226,8 +226,8 @@ export class CreateNetworkLoadBalancer extends React.Component<
     }
   };
 
-  private validate = (): FormikErrors<ITencentCloudNetworkLoadBalancerUpsertCommand> => {
-    const errors = {} as FormikErrors<ITencentCloudNetworkLoadBalancerUpsertCommand>;
+  private validate = (): FormikErrors<ITencentcloudNetworkLoadBalancerUpsertCommand> => {
+    const errors = {} as FormikErrors<ITencentcloudNetworkLoadBalancerUpsertCommand>;
     return errors;
   };
 
@@ -243,7 +243,7 @@ export class CreateNetworkLoadBalancer extends React.Component<
     const showLocationSection = isNew || forPipelineConfig;
 
     return (
-      <WizardModal<ITencentCloudNetworkLoadBalancerUpsertCommand>
+      <WizardModal<ITencentcloudNetworkLoadBalancerUpsertCommand>
         heading={heading}
         initialValues={loadBalancerCommand}
         taskMonitor={taskMonitor}

@@ -14,18 +14,18 @@ import {
   SETTINGS,
 } from '@spinnaker/core';
 
-import { ITencentCloudServerGroup, ITencentCloudServerGroupView } from 'tencentcloud/domain';
-import { TencentCloudCloneServerGroupModal } from '../configure/wizard/CloneServerGroupModal';
-import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
-import { ITencentCloudServerGroupCommand } from '../configure';
-import { TencentCloudResizeServerGroupModal } from './resize/TencentCloudResizeServerGroupModal';
-import RollbackServerGroup from '../details/rollback/RollbackServerGroup';
+import { ITencentcloudServerGroup, ITencentcloudServerGroupView } from 'tencentcloud/domain';
+import { TencentcloudCloneServerGroupModal } from '../configure/wizard/CloneServerGroupModal';
+import { TencentcloudReactInjector } from 'tencentcloud/reactShims';
+import { ITencentcloudServerGroupCommand } from '../configure';
+import { TencentcloudResizeServerGroupModal } from './resize/TencentcloudResizeServerGroupModal';
+import RollbackServerGroup from './rollback/RollbackServerGroup';
 
-export interface ITencentCloudServerGroupActionsProps extends IServerGroupActionsProps {
-  serverGroup: ITencentCloudServerGroupView;
+export interface ITencentcloudServerGroupActionsProps extends IServerGroupActionsProps {
+  serverGroup: ITencentcloudServerGroupView;
 }
 
-export class TencentCloudServerGroupActions extends React.Component<ITencentCloudServerGroupActionsProps> {
+export class TencentcloudServerGroupActions extends React.Component<ITencentcloudServerGroupActionsProps> {
   private isEnableLocked(): boolean {
     if (this.props.serverGroup.isDisabled) {
       const resizeTasks = (this.props.serverGroup.runningTasks || []).filter(task =>
@@ -50,7 +50,7 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
     return app
       .getDataSource('serverGroups')
       .data.some(
-        (g: ITencentCloudServerGroup) =>
+        (g: ITencentcloudServerGroup) =>
           g.cluster === serverGroup.cluster &&
           g.region === serverGroup.region &&
           g.account === serverGroup.account &&
@@ -198,12 +198,12 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
   private rollbackServerGroup = (): void => {
     const { app } = this.props;
 
-    let serverGroup: ITencentCloudServerGroup = this.props.serverGroup;
-    let previousServerGroup: ITencentCloudServerGroup;
+    let serverGroup: ITencentcloudServerGroup = this.props.serverGroup;
+    let previousServerGroup: ITencentcloudServerGroup;
     let allServerGroups = app
       .getDataSource('serverGroups')
       .data.filter(
-        (g: ITencentCloudServerGroup) =>
+        (g: ITencentcloudServerGroup) =>
           g.cluster === serverGroup.cluster && g.region === serverGroup.region && g.account === serverGroup.account,
       );
 
@@ -217,14 +217,14 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
        * isRollbackEnabled() ensures that at least one enabled server group exists.
        */
       serverGroup = orderBy(
-        allServerGroups.filter((g: ITencentCloudServerGroup) => g.name !== previousServerGroup.name && !g.isDisabled),
+        allServerGroups.filter((g: ITencentcloudServerGroup) => g.name !== previousServerGroup.name && !g.isDisabled),
         ['instanceCounts.total', 'createdTime'],
         ['desc', 'desc'],
-      )[0] as ITencentCloudServerGroup;
+      )[0] as ITencentcloudServerGroup;
     }
 
     // the set of all server groups should not include the server group selected for rollback
-    allServerGroups = allServerGroups.filter((g: ITencentCloudServerGroup) => g.name !== serverGroup.name);
+    allServerGroups = allServerGroups.filter((g: ITencentcloudServerGroup) => g.name !== serverGroup.name);
 
     if (allServerGroups.length === 1 && !previousServerGroup) {
       // if there is only one other server group, default to it being the rollback target
@@ -242,16 +242,16 @@ export class TencentCloudServerGroupActions extends React.Component<ITencentClou
 
   private resizeServerGroup = (): void => {
     const { app, serverGroup } = this.props;
-    TencentCloudResizeServerGroupModal.show({ application: app, serverGroup });
+    TencentcloudResizeServerGroupModal.show({ application: app, serverGroup });
   };
 
   private cloneServerGroup = (): void => {
     const { app, serverGroup } = this.props;
-    TencentCloudReactInjector.tencentCloudServerGroupCommandBuilder
+    TencentcloudReactInjector.tencentcloudServerGroupCommandBuilder
       .buildServerGroupCommandFromExisting(app, serverGroup)
-      .then((command: ITencentCloudServerGroupCommand) => {
+      .then((command: ITencentcloudServerGroupCommand) => {
         const title = `Clone ${serverGroup.name}`;
-        TencentCloudCloneServerGroupModal.show({ title, application: app, command });
+        TencentcloudCloneServerGroupModal.show({ title, application: app, command });
       });
   };
 

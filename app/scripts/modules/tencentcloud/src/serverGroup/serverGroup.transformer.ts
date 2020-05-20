@@ -6,13 +6,13 @@ import {
   IScalingAdjustmentView,
   IScalingPolicyView,
   IScalingPolicyAlarmView,
-  ITencentCloudServerGroup,
+  ITencentcloudServerGroup,
   IScalingPolicy,
-  ITencentCloudServerGroupView,
+  ITencentcloudServerGroupView,
 } from '../domain';
 import { VpcReader } from '../vpc/VpcReader';
 
-export class TencentCloudServerGroupTransformer {
+export class TencentcloudServerGroupTransformer {
   private addComparator(alarm: IScalingPolicyAlarmView): void {
     if (!alarm.comparisonOperator) {
       return;
@@ -46,22 +46,22 @@ export class TencentCloudServerGroupTransformer {
     return view;
   }
 
-  public normalizeServerGroupDetails(serverGroup: ITencentCloudServerGroup): ITencentCloudServerGroupView {
-    const view: ITencentCloudServerGroupView = { ...serverGroup } as ITencentCloudServerGroupView;
+  public normalizeServerGroupDetails(serverGroup: ITencentcloudServerGroup): ITencentcloudServerGroupView {
+    const view: ITencentcloudServerGroupView = { ...serverGroup } as ITencentcloudServerGroupView;
     if (serverGroup.scalingPolicies) {
       view.scalingPolicies = serverGroup.scalingPolicies.map(policy => this.transformScalingPolicy(policy));
     }
     return view;
   }
 
-  public normalizeServerGroup(serverGroup: ITencentCloudServerGroup): IPromise<ITencentCloudServerGroup> {
+  public normalizeServerGroup(serverGroup: ITencentcloudServerGroup): IPromise<ITencentcloudServerGroup> {
     serverGroup.instances.forEach(instance => {
       instance.vpcId = serverGroup.vpcId;
     });
     return VpcReader.listVpcs().then(vpc => this.addVpcNameToServerGroup(serverGroup)(vpc));
   }
 
-  private addVpcNameToServerGroup(serverGroup: ITencentCloudServerGroup): (vpc: IVpc[]) => ITencentCloudServerGroup {
+  private addVpcNameToServerGroup(serverGroup: ITencentcloudServerGroup): (vpc: IVpc[]) => ITencentcloudServerGroup {
     return (vpcs: IVpc[]) => {
       const match = vpcs.find(test => test.id === serverGroup.vpcId);
       serverGroup.vpcName = match ? match.name : '';
@@ -149,6 +149,6 @@ export class TencentCloudServerGroupTransformer {
 
 export const TENCENTCLOUD_SERVER_GROUP_TRANSFORMER = 'spinnaker.tencentcloud.serverGroup.transformer';
 module(TENCENTCLOUD_SERVER_GROUP_TRANSFORMER, []).service(
-  'tencentCloudServerGroupTransformer',
-  TencentCloudServerGroupTransformer,
+  'tencentcloudServerGroupTransformer',
+  TencentcloudServerGroupTransformer,
 );

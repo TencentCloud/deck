@@ -5,14 +5,14 @@ import { flatten } from 'lodash';
 import { AccountService, Application, ILoadBalancer } from '@spinnaker/core';
 
 import {
-  ITencentCloudApplicationLoadBalancer,
-  ITencentCloudHealth,
-  ITencentCloudServerGroup,
+  ITencentcloudApplicationLoadBalancer,
+  ITencentcloudHealth,
+  ITencentcloudServerGroup,
   ITargetGroup,
 } from 'tencentcloud/domain';
 
-export class TencentCloudLoadBalancerDataUtils {
-  private static buildTargetGroup(match: ITargetGroup, serverGroup: ITencentCloudServerGroup): ITargetGroup {
+export class TencentcloudLoadBalancerDataUtils {
+  private static buildTargetGroup(match: ITargetGroup, serverGroup: ITencentcloudServerGroup): ITargetGroup {
     if (!match) {
       return null;
     }
@@ -28,7 +28,7 @@ export class TencentCloudLoadBalancerDataUtils {
     targetGroup.instanceCounts = { up: 0, down: 0, succeeded: 0, failed: 0, outOfService: 0, unknown: 0, starting: 0 };
 
     serverGroup.instances.forEach(instance => {
-      const tgHealth: ITencentCloudHealth = instance.health.find(h => h.type === 'TargetGroup') as ITencentCloudHealth;
+      const tgHealth: ITencentcloudHealth = instance.health.find(h => h.type === 'TargetGroup') as ITencentcloudHealth;
       if (tgHealth) {
         const matchedHealth: ILoadBalancer = tgHealth.targetGroups.find(
           tg => tg.name === match.name && tg.region === match.region && tg.account === match.account,
@@ -47,18 +47,18 @@ export class TencentCloudLoadBalancerDataUtils {
 
   public static populateTargetGroups(
     application: Application,
-    serverGroup: ITencentCloudServerGroup,
+    serverGroup: ITencentcloudServerGroup,
   ): IPromise<ITargetGroup[]> {
     return $q
       .all([AccountService.getAccountDetails(serverGroup.account), application.getDataSource('loadBalancers').ready()])
       .then(data => {
-        const tencentCloudAccount = (data[0] && data[0].tencentCloudAccount) || serverGroup.account;
-        const loadBalancers: ITencentCloudApplicationLoadBalancer[] = application
+        const tencentcloudAccount = (data[0] && data[0].tencentcloudAccount) || serverGroup.account;
+        const loadBalancers: ITencentcloudApplicationLoadBalancer[] = application
           .getDataSource('loadBalancers')
           .data.filter(
             (lb: { loadBalancerType: string }) =>
               lb.loadBalancerType === 'application' || lb.loadBalancerType === 'network',
-          ) as ITencentCloudApplicationLoadBalancer[];
+          ) as ITencentcloudApplicationLoadBalancer[];
         const targetGroups = serverGroup.targetGroups
           ? serverGroup.targetGroups
               .map((targetGroupName: string) => {
@@ -67,7 +67,7 @@ export class TencentCloudLoadBalancerDataUtils {
                   tg =>
                     tg.name === targetGroupName &&
                     tg.region === serverGroup.region &&
-                    tg.account === tencentCloudAccount,
+                    tg.account === tencentcloudAccount,
                 );
                 return this.buildTargetGroup(targetGroup, serverGroup);
               })

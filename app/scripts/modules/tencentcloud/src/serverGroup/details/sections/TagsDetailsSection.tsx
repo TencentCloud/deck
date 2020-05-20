@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { CollapsibleSection } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { ITencentcloudServerGroupDetailsSectionProps } from './ITencentcloudServerGroupDetailsSectionProps';
 
-export class TagsDetailsSection extends React.Component<ITencentCloudServerGroupDetailsSectionProps> {
+export class TagsDetailsSection extends React.Component<ITencentcloudServerGroupDetailsSectionProps> {
   public render(): JSX.Element {
     const { serverGroup } = this.props;
 

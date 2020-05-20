@@ -13,15 +13,15 @@ import {
 } from '@spinnaker/core';
 
 import {
-  ITencentCloudApplicationLoadBalancer,
-  ITencentCloudApplicationLoadBalancerUpsertCommand,
+  ITencentcloudApplicationLoadBalancer,
+  ITencentcloudApplicationLoadBalancerUpsertCommand,
 } from 'tencentcloud/domain';
 
 export interface ITargetGroupsProps {
   app: Application;
-  formik: FormikProps<ITencentCloudApplicationLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudApplicationLoadBalancerUpsertCommand>;
   isNew: boolean;
-  loadBalancer: ITencentCloudApplicationLoadBalancer;
+  loadBalancer: ITencentcloudApplicationLoadBalancer;
 }
 
 export interface ITargetGroupsState {
@@ -30,7 +30,7 @@ export interface ITargetGroupsState {
 }
 
 export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGroupsState>
-  implements IWizardPageComponent<ITencentCloudApplicationLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentcloudApplicationLoadBalancerUpsertCommand> {
   public protocols = ['HTTP', 'HTTPS'];
   public targetTypes = ['instance', 'ip'];
   private destroy$ = new Subject();
@@ -46,8 +46,8 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
   }
 
   public validate(
-    values: ITencentCloudApplicationLoadBalancerUpsertCommand,
-  ): FormikErrors<ITencentCloudApplicationLoadBalancerUpsertCommand> {
+    values: ITencentcloudApplicationLoadBalancerUpsertCommand,
+  ): FormikErrors<ITencentcloudApplicationLoadBalancerUpsertCommand> {
     const errors = {} as any;
 
     let hasErrors = false;
@@ -128,7 +128,7 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
     Observable.fromPromise(app.getDataSource('loadBalancers').refresh(true))
       .takeUntil(this.destroy$)
       .subscribe(() => {
-        app.getDataSource('loadBalancers').data.forEach((lb: ITencentCloudApplicationLoadBalancer) => {
+        app.getDataSource('loadBalancers').data.forEach((lb: ITencentcloudApplicationLoadBalancer) => {
           if (lb.loadBalancerType !== 'classic') {
             if (!loadBalancer || lb.name !== loadBalancer.name) {
               lb.targetGroups.forEach(targetGroup => {
@@ -242,7 +242,7 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
                     </div>
                     <div className="wizard-pod-row">
                       <div className="wizard-pod-row-title">
-                        <HelpField id="tencentCloud.targetGroup.targetType" /> <span>Target Type&nbsp;</span>
+                        <HelpField id="tencentcloud.targetGroup.targetType" /> <span>Target Type&nbsp;</span>
                       </div>
                       <div className="wizard-pod-row-contents">
                         <div className="wizard-pod-row-data">
@@ -265,7 +265,7 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
                         <div className="wizard-pod-row-data">
                           <span className="wizard-pod-content">
                             <label>Protocol </label>
-                            <HelpField id="tencentCloud.targetGroup.protocol" />{' '}
+                            <HelpField id="tencentcloud.targetGroup.protocol" />{' '}
                             <select
                               className="form-control input-sm inline-number"
                               value={targetGroup.protocol}
@@ -277,7 +277,7 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
                           </span>
                           <span className="wizard-pod-content">
                             <label>Port </label>
-                            <HelpField id="tencentCloud.targetGroup.port" />{' '}
+                            <HelpField id="tencentcloud.targetGroup.port" />{' '}
                             <input
                               className="form-control input-sm inline-number"
                               value={targetGroup.port}
@@ -308,7 +308,7 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
                           </span>
                           <span className="wizard-pod-content">
                             <label>Port </label>
-                            <HelpField id="tencentCloud.targetGroup.attributes.healthCheckPort.trafficPort" />{' '}
+                            <HelpField id="tencentcloud.targetGroup.attributes.healthCheckPort.trafficPort" />{' '}
                             <select
                               className="form-control input-sm inline-number"
                               style={{ width: '90px' }}
@@ -419,7 +419,7 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
                         <div className="wizard-pod-row-data">
                           <span className="wizard-pod-content">
                             <label>Dereg. Delay</label>
-                            <HelpField id="tencentCloud.targetGroup.attributes.deregistrationDelay" />{' '}
+                            <HelpField id="tencentcloud.targetGroup.attributes.deregistrationDelay" />{' '}
                             <input
                               className="form-control input-sm inline-number"
                               type="text"
@@ -447,13 +447,13 @@ export class TargetGroups extends React.Component<ITargetGroupsProps, ITargetGro
                                 }
                               />{' '}
                               <label>Sticky</label>
-                              <HelpField id="tencentCloud.targetGroup.attributes.stickinessEnabled" />
+                              <HelpField id="tencentcloud.targetGroup.attributes.stickinessEnabled" />
                             </label>
                           </span>
                           {targetGroup.attributes.stickinessEnabled && (
                             <span className="wizard-pod-content">
                               <label>Duration </label>
-                              <HelpField id="tencentCloud.targetGroup.attributes.stickinessDuration" />{' '}
+                              <HelpField id="tencentcloud.targetGroup.attributes.stickinessDuration" />{' '}
                               <input
                                 className="form-control input-sm inline-number"
                                 value={targetGroup.attributes.stickinessDuration}

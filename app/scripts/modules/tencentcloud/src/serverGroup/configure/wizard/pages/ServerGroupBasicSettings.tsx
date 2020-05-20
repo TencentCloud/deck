@@ -15,11 +15,11 @@ import {
   TaskReason,
 } from '@spinnaker/core';
 
-import { ITencentCloudImage } from '../../../../image';
+import { ITencentcloudImage } from '../../../../image';
 import { SubnetSelectField } from 'tencentcloud/subnet';
 
-import { TencentCloudImageSelectInput } from '../../TencentCloudImageSelectInput';
-import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { TencentcloudImageSelectInput } from '../../TencentcloudImageSelectInput';
+import { ITencentcloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 
 const isExpressionLanguage = (field: string) => field && field.includes('${');
 const isStackPattern = (stack: string) =>
@@ -29,11 +29,11 @@ const isDetailPattern = (detail: string) =>
 
 export interface IServerGroupBasicSettingsProps {
   app: Application;
-  formik: FormikProps<ITencentCloudServerGroupCommand>;
+  formik: FormikProps<ITencentcloudServerGroupCommand>;
 }
 
 export interface IServerGroupBasicSettingsState {
-  selectedImage: ITencentCloudImage;
+  selectedImage: ITencentcloudImage;
   namePreview: string;
   createsNewCluster: boolean;
   latestServerGroup: IServerGroup;
@@ -42,7 +42,7 @@ export interface IServerGroupBasicSettingsState {
 
 export class ServerGroupBasicSettings
   extends React.Component<IServerGroupBasicSettingsProps, IServerGroupBasicSettingsState>
-  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
+  implements IWizardPageComponent<ITencentcloudServerGroupCommand> {
   constructor(props: IServerGroupBasicSettingsProps) {
     super(props);
     const {
@@ -50,7 +50,7 @@ export class ServerGroupBasicSettings
       region,
       viewState: { imageId },
     } = props.formik.values;
-    const selectedImage = TencentCloudImageSelectInput.makeFakeImage(amiName, imageId, region);
+    const selectedImage = TencentcloudImageSelectInput.makeFakeImage(amiName, imageId, region);
     this.state = { ...this.getStateFromProps(props), selectedImage };
   }
 
@@ -77,7 +77,7 @@ export class ServerGroupBasicSettings
     return { namePreview, createsNewCluster, latestServerGroup, showPreviewAsWarning };
   }
 
-  private imageChanged = (image: ITencentCloudImage) => {
+  private imageChanged = (image: ITencentcloudImage) => {
     const { setFieldValue, values } = this.props.formik;
     this.setState({ selectedImage: image });
     if (image) {
@@ -134,7 +134,7 @@ export class ServerGroupBasicSettings
     setFieldValue('subnetType', values.subnetType);
   };
 
-  public validate(values: ITencentCloudServerGroupCommand): { [key: string]: string } {
+  public validate(values: ITencentcloudServerGroupCommand): { [key: string]: string } {
     const errors: { [key: string]: string } = {};
 
     if (!isStackPattern(values.stack)) {
@@ -197,7 +197,7 @@ export class ServerGroupBasicSettings
     this.props.formik.setFieldValue('reason', reason);
   };
 
-  private strategyChanged = (values: ITencentCloudServerGroupCommand, strategy: any) => {
+  private strategyChanged = (values: ITencentcloudServerGroupCommand, strategy: any) => {
     values.onStrategyChange(values, strategy);
     this.props.formik.setFieldValue('strategy', strategy.key);
   };
@@ -271,7 +271,7 @@ export class ServerGroupBasicSettings
         <SubnetSelectField
           readOnly={readOnlyFields.subnet}
           labelColumns={3}
-          helpKey="tencentCloud.serverGroup.subnet"
+          helpKey="tencentcloud.serverGroup.subnet"
           component={values}
           field="subnetIds"
           region={values.region}
@@ -282,7 +282,7 @@ export class ServerGroupBasicSettings
         />
         <div className="form-group">
           <div className="col-md-3 sm-label-right">
-            Stack <HelpField id="tencentCloud.serverGroup.stack" />
+            Stack <HelpField id="tencentcloud.serverGroup.stack" />
           </div>
           <div className="col-md-7">
             <input
@@ -302,7 +302,7 @@ export class ServerGroupBasicSettings
         )}
         <div className="form-group">
           <div className="col-md-3 sm-label-right">
-            Detail <HelpField id="tencentCloud.serverGroup.detail" />
+            Detail <HelpField id="tencentcloud.serverGroup.detail" />
           </div>
           <div className="col-md-7">
             <input
@@ -331,12 +331,12 @@ export class ServerGroupBasicSettings
         {!values.viewState.disableImageSelection && (
           <div className="form-group">
             <div className="col-md-3 sm-label-right">
-              Image <HelpField id="tencentCloud.serverGroup.imageName" />
+              Image <HelpField id="tencentcloud.serverGroup.imageName" />
             </div>
             {isExpressionLanguage(values.amiName) ? (
               <Field name="amiName" />
             ) : (
-              <TencentCloudImageSelectInput
+              <TencentcloudImageSelectInput
                 onChange={image => this.imageChanged(image)}
                 value={selectedImage}
                 application={app}

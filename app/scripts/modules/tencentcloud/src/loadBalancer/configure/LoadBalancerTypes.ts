@@ -1,16 +1,16 @@
 import { ILoadBalancerModalProps } from '@spinnaker/core';
 
-import { ITencentCloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { ITencentcloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
 
 import { CreateApplicationLoadBalancer } from './application/CreateApplicationLoadBalancer';
 import { CreateClassicLoadBalancer } from './classic/CreateClassicLoadBalancer';
 import { CreateNetworkLoadBalancer } from './network/CreateNetworkLoadBalancer';
 
 export interface ICloseableLoadBalancerModal extends React.ComponentClass<ILoadBalancerModalProps> {
-  show: (props: ILoadBalancerModalProps) => Promise<ITencentCloudLoadBalancerUpsertCommand>;
+  show: (props: ILoadBalancerModalProps) => Promise<ITencentcloudLoadBalancerUpsertCommand>;
 }
 
-export interface ITencentCloudLoadBalancerConfig {
+export interface ITencentcloudLoadBalancerConfig {
   type: string;
   label: string;
   sublabel: string;
@@ -18,7 +18,7 @@ export interface ITencentCloudLoadBalancerConfig {
   component: ICloseableLoadBalancerModal;
 }
 
-export const LoadBalancerTypes: ITencentCloudLoadBalancerConfig[] = [
+export const LoadBalancerTypes: ITencentcloudLoadBalancerConfig[] = [
   {
     type: 'application',
     label: 'Application',

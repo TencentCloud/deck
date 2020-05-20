@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { AccountService, INSTANCE_TYPE_SERVICE, NameUtils, SubnetReader } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from '../../tencentCloud.settings';
+import { TENCENTCLOUDProviderSettings } from '../../tencentcloud.settings';
 import { TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
 
 export const TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
@@ -15,11 +15,11 @@ angular
     INSTANCE_TYPE_SERVICE,
     TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE,
   ])
-  .factory('tencentCloudServerGroupCommandBuilder', [
+  .factory('tencentcloudServerGroupCommandBuilder', [
     '$q',
     'instanceTypeService',
-    'tencentCloudServerGroupConfigurationService',
-    function($q, instanceTypeService, tencentCloudServerGroupConfigurationService) {
+    'tencentcloudServerGroupConfigurationService',
+    function($q, instanceTypeService, tencentcloudServerGroupConfigurationService) {
       function buildNewServerGroupCommand(application, defaults) {
         defaults = defaults || {};
         const credentialsLoader = AccountService.getCredentialsKeyedByAccount('tencentcloud');
@@ -48,9 +48,9 @@ angular
 
             const credentials = asyncData.credentialsKeyedByAccount[defaultCredentials];
             const keyPair = credentials ? credentials.defaultKeyPair : null;
-            const applicationTencentCloudSettings = _.get(application, 'attributes.providerSettings.tencentcloud', {});
+            const applicationTencentcloudSettings = _.get(application, 'attributes.providerSettings.tencentcloud', {});
 
-            const useAmiBlockDeviceMappings = applicationTencentCloudSettings.useAmiBlockDeviceMappings || false;
+            const useAmiBlockDeviceMappings = applicationTencentcloudSettings.useAmiBlockDeviceMappings || false;
 
             const command = {
               application: application.name,
@@ -213,7 +213,7 @@ angular
           terminationPolicies: angular.copy(serverGroup.asg.terminationPolicies),
           credentials: serverGroup.account,
         };
-        tencentCloudServerGroupConfigurationService.configureUpdateCommand(command);
+        tencentcloudServerGroupConfigurationService.configureUpdateCommand(command);
         return command;
       }
 
@@ -236,8 +236,8 @@ angular
           // These processes should never be copied over, as the affect launching instances and enabling traffic
           const enabledProcesses = ['Launch', 'Terminate', 'AddToLoadBalancer'];
 
-          const applicationTencentCloudSettings = _.get(application, 'attributes.providerSettings.tencentcloud', {});
-          const useAmiBlockDeviceMappings = applicationTencentCloudSettings.useAmiBlockDeviceMappings || false;
+          const applicationTencentcloudSettings = _.get(application, 'attributes.providerSettings.tencentcloud', {});
+          const useAmiBlockDeviceMappings = applicationTencentcloudSettings.useAmiBlockDeviceMappings || false;
 
           const existingTags = {};
           // These tags are applied by Clouddriver (if configured to do so), regardless of what the user might enter

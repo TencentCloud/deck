@@ -1,7 +1,7 @@
 import { IServerGroupDetailsSectionProps } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupView } from 'tencentcloud/domain';
+import { ITencentcloudServerGroupView } from 'tencentcloud/domain';
 
-export interface ITencentCloudServerGroupDetailsSectionProps extends IServerGroupDetailsSectionProps {
-  serverGroup: ITencentCloudServerGroupView;
+export interface ITencentcloudServerGroupDetailsSectionProps extends IServerGroupDetailsSectionProps {
+  serverGroup: ITencentcloudServerGroupView;
 }

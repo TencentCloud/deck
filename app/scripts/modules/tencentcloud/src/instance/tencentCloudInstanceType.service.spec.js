@@ -4,12 +4,12 @@ import { API } from '@spinnaker/core';
 
 describe('Service: InstanceType', function() {
   beforeEach(function() {
-    window.module(require('./tencentCloudInstanceType.service').name);
+    window.module(require('./tencentcloudInstanceType.service').name);
   });
 
   beforeEach(
-    window.inject(function(_tencentCloudInstanceTypeService_, _$httpBackend_) {
-      this.tencentCloudInstanceTypeService = _tencentCloudInstanceTypeService_;
+    window.inject(function(_tencentcloudInstanceTypeService_, _$httpBackend_) {
+      this.tencentcloudInstanceTypeService = _tencentcloudInstanceTypeService_;
       this.$httpBackend = _$httpBackend_;
 
       this.allTypes = [
@@ -40,7 +40,7 @@ describe('Service: InstanceType', function() {
       this.$httpBackend.expectGET(API.baseUrl + '/instanceTypes').respond(200, this.allTypes);
 
       var results = null;
-      this.tencentCloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
+      this.tencentcloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
         results = result;
       });
 
@@ -55,9 +55,9 @@ describe('Service: InstanceType', function() {
       this.$httpBackend.expectGET(API.baseUrl + '/instanceTypes').respond(200, this.allTypes);
 
       var results = null,
-        service = this.tencentCloudInstanceTypeService;
+        service = this.tencentcloudInstanceTypeService;
 
-      this.tencentCloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
+      this.tencentcloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
         results = service.getAvailableTypesForRegions(result, ['us-west-2']);
       });
 
@@ -69,9 +69,9 @@ describe('Service: InstanceType', function() {
       this.$httpBackend.expectGET(API.baseUrl + '/instanceTypes').respond(200, this.allTypes);
 
       var results = null,
-        service = this.tencentCloudInstanceTypeService;
+        service = this.tencentcloudInstanceTypeService;
 
-      this.tencentCloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
+      this.tencentcloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
         results = service.getAvailableTypesForRegions(result, ['us-west-3']);
       });
 
@@ -83,9 +83,9 @@ describe('Service: InstanceType', function() {
       this.$httpBackend.expectGET(API.baseUrl + '/instanceTypes').respond(200, this.allTypes);
 
       var results = null,
-        service = this.tencentCloudInstanceTypeService;
+        service = this.tencentcloudInstanceTypeService;
 
-      this.tencentCloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
+      this.tencentcloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
         results = service.getAvailableTypesForRegions(result, ['us-west-2', 'eu-west-1']);
       });
 
@@ -95,7 +95,7 @@ describe('Service: InstanceType', function() {
 
     it('filters instance types by VPC and virtualization type', function() {
       let types = ['c4.a', 'c3.a', 'c4.a', 'c1.a'];
-      let service = this.tencentCloudInstanceTypeService;
+      let service = this.tencentcloudInstanceTypeService;
       expect(service.filterInstanceTypes(types, 'hvm', true)).toEqual(['c4.a', 'c3.a', 'c4.a']);
       expect(service.filterInstanceTypes(types, 'hvm', false)).toEqual(['c3.a']);
       expect(service.filterInstanceTypes(types, 'paravirtual', true)).toEqual(['c3.a', 'c1.a']);
@@ -104,7 +104,7 @@ describe('Service: InstanceType', function() {
 
     it('assumes HVM is supported for unknown families', function() {
       let types = ['c400.a', 'c300.a', 'c3.a', 'c1.a'];
-      let service = this.tencentCloudInstanceTypeService;
+      let service = this.tencentcloudInstanceTypeService;
       expect(service.filterInstanceTypes(types, 'hvm', true)).toEqual(['c400.a', 'c300.a', 'c3.a']);
     });
 
@@ -112,9 +112,9 @@ describe('Service: InstanceType', function() {
       this.$httpBackend.expectGET(API.baseUrl + '/instanceTypes').respond(200, this.allTypes);
 
       var results = null,
-        service = this.tencentCloudInstanceTypeService;
+        service = this.tencentcloudInstanceTypeService;
 
-      this.tencentCloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
+      this.tencentcloudInstanceTypeService.getAllTypesByRegion().then(function(result) {
         results = service.getAvailableTypesForRegions(result, ['us-east-1']);
       });
 

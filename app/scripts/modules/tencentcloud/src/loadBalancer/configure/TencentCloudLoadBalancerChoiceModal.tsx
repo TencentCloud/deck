@@ -3,16 +3,16 @@ import { Button, Modal } from 'react-bootstrap';
 
 import { ILoadBalancerModalProps, ModalClose, ReactModal, noop } from '@spinnaker/core';
 
-import { ITencentCloudLoadBalancerConfig, LoadBalancerTypes } from './LoadBalancerTypes';
+import { ITencentcloudLoadBalancerConfig, LoadBalancerTypes } from './LoadBalancerTypes';
 
-export interface ITencentCloudLoadBalancerChoiceModalState {
-  choices: ITencentCloudLoadBalancerConfig[];
-  selectedChoice: ITencentCloudLoadBalancerConfig;
+export interface ITencentcloudLoadBalancerChoiceModalState {
+  choices: ITencentcloudLoadBalancerConfig[];
+  selectedChoice: ITencentcloudLoadBalancerConfig;
 }
 
-export class TencentCloudLoadBalancerChoiceModal extends React.Component<
+export class TencentcloudLoadBalancerChoiceModal extends React.Component<
   ILoadBalancerModalProps,
-  ITencentCloudLoadBalancerChoiceModalState
+  ITencentcloudLoadBalancerChoiceModalState
 > {
   public static defaultProps: Partial<ILoadBalancerModalProps> = {
     closeModal: noop,
@@ -20,7 +20,7 @@ export class TencentCloudLoadBalancerChoiceModal extends React.Component<
   };
 
   public static show(props: ILoadBalancerModalProps): Promise<void> {
-    return ReactModal.show(TencentCloudLoadBalancerChoiceModal, {
+    return ReactModal.show(TencentcloudLoadBalancerChoiceModal, {
       ...props,
       className: 'create-pipeline-modal-overflow-visible',
     });
@@ -34,7 +34,7 @@ export class TencentCloudLoadBalancerChoiceModal extends React.Component<
     };
   }
 
-  public choiceSelected(choice: ITencentCloudLoadBalancerConfig): void {
+  public choiceSelected(choice: ITencentcloudLoadBalancerConfig): void {
     this.setState({ selectedChoice: choice });
   }
 

@@ -13,7 +13,7 @@ import {
   createFakeReactSyntheticEvent,
 } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
 
 export interface ISubnetSelectInputProps extends Omit<ISelectInputProps, 'options'> {
   value: string;
@@ -82,7 +82,7 @@ export class SubnetSelectInput extends React.Component<ISubnetSelectInputProps, 
 
   public applyDefaultSubnet() {
     const { value, onChange, subnets } = this.props;
-    const defaultSubnetType = get(SETTINGS, 'providers.tencentCloud.defaults.subnetType');
+    const defaultSubnetType = get(SETTINGS, 'providers.tencentcloud.defaults.subnetType');
     const defaultSubnet = subnets.find(subnet => defaultSubnetType === subnet.name) || subnets[0];
     if (!value && defaultSubnet) {
       onChange(createFakeReactSyntheticEvent({ name, value: defaultSubnet.id }));

@@ -5,7 +5,7 @@ const angular = require('angular');
 import { VpcReader } from '../vpc/VpcReader';
 
 export const TENCENTCLOUD_VPC_VPCTAG_DIRECTIVE = 'spinnaker.tencentcloud.vpc.tag.directive';
-angular.module(TENCENTCLOUD_VPC_VPCTAG_DIRECTIVE, []).directive('tencentCloudVpcTag', function() {
+angular.module(TENCENTCLOUD_VPC_VPCTAG_DIRECTIVE, []).directive('tencentcloudVpcTag', function() {
   return {
     restrict: 'E',
     scope: {

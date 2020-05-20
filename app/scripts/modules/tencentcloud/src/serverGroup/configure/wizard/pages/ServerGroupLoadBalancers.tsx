@@ -5,17 +5,17 @@ import { FormikProps } from 'formik';
 import { IWizardPageComponent, ReactInjector } from '@spinnaker/core';
 
 import {
-  ITencentCloudServerGroupCommand,
-  ITencentCloudForwardLoadBalancer,
-  ITencentCloudLbListenerMap,
+  ITencentcloudServerGroupCommand,
+  ITencentcloudForwardLoadBalancer,
+  ITencentcloudLbListenerMap,
 } from '../../serverGroupConfiguration.service';
 
 import { IALBListener } from 'tencentcloud/domain';
 
 export interface IServerGroupLoadBalancersProps {
-  formik: FormikProps<ITencentCloudServerGroupCommand>;
+  formik: FormikProps<ITencentcloudServerGroupCommand>;
 }
-interface ITencentCloudLocation {
+interface ITencentcloudLocation {
   isL7: boolean;
   domain: string;
   domainList: string[];
@@ -23,23 +23,23 @@ interface ITencentCloudLocation {
   urlList: string[];
   selectedListener: IALBListener;
 }
-interface ITencentCloudLocationMap {
-  [key: string]: ITencentCloudLocation;
+interface ITencentcloudLocationMap {
+  [key: string]: ITencentcloudLocation;
 }
 export interface IServerGroupLoadBalancersState {
   refreshing: boolean;
-  listenerLocationMap: ITencentCloudLocationMap;
+  listenerLocationMap: ITencentcloudLocationMap;
 }
 
 export class ServerGroupLoadBalancers
   extends React.Component<IServerGroupLoadBalancersProps, IServerGroupLoadBalancersState>
-  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
+  implements IWizardPageComponent<ITencentcloudServerGroupCommand> {
   public state = {
     refreshing: false,
-    listenerLocationMap: {} as ITencentCloudLocationMap,
+    listenerLocationMap: {} as ITencentcloudLocationMap,
   };
 
-  public validate(values: ITencentCloudServerGroupCommand) {
+  public validate(values: ITencentcloudServerGroupCommand) {
     const errors = {} as any;
     const { listenerLocationMap } = this.state;
     if (values.viewState.dirty.loadBalancers) {
@@ -93,7 +93,7 @@ export class ServerGroupLoadBalancers
     this.updateLoadBalancers();
   }
 
-  private loadBalancerChanged(forwardLoadBalancer: ITencentCloudForwardLoadBalancer, loadBalancerId: string): void {
+  private loadBalancerChanged(forwardLoadBalancer: ITencentcloudForwardLoadBalancer, loadBalancerId: string): void {
     forwardLoadBalancer.loadBalancerId = loadBalancerId;
     forwardLoadBalancer.listenerId = '';
     forwardLoadBalancer.locationId = '';
@@ -116,7 +116,7 @@ export class ServerGroupLoadBalancers
     });
   };
 
-  private listenerChanged(forwardLoadBalancer: ITencentCloudForwardLoadBalancer, listenerId: string, index: number) {
+  private listenerChanged(forwardLoadBalancer: ITencentcloudForwardLoadBalancer, listenerId: string, index: number) {
     forwardLoadBalancer.listenerId = listenerId;
     forwardLoadBalancer.locationId = '';
     this.updateLoadBalancers();
@@ -138,12 +138,12 @@ export class ServerGroupLoadBalancers
     });
   }
 
-  private portChanged(forwardLoadBalancer: ITencentCloudForwardLoadBalancer, port: number) {
+  private portChanged(forwardLoadBalancer: ITencentcloudForwardLoadBalancer, port: number) {
     forwardLoadBalancer.targetAttributes[0].port = port;
     this.updateLoadBalancers();
   }
 
-  private weightChanged(forwardLoadBalancer: ITencentCloudForwardLoadBalancer, weight: number) {
+  private weightChanged(forwardLoadBalancer: ITencentcloudForwardLoadBalancer, weight: number) {
     forwardLoadBalancer.targetAttributes[0].weight = weight;
     this.updateLoadBalancers();
   }
@@ -157,7 +157,7 @@ export class ServerGroupLoadBalancers
     return protocol === 'HTTP' || protocol === 'HTTPS';
   };
 
-  private domainChanged = (forwardLoadBalancer: ITencentCloudForwardLoadBalancer, domain: string, index: number) => {
+  private domainChanged = (forwardLoadBalancer: ITencentcloudForwardLoadBalancer, domain: string, index: number) => {
     const { listenerLocationMap } = this.state;
     forwardLoadBalancer.locationId = '';
     const listenerLocation = listenerLocationMap[index];
@@ -174,7 +174,7 @@ export class ServerGroupLoadBalancers
     });
   };
 
-  private urlChanged = (forwardLoadBalancer: ITencentCloudForwardLoadBalancer, url: string, index: number) => {
+  private urlChanged = (forwardLoadBalancer: ITencentcloudForwardLoadBalancer, url: string, index: number) => {
     const { listenerLocationMap } = this.state;
     const listenerLocation = listenerLocationMap[index];
     const rule = listenerLocation.selectedListener.rules.find(
@@ -210,7 +210,7 @@ export class ServerGroupLoadBalancers
       values: {
         forwardLoadBalancers = [],
         backingData: {
-          filtered: { lbListenerMap = {} as ITencentCloudLbListenerMap },
+          filtered: { lbListenerMap = {} as ITencentcloudLbListenerMap },
         },
         viewState: { submitButtonLabel },
       },
@@ -224,7 +224,7 @@ export class ServerGroupLoadBalancers
         listenerLocationMap: Object.assign(
           {},
           this.state.listenerLocationMap,
-          forwardLoadBalancers.reduce((p: ITencentCloudLocationMap, c, index) => {
+          forwardLoadBalancers.reduce((p: ITencentcloudLocationMap, c, index) => {
             const listenerList = lbListenerMap[c.loadBalancerId] || [];
             const selectedListener = listenerList.find(l => l.listenerId === c.listenerId);
             const rule = selectedListener && selectedListener.rules.find(r => r.locationId === c.locationId);

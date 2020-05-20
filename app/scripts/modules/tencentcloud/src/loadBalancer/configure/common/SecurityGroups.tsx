@@ -14,11 +14,11 @@ import {
   FirewallLabels,
 } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
-import { ITencentCloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
+import { ITencentcloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
 
 export interface ISecurityGroupsProps {
-  formik: FormikProps<ITencentCloudLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudLoadBalancerUpsertCommand>;
   isNew?: boolean;
   onLoadingChanged(isLoading: boolean): void;
 }
@@ -33,7 +33,7 @@ export interface ISecurityGroupsState {
 }
 
 export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecurityGroupsState>
-  implements IWizardPageComponent<ITencentCloudLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentcloudLoadBalancerUpsertCommand> {
   private destroy$ = new Subject<void>();
   private props$ = new Subject<ISecurityGroupsProps>();
   private refresh$ = new Subject<void>();
@@ -52,7 +52,7 @@ export class SecurityGroups extends React.Component<ISecurityGroupsProps, ISecur
     };
   }
 
-  public validate(values: { securityGroups: string | any[] }): FormikErrors<ITencentCloudLoadBalancerUpsertCommand> {
+  public validate(values: { securityGroups: string | any[] }): FormikErrors<ITencentcloudLoadBalancerUpsertCommand> {
     const { removed } = this.state;
     if (removed && removed.length) {
       const label = FirewallLabels.get('Firewalls');

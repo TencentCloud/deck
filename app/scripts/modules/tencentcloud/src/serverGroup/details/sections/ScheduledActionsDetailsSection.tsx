@@ -5,7 +5,7 @@ import { CollapsibleSection, Tooltip } from '@spinnaker/core';
 import { IScalingProcess } from 'tencentcloud/domain';
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
 
-import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { ITencentcloudServerGroupDetailsSectionProps } from './ITencentcloudServerGroupDetailsSectionProps';
 import { ScheduledAction } from '../scheduledAction/ScheduledAction';
 import EditScheduledActionsModal from '../scheduledAction/EditScheduledActionsModal';
 
@@ -14,16 +14,16 @@ export interface IScheduledActionsDetailsSectionState {
 }
 
 export class ScheduledActionsDetailsSection extends React.Component<
-  ITencentCloudServerGroupDetailsSectionProps,
+  ITencentcloudServerGroupDetailsSectionProps,
   IScheduledActionsDetailsSectionState
 > {
-  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
+  constructor(props: ITencentcloudServerGroupDetailsSectionProps) {
     super(props);
 
     this.state = this.getState(props);
   }
 
-  private getState(props: ITencentCloudServerGroupDetailsSectionProps): IScheduledActionsDetailsSectionState {
+  private getState(props: ITencentcloudServerGroupDetailsSectionProps): IScheduledActionsDetailsSectionState {
     const { serverGroup } = props;
 
     const autoScalingProcesses: IScalingProcess[] = AutoScalingProcessService.normalizeScalingProcesses(serverGroup);
@@ -42,7 +42,7 @@ export class ScheduledActionsDetailsSection extends React.Component<
     EditScheduledActionsModal.show(this.props);
   };
 
-  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
+  public componentWillReceiveProps(nextProps: ITencentcloudServerGroupDetailsSectionProps): void {
     this.setState(this.getState(nextProps));
   }
 

@@ -22,8 +22,8 @@ import {
   ValidationMessage,
 } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
-import { ITencentCloudLoadBalancer, ITencentCloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
+import { ITencentcloudLoadBalancer, ITencentcloudLoadBalancerUpsertCommand } from 'tencentcloud/domain';
 import { SubnetSelectField } from 'tencentcloud/subnet';
 
 export interface ISubnetOption {
@@ -34,10 +34,10 @@ export interface ISubnetOption {
 
 export interface ILoadBalancerLocationProps {
   app: Application;
-  formik: FormikProps<ITencentCloudLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudLoadBalancerUpsertCommand>;
   forPipelineConfig?: boolean;
   isNew?: boolean;
-  loadBalancer?: ITencentCloudLoadBalancer;
+  loadBalancer?: ITencentcloudLoadBalancer;
 }
 
 export interface ILoadBalancerLocationState {
@@ -50,7 +50,7 @@ export interface ILoadBalancerLocationState {
 }
 
 export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationProps, ILoadBalancerLocationState>
-  implements IWizardPageComponent<ITencentCloudLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentcloudLoadBalancerUpsertCommand> {
   public state: ILoadBalancerLocationState = {
     accounts: undefined,
     existingLoadBalancerNames: [],
@@ -63,8 +63,8 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
   private props$ = new Subject<ILoadBalancerLocationProps>();
   private destroy$ = new Subject<void>();
 
-  public validate(values: ITencentCloudLoadBalancerUpsertCommand) {
-    const errors = {} as FormikErrors<ITencentCloudLoadBalancerUpsertCommand>;
+  public validate(values: ITencentcloudLoadBalancerUpsertCommand) {
+    const errors = {} as FormikErrors<ITencentcloudLoadBalancerUpsertCommand>;
 
     if (this.state.existingLoadBalancerNames.includes(values.name)) {
       errors.name = `There is already a load balancer in ${values.credentials}:${values.region} with that name.`;
@@ -137,7 +137,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
       .shareReplay(1);
 
     const allLoadBalancers$ = this.props.app.getDataSource('loadBalancers').data$ as Observable<
-      ITencentCloudLoadBalancer[]
+      ITencentcloudLoadBalancer[]
     >;
     const regionLoadBalancers$ = Observable.combineLatest(allLoadBalancers$, form.account$, form.region$)
       .map(([allLoadBalancers, currentAccount, currentRegion]) => {
@@ -261,7 +261,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               <div className={className}>
                 <strong>Your load balancer will be named: </strong>
                 <span>{values.name}</span>
-                <HelpField id="tencentCloud.loadBalancer.name" />
+                <HelpField id="tencentcloud.loadBalancer.name" />
                 <Field type="text" style={{ display: 'none' }} className="form-control input-sm no-spel" name="name" />
                 {errors.name && <ValidationMessage type="error" message={errors.name} />}
               </div>
@@ -287,7 +287,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
             />
             <div className="form-group">
               <div className="col-md-3 sm-label-right">
-                Stack <HelpField id="tencentCloud.loadBalancer.stack" />
+                Stack <HelpField id="tencentcloud.loadBalancer.stack" />
               </div>
               <div className="col-md-3">
                 <input
@@ -301,7 +301,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               <div className="col-md-6 form-inline">
                 <label className="sm-label-right">
                   <span>
-                    Detail <HelpField id="tencentCloud.loadBalancer.detail" />{' '}
+                    Detail <HelpField id="tencentcloud.loadBalancer.detail" />{' '}
                   </span>
                 </label>
                 <input
@@ -326,7 +326,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
 
             <SubnetSelectField
               labelColumns={3}
-              helpKey="tencentCloud.loadBalancer.subnet"
+              helpKey="tencentcloud.loadBalancer.subnet"
               component={values}
               field="subnetType"
               region={values.region}
@@ -337,7 +337,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
             {values.vpcId && !hideInternalFlag && (
               <div className="form-group">
                 <div className="col-md-3 sm-label-right">
-                  <b>Internal</b> <HelpField id="tencentCloud.loadBalancer.internal" />
+                  <b>Internal</b> <HelpField id="tencentcloud.loadBalancer.internal" />
                 </div>
                 <div className="col-md-7 checkbox">
                   <label>

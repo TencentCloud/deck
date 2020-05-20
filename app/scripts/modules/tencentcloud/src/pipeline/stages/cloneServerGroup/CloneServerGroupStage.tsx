@@ -282,7 +282,7 @@ export class CloneServerGroupStage extends React.Component<IProps, IState> {
                   name="blockDeviceMappingsSource"
                 />
                 Copy from current server group
-                <HelpField key="tencentCloud.blockDeviceMappings.useSource" />
+                <HelpField key="tencentcloud.blockDeviceMappings.useSource" />
               </label>
             </div>
             <div>
@@ -294,7 +294,7 @@ export class CloneServerGroupStage extends React.Component<IProps, IState> {
                   name="blockDeviceMappingsSource"
                 />
                 Prefer AMI block device mappings
-                <HelpField key="tencentCloud.blockDeviceMappings.useAMI" />
+                <HelpField key="tencentcloud.blockDeviceMappings.useAMI" />
               </label>
             </div>
             <div>
@@ -306,7 +306,7 @@ export class CloneServerGroupStage extends React.Component<IProps, IState> {
                   name="blockDeviceMappingsSource"
                 />
                 Defaults for selected instance type
-                <HelpField key="tencentCloud.blockDeviceMappings.useDefaults" />
+                <HelpField key="tencentcloud.blockDeviceMappings.useDefaults" />
               </label>
             </div>
           </div>

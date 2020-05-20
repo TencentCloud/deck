@@ -2,21 +2,21 @@ import * as React from 'react';
 
 import { CollapsibleSection, Overridable, Tooltip } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupView, IScalingProcess } from 'tencentcloud/domain';
+import { ITencentcloudServerGroupView, IScalingProcess } from 'tencentcloud/domain';
 
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
 
-import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { ITencentcloudServerGroupDetailsSectionProps } from './ITencentcloudServerGroupDetailsSectionProps';
 import { CreateScalingPolicyButton } from '../scalingPolicy/CreateScalingPolicyButton';
 import AlarmBasedSummary from '../scalingPolicy/AlarmBasedSummary';
 
-@Overridable('tencentCloud.serverGroup.ScalingPoliciesDetailsSection')
-export class ScalingPoliciesDetailsSection extends React.Component<ITencentCloudServerGroupDetailsSectionProps> {
-  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
+@Overridable('tencentcloud.serverGroup.ScalingPoliciesDetailsSection')
+export class ScalingPoliciesDetailsSection extends React.Component<ITencentcloudServerGroupDetailsSectionProps> {
+  constructor(props: ITencentcloudServerGroupDetailsSectionProps) {
     super(props);
   }
 
-  public static arePoliciesDisabled(serverGroup: ITencentCloudServerGroupView): boolean {
+  public static arePoliciesDisabled(serverGroup: ITencentcloudServerGroupView): boolean {
     const autoScalingProcesses: IScalingProcess[] = AutoScalingProcessService.normalizeScalingProcesses(serverGroup);
     return (
       serverGroup.scalingPolicies.length > 0 &&

@@ -3,16 +3,16 @@ import { FormikErrors, FormikProps } from 'formik';
 import Select, { Option } from 'react-select';
 import { IWizardPageComponent } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { ITencentcloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 
 export interface IServerGroupInstanceTypeProps {
-  formik: FormikProps<ITencentCloudServerGroupCommand>;
+  formik: FormikProps<ITencentcloudServerGroupCommand>;
 }
 
 export class ServerGroupInstanceType extends React.Component<IServerGroupInstanceTypeProps>
-  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
-  public validate(values: ITencentCloudServerGroupCommand) {
-    const errors: FormikErrors<ITencentCloudServerGroupCommand> = {};
+  implements IWizardPageComponent<ITencentcloudServerGroupCommand> {
+  public validate(values: ITencentcloudServerGroupCommand) {
+    const errors: FormikErrors<ITencentcloudServerGroupCommand> = {};
 
     if (!values.instanceType) {
       errors.instanceType = 'Instance Type required.';

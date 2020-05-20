@@ -9,7 +9,7 @@ export const TENCENTCLOUD_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTR
   'spinnaker.tencentcloud.serverGroup.details.rollback.controller';
 angular
   .module(TENCENTCLOUD_SERVERGROUP_DETAILS_ROLLBACK_ROLLBACKSERVERGROUP_CONTROLLER, [SERVER_GROUP_WRITER])
-  .controller('tencentCloudRollbackServerGroupCtrl', [
+  .controller('tencentcloudRollbackServerGroupCtrl', [
     '$scope',
     '$uibModalInstance',
     'serverGroupWriter',

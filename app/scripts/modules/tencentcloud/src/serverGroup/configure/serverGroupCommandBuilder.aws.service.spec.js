@@ -2,21 +2,21 @@
 
 import { AccountService, SubnetReader } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
 
-describe('Service: tencentCloudServerGroup', function() {
+describe('Service: tencentcloudServerGroup', function() {
   beforeEach(window.module(require('./serverGroupCommandBuilder.service').name));
 
   beforeEach(
     window.inject(function(
       _$httpBackend_,
-      tencentCloudServerGroupCommandBuilder,
+      tencentcloudServerGroupCommandBuilder,
       _instanceTypeService_,
       _$q_,
       $rootScope,
     ) {
       this.$httpBackend = _$httpBackend_;
-      this.service = tencentCloudServerGroupCommandBuilder;
+      this.service = tencentcloudServerGroupCommandBuilder;
       this.$q = _$q_;
       this.$scope = $rootScope;
       spyOn(_instanceTypeService_, 'getCategoryForInstanceType').and.returnValue(_$q_.when('custom'));

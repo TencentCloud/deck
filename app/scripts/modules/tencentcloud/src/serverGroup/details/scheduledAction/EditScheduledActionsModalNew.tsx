@@ -85,7 +85,7 @@ export default class EditScheduledActionsModal extends React.Component<
     } = this.props;
     const job = [
       {
-        type: 'upsertTencentCloudScheduledActions',
+        type: 'upsertTencentcloudScheduledActions',
         asgs: [{ asgName: name, region }],
         scheduledActions: this.state.scheduledActions,
         credentials: account,

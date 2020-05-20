@@ -2,7 +2,7 @@ import { IPromise } from 'angular';
 
 import { API } from '@spinnaker/core';
 
-interface ITencentCloudLoadBalancer {
+interface ITencentcloudLoadBalancer {
   accounts: string;
   id: string;
   name: string;
@@ -16,18 +16,18 @@ export class LoadBalancerReader {
     account: string;
     region: string;
     loadBalancerId: string;
-  }): IPromise<ITencentCloudLoadBalancer[]> {
+  }): IPromise<ITencentcloudLoadBalancer[]> {
     return API.one('loadBalancers')
       .withParams({ ...params, provider: 'tencentcloud' })
       .get()
-      .catch(() => [] as ITencentCloudLoadBalancer[]);
+      .catch(() => [] as ITencentcloudLoadBalancer[]);
   }
 
-  public static getLoadBalancers(): IPromise<ITencentCloudLoadBalancer> {
+  public static getLoadBalancers(): IPromise<ITencentcloudLoadBalancer> {
     return API.one('loadBalancers')
       .withParams({ provider: 'tencentcloud' })
       .get()
       .then((results: any[]) => (results && results.length ? results[0] : null))
-      .catch(() => [] as ITencentCloudLoadBalancer[]);
+      .catch(() => [] as ITencentcloudLoadBalancer[]);
   }
 }

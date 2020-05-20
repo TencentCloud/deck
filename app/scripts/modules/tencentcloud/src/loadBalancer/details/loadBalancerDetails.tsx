@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IScope, IPromise } from 'angular';
 import { Spinner } from '@spinnaker/core';
-import { ITencentCloudLoadBalancerSourceData, ITencentCloudLoadBalancer } from '../../domain';
+import { ITencentcloudLoadBalancerSourceData, ITencentcloudLoadBalancer } from '../../domain';
 
 import { get } from 'lodash';
 import { StateService } from '@uirouter/angularjs';
@@ -31,12 +31,12 @@ const LoadingSpinner = () => (
 
 interface ILoadBalancerDetailsProps {
   app: Application;
-  loadBalancer: ITencentCloudLoadBalancer;
+  loadBalancer: ITencentcloudLoadBalancer;
   $scope: IScope;
   $state: StateService;
 }
 
-export interface ILoadBalancerFromStateParams extends ITencentCloudLoadBalancer {
+export interface ILoadBalancerFromStateParams extends ITencentcloudLoadBalancer {
   accountId?: string;
   region?: string;
   name?: string;
@@ -45,7 +45,7 @@ export interface ILoadBalancerFromStateParams extends ITencentCloudLoadBalancer 
 interface ILoadBalancerDetailsState {
   firewallsLabel: string;
   securityGroups: ISecurityGroup[];
-  loadBalancer: ITencentCloudLoadBalancer;
+  loadBalancer: ITencentcloudLoadBalancer;
   loading: boolean;
 }
 
@@ -106,7 +106,7 @@ export default class LoadBalancerDetails extends React.Component<ILoadBalancerDe
         appLoadBalancer.id,
       );
       return detailsLoader.then(
-        (details: ITencentCloudLoadBalancerSourceData[]) => {
+        (details: ITencentcloudLoadBalancerSourceData[]) => {
           const tempLoadBalancer = appLoadBalancer;
           this.setState({
             loading: false,

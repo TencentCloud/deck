@@ -3,12 +3,12 @@ import { FormikProps } from 'formik';
 
 import { Validators, FormikFormField, NumberInput, HelpField } from '@spinnaker/core';
 
-import { ITencentCloudClassicLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { ITencentcloudClassicLoadBalancerUpsertCommand } from 'tencentcloud/domain';
 
 import './AdvancedSettings.css';
 
 export interface IAdvancedSettingsProps {
-  formik: FormikProps<ITencentCloudClassicLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudClassicLoadBalancerUpsertCommand>;
 }
 
 export class AdvancedSettings extends React.Component<IAdvancedSettingsProps> {
@@ -16,7 +16,7 @@ export class AdvancedSettings extends React.Component<IAdvancedSettingsProps> {
     const { values } = this.props.formik;
     const { maxValue } = Validators;
     return (
-      <div className="form-group TencentCloudLoadBalancer-AdvancedSettings">
+      <div className="form-group TencentcloudLoadBalancer-AdvancedSettings">
         <FormikFormField
           name="healthTimeout"
           label="Timeout"

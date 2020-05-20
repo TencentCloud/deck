@@ -23,23 +23,23 @@ import {
   ICapacity,
 } from '@spinnaker/core';
 
-import { TencentCloudModalFooter } from 'tencentcloud/common';
-import { ITencentCloudAsg, ITencentCloudServerGroup } from 'tencentcloud/domain';
+import { TencentcloudModalFooter } from 'tencentcloud/common';
+import { ITencentcloudAsg, ITencentcloudServerGroup } from 'tencentcloud/domain';
 
-export interface ITencentCloudResizeServerGroupModalProps extends IModalComponentProps {
+export interface ITencentcloudResizeServerGroupModalProps extends IModalComponentProps {
   application: Application;
-  serverGroup: ITencentCloudServerGroup;
+  serverGroup: ITencentcloudServerGroup;
 }
 
-export interface ITencentCloudResizeServerGroupModalState {
+export interface ITencentcloudResizeServerGroupModalState {
   advancedMode: boolean;
   interestingHealthProviderNames: string[]; // managed by a separate component
-  initialValues: ITencentCloudResizeServerGroupValues;
+  initialValues: ITencentcloudResizeServerGroupValues;
   taskMonitor: TaskMonitor;
   platformHealthOnlyShowOverride?: boolean;
 }
 
-export interface ITencentCloudResizeServerGroupValues {
+export interface ITencentcloudResizeServerGroupValues {
   min: number;
   max: number;
   desired: number;
@@ -59,23 +59,23 @@ interface IChangedField {
   value: number | string;
 }
 
-export class TencentCloudResizeServerGroupModal extends React.Component<
-  ITencentCloudResizeServerGroupModalProps,
-  ITencentCloudResizeServerGroupModalState
+export class TencentcloudResizeServerGroupModal extends React.Component<
+  ITencentcloudResizeServerGroupModalProps,
+  ITencentcloudResizeServerGroupModalState
 > {
-  public static defaultProps: Partial<ITencentCloudResizeServerGroupModalProps> = {
+  public static defaultProps: Partial<ITencentcloudResizeServerGroupModalProps> = {
     closeModal: noop,
     dismissModal: noop,
   };
 
-  private formikRef = React.createRef<Formik<ITencentCloudResizeServerGroupValues>>();
+  private formikRef = React.createRef<Formik<ITencentcloudResizeServerGroupValues>>();
 
-  public static show(props: ITencentCloudResizeServerGroupModalProps): Promise<IResizeJob> {
+  public static show(props: ITencentcloudResizeServerGroupModalProps): Promise<IResizeJob> {
     const modalProps = {};
-    return ReactModal.show(TencentCloudResizeServerGroupModal, props, modalProps);
+    return ReactModal.show(TencentcloudResizeServerGroupModal, props, modalProps);
   }
 
-  constructor(props: ITencentCloudResizeServerGroupModalProps) {
+  constructor(props: ITencentcloudResizeServerGroupModalProps) {
     super(props);
 
     const { minSize, maxSize, desiredCapacity } = props.serverGroup.asg;
@@ -100,7 +100,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
     };
   }
 
-  private getChangedFields(capacity: ICapacity, asg: ITencentCloudAsg): IChangedField[] {
+  private getChangedFields(capacity: ICapacity, asg: ITencentcloudAsg): IChangedField[] {
     const fields: IChangedField[] = [
       { field: 'min', value: capacity.min, prevValue: asg.minSize },
       { field: 'max', value: capacity.max, prevValue: asg.maxSize },
@@ -111,11 +111,11 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
   }
 
   private validate = (
-    values: ITencentCloudResizeServerGroupValues,
-  ): Partial<FormikErrors<ITencentCloudResizeServerGroupValues>> => {
+    values: ITencentcloudResizeServerGroupValues,
+  ): Partial<FormikErrors<ITencentcloudResizeServerGroupValues>> => {
     const { min, max, desired } = values;
     const { asg } = this.props.serverGroup;
-    const errors: Partial<FormikErrors<ITencentCloudResizeServerGroupValues>> = {};
+    const errors: Partial<FormikErrors<ITencentcloudResizeServerGroupValues>> = {};
 
     if (this.getChangedFields(values, asg).length === 0) {
       (errors as any).nochange = 'no changes to capacity';
@@ -183,7 +183,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
     return scalingPolicies.length && advancedMode && scalingPolicies.every(p => p.adjustmentType !== 'EXACT_CAPACITY');
   };
 
-  private submit = (values: ITencentCloudResizeServerGroupValues): void => {
+  private submit = (values: ITencentcloudResizeServerGroupValues): void => {
     const { min, max, desired, enforceCapacityConstraints, reason } = values;
     const { interestingHealthProviderNames } = this.state;
     const { serverGroup, application } = this.props;
@@ -214,7 +214,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
     });
   };
 
-  private renderSimpleMode(formik: FormikProps<ITencentCloudResizeServerGroupValues>): JSX.Element {
+  private renderSimpleMode(formik: FormikProps<ITencentcloudResizeServerGroupValues>): JSX.Element {
     const { serverGroup } = this.props;
     const { asg } = serverGroup;
     return (
@@ -257,7 +257,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
     );
   }
 
-  private renderAdvancedMode(formik: FormikProps<ITencentCloudResizeServerGroupValues>): JSX.Element {
+  private renderAdvancedMode(formik: FormikProps<ITencentcloudResizeServerGroupValues>): JSX.Element {
     const { serverGroup } = this.props;
     const { errors } = formik;
     const { asg } = serverGroup;
@@ -339,7 +339,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
             input={props => (
               <>
                 <CheckboxInput {...props} text="Enforce Capacity Constraints" />
-                <HelpField id="tencentCloud.serverGroup.capacityConstraint" />
+                <HelpField id="tencentcloud.serverGroup.capacityConstraint" />
               </>
             )}
           />
@@ -348,7 +348,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
     );
   }
 
-  private renderScalingPolicyWarning(formik: FormikProps<ITencentCloudResizeServerGroupValues>): JSX.Element {
+  private renderScalingPolicyWarning(formik: FormikProps<ITencentcloudResizeServerGroupValues>): JSX.Element {
     const { serverGroup } = this.props;
     const { min, max } = formik.values;
     const { advancedMode } = this.state;
@@ -409,7 +409,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
     return (
       <>
         <TaskMonitorWrapper monitor={this.state.taskMonitor} />
-        <Formik<ITencentCloudResizeServerGroupValues>
+        <Formik<ITencentcloudResizeServerGroupValues>
           ref={this.formikRef}
           initialValues={initialValues}
           validate={this.validate}
@@ -459,7 +459,7 @@ export class TencentCloudResizeServerGroupModal extends React.Component<
                     </div>
                   </Form>
                 </Modal.Body>
-                <TencentCloudModalFooter
+                <TencentcloudModalFooter
                   onSubmit={() => this.submit(formik.values)}
                   onCancel={this.close}
                   isValid={formik.isValid}

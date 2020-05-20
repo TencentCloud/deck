@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import { Application } from '@spinnaker/core';
 
-import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
-import { ITencentCloudServerGroupView } from 'tencentcloud/domain';
+import { TencentcloudReactInjector } from 'tencentcloud/reactShims';
+import { ITencentcloudServerGroupView } from 'tencentcloud/domain';
 import UpsertScalingPlicyModal from './upsert/UpsertScalingPlicyModal';
 
 export interface ICreateScalingPolicyButtonProps {
   application: Application;
-  serverGroup: ITencentCloudServerGroupView;
+  serverGroup: ITencentcloudServerGroupView;
 }
 
 export interface ICreateScalingPolicyButtonState {
@@ -39,7 +39,7 @@ export class CreateScalingPolicyButton extends React.Component<
     UpsertScalingPlicyModal.show({
       serverGroup,
       application,
-      policy: TencentCloudReactInjector.tencentCloudServerGroupTransformer.constructNewStepScalingPolicyTemplate(),
+      policy: TencentcloudReactInjector.tencentcloudServerGroupTransformer.constructNewStepScalingPolicyTemplate(),
     });
   }
 

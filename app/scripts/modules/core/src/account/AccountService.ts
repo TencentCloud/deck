@@ -33,7 +33,7 @@ export interface IArtifactAccount {
 }
 
 export interface IAccountDetails extends IAccount {
-  tencentCloudAccount?: any;
+  tencentcloudAccount?: any;
   accountType: string;
   authorized: boolean;
   awsAccount?: string;

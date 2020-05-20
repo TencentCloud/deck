@@ -3,19 +3,19 @@ import { FormikProps } from 'formik';
 
 import { Application, IWizardPageComponent } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupCommand } from '../../../serverGroupConfiguration.service';
+import { ITencentcloudServerGroupCommand } from '../../../serverGroupConfiguration.service';
 import { ServerGroupAdvancedSettingsInner } from './ServerGroupAdvancedSettingsInner';
 
 export interface IServerGroupAdvancedSettingsProps {
   app: Application;
-  formik: FormikProps<ITencentCloudServerGroupCommand>;
+  formik: FormikProps<ITencentcloudServerGroupCommand>;
 }
 
 export class ServerGroupAdvancedSettings extends React.Component<IServerGroupAdvancedSettingsProps>
-  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
+  implements IWizardPageComponent<ITencentcloudServerGroupCommand> {
   private ref: any = React.createRef();
 
-  public validate(values: ITencentCloudServerGroupCommand) {
+  public validate(values: ITencentcloudServerGroupCommand) {
     if (this.ref && this.ref.current) {
       return this.ref.current.validate(values);
     }

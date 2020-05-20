@@ -8,19 +8,19 @@ import {
   NameUtils,
   SETTINGS,
 } from '@spinnaker/core';
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
 import {
   IALBListenerCertificate,
-  ITencentCloudApplicationLoadBalancer,
-  ITencentCloudApplicationLoadBalancerUpsertCommand,
-  ITencentCloudClassicLoadBalancer,
-  ITencentCloudClassicLoadBalancerUpsertCommand,
-  ITencentCloudLoadBalancer,
-  ITencentCloudServerGroup,
+  ITencentcloudApplicationLoadBalancer,
+  ITencentcloudApplicationLoadBalancerUpsertCommand,
+  ITencentcloudClassicLoadBalancer,
+  ITencentcloudClassicLoadBalancerUpsertCommand,
+  ITencentcloudLoadBalancer,
+  ITencentcloudServerGroup,
   IClassicListenerDescription,
   IClassicLoadBalancerSourceData,
   INetworkLoadBalancerSourceData,
-  ITencentCloudNetworkLoadBalancerUpsertCommand,
+  ITencentcloudNetworkLoadBalancerUpsertCommand,
   ITargetGroup,
   IListenerDescription,
 } from 'tencentcloud/domain';
@@ -30,8 +30,8 @@ import { chain, filter, flatten, map } from 'lodash';
 
 import { $q } from 'ngimport';
 
-export class TencentCloudLoadBalancerTransformer {
-  private updateHealthCounts(container: IServerGroup | ITargetGroup | ITencentCloudLoadBalancer): void {
+export class TencentcloudLoadBalancerTransformer {
+  private updateHealthCounts(container: IServerGroup | ITargetGroup | ITencentcloudLoadBalancer): void {
     const instances = container.instances;
 
     container.instanceCounts = {
@@ -44,7 +44,7 @@ export class TencentCloudLoadBalancerTransformer {
       unknown: undefined,
     };
 
-    if ((container as ITargetGroup | ITencentCloudLoadBalancer).serverGroups) {
+    if ((container as ITargetGroup | ITencentcloudLoadBalancer).serverGroups) {
       const serverGroupInstances = flatten(
         (container as ITargetGroup).serverGroups.filter(sg => !!sg.instances).map(sg => sg.instances),
       );
@@ -76,8 +76,8 @@ export class TencentCloudLoadBalancerTransformer {
   }
 
   private addVpcNameToContainer(
-    container: ITencentCloudLoadBalancer | ITargetGroup,
-  ): (vpcs: IVpc[]) => ITencentCloudLoadBalancer | ITargetGroup {
+    container: ITencentcloudLoadBalancer | ITargetGroup,
+  ): (vpcs: IVpc[]) => ITencentcloudLoadBalancer | ITargetGroup {
     return (vpcs: IVpc[]) => {
       const match = vpcs.find(test => test.id === container.vpcId);
       container.vpcName = match ? match.name : '';
@@ -87,7 +87,7 @@ export class TencentCloudLoadBalancerTransformer {
 
   private normalizeServerGroups(
     serverGroups: IServerGroup[],
-    container: ITencentCloudLoadBalancer | ITargetGroup,
+    container: ITencentcloudLoadBalancer | ITargetGroup,
     containerType: string,
     healthType: string,
   ): void {
@@ -150,14 +150,14 @@ export class TencentCloudLoadBalancerTransformer {
     });
   }
 
-  public normalizeLoadBalancer(loadBalancer: ITencentCloudLoadBalancer): IPromise<ITencentCloudLoadBalancer> {
+  public normalizeLoadBalancer(loadBalancer: ITencentcloudLoadBalancer): IPromise<ITencentcloudLoadBalancer> {
     this.normalizeServerGroups(loadBalancer.serverGroups, loadBalancer, 'loadBalancers', 'LoadBalancer');
 
     let serverGroups = loadBalancer.serverGroups;
-    if ((loadBalancer as ITencentCloudApplicationLoadBalancer).targetGroups) {
-      const appLoadBalancer = loadBalancer as ITencentCloudApplicationLoadBalancer;
+    if ((loadBalancer as ITencentcloudApplicationLoadBalancer).targetGroups) {
+      const appLoadBalancer = loadBalancer as ITencentcloudApplicationLoadBalancer;
       appLoadBalancer.targetGroups.forEach(targetGroup => this.normalizeTargetGroup(targetGroup));
-      serverGroups = flatten<ITencentCloudServerGroup>(map(appLoadBalancer.targetGroups, 'serverGroups'));
+      serverGroups = flatten<ITencentcloudServerGroup>(map(appLoadBalancer.targetGroups, 'serverGroups'));
     }
 
     loadBalancer.loadBalancerType = loadBalancer.loadBalancerType || 'classic';
@@ -174,14 +174,14 @@ export class TencentCloudLoadBalancerTransformer {
       .value();
     this.updateHealthCounts(loadBalancer);
     return VpcReader.listVpcs().then(
-      (vpcs: IVpc[]) => this.addVpcNameToContainer(loadBalancer)(vpcs) as ITencentCloudLoadBalancer,
+      (vpcs: IVpc[]) => this.addVpcNameToContainer(loadBalancer)(vpcs) as ITencentcloudLoadBalancer,
     );
   }
 
   public convertClassicLoadBalancerForEditing(
-    loadBalancer: ITencentCloudClassicLoadBalancer,
-  ): ITencentCloudClassicLoadBalancerUpsertCommand {
-    const toEdit: ITencentCloudClassicLoadBalancerUpsertCommand = {
+    loadBalancer: ITencentcloudClassicLoadBalancer,
+  ): ITencentcloudClassicLoadBalancerUpsertCommand {
+    const toEdit: ITencentcloudClassicLoadBalancerUpsertCommand = {
       availabilityZones: undefined,
       isInternal: loadBalancer.isInternal,
       region: loadBalancer.region,
@@ -261,10 +261,10 @@ export class TencentCloudLoadBalancerTransformer {
   }
 
   public convertApplicationLoadBalancerForEditing(
-    loadBalancer: ITencentCloudApplicationLoadBalancer,
-  ): ITencentCloudApplicationLoadBalancerUpsertCommand {
+    loadBalancer: ITencentcloudApplicationLoadBalancer,
+  ): ITencentcloudApplicationLoadBalancerUpsertCommand {
     // Since we build up toEdit as we go, much easier to declare as any, then cast at return time.
-    const toEdit: ITencentCloudApplicationLoadBalancerUpsertCommand = {
+    const toEdit: ITencentcloudApplicationLoadBalancerUpsertCommand = {
       availabilityZones: undefined,
       isInternal: loadBalancer.isInternal || loadBalancer.loadBalancerType === 'INTERNAL',
       region: loadBalancer.region,
@@ -288,12 +288,12 @@ export class TencentCloudLoadBalancerTransformer {
   }
 
   public convertNetworkLoadBalancerForEditing(
-    loadBalancer: ITencentCloudApplicationLoadBalancer,
-  ): ITencentCloudNetworkLoadBalancerUpsertCommand {
+    loadBalancer: ITencentcloudApplicationLoadBalancer,
+  ): ITencentcloudNetworkLoadBalancerUpsertCommand {
     const applicationName = NameUtils.parseLoadBalancerName(loadBalancer.name).application;
 
     // Since we build up toEdit as we go, much easier to declare as any, then cast at return time.
-    const toEdit: ITencentCloudNetworkLoadBalancerUpsertCommand = {
+    const toEdit: ITencentcloudNetworkLoadBalancerUpsertCommand = {
       availabilityZones: undefined,
       isInternal: loadBalancer.isInternal,
       region: loadBalancer.region,
@@ -389,7 +389,7 @@ export class TencentCloudLoadBalancerTransformer {
 
   public constructNewClassicLoadBalancerTemplate(
     application: Application,
-  ): ITencentCloudClassicLoadBalancerUpsertCommand {
+  ): ITencentcloudClassicLoadBalancerUpsertCommand {
     const defaultCredentials =
       application.defaultCredentials.tencentcloud || TENCENTCLOUDProviderSettings.defaults.account;
     const defaultRegion = application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
@@ -431,7 +431,7 @@ export class TencentCloudLoadBalancerTransformer {
 
   public constructNewApplicationLoadBalancerTemplate(
     application: Application,
-  ): ITencentCloudApplicationLoadBalancerUpsertCommand {
+  ): ITencentcloudApplicationLoadBalancerUpsertCommand {
     const defaultCredentials =
       application.defaultCredentials.tencentcloud || TENCENTCLOUDProviderSettings.defaults.account;
     const defaultRegion = application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
@@ -498,7 +498,7 @@ export class TencentCloudLoadBalancerTransformer {
 
   public constructNewNetworkLoadBalancerTemplate(
     application: Application,
-  ): ITencentCloudNetworkLoadBalancerUpsertCommand {
+  ): ITencentcloudNetworkLoadBalancerUpsertCommand {
     const defaultCredentials =
       application.defaultCredentials.tencentcloud || TENCENTCLOUDProviderSettings.defaults.account;
     const defaultRegion = application.defaultRegions.tencentcloud || TENCENTCLOUDProviderSettings.defaults.region;
@@ -563,6 +563,6 @@ export class TencentCloudLoadBalancerTransformer {
 
 export const TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER = 'spinnaker.tencentcloud.loadBalancer.transformer';
 module(TENCENTCLOUD_LOAD_BALANCER_TRANSFORMER, []).service(
-  'tencentCloudLoadBalancerTransformer',
-  TencentCloudLoadBalancerTransformer,
+  'tencentcloudLoadBalancerTransformer',
+  TencentcloudLoadBalancerTransformer,
 );

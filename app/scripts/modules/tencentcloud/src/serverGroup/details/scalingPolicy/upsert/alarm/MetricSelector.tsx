@@ -87,7 +87,7 @@ export default class MetricSelector extends React.Component<IMetricEditorProps, 
             {advancedMode && noDefaultMetrics && (
               <a className="small" onClick={this.simpleMode}>
                 Only show metrics for this auto scaling group{' '}
-                <HelpField id="tencentCloud.scalingPolicy.search.restricted" />
+                <HelpField id="tencentcloud.scalingPolicy.search.restricted" />
               </a>
             )}
           </div>

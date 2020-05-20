@@ -3,10 +3,10 @@ import { isEqual } from 'lodash';
 
 import { ILoadBalancerClusterContainerProps } from '@spinnaker/core';
 
-import { ITencentCloudApplicationLoadBalancer } from '../domain/ITencentCloudLoadBalancer';
+import { ITencentcloudApplicationLoadBalancer } from '../domain/ITencentcloudLoadBalancer';
 import { TargetGroup } from './TargetGroup';
 
-export class TencentCloudLoadBalancerClusterContainer extends React.Component<ILoadBalancerClusterContainerProps> {
+export class TencentcloudLoadBalancerClusterContainer extends React.Component<ILoadBalancerClusterContainerProps> {
   public shouldComponentUpdate(nextProps: ILoadBalancerClusterContainerProps) {
     const serverGroupsDiffer = () =>
       !isEqual(
@@ -15,8 +15,8 @@ export class TencentCloudLoadBalancerClusterContainer extends React.Component<IL
       );
     const targetGroupsDiffer = () =>
       !isEqual(
-        ((nextProps.loadBalancer as ITencentCloudApplicationLoadBalancer).targetGroups || []).map(t => t.name),
-        ((this.props.loadBalancer as ITencentCloudApplicationLoadBalancer).targetGroups || []).map(t => t.name),
+        ((nextProps.loadBalancer as ITencentcloudApplicationLoadBalancer).targetGroups || []).map(t => t.name),
+        ((this.props.loadBalancer as ITencentcloudApplicationLoadBalancer).targetGroups || []).map(t => t.name),
       );
     return (
       nextProps.showInstances !== this.props.showInstances ||
@@ -27,15 +27,15 @@ export class TencentCloudLoadBalancerClusterContainer extends React.Component<IL
     );
   }
 
-  public render(): React.ReactElement<TencentCloudLoadBalancerClusterContainer> {
+  public render(): React.ReactElement<TencentcloudLoadBalancerClusterContainer> {
     const { loadBalancer, showInstances, showServerGroups } = this.props;
-    const alb = loadBalancer as ITencentCloudApplicationLoadBalancer;
+    const alb = loadBalancer as ITencentcloudApplicationLoadBalancer;
     const ServerGroups = alb.serverGroups
       ? alb.serverGroups.map(item => {
           return (
             <TargetGroup
               key={item.name}
-              loadBalancer={loadBalancer as ITencentCloudApplicationLoadBalancer}
+              loadBalancer={loadBalancer as ITencentcloudApplicationLoadBalancer}
               targetGroup={item}
               showInstances={showInstances}
               showServerGroups={showServerGroups}

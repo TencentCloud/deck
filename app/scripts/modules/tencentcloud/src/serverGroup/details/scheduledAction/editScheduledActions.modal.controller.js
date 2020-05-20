@@ -68,7 +68,7 @@ angular
 
       this.submit = () => {
         const job = $scope.command.scheduledActions.map(sa => ({
-          type: 'upsertTencentCloudScheduledActions',
+          type: 'upsertTencentcloudScheduledActions',
           application: application.name,
           account: serverGroup.account,
           accountName: serverGroup.account,

@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 
 import { AccountService, IServerGroupDetailsProps, ServerGroupReader } from '@spinnaker/core';
 
-import { TencentCloudReactInjector } from 'tencentcloud/reactShims';
-import { ITencentCloudLoadBalancer, ITencentCloudServerGroup, ITencentCloudServerGroupView } from 'tencentcloud/domain';
+import { TencentcloudReactInjector } from 'tencentcloud/reactShims';
+import { ITencentcloudLoadBalancer, ITencentcloudServerGroup, ITencentcloudServerGroupView } from 'tencentcloud/domain';
 
-function extractServerGroupSummary(props: IServerGroupDetailsProps): IPromise<ITencentCloudServerGroup> {
+function extractServerGroupSummary(props: IServerGroupDetailsProps): IPromise<ITencentcloudServerGroup> {
   const { app, serverGroup } = props;
   return app.ready().then(() => {
-    let summary: ITencentCloudServerGroup = app.serverGroups.data.find((toCheck: ITencentCloudServerGroup) => {
+    let summary: ITencentcloudServerGroup = app.serverGroups.data.find((toCheck: ITencentcloudServerGroup) => {
       return (
         toCheck.name === serverGroup.name &&
         toCheck.account === serverGroup.accountId &&
@@ -18,7 +18,7 @@ function extractServerGroupSummary(props: IServerGroupDetailsProps): IPromise<IT
       );
     });
     if (!summary) {
-      app.loadBalancers.data.some((loadBalancer: ITencentCloudLoadBalancer) => {
+      app.loadBalancers.data.some((loadBalancer: ITencentcloudLoadBalancer) => {
         if (loadBalancer.account === serverGroup.accountId && loadBalancer.region === serverGroup.region) {
           return loadBalancer.serverGroups.some(possibleServerGroup => {
             if (possibleServerGroup.name === serverGroup.name) {
@@ -35,23 +35,23 @@ function extractServerGroupSummary(props: IServerGroupDetailsProps): IPromise<IT
   });
 }
 
-export function tencentCloudServerGroupDetailsGetter(
+export function tencentcloudServerGroupDetailsGetter(
   props: IServerGroupDetailsProps,
   autoClose: () => void,
-): Observable<ITencentCloudServerGroup> {
+): Observable<ITencentcloudServerGroup> {
   const { app, serverGroup: serverGroupInfo } = props;
-  return new Observable<ITencentCloudServerGroupView>(observer => {
+  return new Observable<ITencentcloudServerGroupView>(observer => {
     extractServerGroupSummary(props).then(summary => {
       ServerGroupReader.getServerGroup(
         app.name,
         serverGroupInfo.accountId,
         serverGroupInfo.region,
         serverGroupInfo.name,
-      ).then((details: ITencentCloudServerGroup) => {
+      ).then((details: ITencentcloudServerGroup) => {
         // it's possible the summary was not found because the clusters are still loading
         Object.assign(details, summary, { account: serverGroupInfo.accountId });
 
-        const serverGroup = TencentCloudReactInjector.tencentCloudServerGroupTransformer.normalizeServerGroupDetails(
+        const serverGroup = TencentcloudReactInjector.tencentcloudServerGroupTransformer.normalizeServerGroupDetails(
           details,
         );
 

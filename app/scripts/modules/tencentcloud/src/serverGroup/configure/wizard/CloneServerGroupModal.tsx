@@ -14,9 +14,9 @@ import {
   noop,
 } from '@spinnaker/core';
 
-import { TencentCloudReactInjector } from '../../../reactShims';
+import { TencentcloudReactInjector } from '../../../reactShims';
 
-import { ITencentCloudServerGroupCommand } from '../serverGroupConfiguration.service';
+import { ITencentcloudServerGroupCommand } from '../serverGroupConfiguration.service';
 
 import {
   ServerGroupBasicSettings,
@@ -28,24 +28,24 @@ import {
 } from './pages';
 import { ServerGroupTemplateSelection } from './ServerGroupTemplateSelection';
 
-export interface ITencentCloudCloneServerGroupModalProps extends IModalComponentProps {
+export interface ITencentcloudCloneServerGroupModalProps extends IModalComponentProps {
   title: string;
   application: Application;
-  command: ITencentCloudServerGroupCommand;
+  command: ITencentcloudServerGroupCommand;
 }
 
-export interface ITencentCloudCloneServerGroupModalState {
+export interface ITencentcloudCloneServerGroupModalState {
   firewallsLabel: string;
   loaded: boolean;
   requiresTemplateSelection: boolean;
   taskMonitor: TaskMonitor;
 }
 
-export class TencentCloudCloneServerGroupModal extends React.Component<
-  ITencentCloudCloneServerGroupModalProps,
-  ITencentCloudCloneServerGroupModalState
+export class TencentcloudCloneServerGroupModal extends React.Component<
+  ITencentcloudCloneServerGroupModalProps,
+  ITencentcloudCloneServerGroupModalState
 > {
-  public static defaultProps: Partial<ITencentCloudCloneServerGroupModalProps> = {
+  public static defaultProps: Partial<ITencentcloudCloneServerGroupModalProps> = {
     closeModal: noop,
     dismissModal: noop,
   };
@@ -53,12 +53,12 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
   private _isUnmounted = false;
   private refreshUnsubscribe: () => void;
 
-  public static show(props: ITencentCloudCloneServerGroupModalProps): Promise<ITencentCloudServerGroupCommand> {
+  public static show(props: ITencentcloudCloneServerGroupModalProps): Promise<ITencentcloudServerGroupCommand> {
     const modalProps = { dialogClassName: 'wizard-modal modal-lg' };
-    return ReactModal.show(TencentCloudCloneServerGroupModal, props, modalProps);
+    return ReactModal.show(TencentcloudCloneServerGroupModal, props, modalProps);
   }
 
-  constructor(props: ITencentCloudCloneServerGroupModalProps) {
+  constructor(props: ITencentcloudCloneServerGroupModalProps) {
     super(props);
 
     const requiresTemplateSelection = get(props, 'command.viewState.requiresTemplateSelection', false);
@@ -134,12 +134,12 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
 
     command.credentialsChanged(command);
     command.regionChanged(command);
-    TencentCloudReactInjector.tencentCloudServerGroupConfigurationService.configureSubnetPurposes(command);
+    TencentcloudReactInjector.tencentcloudServerGroupConfigurationService.configureSubnetPurposes(command);
   };
 
   private configureCommand = () => {
     const { application, command } = this.props;
-    TencentCloudReactInjector.tencentCloudServerGroupConfigurationService
+    TencentcloudReactInjector.tencentcloudServerGroupConfigurationService
       .configureCommand(application, command)
       .then(() => {
         this.initializeCommand();
@@ -147,7 +147,7 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
       });
   };
 
-  private normalizeCommand = ({ tags }: ITencentCloudServerGroupCommand) => {
+  private normalizeCommand = ({ tags }: ITencentcloudServerGroupCommand) => {
     if (!tags) {
       return;
     }
@@ -165,7 +165,7 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
     }
   }
 
-  private submit = (command: ITencentCloudServerGroupCommand): void => {
+  private submit = (command: ITencentcloudServerGroupCommand): void => {
     this.normalizeCommand(command);
     const forPipelineConfig = command.viewState.mode === 'editPipeline' || command.viewState.mode === 'createPipeline';
     if (forPipelineConfig) {
@@ -193,7 +193,7 @@ export class TencentCloudCloneServerGroupModal extends React.Component<
     }
 
     return (
-      <WizardModal<ITencentCloudServerGroupCommand>
+      <WizardModal<ITencentcloudServerGroupCommand>
         heading={title}
         initialValues={command}
         loading={!loaded}

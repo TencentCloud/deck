@@ -1,1 +1,1 @@
-export * from './TencentCloudCertificateReader';
+export * from './TencentcloudCertificateReader';

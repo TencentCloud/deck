@@ -19,7 +19,7 @@ describe('VpcReader', function() {
   });
 
   beforeEach(function() {
-    $http.whenGET(API.baseUrl + '/networks/tencentCloud').respond(200, [
+    $http.whenGET(API.baseUrl + '/networks/tencentcloud').respond(200, [
       { name: 'vpc1', id: 'vpc-1', deprecated: true },
       { name: 'vpc2', id: 'vpc-2', deprecated: false },
       { name: 'vpc3', id: 'vpc-3' },

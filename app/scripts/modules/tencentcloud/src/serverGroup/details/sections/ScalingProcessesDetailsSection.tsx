@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IScalingProcess } from 'tencentcloud/domain';
 import { CollapsibleSection, HelpField, timestamp, Tooltip } from '@spinnaker/core';
 import { AutoScalingProcessService } from '../scalingProcesses/AutoScalingProcessService';
-import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { ITencentcloudServerGroupDetailsSectionProps } from './ITencentcloudServerGroupDetailsSectionProps';
 
 export interface IScalingProcessesDetailsSectionState {
   autoScalingProcesses: IScalingProcess[];
@@ -11,10 +11,10 @@ export interface IScalingProcessesDetailsSectionState {
 }
 
 export class ScalingProcessesDetailsSection extends React.Component<
-  ITencentCloudServerGroupDetailsSectionProps,
+  ITencentcloudServerGroupDetailsSectionProps,
   IScalingProcessesDetailsSectionState
 > {
-  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
+  constructor(props: ITencentcloudServerGroupDetailsSectionProps) {
     super(props);
 
     this.state = this.getState(props);
@@ -22,7 +22,7 @@ export class ScalingProcessesDetailsSection extends React.Component<
 
   // private toggleScalingProcesses = (): void => {};
 
-  private getState(props: ITencentCloudServerGroupDetailsSectionProps): IScalingProcessesDetailsSectionState {
+  private getState(props: ITencentcloudServerGroupDetailsSectionProps): IScalingProcessesDetailsSectionState {
     const { serverGroup } = props;
 
     const autoScalingProcesses: IScalingProcess[] = AutoScalingProcessService.normalizeScalingProcesses(serverGroup);
@@ -41,7 +41,7 @@ export class ScalingProcessesDetailsSection extends React.Component<
     return { autoScalingProcesses, scalingPoliciesDisabled, scheduledActionsDisabled };
   }
 
-  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps): void {
+  public componentWillReceiveProps(nextProps: ITencentcloudServerGroupDetailsSectionProps): void {
     this.setState(this.getState(nextProps));
   }
 

@@ -19,7 +19,7 @@ import {
   ValidationMessage,
 } from '@spinnaker/core';
 
-import { ITencentCloudLoadBalancer } from 'tencentcloud/domain';
+import { ITencentcloudLoadBalancer } from 'tencentcloud/domain';
 import { ISecurityGroupDetail } from '../../define';
 
 export interface ISubnetOption {
@@ -33,7 +33,7 @@ export interface ILoadBalancerLocationProps {
   formik: FormikProps<ISecurityGroupDetail>;
   forPipelineConfig?: boolean;
   isNew?: boolean;
-  loadBalancer?: ITencentCloudLoadBalancer;
+  loadBalancer?: ITencentcloudLoadBalancer;
 }
 
 export interface ILoadBalancerLocationState {
@@ -114,7 +114,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
       .shareReplay(1);
 
     const allLoadBalancers$ = this.props.app.getDataSource('loadBalancers').data$ as Observable<
-      ITencentCloudLoadBalancer[]
+      ITencentcloudLoadBalancer[]
     >;
     const regionLoadBalancers$ = Observable.combineLatest(allLoadBalancers$, form.account$, form.region$)
       .map(([allLoadBalancers, currentAccount, currentRegion]) => {
@@ -200,7 +200,7 @@ export class LoadBalancerLocation extends React.Component<ILoadBalancerLocationP
               <div className={className}>
                 <strong>Your load balancer will be named: </strong>
                 <span>{values.name}</span>
-                <HelpField id="tencentCloud.loadBalancer.name" />
+                <HelpField id="tencentcloud.loadBalancer.name" />
                 <Field type="text" style={{ display: 'none' }} className="form-control input-sm no-spel" name="name" />
                 {errors.name && <ValidationMessage type="error" message={errors.name} />}
               </div>

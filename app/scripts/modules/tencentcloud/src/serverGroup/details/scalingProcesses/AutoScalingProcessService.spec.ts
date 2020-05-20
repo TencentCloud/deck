@@ -1,19 +1,19 @@
-import { ITencentCloudAsg, ITencentCloudServerGroup } from 'tencentcloud/domain';
+import { ITencentcloudAsg, ITencentcloudServerGroup } from 'tencentcloud/domain';
 
 import { AutoScalingProcessService } from './AutoScalingProcessService';
 
 describe('AutoScalingProcessService', () => {
   describe('normalizeScalingProcesses', () => {
     it('returns an empty list if no asg or suspendedProcesses present on server group', function() {
-      expect(AutoScalingProcessService.normalizeScalingProcesses({} as ITencentCloudServerGroup)).toEqual([]);
-      expect(AutoScalingProcessService.normalizeScalingProcesses({ asg: {} } as ITencentCloudServerGroup)).toEqual([]);
+      expect(AutoScalingProcessService.normalizeScalingProcesses({} as ITencentcloudServerGroup)).toEqual([]);
+      expect(AutoScalingProcessService.normalizeScalingProcesses({ asg: {} } as ITencentcloudServerGroup)).toEqual([]);
     });
 
     it('returns all processes normalized if suspendedProcesses is empty', function() {
       const asg = {
         suspendedProcesses: [],
-      } as ITencentCloudAsg;
-      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as ITencentCloudServerGroup);
+      } as ITencentcloudAsg;
+      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as ITencentcloudServerGroup);
       expect(normalized.length).toBe(8);
       expect(normalized.filter(process => process.enabled).length).toBe(8);
       expect(normalized.map(process => process.name)).toEqual([
@@ -38,7 +38,7 @@ describe('AutoScalingProcessService', () => {
           },
         ],
       };
-      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as ITencentCloudServerGroup);
+      const normalized = AutoScalingProcessService.normalizeScalingProcesses({ asg: asg } as ITencentcloudServerGroup);
       expect(normalized.length).toBe(8);
       expect(normalized.filter(process => process.enabled).length).toBe(7);
       expect(normalized.map(process => process.name)).toEqual([
@@ -66,15 +66,15 @@ describe('AutoScalingProcessService', () => {
           },
         ],
       };
-      expect(AutoScalingProcessService.getDisabledDate({ asg: asg } as ITencentCloudServerGroup)).toBeNull();
+      expect(AutoScalingProcessService.getDisabledDate({ asg: asg } as ITencentcloudServerGroup)).toBeNull();
     });
 
     it('returns null when server group is disabled but suspended process for AddToLoadBalancer not present', function() {
       const asg = {
         suspendedProcesses: [],
-      } as ITencentCloudAsg;
+      } as ITencentcloudAsg;
       expect(
-        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as ITencentCloudServerGroup),
+        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as ITencentcloudServerGroup),
       ).toBeNull();
     });
 
@@ -88,7 +88,7 @@ describe('AutoScalingProcessService', () => {
         ],
       };
       expect(
-        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as ITencentCloudServerGroup),
+        AutoScalingProcessService.getDisabledDate({ isDisabled: true, asg: asg } as ITencentcloudServerGroup),
       ).toEqual(1452639586000);
     });
   });

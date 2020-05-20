@@ -11,25 +11,25 @@ import {
   timestamp,
 } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupView } from 'tencentcloud/domain';
+import { ITencentcloudServerGroupView } from 'tencentcloud/domain';
 import { VpcTag } from 'tencentcloud/vpc/VpcTag';
 
-import { ITencentCloudServerGroupDetailsSectionProps } from './ITencentCloudServerGroupDetailsSectionProps';
+import { ITencentcloudServerGroupDetailsSectionProps } from './ITencentcloudServerGroupDetailsSectionProps';
 
-export interface ITencentCloudInfoDetailsSectionState {
+export interface ITencentcloudInfoDetailsSectionState {
   changeConfig: IViewChangesConfig;
 }
 
-export class TencentCloudInfoDetailsSection extends React.Component<
-  ITencentCloudServerGroupDetailsSectionProps,
-  ITencentCloudInfoDetailsSectionState
+export class TencentcloudInfoDetailsSection extends React.Component<
+  ITencentcloudServerGroupDetailsSectionProps,
+  ITencentcloudInfoDetailsSectionState
 > {
-  constructor(props: ITencentCloudServerGroupDetailsSectionProps) {
+  constructor(props: ITencentcloudServerGroupDetailsSectionProps) {
     super(props);
     this.state = { changeConfig: this.getChangeConfig(props.serverGroup) };
   }
 
-  private getChangeConfig(serverGroup: ITencentCloudServerGroupView): IViewChangesConfig {
+  private getChangeConfig(serverGroup: ITencentcloudServerGroupView): IViewChangesConfig {
     const changeConfig: IViewChangesConfig = {
       metadata: get(serverGroup.entityTags, 'creationMetadata'),
     };
@@ -44,7 +44,7 @@ export class TencentCloudInfoDetailsSection extends React.Component<
     return changeConfig;
   }
 
-  public componentWillReceiveProps(nextProps: ITencentCloudServerGroupDetailsSectionProps) {
+  public componentWillReceiveProps(nextProps: ITencentcloudServerGroupDetailsSectionProps) {
     this.setState({ changeConfig: this.getChangeConfig(nextProps.serverGroup) });
   }
 

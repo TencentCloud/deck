@@ -1,7 +1,7 @@
-import { ITencentCloudServerGroup, IScalingProcess } from 'tencentcloud/domain';
+import { ITencentcloudServerGroup, IScalingProcess } from 'tencentcloud/domain';
 
 export class AutoScalingProcessService {
-  public static getDisabledDate(serverGroup: ITencentCloudServerGroup): number {
+  public static getDisabledDate(serverGroup: ITencentcloudServerGroup): number {
     if (serverGroup.isDisabled) {
       const processes = this.normalizeScalingProcesses(serverGroup);
       const disabledProcess = processes.find(process => process.name === 'AddToLoadBalancer' && !process.enabled);
@@ -12,7 +12,7 @@ export class AutoScalingProcessService {
     return null;
   }
 
-  public static normalizeScalingProcesses(serverGroup: ITencentCloudServerGroup): IScalingProcess[] {
+  public static normalizeScalingProcesses(serverGroup: ITencentcloudServerGroup): IScalingProcess[] {
     if (!serverGroup.asg || !serverGroup.asg.suspendedProcesses) {
       return [];
     }

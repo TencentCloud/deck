@@ -6,16 +6,16 @@ import { ValidationMessage, IWizardPageComponent } from '@spinnaker/core';
 import {
   NLBListenerProtocol,
   IListenerDescription,
-  ITencentCloudNetworkLoadBalancerUpsertCommand,
+  ITencentcloudNetworkLoadBalancerUpsertCommand,
 } from 'tencentcloud/domain';
 import { FormikProps } from 'formik';
 
 export interface INLBListenersProps {
-  formik: FormikProps<ITencentCloudNetworkLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudNetworkLoadBalancerUpsertCommand>;
 }
 
 export class NLBListeners extends React.Component<INLBListenersProps>
-  implements IWizardPageComponent<ITencentCloudNetworkLoadBalancerUpsertCommand> {
+  implements IWizardPageComponent<ITencentcloudNetworkLoadBalancerUpsertCommand> {
   public protocols = ['TCP'];
 
   private getAllTargetGroupsFromListeners(listeners: IListenerDescription[]): string[] {
@@ -25,7 +25,7 @@ export class NLBListeners extends React.Component<INLBListenersProps>
     return uniq(actions.map(a => a.targetGroupName));
   }
 
-  public validate(values: ITencentCloudNetworkLoadBalancerUpsertCommand) {
+  public validate(values: ITencentcloudNetworkLoadBalancerUpsertCommand) {
     const errors = {} as any;
 
     // Check to make sure all target groups have an associated listener

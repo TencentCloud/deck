@@ -2,16 +2,16 @@ import * as React from 'react';
 import { FormikProps } from 'formik';
 import { IWizardPageComponent } from '@spinnaker/core';
 
-import { ITencentCloudServerGroupCommand } from '../../serverGroupConfiguration.service';
+import { ITencentcloudServerGroupCommand } from '../../serverGroupConfiguration.service';
 import { AvailabilityZoneSelector } from '../../../AvailabilityZoneSelector';
 
 export interface IServerGroupZonesProps {
-  formik: FormikProps<ITencentCloudServerGroupCommand>;
+  formik: FormikProps<ITencentcloudServerGroupCommand>;
 }
 
 export class ServerGroupZones extends React.Component<IServerGroupZonesProps>
-  implements IWizardPageComponent<ITencentCloudServerGroupCommand> {
-  public validate(values: ITencentCloudServerGroupCommand) {
+  implements IWizardPageComponent<ITencentcloudServerGroupCommand> {
+  public validate(values: ITencentcloudServerGroupCommand) {
     const errors = {} as any;
 
     if (!values.availabilityZones || values.availabilityZones.length === 0) {

@@ -16,8 +16,8 @@ import {
   Spinner,
 } from '@spinnaker/core';
 
-import { TencentCloudLoadBalancerDataUtils } from './TencentCloudLoadBalancerDataUtils';
-import { ITencentCloudServerGroup, ITargetGroup } from 'tencentcloud/domain';
+import { TencentcloudLoadBalancerDataUtils } from './TencentcloudLoadBalancerDataUtils';
+import { ITencentcloudServerGroup, ITargetGroup } from 'tencentcloud/domain';
 
 interface ILoadBalancerListItemProps {
   loadBalancer: ILoadBalancer | ITargetGroup;
@@ -65,15 +65,15 @@ class LoadBalancerButton extends React.Component<ILoadBalancerSingleItemProps> {
   }
 }
 
-export interface ITencentCloudLoadBalancersTagState {
+export interface ITencentcloudLoadBalancersTagState {
   loadBalancers: ILoadBalancer[];
   targetGroups: ITargetGroup[];
   isLoading: boolean;
 }
 
-export class TencentCloudLoadBalancersTag extends React.Component<
+export class TencentcloudLoadBalancersTag extends React.Component<
   ILoadBalancersTagProps,
-  ITencentCloudLoadBalancersTagState
+  ITencentcloudLoadBalancersTagState
 > {
   private loadBalancersRefreshUnsubscribe: () => void;
   private mounted = false;
@@ -135,9 +135,9 @@ export class TencentCloudLoadBalancersTag extends React.Component<
         }
       },
     );
-    TencentCloudLoadBalancerDataUtils.populateTargetGroups(
+    TencentcloudLoadBalancerDataUtils.populateTargetGroups(
       this.props.application,
-      this.props.serverGroup as ITencentCloudServerGroup,
+      this.props.serverGroup as ITencentcloudServerGroup,
     ).then((targetGroups: ITargetGroup[]) => {
       if (this.mounted) {
         this.setState({ targetGroups });
@@ -150,7 +150,7 @@ export class TencentCloudLoadBalancersTag extends React.Component<
     this.loadBalancersRefreshUnsubscribe();
   }
 
-  public render(): React.ReactElement<TencentCloudLoadBalancersTag> {
+  public render(): React.ReactElement<TencentcloudLoadBalancersTag> {
     const { loadBalancers, targetGroups, isLoading } = this.state;
 
     const targetGroupCount = (targetGroups && targetGroups.length) || 0;

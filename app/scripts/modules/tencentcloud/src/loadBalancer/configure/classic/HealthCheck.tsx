@@ -3,10 +3,10 @@ import { FormikProps } from 'formik';
 
 import { FormikFormField, SelectInput, TextInput, NumberInput } from '@spinnaker/core';
 
-import { ITencentCloudClassicLoadBalancerUpsertCommand } from 'tencentcloud/domain';
+import { ITencentcloudClassicLoadBalancerUpsertCommand } from 'tencentcloud/domain';
 
 export interface IHealthCheckProps {
-  formik: FormikProps<ITencentCloudClassicLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudClassicLoadBalancerUpsertCommand>;
 }
 
 export class HealthCheck extends React.Component<IHealthCheckProps> {

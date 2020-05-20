@@ -4,25 +4,25 @@ import { FormikProps } from 'formik';
 
 import { Application } from '@spinnaker/core';
 
-import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentCloud.settings';
+import { TENCENTCLOUDProviderSettings } from 'tencentcloud/tencentcloud.settings';
 import {
   ClassicListenerProtocol,
-  ITencentCloudCertificate,
-  ITencentCloudClassicLoadBalancerUpsertCommand,
+  ITencentcloudCertificate,
+  ITencentcloudClassicLoadBalancerUpsertCommand,
   IClassicListenerDescription,
 } from 'tencentcloud/domain';
-import { TencentCloudCertificateReader } from 'tencentcloud/certificates/TencentCloudCertificateReader';
-import { TencentCloudCertificateSelectField } from '../common/TencentCloudCertificateSelectField';
+import { TencentcloudCertificateReader } from 'tencentcloud/certificates/TencentcloudCertificateReader';
+import { TencentcloudCertificateSelectField } from '../common/TencentcloudCertificateSelectField';
 
 import './Listeners.less';
 
 export interface IListenersProps {
-  formik: FormikProps<ITencentCloudClassicLoadBalancerUpsertCommand>;
+  formik: FormikProps<ITencentcloudClassicLoadBalancerUpsertCommand>;
   app: Application;
 }
 
 export interface IListenersState {
-  certificates: { [accountId: number]: ITencentCloudCertificate[] };
+  certificates: { [accountId: number]: ITencentcloudCertificate[] };
 }
 
 export class Listeners extends React.Component<IListenersProps, IListenersState> {
@@ -39,7 +39,7 @@ export class Listeners extends React.Component<IListenersProps, IListenersState>
   }
 
   private loadCertificates(): void {
-    TencentCloudCertificateReader.listCertificates().then(certificates => {
+    TencentcloudCertificateReader.listCertificates().then(certificates => {
       this.setState({ certificates });
     });
   }
@@ -124,7 +124,7 @@ export class Listeners extends React.Component<IListenersProps, IListenersState>
       const { values } = this.props.formik;
       const { certificates } = this.state;
       return (
-        <TencentCloudCertificateSelectField
+        <TencentcloudCertificateSelectField
           certificates={certificates}
           accountName={values.credentials}
           currentValue={listener.sslCertificateName}
