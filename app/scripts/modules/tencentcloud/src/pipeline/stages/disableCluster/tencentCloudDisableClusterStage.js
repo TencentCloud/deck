@@ -1,13 +1,11 @@
 'use strict';
 
 const angular = require('angular');
+import { Registry } from '@spinnaker/core';
 import { DisableClusterStage } from './DisableClusterStage';
 
-import { AccountService, Registry } from '@spinnaker/core';
-
-export const TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE =
-  'spinnaker.tencentcloud.pipeline.stage.disableClusterStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER_TENCENTCLOUDDISABLECLUSTERSTAGE, []).config(function() {
+export const TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER = 'spinnaker.tencentcloud.pipeline.stage.disableClusterStage';
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'disableCluster',
     cloudProvider: 'tencentcloud',

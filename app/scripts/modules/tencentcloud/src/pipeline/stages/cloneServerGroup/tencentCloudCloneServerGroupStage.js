@@ -6,9 +6,9 @@ import { Registry } from '@spinnaker/core';
 import { CloneServerGroupStage } from './CloneServerGroupStage';
 import { CloneServerGroupStepLabel } from './CloneServerGroupStepLabel';
 
-export const TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP =
   'spinnaker.tencentcloud.pipeline.stage.cloneServerGroupStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP_TENCENTCLOUDCLONESERVERGROUPSTAGE, []).config(function() {
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'cloneServerGroup',
     cloudProvider: 'tencentcloud',

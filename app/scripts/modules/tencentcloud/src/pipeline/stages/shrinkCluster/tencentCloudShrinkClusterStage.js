@@ -1,13 +1,12 @@
 'use strict';
 
 const angular = require('angular');
+import { Registry } from '@spinnaker/core';
 import { ShrinkClusterStage } from './ShrinkClusterStage';
 
-import { Registry } from '@spinnaker/core';
-
-export const TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER =
   'spinnaker.tencentcloud.pipeline.stage.tencentcloud.shrinkClusterStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER_TENCENTCLOUDSHRINKCLUSTERSTAGE, []).config(function() {
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'shrinkCluster',
     cloudProvider: 'tencentcloud',

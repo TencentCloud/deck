@@ -1,13 +1,11 @@
 'use strict';
 
 const angular = require('angular');
+import { Registry } from '@spinnaker/core';
 import { EnableAgsStage } from './enableAsg';
 
-import { AccountService, Registry, StageConstants } from '@spinnaker/core';
-
-export const TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE =
-  'spinnaker.tencentcloud.pipeline.stage.enableAsgStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG_TENCENTCLOUDENABLEASGSTAGE, []).config(function() {
+export const TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG = 'spinnaker.tencentcloud.pipeline.stage.enableAsgStage';
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'enableServerGroup',
     alias: 'enableAsg',

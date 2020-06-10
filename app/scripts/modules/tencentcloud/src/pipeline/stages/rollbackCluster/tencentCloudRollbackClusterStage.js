@@ -5,9 +5,9 @@ import { RollbackClusterStage } from './RollbackClusterStage';
 
 import { Registry } from '@spinnaker/core';
 
-export const TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER =
   'spinnaker.tencentcloud.pipeline.stage.rollbackClusterStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER_TENCENTCLOUDROLLBACKCLUSTERSTAGE, []).config(function() {
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'rollbackCluster',
     cloudProvider: 'tencentcloud',

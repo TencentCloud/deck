@@ -254,7 +254,7 @@ function getCacheInvalidateString() {
 // When running on travis, use max of 2 threads
 // https://docs.travis-ci.com/user/reference/overview/#Virtualization-environments
 function getThreadLoaderThreads() {
-  const bareMetalThreads = Math.max(require('physical-cpu-count') - 1, 1);
+  const bareMetalThreads = Math.max(require('physical-cpu-count') - 2, 1);
   const travisThreads = Math.min(require('physical-cpu-count'), 2);
   const autoThreads = !!process.env.TRAVIS ? travisThreads : bareMetalThreads;
   const threads = process.env.THREADS || autoThreads;

@@ -1,12 +1,11 @@
 'use strict';
 
 const angular = require('angular');
+import { Registry } from '@spinnaker/core';
 import { DisbaleAgsStage } from './disableAsg';
-import { AccountService, Registry, StageConstants } from '@spinnaker/core';
 
-export const TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE =
-  'spinnaker.tencentcloud.pipeline.stage.disableAsgStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG_TENCENTCLOUDDISABLEASGSTAGE, []).config(function() {
+export const TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG = 'spinnaker.tencentcloud.pipeline.stage.disableAsgStage';
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'disableServerGroup',
     alias: 'disableAsg',

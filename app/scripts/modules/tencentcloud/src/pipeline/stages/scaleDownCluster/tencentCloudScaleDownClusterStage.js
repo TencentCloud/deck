@@ -1,13 +1,12 @@
 'use strict';
 
 const angular = require('angular');
+import { Registry } from '@spinnaker/core';
 import { ScaleDownClusterStage } from './ScaleDownClusterStage';
 
-import { Registry } from '@spinnaker/core';
-
-export const TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE =
+export const TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER =
   'spinnaker.tencentcloud.pipeline.stage.scaleDownClusterStage';
-angular.module(TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER_TENCENTCLOUDSCALEDOWNCLUSTERSTAGE, []).config(function() {
+angular.module(TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER, []).config(function() {
   Registry.pipeline.registerStage({
     provides: 'scaleDownCluster',
     cloudProvider: 'tencentcloud',

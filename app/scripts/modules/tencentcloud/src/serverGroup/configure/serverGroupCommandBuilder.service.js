@@ -1,20 +1,14 @@
 'use strict';
 
 const angular = require('angular');
-import _ from 'lodash';
-
 import { AccountService, INSTANCE_TYPE_SERVICE, NameUtils, SubnetReader } from '@spinnaker/core';
-
+import _ from 'lodash';
 import { TENCENTCLOUDProviderSettings } from '../../tencentcloud.settings';
 import { TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE } from './serverGroupConfiguration.service';
 
-export const TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE =
-  'spinnaker.tencentcloud.serverGroupCommandBuilder.service';
+export const TENCENTCLOUD_SERVERGROUP_CONFIGURE = 'spinnaker.tencentcloud.serverGroupCommandBuilder.service';
 angular
-  .module(TENCENTCLOUD_SERVERGROUP_CONFIGURE_SERVERGROUPCOMMANDBUILDER_SERVICE, [
-    INSTANCE_TYPE_SERVICE,
-    TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE,
-  ])
+  .module(TENCENTCLOUD_SERVERGROUP_CONFIGURE, [INSTANCE_TYPE_SERVICE, TENCENTCLOUD_SERVER_GROUP_CONFIGURATION_SERVICE])
   .factory('tencentcloudServerGroupCommandBuilder', [
     '$q',
     'instanceTypeService',
