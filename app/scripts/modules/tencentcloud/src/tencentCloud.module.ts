@@ -24,9 +24,13 @@ import { TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE } from './pipeline/stages/tagImag
 import { TENCENTCLOUD_REACT_MODULE } from './reactShims/tencentcloud.react.module';
 import { TENCENTCLOUD_SEARCH_SEARCHRESULTFORMATTER } from './search/searchResultFormatter';
 import { CreateSecurityGroupModal } from './securityGroup/configure/CreateSecurityGroup/CreateSecurityGroupModal';
-import SecurityGroupDetails from './securityGroup/details/SecurityGroupDetails';
+
 import { TENCENTCLOUD_SECURITY_GROUP_MODULE } from './securityGroup/securityGroup.module';
 import { TencentcloudCloneServerGroupModal } from './serverGroup/configure/wizard/CloneServerGroupModal';
+import { TENCENTCLOUD_SERVERGROUP_CONFIGURE } from './serverGroup/configure/serverGroupCommandBuilder.service';
+
+import SecurityGroupDetails from './securityGroup/details/SecurityGroupDetails';
+
 import {
   AdvancedSettingsDetailsSection,
   CapacityDetailsSection,
@@ -54,6 +58,7 @@ module(TENCENTCLOUD_MODULE, [
   COMMON_MODULE,
   SUBNET_RENDERER,
   VPC_MODULE,
+  TENCENTCLOUD_SERVERGROUP_CONFIGURE,
   TENCENTCLOUD_SERVER_GROUP_TRANSFORMER,
   TENCENTCLOUD_SEARCH_SEARCHRESULTFORMATTER,
   TENCENTCLOUD_INSTANCETYPE_SERVICE,
