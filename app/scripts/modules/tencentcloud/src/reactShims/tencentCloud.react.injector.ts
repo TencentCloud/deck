@@ -8,7 +8,7 @@ import { TencentcloudLoadBalancerTransformer } from '../loadBalancer/loadBalance
 
 // prettier-ignore
 export class TencentcloudReactInject extends ReactInject {
-         public get tencentcloudCloudInstanceTypeService() {
+         public get tencentcloudInstanceTypeService() {
            return this.$injector.get('tencentcloudInstanceTypeService') as any;
          }
          public get tencentcloudLoadBalancerTransformer() {
