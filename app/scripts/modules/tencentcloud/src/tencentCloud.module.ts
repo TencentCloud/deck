@@ -13,12 +13,12 @@ import { TencentcloudLoadBalancersTag } from './loadBalancer/TencentcloudLoadBal
 import './logo/tencentcloud.logo.less';
 import tencentcloudLogo from './logo/tencentcloud.logo.svg';
 import { TENCENTCLOUD_PIPELINE_STAGES_ENABLEASG } from './pipeline/stages/enableAsg/tencentcloudEnableAsgStage';
-import { TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP } from './pipeline/stages/cloneServerGroup/tencentCloudCloneServerGroupStage';
-import { TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG } from './pipeline/stages/disableAsg/tencentCloudDisableAsgStage';
-import { TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER } from './pipeline/stages/disableCluster/tencentCloudDisableClusterStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP } from './pipeline/stages/cloneServerGroup/tencentcloudCloneServerGroupStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG } from './pipeline/stages/disableAsg/tencentcloudDisableAsgStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER } from './pipeline/stages/disableCluster/tencentcloudDisableClusterStage';
 import { TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER } from './pipeline/stages/rollbackCluster/tencentcloudRollbackClusterStage';
 import { TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER } from './pipeline/stages/scaleDownCluster/tencentcloudScaleDownClusterStage';
-import { TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER } from './pipeline/stages/shrinkCluster/tencentCloudShrinkClusterStage';
+import { TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER } from './pipeline/stages/shrinkCluster/tencentcloudShrinkClusterStage';
 import { TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE } from './pipeline/stages/tagImage/tencentcloudTagImageStage';
 
 import { TENCENTCLOUD_REACT_MODULE } from './reactShims/tencentcloud.react.module';
@@ -28,7 +28,6 @@ import { CreateSecurityGroupModal } from './securityGroup/configure/CreateSecuri
 import { TENCENTCLOUD_SECURITY_GROUP_MODULE } from './securityGroup/securityGroup.module';
 import { TencentcloudCloneServerGroupModal } from './serverGroup/configure/wizard/CloneServerGroupModal';
 import { TENCENTCLOUD_SERVERGROUP_CONFIGURE } from './serverGroup/configure/serverGroupCommandBuilder.service';
-
 import SecurityGroupDetails from './securityGroup/details/SecurityGroupDetails';
 
 import {
