@@ -19,7 +19,9 @@ import { TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER } from './pipeline/stages/d
 import { TENCENTCLOUD_PIPELINE_STAGES_ROLLBACKCLUSTER } from './pipeline/stages/rollbackCluster/tencentcloudRollbackClusterStage';
 import { TENCENTCLOUD_PIPELINE_STAGES_SCALEDOWNCLUSTER } from './pipeline/stages/scaleDownCluster/tencentcloudScaleDownClusterStage';
 import { TENCENTCLOUD_PIPELINE_STAGES_SHRINKCLUSTER } from './pipeline/stages/shrinkCluster/tencentCloudShrinkClusterStage';
-import { TENCENTCLOUD_PIPELINE_STAGES_BAKE } from './pipeline/stages/bake/tencentcloudBakeStage';
+
+import './pipeline/stages/bakeNew/BakeStage';
+// import { TENCENTCLOUD_PIPELINE_STAGES_BAKE } from './pipeline/stages/bake/tencentcloudBakeStage';
 
 import { TENCENTCLOUD_PIPELINE_STAGES_TAGIMAGE } from './pipeline/stages/tagImage/tencentcloudTagImageStage';
 
@@ -66,7 +68,7 @@ module(TENCENTCLOUD_MODULE, [
   TENCENTCLOUD_INSTANCETYPE_SERVICE,
   TENCENTCLOUD_LOAD_BALANCER_MODULE,
   TENCENTCLOUD_SECURITY_GROUP_MODULE,
-  TENCENTCLOUD_PIPELINE_STAGES_BAKE,
+  // TENCENTCLOUD_PIPELINE_STAGES_BAKE,
   TENCENTCLOUD_PIPELINE_STAGES_CLONESERVERGROUP,
   TENCENTCLOUD_PIPELINE_STAGES_DISABLEASG,
   TENCENTCLOUD_PIPELINE_STAGES_DISABLECLUSTER,

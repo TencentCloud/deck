@@ -32,7 +32,7 @@ export interface ITencentcloudImage {
 }
 
 export class TencentcloudImageReader {
-  public findImages(params: { q: string; region?: string }): IPromise<ITencentcloudImage[]> {
+  public findImages(params: { q: string; account?: any; region?: string }): IPromise<ITencentcloudImage[]> {
     if (!params.q || params.q.length < 3) {
       return $q.when([{ message: 'Please enter at least 3 characters...', disabled: true }]) as any;
     }

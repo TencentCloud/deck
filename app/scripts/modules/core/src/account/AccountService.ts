@@ -19,6 +19,8 @@ export interface IRegion {
 }
 
 export interface IAccount {
+  secretId?: any;
+  secretKey?: any;
   accountId: string;
   name: string;
   requiredGroupMembership: string[];
